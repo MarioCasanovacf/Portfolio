@@ -1,0 +1,32 @@
+# Mario Casanova — Nutanix GSO Analytics Engineering Portfolio
+# Install: pip install -r requirements.txt
+
+# Core data stack
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Statistics & time series
+scipy>=1.10.0
+statsmodels>=0.14.0
+
+# Machine learning
+scikit-learn>=1.3.0
+
+# Synthetic data generation
+Faker>=19.0.0
+
+# Notebook execution
+jupyter>=1.0.0
+nbconvert>=7.0.0
+ipykernel>=6.0.0
+
+# Optional: automated ARIMA order selection
+# pmdarima>=2.0.0
+
+# Optional: Nutanix v4 SDK (requires Nutanix account and network access)
+# ntnx-vmm-py-client>=4.0.0
+# ntnx-prism-py-client>=4.0.0

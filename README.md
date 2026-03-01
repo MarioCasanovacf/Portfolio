@@ -12,7 +12,16 @@ The work here is structured around a four-layer framework of operational efficie
 
 ---
 
-## Portfolio Architecture: Four Layers of Analytical Maturity
+## Documentation
+
+| Document | Audience | Description |
+|---|---|---|
+| **[TECHNICAL_GUIDE.md](./TECHNICAL_GUIDE.md)** | Engineers, hiring managers | Deep dive: statistical choices, code architecture, "what if you change X" scenarios |
+| **[FOR_NON_ENGINEERS.md](./FOR_NON_ENGINEERS.md)** | Everyone | Plain language — the hospital analogy, what each notebook does, why it matters |
+
+---
+
+## Portfolio Architecture: Five Layers of Analytical Maturity
 
 ```
 Layer 1 — Descriptive Analytics (Hindsight)
@@ -30,6 +39,11 @@ Layer 3 — Predictive Analytics (Foresight)
 Layer 4 — Prescriptive Analytics (Optimization)
     → WHAT SHOULD WE DO to prevent escalations before they impact NPS?
     → Technique: Logistic Regression / Random Forest escalation risk scoring
+
+Layer 5 — API Integration (Production-Ready)
+    → HOW DOES THIS RUN on real Nutanix data?
+    → Nutanix Prism Central v4 REST API + ntnx_vmm_py_client SDK
+    → OData filtering, pagination, retry logic, schema mapping
 ```
 
 ---
@@ -37,11 +51,17 @@ Layer 4 — Prescriptive Analytics (Optimization)
 ## Repository Structure
 
 ```
+├── README.md                    ← You are here
+├── TECHNICAL_GUIDE.md           ← Deep technical reference + what-if scenarios
+├── FOR_NON_ENGINEERS.md         ← Plain language guide (no jargon)
+├── requirements.txt             ← pip install -r requirements.txt
+│
 ├── notebooks/
 │   ├── 01_layer1_descriptive_gso_health_monitor.ipynb
 │   ├── 02_layer2_diagnostic_anomaly_detection.ipynb
 │   ├── 03_layer3_predictive_ticket_forecasting.ipynb
-│   └── 04_layer4_prescriptive_escalation_risk.ipynb
+│   ├── 04_layer4_prescriptive_escalation_risk.ipynb
+│   └── 05_nutanix_api_v4_integration.ipynb   ← Live API demo (DEMO/LIVE modes)
 │
 ├── src/
 │   └── data_generator.py        ← Synthetic data engine (100k tickets + telemetry)
