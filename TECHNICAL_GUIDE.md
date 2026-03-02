@@ -1,5 +1,5 @@
 # Technical Reference Guide
-## Mario Casanova — Nutanix GSO Analytics Engineering Portfolio
+## Mario Casanova — Enterprise Cloud Infrastructure Support Organization Analytics Engineering Portfolio
 
 > **Audience:** Data engineers, senior analysts, hiring managers with technical background.
 > **Purpose:** Explain the architectural decisions, statistical methodology, and "what happens if you change X" scenarios for every component of this portfolio.
@@ -51,7 +51,7 @@
 ┌─────────▼──────────┐
 │   Layer 5 (05_)    │
 │   API Integration  │
-│   Nutanix v4 SDK   │
+│   HCI platform v4 SDK   │
 │   OpenAPI / REST   │
 └────────────────────┘
 ```
@@ -72,8 +72,8 @@
 | `priority` | str | Multinomial: P1=8%, P2=22%, P3=45%, P4=25% |
 | `region` | str | Uniform across 7 global regions |
 | `customer_tier` | str | Uniform: Enterprise, Mid-Market, SMB, Strategic |
-| `aos_version` | str | Uniform across 10 AOS versions (6.1.1 → 6.8.2) |
-| `migration_type` | str | VMware-to-AHV=28%, AOS-Upgrade=22%, Greenfield=18%, None=20%, HW-Refresh=12% |
+| `aos_version` | str | Uniform across 10 platform software versions (6.1.1 → 6.8.2) |
+| `migration_type` | str | VMware-to-target-hypervisor=28%, AOS-Upgrade=22%, Greenfield=18%, None=20%, HW-Refresh=12% |
 | `escalated` | bool | Probability engine (see escalation logic below) |
 | `sla_breached` | bool | `ttr_hours > SLA_HOURS[priority]` |
 | `nps_score` | int/null | Inversely correlated with TTR breach ratio; 15% null (no-response) |
@@ -124,7 +124,7 @@ This introduces the 7-day seasonality that `seasonal_decompose(period=7)` in Lay
 
 ### 2.3 Migration Cohorts (`migration_cohorts.csv`)
 
-24 migration waves, each representing a batch of clusters migrating from VMware vSphere to Nutanix AHV. Duration ranges from 45 to 180 days. Used in Layer 1 for impact analysis and as context for Layer 3 forecasting.
+24 migration waves, each representing a batch of clusters migrating from VMware vSphere to the target hypervisor platform. Duration ranges from 45 to 180 days. Used in Layer 1 for impact analysis and as context for Layer 3 forecasting.
 
 ---
 
@@ -148,7 +148,7 @@ ttr_stats = df.groupby('priority')['ttr_hours'].agg(
 
 **What if you change the percentiles?**
 - Switch to P75/P95: captures more of the tail, will show a higher "gap" between actual and SLA — more alarming optics, useful if you want to make the case for more hiring
-- Switch to mean instead of median: mean is sensitive to outliers (that one 2,000-hour P3 ticket pulls the average up significantly). Median is more robust and is what Nutanix would actually track in Salesforce reports
+- Switch to mean instead of median: mean is sensitive to outliers (that one 2,000-hour P3 ticket pulls the average up significantly). Median is more robust and is what the HCI vendor would actually track in Salesforce reports
 
 **Log scale on the Y axis:**
 Applied because P1 SLA is 0.5 hours and P4 SLA is 8 hours — a 16x range. Linear scale would make P1 bars invisible. Log scale preserves relative proportions across all priority tiers.
@@ -181,7 +181,7 @@ Action: That region needs either (a) dedicated on-call P1 SREs in that timezone,
 >7d    → Stale (breach territory)
 ```
 
-**What if you segment by engineer instead of AOS version?**
+**What if you segment by engineer instead of platform software version?**
 This reveals engineer-level bottlenecks — which SREs have disproportionate backlog aging. Useful for workforce management but requires careful handling to avoid creating unfair performance optics.
 
 ### 3.4 NPS Bootstrap Confidence Intervals
@@ -210,7 +210,7 @@ Strategic accounts have the highest NPS impact per point change (they generate t
 Multiplicative decomposition (`Y = T × S × R`) is appropriate when the seasonal amplitude grows proportionally with the trend level — e.g., airline ticket prices where summer peaks get larger as the baseline price grows. For IO latency, anomaly spikes are absolute (a hardware fault adds ~X µs regardless of the baseline trend level), making additive decomposition the correct choice.
 
 **Period=7 (weekly):**
-The synthetic data has a weekday factor of 1.0 vs. 0.72 on weekends. This 28% weekday premium creates a clear 7-day periodicity. In real Nutanix telemetry, you would confirm this with a periodogram before assuming weekly seasonality — data centers with 24/7 financial clients may show no weekly pattern.
+The synthetic data has a weekday factor of 1.0 vs. 0.72 on weekends. This 28% weekday premium creates a clear 7-day periodicity. In real the HCI vendor telemetry, you would confirm this with a periodogram before assuming weekly seasonality — data centers with 24/7 financial clients may show no weekly pattern.
 
 **What if you change period=7 to period=30 (monthly)?**
 The seasonal component would capture monthly billing cycles or maintenance windows instead of the weekly work pattern. The residual would then contain the weekly pattern as "noise," producing many false positive anomalies on Mondays. Always validate your assumed period with a Fourier analysis or ACF plot first.
@@ -435,13 +435,13 @@ df = pd.DataFrame(cases['records']).drop('attributes', axis=1)
 
 You would then apply the same TTR calculation: `ttr_hours = (ClosedDate - CreatedDate).dt.total_seconds() / 3600`
 
-### 7.2 Replacing Synthetic Telemetry with Nutanix Pulse API v4
+### 7.2 Replacing Synthetic Telemetry with the hardware telemetry platform API v4
 
 See `notebooks/05_nutanix_api_v4_integration.ipynb` for the full implementation. The key SDK call:
 
 ```python
-from ntnx_vmm_py_client import ApiClient, Configuration
-from ntnx_vmm_py_client.api import StatsApi
+from `hci-vendor-py-client` import ApiClient, Configuration
+from `hci-vendor-py-client`.api import StatsApi
 
 config = Configuration()
 config.host = 'https://prism-central.your-org.nutanix.com:9440'

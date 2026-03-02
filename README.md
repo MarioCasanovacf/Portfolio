@@ -1,151 +1,122 @@
-# Mario Casanova — Analytics Engineering Portfolio
+# Mario Casanova — Computational Analytics & Mathematical Modeling
 
-> **"My goal is not just to deliver reports, but to build autonomous analytical systems that allow the GSO to anticipate failures through Pulse telemetry, eliminating dependence on central teams and accelerating strategic decision-making."**
-
----
-
-## Strategic Context
-
-This portfolio demonstrates applied **Statistical Analytics & Data Sovereignty** for enterprise support operations environments — specifically aligned with the analytical maturity needs of a Global Support Organization (GSO) in a high-growth cloud infrastructure company.
-
-The work here is structured around a four-layer framework of operational efficiency, using **synthetic data modeled after real-world HCI (Hyper-Converged Infrastructure) support operations**, including ticket management, telemetry signals, and SLA compliance.
+> *Cross-domain analytical engineer. From protein topology to sovereign debt dynamics, from market microstructure to predictive support operations — the mathematical framework is always the same. The domain is whatever problem is in front of me.*
 
 ---
 
-## Documentation
+## Profile
 
-| Document | Audience | Description |
-|---|---|---|
-| **[TECHNICAL_GUIDE.md](./TECHNICAL_GUIDE.md)** | Engineers, hiring managers | Deep dive: statistical choices, code architecture, "what if you change X" scenarios |
-| **[FOR_NON_ENGINEERS.md](./FOR_NON_ENGINEERS.md)** | Everyone | Plain language — the hospital analogy, what each notebook does, why it matters |
+| | |
+|---|---|
+| **Core identity** | Statistical analyst with deep mathematical grounding applied across multiple industries |
+| **Working style** | Receive ambiguous problem → decompose into quantifiable model → deliver autonomous analytical system |
+| **Technical depth** | Statistical modeling, time series, machine learning, stochastic processes, computational geometry |
+| **Domain breadth** | Cloud infrastructure, financial markets, real estate, bioinformatics, macroeconomics |
+| **Languages** | Python (primary), SQL, R, C# (performance-critical finance contexts) |
 
 ---
 
-## Portfolio Architecture: Five Layers of Analytical Maturity
+## Navigate by What You're Looking For
 
-```
-Layer 1 — Descriptive Analytics (Hindsight)
-    → What is happening in our support operations RIGHT NOW?
-    → KPIs: TTR (P50/P90), Backlog Aging, SLA Compliance, NPS
+**Evaluating me as a Data Analyst →** `01_real_estate/` and `02_cloud_infrastructure_support/notebooks/01_descriptive_operations_health.ipynb` — EDA, KPIs, statistical summaries, business narratives from raw data.
 
-Layer 2 — Diagnostic Analytics (Insight)
-    → WHY are anomalies occurring? Where is the signal in the noise?
-    → Technique: Seasonal Decomposition + Generalized ESD (3σ thresholds)
+**Evaluating me as a Data Scientist →** `02_cloud_infrastructure_support/notebooks/03_predictive_volume_forecasting.ipynb` (SARIMA + Ljung-Box), `04_prescriptive_escalation_risk.ipynb` (Random Forest), and `04_bioinformatics/ramachandran_plot_from_scratch.ipynb` (computational geometry from first principles).
 
-Layer 3 — Predictive Analytics (Foresight)
-    → What WILL the ticket volume look like in the next 18 months?
-    → Technique: ARIMA/SARIMA time series forecasting with Ljung-Box validation
+**Evaluating me as an Analytics Engineer →** `02_cloud_infrastructure_support/src/data_generator.py` (synthetic data sovereignty from a statistical model), `05_vendor_api_integration_demo.ipynb` (production-grade REST API with OData filtering, pagination, retry logic, and schema mapping).
 
-Layer 4 — Prescriptive Analytics (Optimization)
-    → WHAT SHOULD WE DO to prevent escalations before they impact NPS?
-    → Technique: Logistic Regression / Random Forest escalation risk scoring
+**Evaluating me as a Quantitative Analyst →** `03_quantitative_finance/` — Hierarchical Risk Parity, Limit Order Book reconstruction, exotic options pricing under Heston stochastic volatility.
 
-Layer 5 — API Integration (Production-Ready)
-    → HOW DOES THIS RUN on real Nutanix data?
-    → Nutanix Prism Central v4 REST API + ntnx_vmm_py_client SDK
-    → OData filtering, pagination, retry logic, schema mapping
-```
+**Evaluating me as a Business / Operations Analyst →** `02_cloud_infrastructure_support/notebooks/01_descriptive_operations_health.ipynb` (TTR P50/P90, SLA heatmaps, NPS confidence bands, executive summary output) and `FOR_NON_ENGINEERS.md` for the business narrative without jargon.
+
+---
+
+## Portfolio Map
+
+| # | Domain | Status | Core Techniques | Relevant Roles |
+|---|---|---|---|---|
+| `01` | **Real Estate Analytics** | Complete | Linear/Ridge regression, sklearn Pipelines, R² evaluation | DA, DS |
+| `02` | **Cloud Infrastructure Support Operations** | Complete | SARIMA, GESD anomaly detection, Random Forest, REST API | DA, DS, AE, Ops |
+| `03` | **Quantitative Finance** | In development | HRP, LOB reconstruction, Monte Carlo, Heston model | QA, DS |
+| `04` | **Bioinformatics** | In development | Ramachandran geometry, dihedral angles, AlphaFold analysis | DS, Research |
+| `05` | **Macroeconomics & Fiscal Policy** | In development | Crowding-out, sovereign yield curves, budget constraint | DA, Consultant |
+
+*DA = Data Analyst · DS = Data Scientist · AE = Analytics Engineer · Ops = Operations Analyst · QA = Quantitative Analyst*
+
+---
+
+## Skills Matrix
+
+| Technique | `01` | `02` | `03` | `04` | `05` |
+|---|:---:|:---:|:---:|:---:|:---:|
+| Exploratory Data Analysis & KPI dashboards | ✓ | ✓ | | | |
+| Linear / Ridge Regression | ✓ | | | | |
+| Time Series Forecasting (ARIMA/SARIMA) | | ✓ | | | ✓ |
+| Anomaly Detection (GESD / STL decomposition) | | ✓ | | | |
+| Classification (Random Forest, Logistic Regression) | | ✓ | | | |
+| Monte Carlo Simulation | | | ✓ | | |
+| Stochastic Differential Equations (Heston) | | | ✓ | | |
+| Computational Geometry (dihedral angles, 3D coords) | | | | ✓ | |
+| Synthetic Data Generation | | ✓ | | | |
+| REST API Integration (OData, pagination, retry) | | ✓ | | | |
+| Statistical Validation (Ljung-Box, ADF, bootstrap CI) | | ✓ | ✓ | | |
+| Hierarchical Clustering & Graph Theory | | | ✓ | | |
+| Macroeconomic Modeling & Fiscal Analysis | | | | | ✓ |
 
 ---
 
 ## Repository Structure
 
 ```
-├── README.md                    ← You are here
-├── TECHNICAL_GUIDE.md           ← Deep technical reference + what-if scenarios
-├── FOR_NON_ENGINEERS.md         ← Plain language guide (no jargon)
-├── requirements.txt             ← pip install -r requirements.txt
+.
+├── README.md                          ← You are here
+├── FOR_NON_ENGINEERS.md               ← Plain-language guide, no jargon required
+├── TECHNICAL_GUIDE.md                 ← Deep technical reference + what-if scenarios
+├── requirements.txt
 │
-├── notebooks/
-│   ├── 01_layer1_descriptive_gso_health_monitor.ipynb
-│   ├── 02_layer2_diagnostic_anomaly_detection.ipynb
-│   ├── 03_layer3_predictive_ticket_forecasting.ipynb
-│   ├── 04_layer4_prescriptive_escalation_risk.ipynb
-│   └── 05_nutanix_api_v4_integration.ipynb   ← Live API demo (DEMO/LIVE modes)
+├── 01_real_estate/
+│   ├── README.md
+│   └── house_sales_king_county_analysis.ipynb
 │
-├── src/
-│   └── data_generator.py        ← Synthetic data engine (100k tickets + telemetry)
+├── 02_cloud_infrastructure_support/
+│   ├── README.md
+│   ├── notebooks/
+│   │   ├── 01_descriptive_operations_health.ipynb
+│   │   ├── 02_diagnostic_anomaly_detection.ipynb
+│   │   ├── 03_predictive_volume_forecasting.ipynb
+│   │   ├── 04_prescriptive_escalation_risk.ipynb
+│   │   └── 05_vendor_api_integration_demo.ipynb
+│   ├── src/data_generator.py
+│   └── data/synthetic/
 │
-├── data/
-│   └── synthetic/               ← Generated datasets (gitignored for size)
+├── 03_quantitative_finance/
+│   └── README.md
 │
-└── House_Sales_in_King_Count_USA_FinalProject_MarioCasanova.ipynb
-    ← IBM Data Science foundation project (regression, pipelines, model evaluation)
+├── 04_bioinformatics/
+│   ├── README.md
+│   ├── ramachandran_plot_from_scratch.ipynb
+│   └── data/
+│
+└── 05_macroeconomics/
+    └── README.md
 ```
 
 ---
 
-## Technical Stack
+## On Data Sovereignty
 
-| Domain | Tools |
-|---|---|
-| Data Generation | `Faker`, `NumPy`, `Pandas` |
-| Statistical Analysis | `SciPy`, `Statsmodels`, `Pingouin` |
-| Machine Learning | `Scikit-learn` (Ridge, Logistic Regression, Random Forest) |
-| Time Series | `Statsmodels ARIMA/SARIMA`, `pmdarima` |
-| Visualization | `Matplotlib`, `Seaborn`, `Plotly` |
-| API Integration | `requests`, Nutanix v4 API (OpenAPI / `ntnx_vmm_py_client`) |
-
----
-
-## Data Sovereignty Approach
-
-Since access to production data from a live GSO environment requires authorization, this portfolio demonstrates **proactive data sovereignty**: designing and generating realistic synthetic datasets that mirror operational reality, including:
-
-- **100,000 synthetic support tickets** with realistic distributions of TTR, priority, region, product version, and escalation patterns
-- **Telemetry signals** (avg_io_latency_usecs, CPU/memory usage, IOPS) linked to ticket spikes
-- **VMware-to-AHV migration cohorts** to simulate the real-world demand surge from platform transitions
-
-This approach proves the core value proposition: *"I don't wait for data — I design the scenario to test the model."*
-
----
-
-## Key Analytical Deliverables
-
-### Layer 1 — GSO Health Monitor Dashboard
-- Median TTR and P90 TTR by priority tier and region
-- Backlog aging analysis by product version cohort
-- SLA compliance tracking (P1: 30min, P2: 2hr, P3: 4hr, P4: 8hr)
-- NPS trend correlation with resolution velocity
-
-### Layer 2 — Nutanix Pulse Telemetry Anomaly Detector
-- Seasonal decomposition of IO latency (`avg_io_latency_usecs`) time series
-- Generalized Extreme Studentized Deviate (GESD) test for dynamic threshold setting
-- 3σ residual anomaly flagging linked to ticket creation spikes
-
-### Layer 3 — Workload Forecasting Model
-- SARIMA model for 18-month ticket volume prediction
-- Ljung-Box test to validate white-noise residuals
-- RMSE evaluation for forecast reliability reporting to executive leadership
-- VMware migration wave segmentation as exogenous regressor
-
-### Layer 4 — Real-Time Escalation Risk Score
-- Binary classifier (Logistic Regression + Random Forest ensemble)
-- Features: TTR velocity, customer tier, sentiment proxy, product version risk
-- Precision/Recall optimization for high-NPS-impact case prevention
-- Actionable output: probability score + recommended Resolution Manager intervention
-
----
-
-## Foundation Project
-
-**[IBM Data Analysis with Python — King County House Sales](./House_Sales_in_King_Count_USA_FinalProject_MarioCasanova.ipynb)**
-
-Demonstrates core modeling competencies:
-- Exploratory Data Analysis (EDA) with correlation analysis
-- Linear regression, multi-feature regression with sklearn Pipelines
-- Polynomial feature transformation
-- Ridge regularization and cross-validation
-- R² model evaluation and selection
+Most of this portfolio works with data I generated or downloaded from public repositories. When access to production databases is unavailable, the alternative is not to wait — it is to model the statistical properties of the domain and synthesize data that behaves the same way. Every dataset here was either pulled from an open repository (RCSB Protein Data Bank, financial exchanges) or produced by a rigorous generative model of the real system. This is the skill that actually matters on day one.
 
 ---
 
 ## About
 
-**Mario Casanova** | Statistical Analyst & Analytics Engineer
+**Mario Casanova** — Statistical Analyst & Analytics Engineer
 
-- 4+ years as Financial Analyst (PGIM, SimCorp ecosystem)
-- Creator of the SHILD Method (value protection framework)
-- LinkedIn: [mario-casanova](https://www.linkedin.com/in/mario-casanova/)
+Multidisciplinary background across financial analytics (asset management, institutional advisory), support operations analytics, and quantitative modeling. Creator of the SHILD method for value protection and responsible wealth management. 4+ years in financial analysis (PGIM, SimCorp ecosystem).
 
-*Applying rigorous financial modeling standards to enterprise support operations analytics.*
+LinkedIn: [mario-casanova](https://www.linkedin.com/in/mario-casanova/)
+
+---
+
+*Plain-language explanation: [FOR_NON_ENGINEERS.md](./FOR_NON_ENGINEERS.md)*
+*Technical deep-dive: [TECHNICAL_GUIDE.md](./TECHNICAL_GUIDE.md)*

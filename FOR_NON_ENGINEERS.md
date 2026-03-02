@@ -1,15 +1,23 @@
 # What This Portfolio Does — In Plain Language
-## Mario Casanova | Nutanix GSO Analytics Engineering
+## Mario Casanova | Data & Analytics Engineering Portfolio
 
 > **Who this document is for:** Anyone who wants to understand what this portfolio does without needing to know Python, statistics, or software engineering. Including me on a bad Monday morning.
 
 ---
 
-## First: What is Nutanix and Why Does This Portfolio Exist?
+## First: What Is This Portfolio?
 
-**Nutanix** makes the "invisible infrastructure" that runs inside large companies' data centers — the servers, the storage, and the software that keeps everything running. Think of them as the plumbing company that maintains the pipes inside a skyscraper. The tenants (businesses) don't think about the pipes until they break. Nutanix's job is to make sure they never break, and when something does go wrong, to fix it fast.
+This is a collection of working data analysis projects across five domains: real estate, cloud infrastructure operations, quantitative finance, computational biology, and macroeconomics.
 
-The team this portfolio targets — **Global Support Organization (GSO), Support Analytics & Operations** — is essentially the control room watching all those pipes for 10,000+ customers worldwide.
+Each project answers a real business question using the same core toolkit — statistics and Python — applied to different domains. The point is not just that the projects work, but that the same analytical vocabulary (regression, time series, classification, geometry) transfers across radically different fields.
+
+---
+
+## Section 2: The Cloud Infrastructure Support Case Study
+
+The largest section (Section 2) is built around a realistic scenario: an enterprise company that sells the "invisible infrastructure" inside large corporations' data centers — the servers, the storage, and the software that keeps everything running. Think of them as the plumbing company that maintains the pipes inside a skyscraper. The tenants (businesses) don't think about the pipes until they break. This company's job is to make sure they never break, and when something does go wrong, to fix it fast.
+
+The team the analysis targets — **Global Support Organization (GSO), Support Analytics & Operations** — is essentially the control room watching all those pipes for 10,000+ customers worldwide.
 
 **The problem they have:** They get hundreds of support tickets every day. Each ticket is a customer saying "something is wrong." They need to:
 1. Know which ones are most urgent
@@ -17,16 +25,16 @@ The team this portfolio targets — **Global Support Organization (GSO), Support
 3. Catch hardware problems *before* the customer even notices them
 4. Know which tickets are about to become a big PR problem before it's too late
 
-**What this portfolio does:** Demonstrates, in working code, four different ways to solve those four problems — using only statistics and Python, without needing a team of data engineers to set up a data warehouse first.
+**What this section does:** Demonstrates, in working code, four different ways to solve those four problems — using only statistics and Python, without needing a team of data engineers to set up a data warehouse first.
 
 ---
 
 ## The Hospital Analogy
 
-The easiest way to understand this portfolio is to imagine Nutanix's support operation as a **hospital emergency room**.
+The easiest way to understand Section 2 is to imagine this company's support operation as a **hospital emergency room**.
 
 ```
-Nutanix Concept          →    Hospital Equivalent
+Case Study Concept          →    Hospital Equivalent
 ─────────────────────────────────────────────────
 Support ticket           →    Patient arriving at ER
 Priority (P1/P2/P3/P4)   →    Triage level (critical / urgent / semi-urgent / routine)
@@ -36,18 +44,18 @@ NPS score                →    Patient satisfaction survey after discharge
 Escalation               →    Patient deteriorated and needed ICU — preventable with earlier intervention
 SRE engineer             →    Doctor on duty
 Region                   →    Hospital branch (LATAM, APAC, EMEA...)
-Pulse telemetry          →    The hospital's vital signs monitors on each patient
-AOS version              →    The medical equipment model being used (older = harder to repair)
+hardware telemetry       →    The hospital's vital signs monitors on each patient
+platform software version →   The medical equipment model being used (older = harder to repair)
 VMware migration         →    A mass transfer of patients from another hospital
 ```
 
-With that in mind, here's what each piece of the portfolio does:
+With that in mind, here's what each piece of Section 2 does:
 
 ---
 
 ## Layer 1: "How Is the ER Doing Right Now?" (Descriptive)
 
-**File:** `notebooks/01_layer1_descriptive_gso_health_monitor.ipynb`
+**File:** `02_cloud_infrastructure_support/notebooks/01_descriptive_operations_health.ipynb`
 
 **The question it answers:** *What is actually happening in our support operations?*
 
@@ -65,13 +73,13 @@ With that in mind, here's what each piece of the portfolio does:
 
 - **Executive Summary box:** At the very end, a formatted text box summarizing the 5 most important numbers. Built for a VP who has 30 seconds.
 
-**Why this matters for Nutanix:** They currently do this in Excel and static dashboards. This notebook shows it can be automated, updated daily, and extended without touching the original code.
+**Why this matters for an enterprise support operation:** Most companies do this in Excel and static dashboards. This notebook shows it can be automated, updated daily, and extended without touching the original code.
 
 ---
 
 ## Layer 2: "Why Is That Alarm Going Off?" (Diagnostic)
 
-**File:** `notebooks/02_layer2_diagnostic_anomaly_detection.ipynb`
+**File:** `02_cloud_infrastructure_support/notebooks/02_diagnostic_anomaly_detection.ipynb`
 
 **The question it answers:** *Why are ticket spikes happening — and can we see them coming?*
 
@@ -92,13 +100,13 @@ With that in mind, here's what each piece of the portfolio does:
 
 - **Cross-correlation chart:** A bar chart answering: "If we see an anomaly in latency today, how many days before the customer opens a ticket?" The bar that's tallest tells you your warning window.
 
-**Why this matters for Nutanix:** The difference between *reactive* support (customer calls, problem gets fixed) and *proactive* support (you call the customer before they notice). Proactive support is significantly better for NPS.
+**Why this matters for an enterprise support operation:** The difference between *reactive* support (customer calls, problem gets fixed) and *proactive* support (you call the customer before they notice). Proactive support is significantly better for NPS.
 
 ---
 
 ## Layer 3: "How Many Patients Will Show Up Next Month?" (Predictive)
 
-**File:** `notebooks/03_layer3_predictive_ticket_forecasting.ipynb`
+**File:** `02_cloud_infrastructure_support/notebooks/03_predictive_volume_forecasting.ipynb`
 
 **The question it answers:** *How many support tickets should we expect in the next 18 months — and how many engineers do we need to hire?*
 
@@ -118,13 +126,13 @@ With that in mind, here's what each piece of the portfolio does:
 
 - **Staffing recommendation box:** "Based on the forecast, you need 12 SREs today and will need 17 at peak. Hire 5 additional SREs over the next 18 months. Prioritize LATAM and APAC-INDIA."
 
-**Why this matters for Nutanix:** Hiring an SRE takes 3–6 months (job posting, interviews, onboarding). If you wait until the ticket volume spikes to start hiring, you're already 6 months behind. This model gives the lead time needed to hire proactively.
+**Why this matters for an enterprise support operation:** Hiring an SRE takes 3–6 months (job posting, interviews, onboarding). If you wait until the ticket volume spikes to start hiring, you're already 6 months behind. This model gives the lead time needed to hire proactively.
 
 ---
 
 ## Layer 4: "Which Patient Is About to Deteriorate?" (Prescriptive)
 
-**File:** `notebooks/04_layer4_prescriptive_escalation_risk.ipynb`
+**File:** `02_cloud_infrastructure_support/notebooks/04_prescriptive_escalation_risk.ipynb`
 
 **The question it answers:** *Which open tickets right now have the highest risk of becoming an escalation that damages our relationship with the customer?*
 
@@ -144,30 +152,30 @@ With that in mind, here's what each piece of the portfolio does:
 
 - **Real-time scorecard table:** The final output: a ranked table of the 10 highest-risk open tickets right now, with the probability score and a red/yellow/green label. This is what a Resolution Manager would see in their Salesforce dashboard.
 
-**Why this matters for Nutanix:** One escalated P1 ticket from a Fortune 500 customer can cost millions in contract renewals. If a Resolution Manager can review 5 high-risk tickets every morning and make a proactive call on the highest-risk ones, they can prevent 2–3 escalations per week. At enterprise contract values, that's significant.
+**Why this matters for an enterprise support operation:** One escalated P1 ticket from a Fortune 500 customer can cost millions in contract renewals. If a Resolution Manager can review 5 high-risk tickets every morning and make a proactive call on the highest-risk ones, they can prevent 2–3 escalations per week. At enterprise contract values, that's significant.
 
 ---
 
 ## The Foundation: Where Mario Learned This
 
-**File:** `House_Sales_in_King_Count_USA_FinalProject_MarioCasanova.ipynb`
+**File:** `01_real_estate/house_sales_king_county_analysis.ipynb`
 
 This is a project from IBM's Data Analysis course — predicting house prices in King County, Washington using real estate data. Think of it as learning to drive in a parking lot before getting on the highway.
 
-The techniques practiced here (regression, feature selection, model validation) are exactly the same ones used in the Nutanix portfolio, just applied to a simpler, public dataset. The notebook now includes a "bridge" section explaining which technique learned here maps to which technique used in the Nutanix portfolio.
+The techniques practiced here (regression, feature selection, model validation) are exactly the same ones used in the cloud infrastructure section, just applied to a simpler, public dataset. The notebook now includes a "bridge" section explaining which technique learned here maps to which technique used in this portfolio.
 
 ---
 
 ## The Data We Used — And Why We Created It Ourselves
 
-You might ask: *"Mario doesn't work at Nutanix yet — where did the data come from?"*
+You might ask: *"Mario doesn't have access to a real company's internal support data — where did the data come from?"*
 
-The answer demonstrates one of the core skills for this role: **data sovereignty**. Instead of waiting for access to production data, we built a synthetic data generator (`src/data_generator.py`) that creates realistic-looking data with the same statistical properties that real Nutanix support data would have.
+The answer demonstrates one of the core skills for this role: **data sovereignty**. Instead of waiting for access to production data, we built a synthetic data generator (`02_cloud_infrastructure_support/src/data_generator.py`) that creates realistic-looking data with the same statistical properties that real enterprise support data would have.
 
 The generator creates:
 - **100,000 support tickets** spread over 3 years, with realistic patterns: more P3 tickets than P1, VMware migration tickets taking longer to resolve, Strategic customers having higher escalation rates when SLAs breach
 - **54,750 telemetry readings** from 50 server clusters: normal daily IO latency patterns, weekly seasonality (servers work harder on weekdays), and 5% of days with injected anomaly spikes
-- **24 migration waves** representing batches of customers moving from VMware to Nutanix AHV, with realistic timelines and cluster counts
+- **24 migration waves** representing batches of customers moving from VMware to the target hypervisor platform, with realistic timelines and cluster counts
 
 **Why this is a big deal:** Many analysts would say "I can't build this portfolio without real data." Data sovereignty means designing the scenario yourself. It proves that you can work autonomously, contribute immediately on day 1, and understand the domain well enough to simulate it.
 
@@ -175,11 +183,11 @@ The generator creates:
 
 ## The Extra Piece: API Integration
 
-**File:** `notebooks/05_nutanix_api_v4_integration.ipynb`
+**File:** `02_cloud_infrastructure_support/notebooks/05_vendor_api_integration_demo.ipynb`
 
-This notebook shows how all of the above would work with *real* data from Nutanix's own software. Nutanix has a public API (v4) that allows authorized users to pull live server metrics — the same `avg_io_latency_usecs` data that Layer 2 analyzes from synthetic data.
+This notebook shows how all of the above would work with *real* data from a vendor's own software. Enterprise infrastructure companies have public APIs (v4) that allow authorized users to pull live server metrics — the same `avg_io_latency_usecs` data that Layer 2 analyzes from synthetic data.
 
-In plain English: this notebook is a demonstration that I can go from "portfolio project" to "production-ready tool" the moment I get API credentials. It shows I've already read the documentation and understand how to query the data correctly without creating unnecessary load on the system.
+In plain English: this notebook is a demonstration that the portfolio can go from "project" to "production-ready tool" the moment API credentials are available. It shows the documentation has already been read and the queries are structured correctly — without creating unnecessary load on live systems.
 
 ---
 
