@@ -38,11 +38,31 @@ Regression modeling on the King County (Washington) housing dataset. Demonstrate
 |---|---|
 | `house_sales_king_county.ipynb` | Linear/polynomial regression, sklearn Pipelines, Ridge regularization, cross-validation |
 
+### Quantitative Finance
+**`quantitative_finance/`**
+
+Focuses on institutional-grade financial mechanics, microstructure, and portfolio optimization simulating ultra-low latency logic.
+
+| Notebook | Focus Area | Techniques |
+|---|---|---|
+| `01_LOB_Reconstruction.ipynb` | Market Microstructure | Asynchronous processing, Limit Order Book L2 |
+| `02_Exotic_Options_Heston.ipynb` | Stochastic Volatility Derivatives | Monte Carlo, Finite Differences, Heston Model |
+| `03_Hierarchical_Risk_Parity.ipynb` | Portfolio Optimization | Unsupervised ML (Clustering), Graph Theory |
+
+### Macroeconomic Capture
+**`macroeconomic_capture/`**
+
+Analyzes the mathematical friction between public policy and private capital formation using a Schumpeterian approach.
+
+| Notebook | Focus Area | Techniques |
+|---|---|---|
+| `01_Fiscal_Crowding_Out.ipynb` | Government Budget Constraint | Time series analysis, Pearson correlation |
+| `02_Zombie_Corporations.ipynb` | Paretian & Schumpeterian Survival | Density-based spatial clustering (DBSCAN) |
+
 ### Future Case Studies (Planned)
 
 | Domain | Focus Area |
 |---|---|
-| **Finance** | Risk modeling, portfolio optimization, time series forecasting |
 | **Pharma / Biotech** | Molecular property prediction, clinical trial analysis |
 | **Proteins & Molecules** | Structural data analysis, computational chemistry |
 
@@ -90,8 +110,24 @@ Regression modeling on the King County (Washington) housing dataset. Demonstrate
 │   └── data/
 │       └── synthetic/                ← Generated datasets (gitignored for size)
 │
-└── real_estate/                      ← Case study: house price prediction
     └── house_sales_king_county.ipynb
+│
+├── quantitative_finance/             ← Case study: Low-latency LOB & derivatives
+│   ├── notebooks/
+│   │   ├── 01_LOB_Reconstruction.ipynb
+│   │   ├── 02_Exotic_Options_Heston.ipynb
+│   │   └── 03_Hierarchical_Risk_Parity.ipynb
+│   ├── src/
+│   │   └── data_generator.py         ← Synthetic LOB events & correlated assets
+│   └── data/                         ← Generated datasets (gitignored)
+│
+└── macroeconomic_capture/            ← Case study: Institutional friction & deficit
+    ├── notebooks/
+    │   ├── 01_Fiscal_Crowding_Out.ipynb
+    │   └── 02_Zombie_Corporations.ipynb
+    ├── src/
+    │   └── data_generator.py         ← Synthetic sovereign macro & zombie corps
+    └── data/                         ← Generated datasets (gitignored)
 ```
 
 ---
