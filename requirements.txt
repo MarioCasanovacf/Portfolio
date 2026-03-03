@@ -1,4 +1,4 @@
-# Mario Casanova — Nutanix GSO Analytics Engineering Portfolio
+# Mario Casanova — Data Science & Analytics Portfolio
 # Install: pip install -r requirements.txt
 
 # Core data stack
@@ -27,6 +27,6 @@ ipykernel>=6.0.0
 # Optional: automated ARIMA order selection
 # pmdarima>=2.0.0
 
-# Optional: Nutanix v4 SDK (requires Nutanix account and network access)
+# Optional: HCI platform SDK (requires account and network access)
 # ntnx-vmm-py-client>=4.0.0
 # ntnx-prism-py-client>=4.0.0

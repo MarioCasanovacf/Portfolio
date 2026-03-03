@@ -1,5 +1,5 @@
 # Technical Reference Guide
-## Mario Casanova — Nutanix GSO Analytics Engineering Portfolio
+## Mario Casanova — Data Science & Analytics Portfolio
 
 > **Audience:** Data engineers, senior analysts, hiring managers with technical background.
 > **Purpose:** Explain the architectural decisions, statistical methodology, and "what happens if you change X" scenarios for every component of this portfolio.
@@ -24,12 +24,12 @@
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                         DATA SOVEREIGNTY LAYER                          │
 │                                                                          │
-│  src/data_generator.py                                                   │
+│  cloud_infrastructure_support/src/data_generator.py                      │
 │  ├── generate_support_tickets()   → 100,000 rows / 17 columns            │
 │  ├── generate_pulse_telemetry()   →  54,750 rows /  8 columns            │
 │  └── generate_migration_cohorts() →      24 rows / 11 columns            │
 │                           ↓                                              │
-│                  data/synthetic/*.csv                                    │
+│           cloud_infrastructure_support/data/synthetic/*.csv              │
 └──────────────────────────┬──────────────────────────────────────────────┘
                            │  all notebooks read from here
           ┌────────────────┴────────────────┐
@@ -51,12 +51,12 @@
 ┌─────────▼──────────┐
 │   Layer 5 (05_)    │
 │   API Integration  │
-│   Nutanix v4 SDK   │
-│   OpenAPI / REST   │
+│   REST API + SDK   │
+│   OpenAPI / OData  │
 └────────────────────┘
 ```
 
-**Key design decision:** All notebooks are independent and can run in any order as long as the CSV files exist. Running `python src/data_generator.py` first is the only prerequisite.
+**Key design decision:** All notebooks are independent and can run in any order as long as the CSV files exist. Running `python cloud_infrastructure_support/src/data_generator.py` first is the only prerequisite.
 
 ---
 
@@ -72,8 +72,8 @@
 | `priority` | str | Multinomial: P1=8%, P2=22%, P3=45%, P4=25% |
 | `region` | str | Uniform across 7 global regions |
 | `customer_tier` | str | Uniform: Enterprise, Mid-Market, SMB, Strategic |
-| `aos_version` | str | Uniform across 10 AOS versions (6.1.1 → 6.8.2) |
-| `migration_type` | str | VMware-to-AHV=28%, AOS-Upgrade=22%, Greenfield=18%, None=20%, HW-Refresh=12% |
+| `aos_version` | str | Uniform across 10 infrastructure OS versions |
+| `migration_type` | str | VMware-to-native=28%, OS-Upgrade=22%, Greenfield=18%, None=20%, HW-Refresh=12% |
 | `escalated` | bool | Probability engine (see escalation logic below) |
 | `sla_breached` | bool | `ttr_hours > SLA_HOURS[priority]` |
 | `nps_score` | int/null | Inversely correlated with TTR breach ratio; 15% null (no-response) |
@@ -105,7 +105,7 @@ if customer_tier == 'Strategic':
 - `PRIORITY_WEIGHTS = [0.12, 0.28, 0.40, 0.20]` — increases P1/P2 volume → Layer 4 classifier sees more positive class examples → AUC-ROC improves slightly, but escalation rate in the data increases, which the staffing recommendation in Layer 3 would need to account for
 - Increasing `sigma` in the log-normal → wider TTR distribution → more SLA breaches → NPS drops → Layer 1 NPS trend shows a downward slope
 
-### 2.2 Pulse Telemetry (`pulse_telemetry.csv`)
+### 2.2 Infrastructure Telemetry (`pulse_telemetry.csv`)
 
 | Column | Type | Description |
 |---|---|---|
@@ -124,13 +124,13 @@ This introduces the 7-day seasonality that `seasonal_decompose(period=7)` in Lay
 
 ### 2.3 Migration Cohorts (`migration_cohorts.csv`)
 
-24 migration waves, each representing a batch of clusters migrating from VMware vSphere to Nutanix AHV. Duration ranges from 45 to 180 days. Used in Layer 1 for impact analysis and as context for Layer 3 forecasting.
+24 migration waves, each representing a batch of clusters migrating from a legacy hypervisor to a native platform. Duration ranges from 45 to 180 days. Used in Layer 1 for impact analysis and as context for Layer 3 forecasting.
 
 ---
 
 ## 3. Layer 1 — Descriptive Analytics
 
-**File:** `notebooks/01_layer1_descriptive_gso_health_monitor.ipynb`
+**File:** `cloud_infrastructure_support/notebooks/01_descriptive_health_monitor.ipynb`
 **Libraries:** pandas, numpy, scipy.stats, seaborn, matplotlib
 
 ### 3.1 TTR P50 / P90 Analysis
@@ -148,7 +148,7 @@ ttr_stats = df.groupby('priority')['ttr_hours'].agg(
 
 **What if you change the percentiles?**
 - Switch to P75/P95: captures more of the tail, will show a higher "gap" between actual and SLA — more alarming optics, useful if you want to make the case for more hiring
-- Switch to mean instead of median: mean is sensitive to outliers (that one 2,000-hour P3 ticket pulls the average up significantly). Median is more robust and is what Nutanix would actually track in Salesforce reports
+- Switch to mean instead of median: mean is sensitive to outliers (that one 2,000-hour P3 ticket pulls the average up significantly). Median is more robust and is what any enterprise support org would actually track in their CRM reports
 
 **Log scale on the Y axis:**
 Applied because P1 SLA is 0.5 hours and P4 SLA is 8 hours — a 16x range. Linear scale would make P1 bars invisible. Log scale preserves relative proportions across all priority tiers.
@@ -166,11 +166,11 @@ sla_compliance = df.groupby(['region', 'priority']).apply(
 You would get a 3D structure (region × priority × tier). This is better implemented as a FacetGrid of heatmaps — one heatmap per tier — rather than a single chart. The pattern you would expect: Strategic accounts should have higher compliance because they receive priority routing.
 
 **What if a region shows <60% P1 compliance?**
-Action: That region needs either (a) dedicated on-call P1 SREs in that timezone, or (b) a follow-the-sun routing policy that redirects P1s to an active region during off-hours.
+Action: That region needs either (a) dedicated on-call P1 engineers in that timezone, or (b) a follow-the-sun routing policy that redirects P1s to an active region during off-hours.
 
 ### 3.3 Backlog Aging
 
-**Simulation logic:** We treat tickets created in the last 90 days as "open" (since their resolution might not yet be complete in a real scenario). In production, you would filter on `status IN ('open', 'in_progress')` from the Salesforce API.
+**Simulation logic:** We treat tickets created in the last 90 days as "open" (since their resolution might not yet be complete in a real scenario). In production, you would filter on `status IN ('open', 'in_progress')` from the CRM API.
 
 **Bucketing strategy:**
 ```
@@ -181,8 +181,8 @@ Action: That region needs either (a) dedicated on-call P1 SREs in that timezone,
 >7d    → Stale (breach territory)
 ```
 
-**What if you segment by engineer instead of AOS version?**
-This reveals engineer-level bottlenecks — which SREs have disproportionate backlog aging. Useful for workforce management but requires careful handling to avoid creating unfair performance optics.
+**What if you segment by engineer instead of OS version?**
+This reveals engineer-level bottlenecks — which engineers have disproportionate backlog aging. Useful for workforce management but requires careful handling to avoid creating unfair performance optics.
 
 ### 3.4 NPS Bootstrap Confidence Intervals
 
@@ -199,7 +199,7 @@ Strategic accounts have the highest NPS impact per point change (they generate t
 
 ## 4. Layer 2 — Diagnostic Analytics
 
-**File:** `notebooks/02_layer2_diagnostic_anomaly_detection.ipynb`
+**File:** `cloud_infrastructure_support/notebooks/02_diagnostic_anomaly_detection.ipynb`
 **Libraries:** statsmodels, scipy, pandas, numpy
 
 ### 4.1 STL Seasonal Decomposition
@@ -210,7 +210,7 @@ Strategic accounts have the highest NPS impact per point change (they generate t
 Multiplicative decomposition (`Y = T × S × R`) is appropriate when the seasonal amplitude grows proportionally with the trend level — e.g., airline ticket prices where summer peaks get larger as the baseline price grows. For IO latency, anomaly spikes are absolute (a hardware fault adds ~X µs regardless of the baseline trend level), making additive decomposition the correct choice.
 
 **Period=7 (weekly):**
-The synthetic data has a weekday factor of 1.0 vs. 0.72 on weekends. This 28% weekday premium creates a clear 7-day periodicity. In real Nutanix telemetry, you would confirm this with a periodogram before assuming weekly seasonality — data centers with 24/7 financial clients may show no weekly pattern.
+The synthetic data has a weekday factor of 1.0 vs. 0.72 on weekends. This 28% weekday premium creates a clear 7-day periodicity. In real infrastructure telemetry, you would confirm this with a periodogram before assuming weekly seasonality — data centers with 24/7 financial clients may show no weekly pattern.
 
 **What if you change period=7 to period=30 (monthly)?**
 The seasonal component would capture monthly billing cycles or maintenance windows instead of the weekly work pattern. The residual would then contain the weekly pattern as "noise," producing many false positive anomalies on Mondays. Always validate your assumed period with a Fourier analysis or ACF plot first.
@@ -266,7 +266,7 @@ The synthetic ticket data is generated independently of the telemetry anomaly in
 
 ## 5. Layer 3 — Predictive Analytics
 
-**File:** `notebooks/03_layer3_predictive_ticket_forecasting.ipynb`
+**File:** `cloud_infrastructure_support/notebooks/03_predictive_ticket_forecasting.ipynb`
 **Libraries:** statsmodels (SARIMAX, adfuller, acorr_ljungbox), sklearn
 
 ### 5.1 Stationarity — Augmented Dickey-Fuller Test
@@ -337,16 +337,16 @@ Possible causes:
 
 **Staffing formula used:**
 ```python
-TICKETS_PER_SRE_PER_WEEK = 8   # assumption: 1 SRE handles 8 P1+P2 tickets/week
+TICKETS_PER_SRE_PER_WEEK = 8   # assumption: 1 engineer handles 8 P1+P2 tickets/week
 SREs_needed = ceil(peak_forecast / TICKETS_PER_SRE_PER_WEEK)
 ```
-This constant should be calibrated from historical productivity data (e.g., from Salesforce time-tracking). If your SREs are senior and handle 12 tickets/week, the staffing recommendation decreases by 33%.
+This constant should be calibrated from historical productivity data (e.g., from CRM time-tracking). If your engineers are senior and handle 12 tickets/week, the staffing recommendation decreases by 33%.
 
 ---
 
 ## 6. Layer 4 — Prescriptive Analytics
 
-**File:** `notebooks/04_layer4_prescriptive_escalation_risk.ipynb`
+**File:** `cloud_infrastructure_support/notebooks/04_prescriptive_escalation_risk.ipynb`
 **Libraries:** sklearn (RandomForest, LogisticRegression, Pipeline), scipy
 
 ### 6.1 Feature Engineering Decisions
@@ -358,7 +358,7 @@ This single feature captures both the raw TTR value and the priority context. A 
 This is a "leaky" feature in a strict ML sense — in real-time scoring of a new ticket, you don't yet know whether that ticket will escalate. However, the feature represents the *engineer's historical tendency* (before this ticket), not the outcome of this specific ticket. Using 80-20 train/test split with stratification ensures this is computed on training data and generalized correctly.
 
 **What if you add `customer_sentiment` as a feature?**
-In a real GSO environment, Salesforce Case Comments contain text from the customer. Running a pre-trained sentiment classifier (e.g., VADER or a fine-tuned BERT) on those comments and using the sentiment score as a feature would likely be the single most predictive addition. Estimated AUC-ROC improvement: +0.05 to +0.12 based on similar support ticket studies.
+In a real support environment, CRM case comments contain text from the customer. Running a pre-trained sentiment classifier (e.g., VADER or a fine-tuned BERT) on those comments and using the sentiment score as a feature would likely be the single most predictive addition. Estimated AUC-ROC improvement: +0.05 to +0.12 based on similar support ticket studies.
 
 ### 6.2 Class Imbalance Strategy
 
@@ -376,7 +376,7 @@ X_res, y_res = SMOTE(random_state=42).fit_resample(X_train, y_train)
 SMOTE creates synthetic minority class examples by interpolating between existing positive examples. Generally produces slightly higher Recall than `class_weight='balanced'`, at the cost of introducing synthetic noise. For this use case, either approach is valid.
 
 **What if you use `class_weight={0: 1, 1: 15}` (custom weights)?**
-This would increase Recall (catch more escalations) at the cost of Precision (more false positives flagged for RM review). If the cost of a missed escalation >> cost of a false positive RM review, increase the weight on the minority class.
+This would increase Recall (catch more escalations) at the cost of Precision (more false positives flagged for manager review). If the cost of a missed escalation >> cost of a false positive review, increase the weight on the minority class.
 
 ### 6.3 Model Comparison — Why Random Forest Wins
 
@@ -389,7 +389,7 @@ This would increase Recall (catch more escalations) at the cost of Precision (mo
 | Training time | <1s | ~30s |
 | Production latency | <1ms per prediction | ~5ms per prediction |
 
-**Recommendation:** Use Random Forest as the scoring engine; use Logistic Regression as the "explainability model" when a Resolution Manager asks "why was this ticket flagged?". The LR coefficients provide a human-readable explanation.
+**Recommendation:** Use Random Forest as the scoring engine; use Logistic Regression as the "explainability model" when a manager asks "why was this ticket flagged?". The LR coefficients provide a human-readable explanation.
 
 ### 6.4 Threshold Optimization
 
@@ -400,22 +400,22 @@ This minimizes overall error but is not optimal for imbalanced classes.
 We sweep thresholds from 0.20 to 0.85 and select the one maximizing F1 score. F1 is the harmonic mean of Precision and Recall — it penalizes both missing escalations (low Recall) and over-flagging (low Precision).
 
 **What if you optimize for Recall only (minimize missed escalations)?**
-Lower the threshold to 0.25–0.30. Recall will approach 0.90+ but Precision drops to 0.15–0.20, meaning 80–85% of flagged tickets are false positives. This is only tolerable if RM review is very cheap (automated first-pass) and you have a second-stage human filter.
+Lower the threshold to 0.25–0.30. Recall will approach 0.90+ but Precision drops to 0.15–0.20, meaning 80–85% of flagged tickets are false positives. This is only tolerable if the review is very cheap (automated first-pass) and you have a second-stage human filter.
 
 **What if you want to set a budget of "no more than 5% of tickets flagged"?**
-Sort tickets by predicted probability descending. Take the top 5%. The probability threshold at the 95th percentile becomes your operational threshold. This is a "fixed budget" approach, common in operations with fixed RM headcount.
+Sort tickets by predicted probability descending. Take the top 5%. The probability threshold at the 95th percentile becomes your operational threshold. This is a "fixed budget" approach, common in operations with fixed headcount.
 
 ---
 
 ## 7. Extension Guide — Moving to Real Data
 
-### 7.1 Replacing Synthetic Tickets with Salesforce Data
+### 7.1 Replacing Synthetic Tickets with CRM Data
 
 ```python
 import simple_salesforce
 
 sf = simple_salesforce.Salesforce(
-    username='your_user@nutanix.com',
+    username='your_user@company.com',
     password='your_pass',
     security_token='your_token'
 )
@@ -424,7 +424,7 @@ sf = simple_salesforce.Salesforce(
 cases = sf.query_all("""
     SELECT Id, CaseNumber, CreatedDate, ClosedDate, Priority,
            Status, Account.Name, Account.Type, OwnerId,
-           IsEscalated, NPS_Score__c, AOS_Version__c
+           IsEscalated, NPS_Score__c, Platform_Version__c
     FROM Case
     WHERE CreatedDate >= 2022-01-01T00:00:00Z
     LIMIT 100000
@@ -435,24 +435,21 @@ df = pd.DataFrame(cases['records']).drop('attributes', axis=1)
 
 You would then apply the same TTR calculation: `ttr_hours = (ClosedDate - CreatedDate).dt.total_seconds() / 3600`
 
-### 7.2 Replacing Synthetic Telemetry with Nutanix Pulse API v4
+### 7.2 Replacing Synthetic Telemetry with a Live API
 
-See `notebooks/05_nutanix_api_v4_integration.ipynb` for the full implementation. The key SDK call:
+See `cloud_infrastructure_support/notebooks/05_api_integration.ipynb` for the full implementation. The key pattern:
 
 ```python
-from ntnx_vmm_py_client import ApiClient, Configuration
-from ntnx_vmm_py_client.api import StatsApi
-
+# Generic REST API integration pattern
 config = Configuration()
-config.host = 'https://prism-central.your-org.nutanix.com:9440'
+config.host = 'https://management-platform.your-org.com:9440'
 config.username = 'api_user'
 config.password = 'api_password'
 
 client = ApiClient(configuration=config)
 stats_api = StatsApi(api_client=client)
 
-# Get IO latency for all clusters, last 7 days
-# OData $filter for performance optimization
+# OData filtering for performance optimization
 response = stats_api.list_cluster_stats(
     _filter="startTime ge '2024-12-01T00:00:00Z'",
     _select='clusterId,avgIoLatencyUsecs,cpuUsagePpm,storageUsageBytes',
@@ -468,7 +465,7 @@ For production deployment:
 
 ```
 Weekly:
-  → Pull last 7 days of Salesforce cases
+  → Pull last 7 days of CRM cases
   → Append to historical dataset
   → Retrain Layer 4 classifier (fast: <2 min)
   → Log new AUC-ROC to MLflow or similar
@@ -486,5 +483,5 @@ Quarterly:
 
 ---
 
-*Mario Casanova | Analytics Engineering Portfolio*
+*Mario Casanova | Data Science & Analytics Portfolio*
 *For non-technical overview: see `FOR_NON_ENGINEERS.md`*
