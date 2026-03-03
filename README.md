@@ -69,6 +69,26 @@ Deconstructs structural biology into pure geometric data science, converting 3D 
 | `proteins_alphafold_distances ...` | PDB Spatial Density | File parsing, 3D Euclidean distance matrices |
 | `proteins_ramachandran_plot ...` | Thermodynamic Topology | Linear algebra vectorization, cross products, dihedral $\phi$ / $\psi$ calculation |
 
+### Continental Philosophy
+**`continental_philosophy/`**
+
+Translates phenomenological exegesis and historical dialectics into computable graph topology and agent-based game theory.
+
+| Notebook | Focus Area | Techniques |
+|---|---|---|
+| `01_Dialectical_Knowledge_Graph.ipynb` | Hegelian Aufhebung | Semantic Triplets (NLP), Eigenvector Centrality |
+| `02_Kojeve_Evolutionary_Game...` | Kojevian Dialectics | Asymmetric Payoffs, Agent-Based Stochastic Modeling |
+
+### Computational Physics
+**`computational_physics/`**
+
+Applies deterministic numerical methods and sparse linear algebra to simulate Hamiltonian systems and quantum mechanics.
+
+| Notebook | Focus Area | Techniques |
+|---|---|---|
+| `01_Rutherford...` | Symplectic Kinematics | Verlet Integrators, Monte Carlo Ensembles, Numba JIT |
+| `02_Schrodinger...` | Quantum Tunneling | Crank-Nicolson PDEs, Tridiagonal Sparse Matrices |
+
 ### Future Case Studies (Planned)
 
 | Domain | Focus Area |
@@ -151,6 +171,22 @@ Deconstructs structural biology into pure geometric data science, converting 3D 
     ├── src/
     │   └── data_fetcher.py           
     └── data/                         
+│
+├── continental_philosophy/           ← Case study: Graph theory & Multi-agent Systems
+│   ├── notebooks/
+│   │   ├── 01_Dialectical_Knowledge_Graph.ipynb
+│   │   └── 02_Kojeve_Evolutionary_Game_Theory.ipynb
+│   ├── src/
+│   │   └── data_generator.py         ← NLP & Population bootstrapping
+│   └── data/
+│
+└── computational_physics/            ← Case study: Numerical integrators & PDEs
+    ├── notebooks/
+    │   ├── 01_Rutherford_Scattering_Simulation.ipynb
+    │   └── 02_Schrodinger_Crank_Nicolson.ipynb
+    ├── src/
+    │   └── data_generator.py         ← Monte Carlo parameter generation
+    └── data/
 ```
 
 ---
