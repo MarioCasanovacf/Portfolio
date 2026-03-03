@@ -59,12 +59,21 @@ Analyzes the mathematical friction between public policy and private capital for
 | `01_Fiscal_Crowding_Out.ipynb` | Government Budget Constraint | Time series analysis, Pearson correlation |
 | `02_Zombie_Corporations.ipynb` | Paretian & Schumpeterian Survival | Density-based spatial clustering (DBSCAN) |
 
+### Proteins & Molecules
+**`proteins_alphafold_distances/`** & **`proteins_ramachandran_plot/`**
+
+Deconstructs structural biology into pure geometric data science, converting 3D atomic coordinates into computable mathematical topology.
+
+| Notebook | Focus Area | Techniques |
+|---|---|---|
+| `proteins_alphafold_distances ...` | PDB Spatial Density | File parsing, 3D Euclidean distance matrices |
+| `proteins_ramachandran_plot ...` | Thermodynamic Topology | Linear algebra vectorization, cross products, dihedral $\phi$ / $\psi$ calculation |
+
 ### Future Case Studies (Planned)
 
 | Domain | Focus Area |
 |---|---|
 | **Pharma / Biotech** | Molecular property prediction, clinical trial analysis |
-| **Proteins & Molecules** | Structural data analysis, computational chemistry |
 
 ---
 
@@ -128,6 +137,20 @@ Analyzes the mathematical friction between public policy and private capital for
     ├── src/
     │   └── data_generator.py         ← Synthetic sovereign macro & zombie corps
     └── data/                         ← Generated datasets (gitignored)
+│
+├── proteins_alphafold_distances/     ← Case study: In silico spatial density (PDB)
+│   ├── notebooks/
+│   │   └── 01_AlphaFold_Spatial_Distances.ipynb
+│   ├── src/
+│   │   └── data_fetcher.py           ← RCSB PDB coordinate extraction script
+│   └── data/                         ← Downloaded .pdb files
+│
+└── proteins_ramachandran_plot/       ← Case study: From-scratch dihedral topology
+    ├── notebooks/
+    │   └── 01_Ramachandran_Plot_Generator.ipynb
+    ├── src/
+    │   └── data_fetcher.py           
+    └── data/                         
 ```
 
 ---
