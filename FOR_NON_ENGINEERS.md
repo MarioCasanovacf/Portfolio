@@ -1,21 +1,21 @@
 # What This Portfolio Does — In Plain Language
-## Mario Casanova | Data Science & Analytics
+## Mario Casanova | Nutanix GSO Analytics Engineering
 
 > **Who this document is for:** Anyone who wants to understand what this portfolio does without needing to know Python, statistics, or software engineering. Including me on a bad Monday morning.
 
 ---
 
-## What Is This Portfolio About?
+## First: What is Nutanix and Why Does This Portfolio Exist?
 
-This portfolio applies data science and statistical analysis to **enterprise technical support operations** — specifically for companies that run cloud infrastructure (servers, storage, and the software that keeps everything working inside large data centers).
+**Nutanix** makes the "invisible infrastructure" that runs inside large companies' data centers — the servers, the storage, and the software that keeps everything running. Think of them as the plumbing company that maintains the pipes inside a skyscraper. The tenants (businesses) don't think about the pipes until they break. Nutanix's job is to make sure they never break, and when something does go wrong, to fix it fast.
 
-Think of it as the analytical brain behind a large-scale support operation. The team this work targets watches over thousands of servers for thousands of customers worldwide.
+The team this portfolio targets — **Global Support Organization (GSO), Support Analytics & Operations** — is essentially the control room watching all those pipes for 10,000+ customers worldwide.
 
-**The problem they face:** They get hundreds of support tickets every day. Each ticket is a customer saying "something is wrong." They need to:
+**The problem they have:** They get hundreds of support tickets every day. Each ticket is a customer saying "something is wrong." They need to:
 1. Know which ones are most urgent
 2. Predict how many will come tomorrow so they can staff properly
 3. Catch hardware problems *before* the customer even notices them
-4. Know which tickets are about to become a big problem before it's too late
+4. Know which tickets are about to become a big PR problem before it's too late
 
 **What this portfolio does:** Demonstrates, in working code, four different ways to solve those four problems — using only statistics and Python, without needing a team of data engineers to set up a data warehouse first.
 
@@ -23,22 +23,22 @@ Think of it as the analytical brain behind a large-scale support operation. The 
 
 ## The Hospital Analogy
 
-The easiest way to understand this portfolio is to imagine a support operation as a **hospital emergency room**.
+The easiest way to understand this portfolio is to imagine Nutanix's support operation as a **hospital emergency room**.
 
 ```
-Support Concept              →    Hospital Equivalent
+Nutanix Concept          →    Hospital Equivalent
 ─────────────────────────────────────────────────
-Support ticket               →    Patient arriving at ER
-Priority (P1/P2/P3/P4)      →    Triage level (critical / urgent / semi-urgent / routine)
-TTR (Time to Resolution)     →    How long until the patient is treated and discharged
-SLA breach                   →    Patient waited longer than the hospital's promised wait time
-NPS score                    →    Patient satisfaction survey after discharge
-Escalation                   →    Patient deteriorated and needed ICU — preventable with earlier intervention
-Support engineer             →    Doctor on duty
-Region                       →    Hospital branch (LATAM, APAC, EMEA...)
-Infrastructure telemetry     →    The hospital's vital signs monitors on each patient
-Platform version             →    The medical equipment model being used (older = harder to repair)
-Platform migration           →    A mass transfer of patients from another hospital
+Support ticket           →    Patient arriving at ER
+Priority (P1/P2/P3/P4)   →    Triage level (critical / urgent / semi-urgent / routine)
+TTR (Time to Resolution) →    How long until the patient is treated and discharged
+SLA breach               →    Patient waited longer than the hospital's promised wait time
+NPS score                →    Patient satisfaction survey after discharge
+Escalation               →    Patient deteriorated and needed ICU — preventable with earlier intervention
+SRE engineer             →    Doctor on duty
+Region                   →    Hospital branch (LATAM, APAC, EMEA...)
+Pulse telemetry          →    The hospital's vital signs monitors on each patient
+AOS version              →    The medical equipment model being used (older = harder to repair)
+VMware migration         →    A mass transfer of patients from another hospital
 ```
 
 With that in mind, here's what each piece of the portfolio does:
@@ -47,7 +47,7 @@ With that in mind, here's what each piece of the portfolio does:
 
 ## Layer 1: "How Is the ER Doing Right Now?" (Descriptive)
 
-**File:** `cloud_infrastructure_support/notebooks/01_descriptive_health_monitor.ipynb`
+**File:** `notebooks/01_layer1_descriptive_gso_health_monitor.ipynb`
 
 **The question it answers:** *What is actually happening in our support operations?*
 
@@ -65,13 +65,13 @@ With that in mind, here's what each piece of the portfolio does:
 
 - **Executive Summary box:** At the very end, a formatted text box summarizing the 5 most important numbers. Built for a VP who has 30 seconds.
 
-**Why this matters:** Most support orgs do this in Excel and static dashboards. This notebook shows it can be automated, updated daily, and extended without touching the original code.
+**Why this matters for Nutanix:** They currently do this in Excel and static dashboards. This notebook shows it can be automated, updated daily, and extended without touching the original code.
 
 ---
 
 ## Layer 2: "Why Is That Alarm Going Off?" (Diagnostic)
 
-**File:** `cloud_infrastructure_support/notebooks/02_diagnostic_anomaly_detection.ipynb`
+**File:** `notebooks/02_layer2_diagnostic_anomaly_detection.ipynb`
 
 **The question it answers:** *Why are ticket spikes happening — and can we see them coming?*
 
@@ -92,13 +92,13 @@ With that in mind, here's what each piece of the portfolio does:
 
 - **Cross-correlation chart:** A bar chart answering: "If we see an anomaly in latency today, how many days before the customer opens a ticket?" The bar that's tallest tells you your warning window.
 
-**Why this matters:** The difference between *reactive* support (customer calls, problem gets fixed) and *proactive* support (you call the customer before they notice). Proactive support is significantly better for NPS.
+**Why this matters for Nutanix:** The difference between *reactive* support (customer calls, problem gets fixed) and *proactive* support (you call the customer before they notice). Proactive support is significantly better for NPS.
 
 ---
 
 ## Layer 3: "How Many Patients Will Show Up Next Month?" (Predictive)
 
-**File:** `cloud_infrastructure_support/notebooks/03_predictive_ticket_forecasting.ipynb`
+**File:** `notebooks/03_layer3_predictive_ticket_forecasting.ipynb`
 
 **The question it answers:** *How many support tickets should we expect in the next 18 months — and how many engineers do we need to hire?*
 
@@ -116,15 +116,15 @@ With that in mind, here's what each piece of the portfolio does:
 
 - **18-month forecast chart:** The headline result. A line showing predicted ticket volume per week for the next 18 months, with a shaded band representing uncertainty (wider band = less certain further out).
 
-- **Staffing recommendation box:** "Based on the forecast, you need 12 engineers today and will need 17 at peak. Hire 5 additional over the next 18 months. Prioritize LATAM and APAC-INDIA."
+- **Staffing recommendation box:** "Based on the forecast, you need 12 SREs today and will need 17 at peak. Hire 5 additional SREs over the next 18 months. Prioritize LATAM and APAC-INDIA."
 
-**Why this matters:** Hiring an engineer takes 3–6 months (job posting, interviews, onboarding). If you wait until the ticket volume spikes to start hiring, you're already 6 months behind. This model gives the lead time needed to hire proactively.
+**Why this matters for Nutanix:** Hiring an SRE takes 3–6 months (job posting, interviews, onboarding). If you wait until the ticket volume spikes to start hiring, you're already 6 months behind. This model gives the lead time needed to hire proactively.
 
 ---
 
 ## Layer 4: "Which Patient Is About to Deteriorate?" (Prescriptive)
 
-**File:** `cloud_infrastructure_support/notebooks/04_prescriptive_escalation_risk.ipynb`
+**File:** `notebooks/04_layer4_prescriptive_escalation_risk.ipynb`
 
 **The question it answers:** *Which open tickets right now have the highest risk of becoming an escalation that damages our relationship with the customer?*
 
@@ -142,32 +142,32 @@ With that in mind, here's what each piece of the portfolio does:
 
 - **Feature importance chart:** What does the model actually look at to decide if a ticket is risky? The longer the bar, the more the model relies on that feature. Typically: SLA breach, customer tier, and how long the ticket has been open matter most.
 
-- **Real-time scorecard table:** The final output: a ranked table of the 10 highest-risk open tickets right now, with the probability score and a red/yellow/green label. This is what a resolution manager would see in their CRM dashboard.
+- **Real-time scorecard table:** The final output: a ranked table of the 10 highest-risk open tickets right now, with the probability score and a red/yellow/green label. This is what a Resolution Manager would see in their Salesforce dashboard.
 
-**Why this matters:** One escalated P1 ticket from a Fortune 500 customer can cost millions in contract renewals. If a manager can review 5 high-risk tickets every morning and make a proactive call on the highest-risk ones, they can prevent 2–3 escalations per week. At enterprise contract values, that's significant.
+**Why this matters for Nutanix:** One escalated P1 ticket from a Fortune 500 customer can cost millions in contract renewals. If a Resolution Manager can review 5 high-risk tickets every morning and make a proactive call on the highest-risk ones, they can prevent 2–3 escalations per week. At enterprise contract values, that's significant.
 
 ---
 
 ## The Foundation: Where Mario Learned This
 
-**File:** `real_estate/house_sales_king_county.ipynb`
+**File:** `House_Sales_in_King_Count_USA_FinalProject_MarioCasanova.ipynb`
 
 This is a project from IBM's Data Analysis course — predicting house prices in King County, Washington using real estate data. Think of it as learning to drive in a parking lot before getting on the highway.
 
-The techniques practiced here (regression, feature selection, model validation) are exactly the same ones used in the infrastructure support case study, just applied to a simpler, public dataset.
+The techniques practiced here (regression, feature selection, model validation) are exactly the same ones used in the Nutanix portfolio, just applied to a simpler, public dataset. The notebook now includes a "bridge" section explaining which technique learned here maps to which technique used in the Nutanix portfolio.
 
 ---
 
 ## The Data We Used — And Why We Created It Ourselves
 
-You might ask: *"Where did the support data come from?"*
+You might ask: *"Mario doesn't work at Nutanix yet — where did the data come from?"*
 
-The answer demonstrates one of the core skills: **data sovereignty**. Instead of waiting for access to production data, we built a synthetic data generator (`cloud_infrastructure_support/src/data_generator.py`) that creates realistic-looking data with the same statistical properties that real support data would have.
+The answer demonstrates one of the core skills for this role: **data sovereignty**. Instead of waiting for access to production data, we built a synthetic data generator (`src/data_generator.py`) that creates realistic-looking data with the same statistical properties that real Nutanix support data would have.
 
 The generator creates:
-- **100,000 support tickets** spread over 3 years, with realistic patterns: more P3 tickets than P1, migration tickets taking longer to resolve, Strategic customers having higher escalation rates when SLAs breach
+- **100,000 support tickets** spread over 3 years, with realistic patterns: more P3 tickets than P1, VMware migration tickets taking longer to resolve, Strategic customers having higher escalation rates when SLAs breach
 - **54,750 telemetry readings** from 50 server clusters: normal daily IO latency patterns, weekly seasonality (servers work harder on weekdays), and 5% of days with injected anomaly spikes
-- **24 migration waves** representing batches of customers moving between hypervisor platforms, with realistic timelines and cluster counts
+- **24 migration waves** representing batches of customers moving from VMware to Nutanix AHV, with realistic timelines and cluster counts
 
 **Why this is a big deal:** Many analysts would say "I can't build this portfolio without real data." Data sovereignty means designing the scenario yourself. It proves that you can work autonomously, contribute immediately on day 1, and understand the domain well enough to simulate it.
 
@@ -175,9 +175,9 @@ The generator creates:
 
 ## The Extra Piece: API Integration
 
-**File:** `cloud_infrastructure_support/notebooks/05_api_integration.ipynb`
+**File:** `notebooks/05_nutanix_api_v4_integration.ipynb`
 
-This notebook shows how all of the above would work with *real* data from a live infrastructure management platform. It demonstrates connecting to a REST API (v4) that allows authorized users to pull live server metrics — the same IO latency data that Layer 2 analyzes from synthetic data.
+This notebook shows how all of the above would work with *real* data from Nutanix's own software. Nutanix has a public API (v4) that allows authorized users to pull live server metrics — the same `avg_io_latency_usecs` data that Layer 2 analyzes from synthetic data.
 
 In plain English: this notebook is a demonstration that I can go from "portfolio project" to "production-ready tool" the moment I get API credentials. It shows I've already read the documentation and understand how to query the data correctly without creating unnecessary load on the system.
 
@@ -193,11 +193,11 @@ If you've read this far without getting lost, here's the one-sentence version of
 | **Layer 2** | A system that detects server problems in the telemetry data before customers open tickets |
 | **Layer 3** | A forecast that tells you how many support tickets to expect and how many engineers to hire |
 | **Layer 4** | A risk score for every open ticket, highlighting which ones will damage the customer relationship if ignored |
-| **Real Estate** | Evidence that the statistical methods used here were learned rigorously through structured coursework |
+| **IBM Foundation** | Evidence that the statistical methods used here were learned rigorously, not copied from Stack Overflow |
 | **Data Generator** | Proof of the ability to build analytical systems without waiting for someone else to provide the data |
 | **API Integration** | Proof that this can transition from a portfolio project to a production tool without rewriting everything |
 
 ---
 
-*Mario Casanova | Data Science & Analytics Portfolio*
+*Mario Casanova | Analytics Engineering Portfolio*
 *For deep technical details: see `TECHNICAL_GUIDE.md`*

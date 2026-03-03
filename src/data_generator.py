@@ -1,16 +1,16 @@
 """
-Cloud Infrastructure Support — Synthetic Data Generator
-========================================================
-Generates realistic synthetic datasets for an enterprise support operations
-analytics portfolio, simulating HCI (Hyper-Converged Infrastructure) support.
+Nutanix GSO Synthetic Data Generator
+=====================================
+Generates realistic synthetic datasets for a Global Support Organization (GSO)
+analytics portfolio, simulating Nutanix HCI support operations.
 
 Datasets produced:
   1. support_tickets.csv   — 100,000 support tickets with TTR, priority, region, NPS
   2. pulse_telemetry.csv   — Time-series telemetry (IO latency, CPU, IOPS) per cluster
-  3. migration_cohorts.csv — Hypervisor migration wave tracking
+  3. migration_cohorts.csv — VMware-to-AHV migration wave tracking
 
 Usage:
-    python cloud_infrastructure_support/src/data_generator.py
+    python src/data_generator.py
     # or from a notebook:
     from src.data_generator import generate_all_datasets
     tickets, telemetry, migrations = generate_all_datasets()
@@ -33,7 +33,7 @@ N_CLUSTERS   = 500
 START_DATE   = datetime(2022, 1, 1)
 END_DATE     = datetime(2024, 12, 31)
 
-# Infrastructure OS / hypervisor version cohorts (realistic HCI naming)
+# Nutanix AOS / AHV version cohorts (realistic naming)
 AOS_VERSIONS = [
     "6.1.1", "6.1.2", "6.5", "6.5.1", "6.5.2",
     "6.7", "6.7.1", "6.8", "6.8.1", "6.8.2"
@@ -63,7 +63,7 @@ TTR_PARAMS = {
     "P4": {"mean": 96.0, "std": 48.0, "min": 8.0},
 }
 
-# Priority distribution (realistic enterprise support mix)
+# Priority distribution (realistic GSO mix)
 PRIORITY_WEIGHTS = [0.08, 0.22, 0.45, 0.25]  # P1, P2, P3, P4
 
 
@@ -74,7 +74,7 @@ def _random_date(start: datetime, end: datetime) -> datetime:
 
 
 def _ttr_hours(priority: str, is_migrating: bool, aos_version: str) -> float:
-    """Sample TTR with realistic modifiers for migration stress and older platform versions."""
+    """Sample TTR with realistic modifiers for migration stress and older AOS."""
     p = TTR_PARAMS[priority]
     ttr = np.random.lognormal(
         mean=np.log(max(p["mean"], 0.1)),
@@ -86,7 +86,7 @@ def _ttr_hours(priority: str, is_migrating: bool, aos_version: str) -> float:
     if is_migrating:
         ttr *= np.random.uniform(1.15, 1.55)
 
-    # Older platform versions have higher complexity → longer TTR
+    # Older AOS versions have higher complexity → longer TTR
     version_index = AOS_VERSIONS.index(aos_version)
     if version_index < 3:  # oldest versions
         ttr *= np.random.uniform(1.10, 1.30)
@@ -200,7 +200,7 @@ def generate_support_tickets(n: int = N_TICKETS) -> pd.DataFrame:
 def generate_pulse_telemetry(cluster_ids: list | None = None,
                              days: int = 365 * 3) -> pd.DataFrame:
     """
-    Generate synthetic infrastructure telemetry time series.
+    Generate synthetic Nutanix Pulse telemetry time series.
 
     One reading per cluster per hour for `days` days would be too large;
     instead we generate daily aggregates with hourly-resolution anomaly windows.
@@ -214,7 +214,7 @@ def generate_pulse_telemetry(cluster_ids: list | None = None,
     if cluster_ids is None:
         cluster_ids = [f"CL-{str(i).zfill(5)}" for i in range(50)]  # 50 clusters for telemetry
 
-    print(f"[data_generator] Generating telemetry for {len(cluster_ids)} clusters × {days} days...")
+    print(f"[data_generator] Generating Pulse telemetry for {len(cluster_ids)} clusters × {days} days...")
 
     date_range = pd.date_range(start=START_DATE, periods=days, freq="D")
     rows = []
@@ -266,7 +266,7 @@ def generate_pulse_telemetry(cluster_ids: list | None = None,
 
 def generate_migration_cohorts() -> pd.DataFrame:
     """
-    Generate hypervisor migration cohort tracking data.
+    Generate VMware-to-AHV migration cohort tracking data.
     Simulates wave-based migrations with start/completion dates and cluster counts.
     """
     print("[data_generator] Generating migration cohort data...")
@@ -291,7 +291,7 @@ def generate_migration_cohorts() -> pd.DataFrame:
             "duration_days":     duration_days,
             "n_clusters":        n_clusters,
             "source_platform":   "VMware vSphere",
-            "target_platform":   "Native Hypervisor (AHV)",
+            "target_platform":   "Nutanix AHV",
             "aos_target_version": random.choice(AOS_VERSIONS[-4:]),  # always recent
             "status":            "Completed" if end_date < datetime.now() else "In Progress",
         })
