@@ -89,6 +89,17 @@ Applies deterministic numerical methods and sparse linear algebra to simulate Ha
 | `01_Rutherford...` | Symplectic Kinematics | Verlet Integrators, Monte Carlo Ensembles, Numba JIT |
 | `02_Schrodinger...` | Quantum Tunneling | Crank-Nicolson PDEs, Tridiagonal Sparse Matrices |
 
+### Subscription Economics & Product Analytics
+**`subscription_economics/`**
+
+Simulates a SaaS/Hardware (IoT) Data Warehouse to analyze unit economics, behavior telemetry, and product optimization.
+
+| Notebook | Focus Area | Techniques |
+|---|---|---|
+| `01_Cohort_Retention...` | Unit Economics | Cohort Analysis, Hardware Attach Rate, ARPU, LTV Projections |
+| `02_Churn_Prediction...` | Behavioral Analytics | Stickiness Ratio (DAU/MAU), Logistic Regression for Churn Propensity |
+| `03_AB_Testing...` | Product Optimization | Hypothesis Testing, Z-Tests, A/B Test Inference (Conversion Rates) |
+
 ### Future Case Studies (Planned)
 
 | Domain | Focus Area |
@@ -186,6 +197,15 @@ Applies deterministic numerical methods and sparse linear algebra to simulate Ha
     │   └── 02_Schrodinger_Crank_Nicolson.ipynb
     ├── src/
     │   └── data_generator.py         ← Monte Carlo parameter generation
+    └── data/
+│
+└── subscription_economics/           ← Case study: SaaS Product Analytics
+    ├── notebooks/
+    │   ├── 01_Cohort_Retention_and_LTV.ipynb
+    │   ├── 02_Churn_Prediction_Telemetry.ipynb
+    │   └── 03_AB_Testing_Onboarding.ipynb
+    ├── src/
+    │   └── data_generator.py         ← Synthetic SQL/DWH builder (Hardware/SaaS)
     └── data/
 ```
 
