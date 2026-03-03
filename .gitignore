@@ -1,5 +1,5 @@
 # Data files (too large for git)
-data/synthetic/*.csv
+**/data/synthetic/*.csv
 
 # Python
 __pycache__/
