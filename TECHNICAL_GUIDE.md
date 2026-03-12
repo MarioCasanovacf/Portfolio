@@ -8,6 +8,7 @@
 
 ## Table of Contents
 
+### Cloud Infrastructure Support
 1. [System Architecture](#1-system-architecture)
 2. [Data Architecture — Synthetic Dataset Design](#2-data-architecture)
 3. [Layer 1 — Descriptive Analytics Deep Dive](#3-layer-1-descriptive-analytics)
@@ -16,47 +17,75 @@
 6. [Layer 4 — Prescriptive Analytics Deep Dive](#6-layer-4-prescriptive-analytics)
 7. [Extension Guide — Moving to Real Data](#7-extension-guide)
 
+### Additional Case Studies
+8. [Quantitative Finance](#8-quantitative-finance)
+9. [Macroeconomic Capture](#9-macroeconomic-capture)
+10. [Proteins & Structural Biology](#10-proteins--structural-biology)
+11. [Continental Philosophy](#11-continental-philosophy)
+12. [Computational Physics](#12-computational-physics)
+13. [Subscription Economics & Product Analytics](#13-subscription-economics--product-analytics)
+
 ---
 
 ## 1. System Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                         DATA SOVEREIGNTY LAYER                          │
-│                                                                          │
-│  cloud_infrastructure_support/src/data_generator.py                      │
-│  ├── generate_support_tickets()   → 100,000 rows / 17 columns            │
-│  ├── generate_pulse_telemetry()   →  54,750 rows /  8 columns            │
-│  └── generate_migration_cohorts() →      24 rows / 11 columns            │
-│                           ↓                                              │
-│           cloud_infrastructure_support/data/synthetic/*.csv              │
-└──────────────────────────┬──────────────────────────────────────────────┘
-                           │  all notebooks read from here
-          ┌────────────────┴────────────────┐
-          │                                 │
-┌─────────▼──────────┐           ┌──────────▼──────────┐
-│   Layer 1 (01_)    │           │   Layer 2 (02_)      │
-│   Descriptive      │           │   Diagnostic         │
-│   pandas / seaborn │           │   statsmodels STL    │
-│   scipy.stats      │           │   GESD / 3σ          │
-└─────────┬──────────┘           └──────────┬───────────┘
-          │                                 │
-┌─────────▼──────────┐           ┌──────────▼──────────┐
-│   Layer 3 (03_)    │           │   Layer 4 (04_)      │
-│   Predictive       │           │   Prescriptive       │
-│   SARIMA           │           │   Random Forest      │
-│   Ljung-Box / RMSE │           │   Logistic Reg.      │
-└────────────────────┘           └─────────────────────┘
-          │
-┌─────────▼──────────┐
-│   Layer 5 (05_)    │
-│   API Integration  │
-│   REST API + SDK   │
-│   OpenAPI / OData  │
-└────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          DATA SOVEREIGNTY LAYER                              │
+│                                                                              │
+│  Each case study owns its data pipeline:                                     │
+│  ├── cloud_infrastructure_support/src/data_generator.py                      │
+│  │   ├── generate_support_tickets()   → 100,000 rows / 17 columns           │
+│  │   ├── generate_pulse_telemetry()   →  54,750 rows /  8 columns           │
+│  │   └── generate_migration_cohorts() →      24 rows / 11 columns           │
+│  ├── quantitative_finance/src/data_generator.py                              │
+│  │   ├── LOB tick events              →  synthetic L2 order book             │
+│  │   └── Correlated asset returns     →  multi-asset correlation matrix      │
+│  ├── macroeconomic_capture/src/data_generator.py                             │
+│  │   ├── Sovereign budget constraint  →  quarterly fiscal series             │
+│  │   └── Corporate zombie panel       →  1,000 firms × financial metrics     │
+│  ├── continental_philosophy/src/data_generator.py                            │
+│  │   ├── Hegelian triplets (NLP)      →  semantic knowledge graph            │
+│  │   └── Kojevian agent population    →  1,000 agents × trait vectors        │
+│  ├── computational_physics/src/data_generator.py                             │
+│  │   ├── Rutherford particle ensemble →  5,000 alpha particles               │
+│  │   └── Quantum barrier profile      →  spatial potential grid              │
+│  ├── subscription_economics/src/data_generator.py                            │
+│  │   ├── Hardware users + subs        →  SaaS/IoT data warehouse             │
+│  │   └── Telemetry logs               →  daily app usage events              │
+│  └── proteins_*/src/data_fetcher.py                                          │
+│      └── RCSB PDB coordinate fetch    →  atomic 3D coordinates               │
+└──────────────────────────┬──────────────────────────────────────────────────┘
+                           │
+        ┌──────────────────┼──────────────────┐
+        │                  │                  │
+        ▼                  ▼                  ▼
+┌───────────────┐  ┌───────────────┐  ┌───────────────┐
+│ CLOUD INFRA   │  │ QUANT FINANCE │  │ MACRO CAPTURE │
+│ SUPPORT (5)   │  │           (3) │  │           (2) │
+│ Descriptive   │  │ LOB Recon     │  │ Fiscal        │
+│ Diagnostic    │  │ Heston MC     │  │ Crowding-Out  │
+│ Predictive    │  │ HRP Portfolio │  │ Zombie Corps  │
+│ Prescriptive  │  └───────────────┘  └───────────────┘
+│ API Integr.   │
+└───────────────┘  ┌───────────────┐  ┌───────────────┐
+                   │ PROTEINS (2)  │  │ PHILOSOPHY (2)│
+┌───────────────┐  │ AlphaFold     │  │ Dialectical   │
+│ COMP PHYSICS  │  │ Distance Map  │  │ Knowledge     │
+│           (2) │  │ Ramachandran  │  │ Graph         │
+│ Rutherford    │  │ Dihedral Plot │  │ Kojève Game   │
+│ Schrödinger   │  └───────────────┘  │ Theory        │
+└───────────────┘                     └───────────────┘
+                   ┌───────────────┐
+                   │ SUBSCRIPTION  │  ┌───────────────┐
+                   │ ECONOMICS (3) │  │ REAL ESTATE   │
+                   │ Cohort LTV    │  │           (1) │
+                   │ Churn Pred.   │  │ King County   │
+                   │ A/B Testing   │  │ Regression    │
+                   └───────────────┘  └───────────────┘
 ```
 
-**Key design decision:** All notebooks are independent and can run in any order as long as the CSV files exist. Running `python cloud_infrastructure_support/src/data_generator.py` first is the only prerequisite.
+**Key design decision:** All notebooks are independent. Each case study is self-contained with its own `src/data_generator.py` (or `data_fetcher.py`). Running the generator first is the only prerequisite per case study.
 
 ---
 
@@ -480,6 +509,546 @@ Quarterly:
   → Review GESD threshold (Layer 2)
   → Validate staffing formula constants against actual hiring data
 ```
+
+---
+
+## 8. Quantitative Finance
+
+**Directory:** `quantitative_finance/`
+**Libraries:** numpy, pandas, matplotlib, seaborn, scipy, asyncio
+
+### 8.1 Limit Order Book Reconstruction
+
+**File:** `quantitative_finance/notebooks/01_LOB_Reconstruction.ipynb`
+
+**What it does:** Reconstructs the state of a Level 2 Limit Order Book (LOB) asynchronously from tick-by-tick market data events. Maintains dual dictionaries (bids/asks) mapping price levels to cumulative size, processing order submissions, cancellations, and executions.
+
+**Key metrics computed:**
+- **Mid-price:** `Mid = (Best Ask + Best Bid) / 2`
+- **Effective spread:** `Spread = Best Ask - Best Bid` (basis points)
+- **OHLC aggregation:** Microsecond-level events resampled to 1-second bars via forward-fill
+
+**Implementation detail — asynchronous processing:**
+```python
+async def process_event(event, book):
+    if event.type == 1:         # submission → add to book
+        book[event.side][event.price] += event.size
+    elif event.type in (2, 3):  # cancel/execute → remove
+        book[event.side][event.price] -= event.size
+```
+Uses Python's `asyncio` to simulate concurrent event handling with proper event loop yielding — the same pattern used in production ultra-low-latency systems, though real HFT would use C++ or Rust.
+
+**Book consistency validation:** Before recording metrics, the notebook validates `best_bid < best_ask`. A crossed book (bid ≥ ask) indicates a processing error or a momentary arbitrage opportunity that would be immediately consumed.
+
+**What if you change this:**
+- Remove the consistency check → crossed book events appear in the spread time series as negative values, producing misleading analytics
+- Increase event volume 10× → mid-price shows less volatile tick-to-tick swings (law of large numbers smooths noise)
+- Change event type probabilities → non-uniform order flow creates directional bias in mid-price momentum
+
+### 8.2 Exotic Options — Heston Stochastic Volatility
+
+**File:** `quantitative_finance/notebooks/02_Exotic_Options_Heston.ipynb`
+
+**What it does:** Values a discrete arithmetic average Asian Call option via Monte Carlo simulation under the Heston stochastic volatility model. Asian options are path-dependent — payoff depends on the average price over the option's life, not just the terminal price.
+
+**Heston model dynamics:**
+```
+Asset:    dS = r·S·dt + √v·S·dW_S
+Variance: dv = κ(θ - v)·dt + ξ·√v·dW_v    (CIR process)
+Correlation: ρ between dW_S and dW_v        (leverage effect)
+```
+
+**Euler-Maruyama discretization with correlated Brownian motions:**
+```python
+Z_v = np.random.normal(0, 1)
+Z_s = rho * Z_v + sqrt(1 - rho**2) * np.random.normal(0, 1)
+v_next = np.maximum(0, v + kappa*(theta - v)*dt + xi*sqrt(v)*sqrt(dt)*Z_v)
+S_next = S * np.exp((r - 0.5*v)*dt + sqrt(v)*sqrt(dt)*Z_s)
+```
+
+**Why `np.maximum(0, v)`?** The CIR process can produce negative variance in discrete simulation (the continuous process cannot). The floor at zero is the simplest fix; alternatives include the Milstein scheme or the QE scheme (Andersen 2008) for better accuracy near zero.
+
+**Monte Carlo valuation:** `V = e^{-rT} × E[max(S̄ - K, 0)]` where S̄ is the arithmetic average. Standard error decreases as 1/√N with N paths. At 50,000 paths, SE is typically ±$0.04 on a ~$1.20 option value.
+
+**What if you change this:**
+- Increase κ (faster mean reversion) → volatility anchors to θ more quickly → path variance shrinks → option value decreases
+- Change ρ from −0.7 to +0.7 → positive leverage effect (vol rises with prices) → right-tail fattening → call option becomes more expensive
+- Reduce ξ (lower vol-of-vol) → volatility becomes more predictable → Heston converges toward Black-Scholes behavior
+- Increase N from 50k to 500k → SE shrinks by √10 ≈ 3.16× → reveals price estimate precision to 4 decimal places
+
+### 8.3 Hierarchical Risk Parity (HRP)
+
+**File:** `quantitative_finance/notebooks/03_Hierarchical_Risk_Parity.ipynb`
+
+**What it does:** Implements the HRP portfolio construction method (López de Prado, 2016) that avoids the numerical instability of Markowitz mean-variance optimization. Instead of inverting the covariance matrix (ill-conditioned for correlated assets), HRP uses hierarchical clustering to partition assets by correlation topology, then allocates capital recursively.
+
+**Step-by-step algorithm:**
+
+1. **Correlation → Distance transform:** `D_ij = √(0.5(1 - ρ_ij))` — converts correlation matrix to a proper metric space satisfying the triangle inequality
+
+2. **Hierarchical clustering (Ward's method):** Agglomerative algorithm minimizing within-cluster variance. Produces a dendrogram showing asset relationships.
+
+3. **Quasi-diagonalization:** Reorder assets via dendrogram leaf positions so correlated assets sit adjacent — this is what makes recursive bisection work.
+
+4. **Recursive bisection:**
+```python
+def allocate(cluster, weights):
+    if len(cluster) == 1:
+        weights[cluster[0]] = 1.0
+        return
+    left, right = split(cluster)
+    var_left  = cluster_variance(left, cov)
+    var_right = cluster_variance(right, cov)
+    alpha = 1 - var_left / (var_left + var_right)
+    allocate(left, weights * alpha)
+    allocate(right, weights * (1 - alpha))
+```
+Capital is allocated inversely proportional to cluster variance — riskier clusters receive less capital.
+
+5. **Inverse Variance Portfolio (IVP) within clusters:** `w_i = (1/σ_i²) / Σ(1/σ_j²)`
+
+**Why HRP over Markowitz?**
+Markowitz requires inverting Σ (covariance matrix). For N > 50 correlated assets, Σ is nearly singular — small estimation errors in correlations produce wildly unstable weights. HRP never inverts Σ; it only uses pairwise distances and cluster variances.
+
+**What if you change this:**
+- Change Ward → single linkage → clusters become stringy/linear; less balanced allocation across sectors
+- Use Spearman instead of Pearson correlations → more robust to outliers; HRP weights shift toward tail-resilient assets
+- Swap IVP with equal-weight within clusters → removes size bias; tends to over-weight volatile assets
+
+---
+
+## 9. Macroeconomic Capture
+
+**Directory:** `macroeconomic_capture/`
+**Libraries:** numpy, pandas, matplotlib, seaborn, scipy, sklearn
+
+### 9.1 Fiscal Crowding-Out
+
+**File:** `macroeconomic_capture/notebooks/01_Fiscal_Crowding_Out.ipynb`
+
+**What it does:** Quantifies the fiscal crowding-out hypothesis: government deficit spending drives up sovereign bond yields, which increases private sector borrowing costs, thereby reducing private capital formation.
+
+**Government Budget Constraint (GBC):**
+```
+G_t + r·B_{t-1} = T_t + B_t + ΔM_t
+
+G_t      = Government spending
+r·B_{t-1} = Debt service cost (interest on outstanding debt)
+T_t      = Tax revenue
+B_t      = New debt issuance
+ΔM_t     = Monetary expansion (central bank accommodation)
+```
+
+**Key computations:**
+- **Primary deficit:** `Deficit_t = G_t - T_t` (excludes debt service)
+- **Debt service:** `Service_t = B_{t-1} × (r_t / 4)` (quarterly annualization)
+- **Total deficit:** Primary deficit + debt service
+- **Crowding-out coefficient:** Pearson correlation between 10Y sovereign yield and private capital formation
+
+**What if you change this:**
+- Increase primary deficit by 50% → debt accumulates faster → yield curve steepens → crowding-out effect amplified
+- Monetary accommodation (ΔM increases) → reduces sovereign yield pressure → private capital formation less crowded out
+- Halve the interest rate → debt service costs drop → total deficit shrinks → less treasury issuance needed
+- Include corporate tax sensitivity → higher sovereign yields → higher corporate borrowing cost → earnings pressure → reduced capex → negative feedback loop
+
+### 9.2 Zombie Corporations — Schumpeterian Survival Analysis
+
+**File:** `macroeconomic_capture/notebooks/02_Zombie_Corporations.ipynb`
+
+**What it does:** Identifies "zombie corporations" — firms that cannot service debt from operating income (ICR < 1) but persist through government subsidies, preventing Schumpeterian creative destruction. Uses DBSCAN clustering to detect anomalous concentrations of subsidized insolvency.
+
+**Zombie identification metrics:**
+- **Interest Coverage Ratio (ICR):** `EBIT / Interest Expense` — ICR < 1 means the firm cannot pay interest from operations
+- **Debt-to-Equity:** Leverage ratio indicating financial fragility
+- **State Subsidies:** Government transfer value keeping insolvent firms alive
+
+**DBSCAN clustering:**
+```python
+from sklearn.cluster import DBSCAN
+from sklearn.preprocessing import StandardScaler
+
+X_scaled = StandardScaler().fit_transform(df[['icr', 'debt_equity', 'subsidies']])
+labels = DBSCAN(eps=0.8, min_samples=20).fit_predict(X_scaled)
+```
+
+**Why DBSCAN and not K-Means?**
+K-Means requires specifying k (number of clusters) and assumes spherical, equal-size clusters. DBSCAN finds arbitrarily shaped clusters and naturally identifies noise points (outliers). Zombie firms are precisely these outliers — they exist in sparse regions of the ICR × leverage × subsidy space where healthy firms don't cluster.
+
+**What if you change this:**
+- Increase eps (DBSCAN tolerance) → clusters merge → noise points absorb into productive clusters → zombie detection sensitivity decreases
+- Change min_samples from 20 to 5 → smaller clusters detected → more granular sector identification
+- Raise ICR threshold from 1.0 to 1.5 → stricter solvency standard → more firms classified as vulnerable
+- Add time dimension (multi-period panel) → track zombie persistence probability → show whether subsidies are temporary or permanently sticky
+
+---
+
+## 10. Proteins & Structural Biology
+
+**Directories:** `proteins_alphafold_distances/`, `proteins_ramachandran_plot/`
+**Libraries:** numpy, pandas, matplotlib, seaborn, scipy
+
+### 10.1 AlphaFold Spatial Distance Matrix
+
+**File:** `proteins_alphafold_distances/notebooks/01_AlphaFold_Spatial_Distances.ipynb`
+
+**What it does:** Transforms 3D protein atomic coordinates (from PDB files) into a 2D Euclidean distance matrix, revealing topological density and identifying spatially proximal regions that may indicate functional domains or active sites.
+
+**PDB file parsing:**
+```python
+# Fixed-width format (PDB standard)
+# Columns 12:16 = atom name (filter for CA = Alpha Carbon)
+# Columns 22:26 = residue number
+# Columns 30:38, 38:46, 46:54 = X, Y, Z coordinates (Angstroms)
+```
+
+**Why alpha carbons only?**
+Each amino acid has ~8–20 atoms. Using all atoms for a 200-residue protein gives a 3,000×3,000 matrix — noisy and dominated by local side-chain distances. Alpha carbons (one per residue) reduce this to 200×200 while preserving the backbone geometry that defines the fold.
+
+**Distance matrix computation:**
+```python
+from scipy.spatial import distance_matrix
+D = distance_matrix(coords, coords)  # N × N symmetric matrix
+```
+`D_ij = √((x_i - x_j)² + (y_i - y_j)² + (z_i - z_j)²)` — Euclidean distance in Angstroms.
+
+**Reading the heatmap:**
+- Main diagonal: always 0 (distance to self)
+- Off-diagonal warm bands: long-range spatial contacts (residues far in sequence but close in 3D space) — these indicate secondary/tertiary structure (helices, sheets, disulfide bridges)
+- Uniform light color: regions with no spatial proximity → flexible loops or disordered regions
+
+**What if you change this:**
+- Include all atoms (not just CA) → matrix becomes denser; high-frequency local noise obscures fold-level signal
+- Threshold distances (e.g., only show d < 8Å) → binary contact map reveals hydrogen-bond network directly
+- Apply PCA to the distance matrix → top 2 eigenvectors reveal principal folding axes; 2D projection of 3D fold
+- Change protein (e.g., from 1UBQ to a multi-chain complex) → inter-chain distances now visible; identifies domain interfaces
+
+### 10.2 Ramachandran Plot — Dihedral Angle Computation
+
+**File:** `proteins_ramachandran_plot/notebooks/01_Ramachandran_Plot_Generator.ipynb`
+
+**What it does:** Computes backbone dihedral angles (φ, ψ) from raw atomic coordinates using vector calculus (cross products, dot products, atan2). The resulting Ramachandran plot reveals sterically allowed conformations and identifies secondary structure.
+
+**Dihedral angle calculation (from-scratch, no library):**
+For four consecutive backbone atoms (p0, p1, p2, p3):
+```python
+b1 = p1 - p0    # bond vector 1
+b2 = p2 - p1    # bond vector 2 (rotation axis)
+b3 = p3 - p2    # bond vector 3
+
+n1 = cross(b1, b2)       # normal to plane 1
+n2 = cross(b2, b3)       # normal to plane 2
+m1 = cross(n1, b2/|b2|)  # projection vector
+
+angle = atan2(dot(m1, n2), dot(n1, n2))  # signed angle in [-π, π]
+```
+
+**Why atan2 instead of acos?**
+`acos(dot(n1, n2))` only gives the unsigned angle [0°, 180°]. `atan2` preserves sign (quadrant information), giving the full [-180°, 180°] range. This is critical — φ = -60° (alpha helix) and φ = +60° (left-handed helix) are biologically very different conformations.
+
+**Angle definitions:**
+- **φ (phi):** Dihedral of (C_prev, N, CA, C) — rotation around the N-CA bond
+- **ψ (psi):** Dihedral of (N, CA, C, N_next) — rotation around the CA-C bond
+
+**Expected clusters in the Ramachandran plot:**
+| Region | φ (approx) | ψ (approx) | Structure |
+|---|---|---|---|
+| α-helix | -60° | -45° | Right-handed helix |
+| β-sheet | -120° | +120° | Extended strand |
+| Left-handed helix | +60° | +45° | Rare (Gly only) |
+
+**What if you change this:**
+- Analyze a disordered protein → scatter becomes diffuse with no clusters → indicates conformational flexibility
+- Separate Proline residues → restricted φ range (-60° only) due to cyclic structure; distinct sub-population
+- Apply to MD simulation trajectory → watch clusters shift over time; conformational sampling dynamics
+- Use hexbin with linear scale instead of log → dominant clusters (α-helix) overwhelm rare conformations; log scale reveals full distribution
+
+---
+
+## 11. Continental Philosophy
+
+**Directory:** `continental_philosophy/`
+**Libraries:** numpy, pandas, networkx, matplotlib, seaborn
+
+### 11.1 Dialectical Knowledge Graph
+
+**File:** `continental_philosophy/notebooks/01_Dialectical_Knowledge_Graph.ipynb`
+
+**What it does:** Operationalizes Hegelian phenomenology by converting philosophical text into a machine-readable knowledge graph. Triplets (Subject-Predicate-Object) create a directed graph where Eigenvector Centrality reveals which concepts absorb the most logical weight as the dialectic progresses toward absolute knowledge.
+
+**Triplet extraction:**
+```python
+# Philosophical assertions → (Subject, Predicate, Object)
+("Being", "transitions_toward", "Nothing")
+("Nothing", "aufhebung_toward", "Becoming")
+("Becoming", "confluences_in", "Self-knowledge")
+```
+
+**Directed graph construction:**
+```python
+import networkx as nx
+G = nx.DiGraph()
+for subj, pred, obj in triplets:
+    G.add_edge(subj, obj, relation=pred)
+```
+
+**Eigenvector centrality — the key metric:**
+Solves the eigenvalue problem `Ax = λx` where A is the adjacency matrix. A node's centrality is high if it is pointed to by other high-centrality nodes. This captures the Hegelian intuition that later concepts (Becoming, Spirit) "contain" and "sublate" earlier ones.
+
+```python
+centrality = nx.eigenvector_centrality(G, max_iter=1000, tol=1e-6)
+```
+
+**Why eigenvector centrality and not degree centrality?**
+Degree centrality counts connections equally. Eigenvector centrality weights connections by the importance of the connecting node. In the dialectic, a concept derived from "Spirit" carries more weight than one derived from "Sense-Certainty" — eigenvector centrality captures this hierarchical accumulation.
+
+**Visualization:** Kamada-Kawai force-directed layout. Node size proportional to centrality score (normalized to [0, 100]). Edge arrows show logical flow; color-coded by relation type.
+
+**What if you change this:**
+- Use betweenness centrality instead → reveals which concepts are "bridges" between historically disparate stages (information bottlenecks)
+- Add bidirectional edges → removes temporal hierarchy; all concepts become equi-weighted; dialectical directionality lost
+- Weight aufhebung edges 2× → concepts connected via sublation dominate; pure logical relations deprioritized
+
+### 11.2 Kojève Evolutionary Game Theory
+
+**File:** `continental_philosophy/notebooks/02_Kojeve_Evolutionary_Game_Theory.ipynb`
+
+**What it does:** Operationalizes Alexandre Kojève's historical dialectic as a stochastic agent-based model. 1,000 agents with continuous "Desire for Recognition" vs. "Fear of Death" parameters interact in asymmetric payoff tournaments. The system exhibits phase transitions from neutral plurality → master/slave bifurcation → universal homogeneous state.
+
+**Asymmetric payoff matrix:**
+```
+                    Agent B advances    Agent B yields
+Agent A advances    (Extinct, Extinct)  (Master, Slave)
+Agent A yields      (Slave, Master)     (Neutral, Neutral)
+
+Decision rule: Agent advances if Desire > Fear
+```
+
+**Struggle resolution and sublation:**
+```python
+for epoch in range(N_EPOCHS):
+    np.random.shuffle(agents)
+    for i in range(0, len(agents), 2):
+        a, b = agents[i], agents[i+1]
+        a_advances = a.desire > a.fear
+        b_advances = b.desire > b.fear
+        if a_advances and b_advances:
+            a.status = b.status = 'Extinct'
+        elif a_advances and not b_advances:
+            a.status, b.status = 'Extractive', 'Productive'
+        # ... symmetric cases
+    # Sublation: Master-Slave pairs → Universal Citizens
+    # Probability: 30% per epoch per pair
+```
+
+**Phase transition dynamics:**
+The system exhibits an S-curve: slow initial bifurcation (most agents are Neutral), rapid class formation (Master/Slave pairs multiply), then sublation drives convergence to the Universal State. Once the Universal Citizen threshold is crossed, the reverse transition is negligible — it's an absorbing state, demonstrating the "End of History" thesis computationally.
+
+**What if you change this:**
+- Set sublation probability to 0 → Master/Slave classes persist indefinitely; system locks into extractive topology (no historical end)
+- Increase sublation probability from 0.3 to 0.7 → system converges to Universal State by epoch 8 (vs. 12–15); history "accelerates"
+- Change threshold from `Desire > Fear` to `Desire > 2*Fear` → fewer agents advance; Neutral class dominates; bifurcation delayed
+- Add agent learning (adjust Fear/Desire based on outcome history) → system exhibits chaotic dynamics; convergence becomes non-monotonic
+
+---
+
+## 12. Computational Physics
+
+**Directory:** `computational_physics/`
+**Libraries:** numpy, pandas, matplotlib, seaborn, scipy, numba
+
+### 12.1 Rutherford Scattering — Velocity-Verlet Integrator
+
+**File:** `computational_physics/notebooks/01_Rutherford_Scattering_Simulation.ipynb`
+
+**What it does:** Simulates alpha particle scattering off a gold nucleus under Coulomb potential using the Velocity-Verlet symplectic integrator. A 5,000-particle ensemble undergoes elastic scattering; the final angle distribution validates the Rutherford scattering formula.
+
+**Coulomb force:**
+```
+F = k_e × q₁ × Q / r²    (radial, repulsive)
+k_e = 1.0 (naturalized units)
+Q = 79 (gold nucleus charge)
+q₁ = +2 (alpha particle charge)
+```
+
+**Velocity-Verlet integration (symplectic):**
+```python
+@numba.jit(nopython=True)
+def step(x, y, vx, vy, dt):
+    ax, ay = acceleration(x, y)
+    x_new = x + vx*dt + 0.5*ax*dt**2
+    y_new = y + vy*dt + 0.5*ay*dt**2
+    ax_new, ay_new = acceleration(x_new, y_new)
+    vx_new = vx + 0.5*(ax + ax_new)*dt
+    vy_new = vy + 0.5*(ay + ay_new)*dt
+    return x_new, y_new, vx_new, vy_new
+```
+
+**Why Velocity-Verlet and not Euler?**
+Euler integration is non-symplectic — it does not preserve the Hamiltonian (total energy). Over thousands of time steps, energy drifts artificially. Verlet preserves phase space volume (Liouville's theorem), keeping the total energy `E = ½m(vx² + vy²) + V(r)` constant to machine precision.
+
+**Singularity handling:** `r² = max(x² + y², 1.0)` — a smoothing floor prevents the force from diverging when particles pass very close to the nucleus. Without this, the integrator would produce NaN or infinite velocities.
+
+**Numba JIT:** `@jit(nopython=True)` compiles the inner loop to machine code, achieving ~100× speedup vs. pure Python. Essential for 5,000 particles × 5,000 time steps = 25 million force evaluations.
+
+**Expected result:** Scattering angle histogram shows a power-law tail at large angles, validating the Rutherford formula: `dσ/dΩ ∝ sin⁻⁴(θ/2)`.
+
+**What if you change this:**
+- Increase Q (nucleus charge) from 79 to 200 → stronger Coulomb repulsion → more backscattering → cross section increases ∝ Q²
+- Switch to Euler integrator → energy drifts; particles appear to "stick" near nucleus after many orbits
+- Remove Numba → same results but 100× slower; impractical for ensemble sizes > 500
+- Add magnetic field (Lorentz force) → helical trajectories; breaks azimuthal symmetry
+
+### 12.2 Schrödinger Equation — Crank-Nicolson Method
+
+**File:** `computational_physics/notebooks/02_Schrodinger_Crank_Nicolson.ipynb`
+
+**What it does:** Solves the time-dependent Schrödinger equation numerically to simulate quantum tunneling of a Gaussian wave packet through a potential barrier. Computes the transmission coefficient (fraction of probability amplitude that penetrates the barrier).
+
+**Schrödinger equation (1D, natural units ℏ = 2m = 1):**
+```
+i ∂Ψ/∂t = (-∂²/∂x² + V(x)) Ψ
+```
+
+**Crank-Nicolson scheme (implicit, unconditionally stable):**
+```
+(I + iΔt/2 · H) Ψⁿ⁺¹ = (I - iΔt/2 · H) Ψⁿ
+```
+
+**Why Crank-Nicolson and not explicit Euler?**
+Explicit methods for the Schrödinger equation require `Δt < Δx²/2` for stability (CFL condition). Crank-Nicolson is unconditionally stable for any Δt — you can choose Δt for accuracy rather than stability. More importantly, it conserves the norm `∫|Ψ|² dx = 1` exactly, which is physically required (total probability must be 1).
+
+**Tridiagonal matrix structure:**
+```python
+from scipy.sparse import diags
+from scipy.sparse.linalg import splu
+
+# Hamiltonian matrix (tridiagonal)
+main_diag = 2/dx**2 + V       # N elements
+off_diag  = -1/dx**2 * ones   # N-1 elements
+H = diags([off_diag, main_diag, off_diag], [-1, 0, 1], format='csc')
+
+# LU factorize once, solve many times
+M_L = splu(I + 0.5j*dt*H)
+for step in range(n_steps):
+    rhs = (I - 0.5j*dt*H) @ psi
+    psi = M_L.solve(rhs)
+```
+
+**LU pre-factorization:** The matrix `(I + iΔt/2 · H)` never changes. Factorizing once via `splu()` and reusing the factors for each time step reduces the per-step cost from O(N³) to O(N).
+
+**Initial Gaussian wave packet:**
+```
+Ψ(x,0) = exp(-(x-x₀)²/(2σ²)) × exp(ik₀x)
+```
+Gaussian envelope (localized in space) × plane wave (definite momentum k₀). The uncertainty principle guarantees Δx·Δp ≥ ℏ/2 — a narrower packet (smaller σ) has more momentum spread.
+
+**Transmission coefficient:** `T = ∫_{x > barrier} |Ψ_final|² dx` — fraction of probability that tunneled through.
+
+**What if you change this:**
+- Increase barrier height (V₀) → transmission drops exponentially; at V₀ = 100, transmission < 1%
+- Widen barrier → transmission ∝ e^{-2√(2m(V-E))·L/ℏ}; doubling width roughly halves the log-transmission
+- Increase initial momentum k₀ → higher kinetic energy → barrier appears relatively lower → transmission increases strongly
+- Decrease σ (sharper packet) → momentum uncertainty increases (uncertainty principle) → some components tunnel, others reflect → richer interference pattern
+
+---
+
+## 13. Subscription Economics & Product Analytics
+
+**Directory:** `subscription_economics/`
+**Libraries:** numpy, pandas, matplotlib, seaborn, scipy, sklearn
+
+### 13.1 Cohort Retention and LTV
+
+**File:** `subscription_economics/notebooks/01_Cohort_Retention_and_LTV.ipynb`
+
+**What it does:** Analyzes a hardware-plus-subscription business model (security cameras + cloud storage). Calculates hardware-to-subscription attach rates by cohort, measures churn rates by device type, and projects Lifetime Value (LTV) to optimize marketing spend allocation.
+
+**Key computations:**
+- **Attach rate:** `Attach = Total Subscribers / Total Hardware Buyers × 100%`
+- **Churn rate:** `Churn = Cancellations / Starts × 100%` (cohort perspective)
+- **ARPU:** Average Revenue Per User (monthly fee averaged across subscribers)
+- **LTV formula:** `LTV = (ARPU × Margin) / Churn_decimal`
+
+**Why this LTV formula?**
+The formula assumes constant churn rate and infinite time horizon. Under these assumptions, a subscriber with churn rate c has expected lifetime 1/c months. Revenue per month is ARPU × Margin. Therefore LTV = ARPU × Margin × (1/c) = ARPU × Margin / c. This is the standard SaaS unit economics formula used by investors and product teams.
+
+**Cohort analysis implementation:**
+```python
+cohort_pivot = df.pivot_table(
+    index='cohort_month', columns='device_type',
+    values='attach_rate', aggfunc='mean'
+)
+```
+Rows = acquisition month, columns = device type. Heatmap coloring reveals whether newer cohorts convert better (product/marketing improvement) or worse (market saturation).
+
+**What if you change this:**
+- Reduce Doorbell churn from 35% to 25% → LTV jumps from ~$216 to ~$277 (28% improvement); this single metric change shifts the entire marketing budget allocation
+- ARPU increases from $8/mo to $12/mo (premium tier) → LTV scales proportionally; allows 50% higher Customer Acquisition Cost (CAC)
+- Device-specific margin (cameras: 85%, doorbells: 70%) → cameras become more attractive on LTV basis; budget reallocation away from doorbells
+
+### 13.2 Churn Prediction via Behavioral Telemetry
+
+**File:** `subscription_economics/notebooks/02_Churn_Prediction_Telemetry.ipynb`
+
+**What it does:** Predicts customer churn using app usage telemetry (March 2023 data → June 2023 churn outcome). The key feature is the "Stickiness Ratio" (DAU/MAU proxy), and the model is a logistic regression that produces an interpretable churn probability curve.
+
+**Feature extraction from daily telemetry:**
+```python
+user_features = telemetry.groupby('user_id').agg(
+    days_active=('date', 'nunique'),
+    total_app_opens=('event', 'count'),
+    avg_minutes=('duration', 'mean')
+)
+user_features['stickiness'] = user_features['days_active'] / 31 * 100
+```
+
+**Stickiness Ratio:** `Days Active / Days in Month × 100%` — percentage of the month the user actively engaged. This is a DAU/MAU proxy at the individual level.
+
+**Logistic regression model:**
+```python
+LogisticRegression(class_weight='balanced', C=1.0)
+# P(Churn=1) = 1 / (1 + exp(-(β₀ + β₁·stickiness + β₂·opens + β₃·minutes)))
+```
+
+**Why logistic regression and not XGBoost?**
+For this use case, interpretability trumps marginal accuracy. The logistic curve directly shows: "Below 30% stickiness, churn probability exceeds 50%." This is immediately actionable — the product team can set up an automated reactivation campaign triggered at the 30% threshold. XGBoost would likely improve AUC by 5–10% but lose the single-variable interpretability.
+
+**What if you change this:**
+- Add recency (days since last app open) → more predictive than stickiness alone; sudden drop triggers immediate alert
+- Use XGBoost → captures non-linear interactions; AUC improves by 5–10%; loses the clean sigmoid interpretability
+- Reduce stickiness threshold from 30% to 20% → more aggressive reactivation campaigns; higher false positive rate but catches more at-risk users early
+
+### 13.3 A/B Testing — Onboarding Flow Optimization
+
+**File:** `subscription_economics/notebooks/03_AB_Testing_Onboarding.ipynb`
+
+**What it does:** Evaluates whether a redesigned hardware onboarding flow (Variant) improves the subscription conversion rate compared to the Control (classic) flow. Uses a two-proportions z-test to determine statistical significance at α = 0.05.
+
+**Two-proportions z-test:**
+```python
+# Null hypothesis H₀: p_variant = p_control
+# Alternative H₁: p_variant > p_control (one-tailed)
+
+p_pool = (conv_V + conv_C) / (n_V + n_C)
+SE = sqrt(p_pool * (1 - p_pool) * (1/n_V + 1/n_C))
+Z = (p_hat_V - p_hat_C) / SE
+p_value = 1 - scipy.stats.norm.cdf(Z)
+```
+
+**Why one-tailed and not two-tailed?**
+The business hypothesis is directional: "The new onboarding is better." We don't care if the new onboarding is significantly worse (we'd just not ship it). One-tailed test has more statistical power for the direction we care about (critical value 1.645 vs. 1.96 for two-tailed).
+
+**Confidence intervals:** Wilson score intervals via `statsmodels.stats.proportion.proportion_confint` — more accurate than the Wald interval for proportions near 0 or 1.
+
+**Decision rule:**
+- p < 0.05 → Reject H₀ → "Significant improvement — ship the variant"
+- p ≥ 0.05 → Fail to reject → "Inconclusive — collect more data or iterate on the design"
+
+**What if you change this:**
+- Switch to two-tailed test → harder to reject null (critical value 1.96 vs. 1.645); larger p-value
+- Reduce α from 0.05 to 0.01 → requires stronger evidence; protects against false positives in multiple concurrent tests
+- Increase sample size 10× → standard error shrinks by √10; if the original difference was marginal, larger n reveals the true effect
+- Implement sequential testing (Bayesian) → allows early stopping if effect becomes clear; reduces required sample size
 
 ---
 

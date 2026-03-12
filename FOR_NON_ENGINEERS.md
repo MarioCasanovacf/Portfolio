@@ -148,6 +148,108 @@ With that in mind, here's what each piece of the portfolio does:
 
 ---
 
+---
+
+## "Can This Model Beat the Stock Market?" (Quantitative Finance)
+
+**Directory:** `quantitative_finance/`
+
+**The question it answers:** *Can we apply institutional-grade financial engineering to model market microstructure, price exotic derivatives, and build portfolios that don't blow up?*
+
+**In everyday terms:** Imagine three different problems a Wall Street quant desk faces every day:
+
+1. **The Order Book (Notebook 01):** Every stock exchange has a "line" of buyers and sellers waiting to trade at different prices. This notebook rebuilds that line from raw transaction data — like reconstructing a movie from individual frames. It shows: what was the price gap between buyers and sellers at any given moment? That gap (the "spread") is the cost of trading.
+
+2. **Exotic Options (Notebook 02):** A regular stock option says "you can buy Stock X at $100 in 3 months." An *Asian* option says "you can buy at the *average* price over the next 3 months." Averaging makes it harder to price — there's no simple formula. This notebook runs 50,000 simulated market scenarios (Monte Carlo simulation) using a model where volatility itself is random (the Heston model). Think of it as rolling 50,000 dice simultaneously and averaging the results.
+
+3. **Portfolio Construction (Notebook 03):** The classic problem: "I have 20 stocks — how much of my money goes into each one?" The traditional method (Markowitz, 1952) requires solving a math problem that becomes unstable when stocks are correlated. This notebook uses a newer technique (Hierarchical Risk Parity) that groups similar stocks together like a family tree, then allocates money based on how risky each group is — without the instability.
+
+**Why this matters:** These are not theoretical exercises. LOB reconstruction is what every trading platform does. Monte Carlo pricing is how banks value derivatives worth billions. HRP is used by quantitative hedge funds managing real capital.
+
+---
+
+## "What Happens When Governments Print Too Much Money?" (Macroeconomics)
+
+**Directory:** `macroeconomic_capture/`
+
+**The question it answers:** *How does government spending affect private investment, and why do some insolvent companies refuse to die?*
+
+**In everyday terms:**
+
+1. **Fiscal Crowding-Out (Notebook 01):** When a government runs a deficit, it borrows money by issuing bonds. More bonds on the market → interest rates go up → it becomes more expensive for companies to borrow → companies invest less. This notebook measures that chain reaction mathematically. It's like watching a bathtub: the government is pouring water in (deficit spending) while private investment is draining out through the same pipe.
+
+2. **Zombie Corporations (Notebook 02):** Some companies earn less money than they owe in interest payments — they literally cannot pay their debts from their revenue. Normally, these companies would go bankrupt (what economists call "creative destruction" — making room for new, healthier companies). But government subsidies keep them alive. This notebook uses a clustering algorithm to find these "zombies" in the data — companies that cluster in the "high debt, low revenue, high subsidies" corner of the financial landscape.
+
+**Why this matters:** Understanding crowding-out is essential for fiscal policy analysis. Zombie identification has real policy implications — Japan's "Lost Decade" was partly attributed to zombie firms propped up by government support.
+
+---
+
+## "What Shape Is a Protein?" (Structural Biology)
+
+**Directories:** `proteins_alphafold_distances/` and `proteins_ramachandran_plot/`
+
+**The question it answers:** *Can we turn the 3D structure of a protein — thousands of atoms in space — into a flat picture that reveals its secrets?*
+
+**In everyday terms:** A protein is a chain of amino acids that folds into a 3D shape, like a very long necklace crumpled into a ball. The shape determines the function: a misfolded protein can cause disease (Alzheimer's, Parkinson's). These two notebooks analyze that 3D shape:
+
+1. **Distance Map (Notebook 01):** Imagine numbering every bead on the necklace, then measuring the straight-line distance between every pair. You get a grid where colors show "close" (warm) or "far" (cool). Bands of warm color off the main diagonal reveal that bead #5 and bead #150 are actually touching — they're far apart on the chain but close in 3D space. These contacts are what hold the shape together.
+
+2. **Ramachandran Plot (Notebook 02):** At each bead, the chain can twist in two directions (called φ and ψ angles). Not all angle combinations are physically possible — some would cause atoms to collide. This notebook calculates those angles from scratch using vector math (cross products, just like in high school physics) and plots them. The resulting scatter plot shows clusters: one cluster is "alpha helix" (like a spiral staircase), another is "beta sheet" (like a pleated fan). Empty zones are "forbidden" — the protein physically cannot twist that way.
+
+**Why this matters:** Drug design, disease research, and biotech all depend on understanding protein structure. AlphaFold (Google DeepMind) predicts these structures — these notebooks demonstrate the ability to work with and analyze that output.
+
+---
+
+## "Can Hegel and Kojève Be Programmed?" (Continental Philosophy)
+
+**Directory:** `continental_philosophy/`
+
+**The question it answers:** *Can abstract philosophical ideas — dialectics, the struggle for recognition, the "end of history" — be translated into mathematical models that actually produce meaningful results?*
+
+**In everyday terms:**
+
+1. **Knowledge Graph (Notebook 01):** The philosopher Hegel described how human understanding evolves: "Being" leads to "Nothing," which leads to "Becoming," and so on — each concept containing and transcending the previous one (a process he called *Aufhebung*). This notebook turns that philosophical progression into a network diagram (like a social network, but for ideas instead of people). The computer then calculates which concepts are the most "influential" — which ones are pointed to by the most other important concepts. The result confirms Hegel's intuition: "Becoming" and "Self-knowledge" emerge as the most central nodes.
+
+2. **Game Theory (Notebook 02):** The philosopher Alexandre Kojève described history as a series of encounters where individuals either "risk their life for recognition" (advance) or "submit out of fear of death" (yield). This creates a master/slave dynamic. Over time, through a process of reconciliation (*Aufhebung*), this inequality resolves into universal equality. This notebook simulates 1,000 agents making these choices randomly over many rounds. The remarkable result: the system reliably evolves from chaos → inequality → equality, empirically demonstrating Kojève's "End of History" thesis.
+
+**Why this matters:** This demonstrates the ability to take concepts from a completely non-technical domain (19th-century German philosophy) and formalize them into working computational models. The same skill — translating domain knowledge into data structures and algorithms — is exactly what data scientists do in every industry.
+
+---
+
+## "How Do Particles Bounce and Tunnel?" (Computational Physics)
+
+**Directory:** `computational_physics/`
+
+**The question it answers:** *Can we simulate fundamental physics — a particle bouncing off a nucleus, or a quantum particle tunneling through a wall — from nothing but Newton's and Schrödinger's equations?*
+
+**In everyday terms:**
+
+1. **Rutherford Scattering (Notebook 01):** In 1911, Ernest Rutherford shot tiny particles at a gold foil and found that some bounced straight back — proving the atom has a dense nucleus. This notebook recreates that experiment computationally: 5,000 particles are "fired" at a positively charged nucleus. Each particle feels an electric repulsive force (stronger when closer) and curves away. The angle it deflects by depends on how close it passed. The resulting histogram of deflection angles matches Rutherford's famous formula — confirming the simulation is physically correct. The key innovation: using a "symplectic" integrator (Velocity-Verlet) that preserves the total energy exactly, unlike simpler methods that would cause the energy to slowly "leak."
+
+2. **Quantum Tunneling (Notebook 02):** In quantum mechanics, a particle can pass through a barrier that it classically shouldn't be able to cross — like a ball rolling through a hill instead of over it. This notebook solves the Schrödinger equation using a method (Crank-Nicolson) that is unconditionally stable and conserves probability exactly. The result: a wave packet approaches a barrier, and a fraction of it appears on the other side. The transmission percentage depends exponentially on the barrier height and width — exactly as quantum theory predicts.
+
+**Why this matters:** These are not toy problems — they demonstrate proficiency with numerical methods (PDE solvers, symplectic integrators, sparse linear algebra) that are directly applicable to engineering simulation, financial modeling, and computational science.
+
+---
+
+## "How Do You Keep Subscribers From Leaving?" (Subscription Economics)
+
+**Directory:** `subscription_economics/`
+
+**The question it answers:** *For a company that sells hardware with a subscription service, how do you measure customer value, predict who will cancel, and test whether a product change actually works?*
+
+**In everyday terms:** Imagine a company that sells security cameras and charges $8/month for cloud video storage. Three questions:
+
+1. **How Much Is a Customer Worth? (Notebook 01):** Not all customers are equal. A customer who bought a camera and never subscribed to cloud storage is worth $0 in recurring revenue. A customer who subscribes for 3 years at $8/month is worth $288. This notebook calculates the "Lifetime Value" (LTV) of each customer segment: how much revenue will this customer generate over their entire relationship with us? It also tracks the "attach rate" — what percentage of hardware buyers convert to subscribers? If cameras have a 55% attach rate and doorbells only 35%, marketing should focus on cameras.
+
+2. **Who Is About to Cancel? (Notebook 02):** If a subscriber used the app 25 out of 31 days last month (81% stickiness), they're probably happy. If they used it 5 out of 31 days (16%), they're probably about to cancel. This notebook builds a model that draws a curve: at what stickiness level does churn probability cross 50%? The answer (about 30%) becomes the trigger for an automated "we miss you!" reactivation email.
+
+3. **Did the New Onboarding Flow Work? (Notebook 03):** The product team redesigned the setup experience for new camera buyers. Did more people subscribe to cloud storage after the redesign? This notebook runs a proper A/B test: half of new users got the old flow (Control), half got the new flow (Variant). A statistical test (z-test for proportions) determines whether the difference in conversion rates is real or just random noise. If the p-value is below 0.05, the improvement is statistically significant and the new flow should be shipped to everyone.
+
+**Why this matters:** LTV, churn prediction, and A/B testing are the three pillars of product analytics at any SaaS or subscription company. Every product manager, growth team, and data analyst uses these exact techniques daily.
+
+---
+
 ## The Foundation: Where Mario Learned This
 
 **File:** `real_estate/house_sales_king_county.ipynb`
@@ -189,12 +291,18 @@ If you've read this far without getting lost, here's the one-sentence version of
 
 | Piece | One sentence |
 |---|---|
-| **Layer 1** | A dashboard that tells you, at a glance, whether the support operation is healthy |
-| **Layer 2** | A system that detects server problems in the telemetry data before customers open tickets |
-| **Layer 3** | A forecast that tells you how many support tickets to expect and how many engineers to hire |
-| **Layer 4** | A risk score for every open ticket, highlighting which ones will damage the customer relationship if ignored |
+| **Cloud Infra — Layer 1** | A dashboard that tells you, at a glance, whether the support operation is healthy |
+| **Cloud Infra — Layer 2** | A system that detects server problems in the telemetry data before customers open tickets |
+| **Cloud Infra — Layer 3** | A forecast that tells you how many support tickets to expect and how many engineers to hire |
+| **Cloud Infra — Layer 4** | A risk score for every open ticket, highlighting which ones will damage the customer relationship if ignored |
+| **Quantitative Finance** | Institutional-grade financial engineering: order book reconstruction, exotic option pricing, and stable portfolio construction |
+| **Macroeconomic Capture** | Mathematical proof of how government deficits crowd out private investment, and how subsidies keep zombie firms alive |
+| **Proteins & Biology** | Turns 3D atomic coordinates into flat visualizations that reveal protein structure and function |
+| **Continental Philosophy** | Demonstrates that even 19th-century German philosophy can be formalized into working computational models |
+| **Computational Physics** | Simulates fundamental physics (particle scattering, quantum tunneling) from first principles using numerical methods |
+| **Subscription Economics** | The three pillars of product analytics: customer lifetime value, churn prediction, and A/B testing |
 | **Real Estate** | Evidence that the statistical methods used here were learned rigorously through structured coursework |
-| **Data Generator** | Proof of the ability to build analytical systems without waiting for someone else to provide the data |
+| **Data Generators** | Proof of the ability to build analytical systems without waiting for someone else to provide the data |
 | **API Integration** | Proof that this can transition from a portfolio project to a production tool without rewriting everything |
 
 ---
