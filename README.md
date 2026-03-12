@@ -6,7 +6,7 @@
 
 ## About This Portfolio
 
-A living collection of projects across **data science, data analytics, data engineering, software engineering, mathematical modeling, and applied research**. Each case study is self-contained and reproducible — built to solve real-world problems with whatever tools and methods the domain demands.
+This little repo aims to be living collection of projects across **data science, data analytics, data engineering, software engineering, mathematical modeling, and applied research**. Each case study is self-contained and reproducible — built to solve real-world problems with whatever tools and methods the domain demands.
 
 The portfolio is organized by **thematic case studies** spanning quantitative finance, computational physics, structural biology, macroeconomics, product analytics, and more.
 
