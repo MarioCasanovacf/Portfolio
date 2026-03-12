@@ -1,14 +1,14 @@
-# Mario Casanova — Data Science & Analytics Portfolio
+# Mario Casanova — Code Portfolio
 
-> **"I don't wait for data — I design the scenario, build the model, and deliver the insight."**
+> **"The totality of the real is rational only insofar as it is understood."** — Alexandre Kojève
 
 ---
 
 ## About This Portfolio
 
-This repository is a living collection of applied **Data Science, Statistical Analytics, and Mathematical Modeling** projects across multiple industries and domains. Each case study demonstrates end-to-end analytical thinking: from synthetic data generation and exploratory analysis to predictive modeling and prescriptive decision support.
+A living collection of projects across **data science, data analytics, data engineering, software engineering, mathematical modeling, and applied research**. Each case study is self-contained and reproducible — built to solve real-world problems with whatever tools and methods the domain demands.
 
-The portfolio is organized by **thematic case studies** — each one self-contained, reproducible, and built to answer real business questions with rigorous methodology.
+The portfolio is organized by **thematic case studies** spanning quantitative finance, computational physics, structural biology, macroeconomics, product analytics, and more.
 
 ---
 
@@ -29,6 +29,8 @@ A five-layer analytical maturity framework applied to enterprise technical suppo
 
 **Key techniques:** Log-normal TTR distributions, STL decomposition, GESD anomaly detection, SARIMA forecasting, Random Forest classification, bootstrap confidence intervals, OData REST API integration.
 
+---
+
 ### Real Estate — House Price Prediction
 **`real_estate/`**
 
@@ -37,6 +39,8 @@ Regression modeling on the King County (Washington) housing dataset. Demonstrate
 | Notebook | Techniques |
 |---|---|
 | `house_sales_king_county.ipynb` | Linear/polynomial regression, sklearn Pipelines, Ridge regularization, cross-validation |
+
+---
 
 ### Quantitative Finance
 **`quantitative_finance/`**
@@ -49,6 +53,8 @@ Focuses on institutional-grade financial mechanics, microstructure, and portfoli
 | `02_Exotic_Options_Heston.ipynb` | Stochastic Volatility Derivatives | Monte Carlo, Finite Differences, Heston Model |
 | `03_Hierarchical_Risk_Parity.ipynb` | Portfolio Optimization | Unsupervised ML (Clustering), Graph Theory |
 
+---
+
 ### Macroeconomic Capture
 **`macroeconomic_capture/`**
 
@@ -58,6 +64,8 @@ Analyzes the mathematical friction between public policy and private capital for
 |---|---|---|
 | `01_Fiscal_Crowding_Out.ipynb` | Government Budget Constraint | Time series analysis, Pearson correlation |
 | `02_Zombie_Corporations.ipynb` | Paretian & Schumpeterian Survival | Density-based spatial clustering (DBSCAN) |
+
+---
 
 ### Proteins & Molecules
 **`proteins_alphafold_distances/`** & **`proteins_ramachandran_plot/`**
@@ -69,6 +77,8 @@ Deconstructs structural biology into pure geometric data science, converting 3D 
 | `proteins_alphafold_distances ...` | PDB Spatial Density | File parsing, 3D Euclidean distance matrices |
 | `proteins_ramachandran_plot ...` | Thermodynamic Topology | Linear algebra vectorization, cross products, dihedral $\phi$ / $\psi$ calculation |
 
+---
+
 ### Continental Philosophy
 **`continental_philosophy/`**
 
@@ -78,6 +88,8 @@ Translates phenomenological exegesis and historical dialectics into computable g
 |---|---|---|
 | `01_Dialectical_Knowledge_Graph.ipynb` | Hegelian Aufhebung | Semantic Triplets (NLP), Eigenvector Centrality |
 | `02_Kojeve_Evolutionary_Game...` | Kojevian Dialectics | Asymmetric Payoffs, Agent-Based Stochastic Modeling |
+
+---
 
 ### Computational Physics
 **`computational_physics/`**
@@ -89,6 +101,8 @@ Applies deterministic numerical methods and sparse linear algebra to simulate Ha
 | `01_Rutherford...` | Symplectic Kinematics | Verlet Integrators, Monte Carlo Ensembles, Numba JIT |
 | `02_Schrodinger...` | Quantum Tunneling | Crank-Nicolson PDEs, Tridiagonal Sparse Matrices |
 
+---
+
 ### Subscription Economics & Product Analytics
 **`subscription_economics/`**
 
@@ -99,6 +113,8 @@ Simulates a SaaS/Hardware (IoT) Data Warehouse to analyze unit economics, behavi
 | `01_Cohort_Retention...` | Unit Economics | Cohort Analysis, Hardware Attach Rate, ARPU, LTV Projections |
 | `02_Churn_Prediction...` | Behavioral Analytics | Stickiness Ratio (DAU/MAU), Logistic Regression for Churn Propensity |
 | `03_AB_Testing...` | Product Optimization | Hypothesis Testing, Z-Tests, A/B Test Inference (Conversion Rates) |
+
+---
 
 ### Future Case Studies (Planned)
 
@@ -225,11 +241,16 @@ Rather than waiting for access to production data, this portfolio demonstrates *
 
 ## About
 
-**Mario Casanova** | Data Scientist & Analytics Engineer
+**Mario Casanova**
 
-- 4+ years as Financial Analyst (PGIM, SimCorp ecosystem)
-- Creator of the SHILD Method (value protection framework)
-- Deep foundation in mathematics, statistics, and applied modeling
+I solve problems. Given a domain I haven't seen before — whether it's derivatives pricing, quantum tunneling, protein geometry, or SaaS retention — I learn the structure, pick the right tools, and build something that works. My career has been defined by receiving hard problems and finding optimal solutions, not by staying inside a single toolkit or title.
+
+I'm technically autonomous but deeply collaborative: I break through bureaucratic and generational barriers to align teams around clear outcomes. I adapt to constraints when necessary and push past them when possible.
+
+What drives me is building things that matter — tools, models, and systems that contribute real value, not just to a business, but to how we understand and act on the world.
+
+- Mainly financial sector & startup experience but curious about many industries
+- Stack: Python, SQL, Power BI, Tableau, C#
+- Fluent in Spanish and English
+- Based in Mexico City
 - LinkedIn: [mario-casanova](https://www.linkedin.com/in/mario-casanova/)
-
-*Combining mathematical rigor with practical problem-solving across industries.*
