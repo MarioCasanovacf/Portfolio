@@ -43,8 +43,8 @@ def generate_macro_data(start_year=2000, end_year=2025):
         'Private_Capital_Formation': private_investment_base
     })
     
-    os.makedirs('../data', exist_ok=True)
-    out_path = '../data/macroeconomic_budget_synthetic.csv'
+    os.makedirs('data', exist_ok=True)
+    out_path = 'data/macroeconomic_budget_synthetic.csv'
     df_macro.to_csv(out_path, index=False)
     print(f"[+] Saved Macroeconomic data to {out_path}")
 
@@ -97,7 +97,7 @@ def generate_corporate_zombie_data(n_companies=1000, n_years=10):
     # Create zombie classification (ICR < 1 AND heavily indebted)
     df_corp['Is_Zombie'] = ((df_corp['Interest_Coverage_Ratio'] < 1.0) & (df_corp['Debt_to_Equity'] > 2.0)).astype(int)
     
-    out_path = '../data/corporate_zombies_synthetic.csv'
+    out_path = 'data/corporate_zombies_synthetic.csv'
     df_corp.to_csv(out_path, index=False)
     print(f"[+] Saved Corporate Zombie data to {out_path}")
 

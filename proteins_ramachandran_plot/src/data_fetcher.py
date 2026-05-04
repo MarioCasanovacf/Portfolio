@@ -1,7 +1,7 @@
 import os
 import urllib.request
 
-def fetch_pdb(pdb_id, output_dir="../data"):
+def fetch_pdb(pdb_id, output_dir="data"):
     """
     Descarga archivo de coordenadas atómicas (.pdb) para el análisis
     de ángulos de torsión (Dihedral Ramachandran Plot) desde cero.

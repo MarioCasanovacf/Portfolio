@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.vscode/
+.idea/
+.DS_Store
+data/synthetic/*.csv
+!data/synthetic/.gitkeep
+!data/synthetic/README.md
+
+# Claude Code
+CLAUDE.md
+.claude/

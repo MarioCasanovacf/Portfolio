@@ -5,7 +5,7 @@ import numpy as np
 # Determinismo histórico
 np.random.seed(42)
 
-def generate_hegelian_corpus(output_dir="../data"):
+def generate_hegelian_corpus(output_dir="data"):
     """
     Genera un corpus sintético de texto plano representando la fenomenología
     hegeliana y el movimiento de la 'Aufhebung' (sublimación dialéctica).
@@ -30,7 +30,7 @@ def generate_hegelian_corpus(output_dir="../data"):
         
     print(f"[+] Corpus Hegeliano generado exitosamente en: {corpus_path}")
 
-def generate_kojeve_agents(output_dir="../data", n_agents=1000):
+def generate_kojeve_agents(output_dir="data", n_agents=1000):
     """
     Genera una población estocástica inicial de agentes históricos para la
     simulación de Teoría de Juegos Evolutiva de Kojève.

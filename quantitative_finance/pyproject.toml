@@ -1,0 +1,112 @@
+[build-system]
+requires = ["setuptools>=70.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quantitative-finance"
+version = "0.1.0"
+description = "Production-grade quantitative finance toolkit: LOB microstructure, Heston exotic options, Hierarchical Risk Parity portfolio allocation."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [
+    { name = "Mario Casanova" },
+]
+keywords = ["quantitative-finance", "lob", "heston", "hrp", "portfolio-optimization"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.2",
+    "scipy>=1.13",
+    "scikit-learn>=1.5",
+    "matplotlib>=3.8",
+    "structlog>=24.0",
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.4",
+    "mypy>=1.10",
+    "pre-commit>=3.7",
+    "bandit>=1.7",
+    "pip-audit>=2.7",
+]
+notebooks = [
+    "jupyter>=1.0",
+    "ipykernel>=6.29",
+    "plotly>=5.22",
+    "seaborn>=0.13",
+]
+
+[project.scripts]
+qfinance = "quantitative_finance.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/MarioCasanovacf/Portfolio"
+Repository = "https://github.com/MarioCasanovacf/Portfolio"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "A", "SIM", "TCH", "S", "RET", "PTH"]
+ignore = ["E501", "S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S", "N802"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["quantitative_finance"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short --cov=src/quantitative_finance --cov-report=term-missing --cov-fail-under=75"
+markers = [
+    "unit: fast, isolated tests with no external dependencies",
+    "integration: tests touching filesystem or in-memory DB",
+    "slow: tests that take > 1 second",
+]
+
+[tool.coverage.run]
+source = ["src/quantitative_finance"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+]
+
+[tool.bandit]
+exclude_dirs = ["tests", "notebooks"]
+skips = ["B101"]

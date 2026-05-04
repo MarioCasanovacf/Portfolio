@@ -3,7 +3,7 @@ import urllib.request
 import gzip
 import shutil
 
-def fetch_pdb(pdb_id, output_dir="../data"):
+def fetch_pdb(pdb_id, output_dir="data"):
     """
     Descarga el archivo de coordenadas atómicas (.pdb) directamente desde
     el Protein Data Bank (RCSB PDB) para su análisis estructural in silico.

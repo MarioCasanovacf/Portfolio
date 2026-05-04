@@ -19,3 +19,9 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# Claude Code
+**/CLAUDE.md
+.claude/
+portfolio_preprompt.md
+portfolio_gap_analysis.md

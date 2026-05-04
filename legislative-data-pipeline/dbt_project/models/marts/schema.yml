@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: dim_legislator
+    description: >
+      Legislator dimension with SCD Type 2 tracking for party changes.
+      Each row represents a legislator at a point in time.
+    columns:
+      - name: legislator_key
+        tests:
+          - unique
+          - not_null
+      - name: legislator_id
+        tests:
+          - not_null
+      - name: is_current
+        description: "TRUE for the most recent record of each legislator"
+
+  - name: dim_party
+    description: >
+      Political party reference dimension. Seeded with major Mexican parties.
+    columns:
+      - name: party_code
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_vote
+    description: >
+      Individual legislator votes. Grain: one per legislator per vote event.
+      Primary analytical table for cohesion analysis, attendance, and voting patterns.
+    columns:
+      - name: legislature
+        tests:
+          - not_null
+      - name: vote_cast
+        tests:
+          - accepted_values:
+              values: ["FOR", "AGAINST", "ABSTAIN", "ABSENT"]
+
+  - name: fact_vote_summary
+    description: >
+      Aggregate vote outcomes. One row per vote event with totals and computed metrics.
+    columns:
+      - name: vote_event_id
+        tests:
+          - unique
+          - not_null

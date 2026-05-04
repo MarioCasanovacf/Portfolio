@@ -5,7 +5,7 @@ import numpy as np
 # Determinismo para reproducibilidad científica
 np.random.seed(42)
 
-def generate_rutherford_ensemble(output_dir="../data", n_particles=5000):
+def generate_rutherford_ensemble(output_dir="data", n_particles=5000):
     """
     Rutina de inicialización masiva.
     Genera un ensamble de Monte Carlo de partículas alfa (He2+) que serán
@@ -44,7 +44,7 @@ def generate_rutherford_ensemble(output_dir="../data", n_particles=5000):
     df_ensemble.to_csv(particles_path, index=False)
     print(f"[+] Ensamble Monte Carlo ({n_particles} partículas alfa) generado en: {particles_path}")
 
-def generate_quantum_potential_barrier(output_dir="../data"):
+def generate_quantum_potential_barrier(output_dir="data"):
     """
     Define los parámetros de una barrera de potencial 1D para la
     ecuación de Schrödinger dependiente del tiempo. Este archivo dictará

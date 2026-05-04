@@ -1,0 +1,21 @@
+# dbt profiles for local development (DuckDB) and production (Snowflake).
+# In CI and local dev, the DuckDB profile is used by default.
+
+legislative_mx:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "../data/legislative.duckdb"
+      threads: 4
+
+    prod:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      database: LEGISLATIVE_MX
+      schema: ANALYTICS
+      warehouse: COMPUTE_WH
+      role: TRANSFORM_ROLE
+      threads: 4
