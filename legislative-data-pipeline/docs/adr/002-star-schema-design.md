@@ -2,41 +2,54 @@
 
 **Status:** Accepted
 **Date:** 2026-03-24
-**Context:** Diseño del modelo dimensional para el warehouse legislativo.
+**Context:** Designing the dimensional model for the legislative warehouse.
 
-## Opciones Evaluadas
+## Options considered
 
-### Star Schema
-- Dimensiones completamente desnormalizadas.
-- Queries simples con JOINs directos fact → dimension.
-- Redundancia de datos en dimensiones (e.g., party_name repetido en cada row de dim_legislator).
+### Star schema
+- Fully denormalized dimensions.
+- Simple queries with direct fact → dimension joins.
+- Some redundancy in dimension data (e.g., `party_name` repeated in every
+  `dim_legislator` row).
 
-### Snowflake Schema
-- Dimensiones normalizadas (e.g., dim_party separada de dim_legislator, dim_state separada).
-- Menor redundancia de almacenamiento.
-- Queries más complejas con múltiples JOINs entre dimensiones.
+### Snowflake schema
+- Normalized dimensions (e.g., `dim_party` separated from `dim_legislator`,
+  `dim_state` separated, etc.).
+- Lower storage redundancy.
+- More complex queries with multiple joins between dimensions.
 
-### Wide Denormalized Tables (One Big Table)
-- Todo en una tabla plana.
-- Máxima simplicidad de queries.
-- Imposible mantener historicidad (SCD) sin duplicación masiva.
+### Wide denormalized table (one big table)
+- Everything in a single flat table.
+- Maximum query simplicity.
+- Impossible to maintain history (SCD) without massive duplication.
 
-## Decisión
+## Decision
 
-**Star Schema** con SCD Type 2 en dim_legislator.
+**Star schema** with SCD Type 2 on `dim_legislator`.
 
-## Justificación
+## Justification
 
-1. **Cardinalidad baja:** México tiene ~500 diputados y ~128 senadores por legislatura, y ~8 partidos relevantes. La redundancia de un star schema es despreciable (~KB).
+1. **Low cardinality:** Mexico has ~500 deputies and ~128 senators per
+   legislature, and ~8 relevant parties. Star-schema redundancy is
+   negligible (~KB).
 
-2. **Query simplicity:** Los consumidores (PowerBI, Streamlit) generan queries simples. Un JOIN fact_vote → dim_legislator → dim_date cubre el 90% de los análisis.
+2. **Query simplicity:** Consumers (PowerBI, Streamlit) generate simple
+   queries. A single `fact_vote → dim_legislator → dim_date` join covers
+   90% of analyses.
 
-3. **SCD requirement:** Los cambios de bancada (party switches) son políticamente significativos. Un legislador que cambia de PRI a MORENA mid-legislatura debe tener dos records en dim_legislator con date ranges. Star schema + SCD2 maneja esto limpiamente.
+3. **SCD requirement:** Caucus switches (party changes) are politically
+   significant. A legislator who switches from PRI to MORENA mid-term
+   must have two records in `dim_legislator` with date ranges. Star
+   schema + SCD2 handles this cleanly.
 
-4. **Tool compatibility:** PowerBI y dbt trabajan naturalmente con star schemas. Los relationships en PowerBI model view mapean 1:1 a fact-dimension JOINs.
+4. **Tool compatibility:** PowerBI and dbt work naturally with star schemas.
+   Relationships in PowerBI's model view map 1:1 to fact-dimension joins.
 
-## Consecuencias
+## Consequences
 
-- dim_party existe como tabla separada (no normalización snowflake, sino referencia con seed data).
-- dim_legislator incluye campos de SCD2: effective_from, effective_to, is_current, _hash.
-- fact_vote usa legislator_key (surrogate) para el JOIN, garantizando que cada voto se atribuya al party correcto en ese momento.
+- `dim_party` exists as a separate table (not snowflake normalization but a
+  reference with seed data).
+- `dim_legislator` includes SCD2 fields: `effective_from`, `effective_to`,
+  `is_current`, `_hash`.
+- `fact_vote` uses `legislator_key` (surrogate) for the join, ensuring each
+  vote is attributed to the correct party at that moment in time.

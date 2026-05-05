@@ -44,7 +44,7 @@ st.set_page_config(
 )
 
 st.title("🏛️ Mexican Legislative Analytics")
-st.caption("Pipeline de datos legislativos — Portafolio de Mario Casanova")
+st.caption("Mexican legislative data pipeline — Mario Casanova's portfolio")
 
 # =============================================================================
 # Sidebar — Filters

@@ -1,17 +1,17 @@
-# Arquitectura del Pipeline de Datos Legislativos
+# Legislative Data Pipeline — Architecture
 
-## Diagrama General
+## Overall diagram
 
 ```mermaid
 graph LR
-    subgraph Sources["Fuentes Públicas"]
+    subgraph Sources["Public Sources"]
         DM[dipMex<br/>GitHub CSV]
         CD[diputados.gob.mx<br/>HTML scraping]
-        INE[INE<br/>Datos Abiertos CSV]
+        INE[INE<br/>Open Data CSV]
     end
 
-    subgraph Capture["Captura (Python)"]
-        SC[Scrapers/<br/>API Clients]
+    subgraph Capture["Capture (Python)"]
+        SC[Scrapers /<br/>API Clients]
     end
 
     subgraph Landing["Landing Zone"]
@@ -19,21 +19,21 @@ graph LR
     end
 
     subgraph Warehouse["Data Warehouse"]
-        RAW[Raw Layer<br/>Mirror de fuentes]
-        STG[Staging Layer<br/>Limpieza & dedup]
+        RAW[Raw Layer<br/>Source mirror]
+        STG[Staging Layer<br/>Cleaning & dedup]
         ANA[Analytics Layer<br/>Star Schema]
     end
 
-    subgraph Transform["Transformación"]
+    subgraph Transform["Transformation"]
         DBT[dbt models<br/>staging → marts]
     end
 
-    subgraph Consume["Consumo"]
+    subgraph Consume["Consumption"]
         ST[Streamlit<br/>Dashboard]
         PBI[PowerBI<br/>Reports]
     end
 
-    subgraph Orchestration["Orquestación"]
+    subgraph Orchestration["Orchestration"]
         PF[Prefect<br/>Flows & Tasks]
     end
 
@@ -51,54 +51,54 @@ graph LR
     PF -.->|orchestrates| DBT
 ```
 
-## Capas del Pipeline
+## Pipeline layers
 
-### 1. Captura (`src/capture/`)
-- **DipMexClient:** Descarga datasets académicos de votaciones nominales desde GitHub.
-- **DiputadosScraper:** Extrae registros de votación de sitl.diputados.gob.mx via HTML scraping.
-- **BaseScraper:** Clase base con retry logic (exponential backoff), rate limiting, y logging estructurado.
+### 1. Capture (`src/capture/`)
+- **DipMexClient:** Downloads academic roll-call vote datasets from GitHub.
+- **DiputadosScraper:** Extracts voting records from sitl.diputados.gob.mx via HTML scraping.
+- **BaseScraper:** Base class with retry logic (exponential backoff), rate limiting, and structured logging.
 
 ### 2. Landing Zone (`data/raw/`)
-- Archivos CSV/JSON tal como se capturaron.
-- Cada archivo incluye metadata de linaje (_source_file, timestamp).
-- Inmutables: nunca se modifican después de la captura.
+- CSV/JSON files exactly as captured.
+- Each file carries lineage metadata (`_source_file`, timestamp).
+- Immutable: never modified after capture.
 
 ### 3. Raw Layer (DuckDB: `raw` schema)
-- Mirror fiel de los archivos capturados.
-- Columnas de metadata: `_source_file`, `_loaded_at`.
-- Sin transformaciones de negocio.
+- Faithful mirror of captured files.
+- Metadata columns: `_source_file`, `_loaded_at`.
+- No business transformations.
 
 ### 4. Staging Layer (dbt: `staging/`)
-- Limpieza: casting de tipos, normalización de strings.
-- Deduplicación: ROW_NUMBER() sobre business keys.
-- Estandarización: valores de voto en español → enum inglés (FAVOR → FOR).
-- Surrogate keys determinísticos (MD5 hash).
+- Cleaning: type casting, string normalization.
+- Deduplication: `ROW_NUMBER()` over business keys.
+- Standardization: Spanish vote values → English enum (`FAVOR` → `FOR`).
+- Deterministic surrogate keys (MD5 hash).
 
 ### 5. Analytics Layer (dbt: `marts/`)
-- **Star Schema** con SCD Type 2 en dim_legislator.
-- Dimensiones: `dim_legislator`, `dim_party`, `dim_date`, `dim_committee`.
-- Facts: `fact_vote` (individual), `fact_vote_summary` (aggregate).
-- Views analíticas: `v_party_cohesion`, `v_legislator_attendance`.
+- **Star schema** with SCD Type 2 on `dim_legislator`.
+- Dimensions: `dim_legislator`, `dim_party`, `dim_date`, `dim_committee`.
+- Facts: `fact_vote` (per-legislator), `fact_vote_summary` (aggregate).
+- Analytical views: `v_party_cohesion`, `v_legislator_attendance`.
 
-### 6. Consumo (`dashboard/`)
-- Streamlit app con tres vistas: Overview, Party Analysis, Legislator Profiles.
-- Conecta directamente a DuckDB (local) o Snowflake (producción).
-- Visualizaciones con Plotly para interactividad.
+### 6. Consumption (`dashboard/`)
+- Streamlit app with three views: Overview, Party Analysis, Legislator Profiles.
+- Connects directly to DuckDB (local) or Snowflake (production).
+- Visualizations with Plotly for interactivity.
 
-## Stack Tecnológico
+## Technology stack
 
-| Componente | Tecnología | Justificación |
+| Component | Technology | Rationale |
 |---|---|---|
-| Lenguaje | Python 3.11+ | Stack principal; type hints, async support |
-| HTTP Client | httpx | Async-ready, connection pooling |
-| Scraping | BeautifulSoup + lxml | Robusto para HTML legislativo |
-| Warehouse (local) | DuckDB | Columnar, SQL compatible, zero-config |
-| Warehouse (prod) | Snowflake | Enterprise DWH con streams, tasks, time travel |
-| Transformación | dbt (dbt-duckdb) | SQL-based transforms, testing, documentation |
-| Orquestación | Prefect 3.x | Pythonic, zero-infra local, retries nativos |
-| Validación | Pydantic 2.x | Data contracts entre capas |
-| Dashboard | Streamlit + Plotly | Rápido de construir, interactivo, exportable |
+| Language | Python 3.11+ | Main stack; type hints, async support |
+| HTTP client | httpx | Async-ready, connection pooling |
+| Scraping | BeautifulSoup + lxml | Robust for legislative HTML |
+| Warehouse (local) | DuckDB | Columnar, SQL-compatible, zero-config |
+| Warehouse (prod) | Snowflake | Enterprise DWH with streams, tasks, time travel |
+| Transformation | dbt (dbt-duckdb) | SQL-based transforms, testing, documentation |
+| Orchestration | Prefect 3.x | Pythonic, zero-infra local, native retries |
+| Validation | Pydantic 2.x | Data contracts between layers |
+| Dashboard | Streamlit + Plotly | Quick to build, interactive, exportable |
 | CI/CD | GitHub Actions | Lint, type check, tests, dbt compile |
-| Linting | Ruff | Fast, replaces flake8+isort+black |
-| Type Check | Mypy | Static type verification |
+| Linting | Ruff | Fast; replaces flake8 + isort + black |
+| Type check | Mypy | Static type verification |
 | Testing | Pytest | Standard, fixtures, parametrize, coverage |

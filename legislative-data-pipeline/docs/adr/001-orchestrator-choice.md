@@ -2,47 +2,53 @@
 
 **Status:** Accepted
 **Date:** 2026-03-24
-**Context:** Necesitamos un orquestador para el pipeline de datos legislativos.
+**Context:** We need an orchestrator for the legislative data pipeline.
 
-## Opciones Evaluadas
+## Options considered
 
 ### Apache Airflow
-- **Pro:** Estándar de industria. Enorme ecosistema de operadores y providers.
-- **Pro:** Scheduler daemon permanente — ideal para pipelines críticos 24/7.
-- **Contra:** Overhead operacional significativo: base de datos (PostgreSQL), webserver, scheduler, workers. Excesivo para un portafolio personal.
-- **Contra:** DSL basado en DAGs declarativos. La lógica compleja requiere workarounds.
-- **Contra:** Testing de DAGs es notoriamente difícil.
+- **Pro:** Industry standard. Huge ecosystem of operators and providers.
+- **Pro:** Permanent scheduler daemon — ideal for mission-critical 24/7 pipelines.
+- **Con:** Significant operational overhead: database (PostgreSQL), webserver, scheduler, workers. Excessive for a personal portfolio.
+- **Con:** DSL based on declarative DAGs. Complex logic requires workarounds.
+- **Con:** DAG testing is notoriously difficult.
 
 ### Prefect
-- **Pro:** API puramente Pythonic — flows y tasks son funciones Python decoradas.
-- **Pro:** Cero infraestructura para desarrollo local: `python flow.py` ejecuta el pipeline.
-- **Pro:** Retries, caching, y logging integrados sin configuración adicional.
-- **Pro:** Prefect Cloud ofrece free tier para monitoreo (opcional).
-- **Contra:** Menos adoption que Airflow en empresas Fortune 500.
+- **Pro:** Purely Pythonic API — flows and tasks are decorated Python functions.
+- **Pro:** Zero infrastructure for local development: `python flow.py` runs the pipeline.
+- **Pro:** Retries, caching, and logging built in with no extra configuration.
+- **Pro:** Prefect Cloud offers a free tier for monitoring (optional).
+- **Con:** Lower adoption than Airflow in Fortune 500 companies.
 
 ### Dagster
-- **Pro:** Paradigma de software-defined assets es elegante para modelado de dependencias.
-- **Pro:** Excelente UI de desarrollo (Dagit).
-- **Contra:** Curva de aprendizaje más pronunciada. Conceptos como IOManagers y Resources añaden complejidad inicial.
-- **Contra:** Menor comunidad que Prefect para troubleshooting.
+- **Pro:** The software-defined-assets paradigm is elegant for modeling dependencies.
+- **Pro:** Excellent development UI (Dagit).
+- **Con:** Steeper learning curve. Concepts like IOManagers and Resources add upfront complexity.
+- **Con:** Smaller community than Prefect for troubleshooting.
 
-## Decisión
+## Decision
 
-**Prefect** como orquestador principal.
+**Prefect** as the primary orchestrator.
 
-## Justificación
+## Justification
 
-Para un proyecto de portafolio que debe ser:
-1. **Ejecutable localmente** sin Docker ni bases de datos auxiliares
-2. **Legible** por reviewers que no conocen el framework
-3. **Testeable** con pytest estándar
+For a portfolio project that must be:
+1. **Locally runnable** with no Docker or auxiliary databases
+2. **Readable** by reviewers unfamiliar with the framework
+3. **Testable** with standard pytest
 
-Prefect ofrece la mejor relación señal/ruido. El pipeline completo se ejecuta con `python flows/legislative_pipeline.py`. No hay daemon que mantener, no hay UI que desplegar, no hay metadata database que migrar.
+Prefect offers the best signal-to-noise ratio. The full pipeline runs with
+`python flows/legislative_pipeline.py`. No daemon to maintain, no UI to
+deploy, no metadata database to migrate.
 
-En un entorno empresarial con múltiples pipelines y SLAs, Airflow sería la decisión correcta. Para demostrar competencia en orquestación con mínimo overhead, Prefect gana.
+In an enterprise environment with multiple pipelines and SLAs, Airflow would
+be the right call. To demonstrate orchestration competence with minimum
+overhead, Prefect wins.
 
-## Consecuencias
+## Consequences
 
-- Los flows son funciones Python puras: portables a cualquier orquestador futuro.
-- Si se migra a producción con Airflow, el refactor es mecánico (decorators → DAG operators).
-- Se pierde el scheduling basado en cron nativo (Airflow); se compensa con Prefect schedules o cron del sistema.
+- Flows are pure Python functions: portable to any future orchestrator.
+- If the project migrates to production with Airflow, the refactor is
+  mechanical (decorators → DAG operators).
+- Native cron-based scheduling (Airflow) is lost; compensated via Prefect
+  schedules or system cron.

@@ -6,11 +6,11 @@
  * Design decisions:
  *   - Star schema (not snowflake schema) chosen for query simplicity. The dimensional
  *     cardinality is low enough that denormalization costs are negligible.
- *   - SCD Type 2 on dim_legislator to track party changes (cambios de bancada).
- *     Mexican legislators occasionally switch parties mid-legislature — this is
- *     politically significant and must be captured historically.
+ *   - SCD Type 2 on dim_legislator to track caucus switches. Mexican legislators
+ *     occasionally switch parties mid-term — this is politically significant
+ *     and must be captured historically.
  *   - Date dimension is a standard calendar table enriched with Mexican legislative
- *     calendar metadata (periodos ordinarios/extraordinarios).
+ *     session metadata (ordinary and extraordinary sessions).
  *   - Grain of fact_vote: one row per legislator per vote event.
  *   - Grain of fact_vote_summary: one row per vote event (aggregate).
  */
