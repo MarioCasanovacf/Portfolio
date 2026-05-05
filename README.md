@@ -124,15 +124,6 @@ Simulates a SaaS/Hardware (IoT) Data Warehouse to analyze unit economics, behavi
 
 ---
 
-## Documentation
-
-| Document | Audience | Description |
-|---|---|---|
-| **[TECHNICAL_GUIDE.md](./TECHNICAL_GUIDE.md)** | Engineers, hiring managers | Statistical methodology, architecture decisions, "what if you change X" scenarios |
-| **[FOR_NON_ENGINEERS.md](./FOR_NON_ENGINEERS.md)** | Everyone | Plain-language explanations using analogies — no jargon required |
-
----
-
 ## Technical Stack
 
 | Domain | Tools |
