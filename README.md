@@ -6,9 +6,9 @@
 
 ## About This Portfolio
 
-This little repo aims to be living collection of projects across **data science, data analytics, data engineering, software engineering, mathematical modeling, and applied research**. Each case study is self-contained and reproducible — built to solve real-world problems with whatever tools and methods the domain demands.
+A living collection of self-contained case studies across **data science, data analytics, data engineering, software engineering, mathematical modeling, and applied research**. Every project is independently installable, tested, and reproducible — each one built to solve a concrete problem with whatever tools the domain actually demands.
 
-The portfolio is organized by **thematic case studies** spanning quantitative finance, computational physics, structural biology, macroeconomics, product analytics, and more.
+Case studies span quantitative finance, computational physics, structural biology, macroeconomics, product analytics, philosophy, and more.
 
 ---
 
@@ -130,6 +130,7 @@ Simulates a SaaS/Hardware (IoT) Data Warehouse to analyze unit economics, behavi
 |---|---|---|
 | **[TECHNICAL_GUIDE.md](./TECHNICAL_GUIDE.md)** | Engineers, hiring managers | Statistical methodology, architecture decisions, "what if you change X" scenarios |
 | **[FOR_NON_ENGINEERS.md](./FOR_NON_ENGINEERS.md)** | Everyone | Plain-language explanations using analogies — no jargon required |
+| **[PRODUCTION_TEMPLATE.md](./PRODUCTION_TEMPLATE.md)** | Engineers | Engineering contract every case study follows: structure, tests, CI, docs |
 
 ---
 
@@ -137,92 +138,63 @@ Simulates a SaaS/Hardware (IoT) Data Warehouse to analyze unit economics, behavi
 
 | Domain | Tools |
 |---|---|
-| Data Generation | `Faker`, `NumPy`, `Pandas` |
-| Statistical Analysis | `SciPy`, `Statsmodels` |
-| Machine Learning | `Scikit-learn` (Ridge, Logistic Regression, Random Forest) |
-| Time Series | `Statsmodels ARIMA/SARIMA`, `pmdarima` |
-| Visualization | `Matplotlib`, `Seaborn` |
-| API Integration | `requests`, REST API (OpenAPI spec) |
+| Data generation | `NumPy`, `Pandas`, `Faker` |
+| Statistical analysis | `SciPy`, `Statsmodels`, `lifelines` |
+| Machine learning | `scikit-learn`, `XGBoost`, `LightGBM` |
+| Time series & forecasting | `Statsmodels` (ARIMA/SARIMA), `Prophet` |
+| Optimization & graphs | `NetworkX`, `scipy.cluster.hierarchy` |
+| Structural biology | `Biopython` (PDB parsing, dihedrals) |
+| Storage & I/O | `DuckDB`, `pyarrow`, `Parquet`, CSV |
+| Visualization | `Matplotlib`, `Seaborn`, `Plotly` |
+| Configuration & logging | `pydantic-settings`, `structlog` |
+| Quality & CI | `ruff`, `mypy`, `pytest`, `bandit`, `pre-commit`, GitHub Actions |
+| API integration | `httpx`, `requests`, REST APIs (OpenAPI) |
 
 ---
 
 ## Repository Structure
 
 ```
+Portfolio/
 ├── README.md                         ← You are here
+├── PRODUCTION_TEMPLATE.md            ← Engineering contract for all case studies
 ├── TECHNICAL_GUIDE.md                ← Deep technical reference
-├── FOR_NON_ENGINEERS.md              ← Plain language guide
-├── requirements.txt                  ← pip install -r requirements.txt
+├── FOR_NON_ENGINEERS.md              ← Plain-language guide
 │
-├── cloud_infrastructure_support/     ← Case study: HCI support operations
-│   ├── notebooks/
-│   │   ├── 01_descriptive_health_monitor.ipynb
-│   │   ├── 02_diagnostic_anomaly_detection.ipynb
-│   │   ├── 03_predictive_ticket_forecasting.ipynb
-│   │   ├── 04_prescriptive_escalation_risk.ipynb
-│   │   └── 05_api_integration.ipynb
-│   ├── src/
-│   │   └── data_generator.py         ← Synthetic data engine (100K tickets + telemetry)
-│   └── data/
-│       └── synthetic/                ← Generated datasets (gitignored for size)
-│
-    └── house_sales_king_county.ipynb
-│
-├── quantitative_finance/             ← Case study: Low-latency LOB & derivatives
-│   ├── notebooks/
-│   │   ├── 01_LOB_Reconstruction.ipynb
-│   │   ├── 02_Exotic_Options_Heston.ipynb
-│   │   └── 03_Hierarchical_Risk_Parity.ipynb
-│   ├── src/
-│   │   └── data_generator.py         ← Synthetic LOB events & correlated assets
-│   └── data/                         ← Generated datasets (gitignored)
-│
-└── macroeconomic_capture/            ← Case study: Institutional friction & deficit
-    ├── notebooks/
-    │   ├── 01_Fiscal_Crowding_Out.ipynb
-    │   └── 02_Zombie_Corporations.ipynb
-    ├── src/
-    │   └── data_generator.py         ← Synthetic sovereign macro & zombie corps
-    └── data/                         ← Generated datasets (gitignored)
-│
-├── proteins_alphafold_distances/     ← Case study: In silico spatial density (PDB)
-│   ├── notebooks/
-│   │   └── 01_AlphaFold_Spatial_Distances.ipynb
-│   ├── src/
-│   │   └── data_fetcher.py           ← RCSB PDB coordinate extraction script
-│   └── data/                         ← Downloaded .pdb files
-│
-└── proteins_ramachandran_plot/       ← Case study: From-scratch dihedral topology
-    ├── notebooks/
-    │   └── 01_Ramachandran_Plot_Generator.ipynb
-    ├── src/
-    │   └── data_fetcher.py           
-    └── data/                         
-│
-├── continental_philosophy/           ← Case study: Graph theory & Multi-agent Systems
-│   ├── notebooks/
-│   │   ├── 01_Dialectical_Knowledge_Graph.ipynb
-│   │   └── 02_Kojeve_Evolutionary_Game_Theory.ipynb
-│   ├── src/
-│   │   └── data_generator.py         ← NLP & Population bootstrapping
-│   └── data/
-│
-└── computational_physics/            ← Case study: Numerical integrators & PDEs
-    ├── notebooks/
-    │   ├── 01_Rutherford_Scattering_Simulation.ipynb
-    │   └── 02_Schrodinger_Crank_Nicolson.ipynb
-    ├── src/
-    │   └── data_generator.py         ← Monte Carlo parameter generation
-    └── data/
-│
-└── subscription_economics/           ← Case study: SaaS Product Analytics
-    ├── notebooks/
-    │   ├── 01_Cohort_Retention_and_LTV.ipynb
-    │   ├── 02_Churn_Prediction_Telemetry.ipynb
-    │   └── 03_AB_Testing_Onboarding.ipynb
-    ├── src/
-    │   └── data_generator.py         ← Synthetic SQL/DWH builder (Hardware/SaaS)
-    └── data/
+├── cloud_infrastructure_support/     ← 5-layer analytics on HCI support operations
+├── computational_physics/            ← Rutherford Monte Carlo + Schrödinger Crank–Nicolson
+├── continental_philosophy/           ← Hegel knowledge graph + Kojève game theory
+├── macroeconomic_capture/            ← Fiscal crowding-out + zombie corporations
+├── proteins_alphafold_distances/     ← Spatial distances on RCSB PDB structures
+├── proteins_ramachandran_plot/       ← Dihedral angles φ / ψ computed from scratch
+├── quantitative_finance/             ← LOB microstructure + Heston pricing + HRP allocation
+├── real_estate/                      ← King County housing regression
+└── subscription_economics/           ← Cohorts + churn + A/B testing
+```
+
+Every case study folder follows the same convention:
+
+```
+<case_study>/
+├── notebooks/        ← Jupyter analyses with rendered outputs
+├── src/              ← data generator, fetcher, or production package
+├── tests/            ← pytest suite (pytest -m unit | integration)
+├── data/             ← inputs and outputs (gitignored where appropriate)
+├── pyproject.toml    ← installable package with project-specific deps
+├── README.md         ← project-specific quick start and architecture
+└── LICENSE
+```
+
+## Quick Start
+
+Each case study is independently installable — pick whichever interests you:
+
+```bash
+git clone https://github.com/MarioCasanovacf/Portfolio.git
+cd Portfolio/<case_study>
+pip install -e ".[dev,notebooks]"
+jupyter lab notebooks/
+pytest -m unit
 ```
 
 ---
@@ -241,16 +213,20 @@ Rather than waiting for access to production data, this portfolio demonstrates *
 
 ## About
 
-**Mario Casanova**
+**Mario Casanova — Mexico City**
 
-I solve problems. Given a domain I haven't seen before — whether it's derivatives pricing, quantum tunneling, protein geometry, or SaaS retention — I learn the structure, pick the right tools, and build something that works. My career has been defined by receiving hard problems and finding optimal solutions, not by staying inside a single toolkit or title.
+I enjoy building things. Most of what's in this repo started as a thing I wanted to understand and then turned into code. Continental philosophy, derivatives, protein geometry, SaaS retention — those aren't the same field, but they hide the same shape: a structure to learn, a method to pick, an output that has to actually work. I'm not trying to specialize in one of them, I'm trying to specialize in getting through any of them.
 
-I'm technically autonomous but deeply collaborative: I break through bureaucratic and generational barriers to align teams around clear outcomes. I adapt to constraints when necessary and push past them when possible.
+**Why this portfolio exists**
 
-What drives me is building things that matter — tools, models, and systems that contribute real value, not just to a business, but to how we understand and act on the world.
+Two reasons. First, these are problems I genuinely enjoy thinking about — the repo is where I park what I learn so I don't lose it. Second, I'm building toward sharing knowledge and being able to showcase how I can help. If you're hiring or contracting someone to solve a real problem in your data, this is what I look like when I'm working on my own — feel free to call.
 
-- Mainly financial sector & startup experience but curious about many industries
-- Stack: Python, SQL, Power BI, Tableau, C#
+**Why I build**
+
+A lot of industries have a "bullshit problem" — people throwing around terms they don't really understand about things they understand even less, mostly to look smart. I don't have time for that. The work in this repo goes in the other direction: pick a hard topic, do the math openly, show the code, ship the plot. I publish only things that I can reproduce. If I can't explain what the model is doing, the model isn't done, yet.
+
+**Stack & details**
+
+- Python, SQL, Power BI, Tableau, C#
 - Fluent in Spanish and English
-- Based in Mexico City
 - LinkedIn: [mario-casanova](https://www.linkedin.com/in/mario-casanova/)
