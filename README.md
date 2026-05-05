@@ -130,7 +130,6 @@ Simulates a SaaS/Hardware (IoT) Data Warehouse to analyze unit economics, behavi
 |---|---|---|
 | **[TECHNICAL_GUIDE.md](./TECHNICAL_GUIDE.md)** | Engineers, hiring managers | Statistical methodology, architecture decisions, "what if you change X" scenarios |
 | **[FOR_NON_ENGINEERS.md](./FOR_NON_ENGINEERS.md)** | Everyone | Plain-language explanations using analogies — no jargon required |
-| **[PRODUCTION_TEMPLATE.md](./PRODUCTION_TEMPLATE.md)** | Engineers | Engineering contract every case study follows: structure, tests, CI, docs |
 
 ---
 
@@ -157,7 +156,6 @@ Simulates a SaaS/Hardware (IoT) Data Warehouse to analyze unit economics, behavi
 ```
 Portfolio/
 ├── README.md                         ← You are here
-├── PRODUCTION_TEMPLATE.md            ← Engineering contract for all case studies
 ├── TECHNICAL_GUIDE.md                ← Deep technical reference
 ├── FOR_NON_ENGINEERS.md              ← Plain-language guide
 │

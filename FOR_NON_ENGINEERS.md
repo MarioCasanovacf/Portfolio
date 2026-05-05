@@ -250,13 +250,22 @@ With that in mind, here's what each piece of the portfolio does:
 
 ---
 
-## The Foundation: Where Mario Learned This
+## "Can We Predict House Prices?" (Real Estate)
 
 **File:** `real_estate/house_sales_king_county.ipynb`
 
-This is a project from IBM's Data Analysis course — predicting house prices in King County, Washington using real estate data. Think of it as learning to drive in a parking lot before getting on the highway.
+**The question it answers:** *Given the characteristics of a house — square footage, bedrooms, location, year built — how much will it sell for?*
 
-The techniques practiced here (regression, feature selection, model validation) are exactly the same ones used in the infrastructure support case study, just applied to a simpler, public dataset.
+**In everyday terms:** Imagine a real estate agent looking at a listing. They can probably guess whether a 4-bedroom in Bellevue will sell for $400k or $4M just from experience. This notebook teaches a computer to make those guesses systematically — using 21,000 real King County (Seattle area) home sales from 2014–2015. The same methodology that powers Zillow's "Zestimate."
+
+**What the notebook actually produces:**
+
+- Exploratory analysis showing which features (square footage, location, condition) most strongly correlate with price
+- A series of regression models (linear, polynomial, Ridge-regularized) compared against each other
+- Cross-validation results that prove the model generalizes to houses it hasn't seen before
+- An R² score quantifying how much of the price variation the model explains
+
+**Why this matters:** Regression is the workhorse of applied analytics — every "predicted X based on Y" question in business uses these techniques. King County is the canonical benchmark dataset. Doing it cleanly here demonstrates the foundation the more exotic case studies are built on.
 
 ---
 
@@ -301,7 +310,7 @@ If you've read this far without getting lost, here's the one-sentence version of
 | **Continental Philosophy** | Demonstrates that even 19th-century German philosophy can be formalized into working computational models |
 | **Computational Physics** | Simulates fundamental physics (particle scattering, quantum tunneling) from first principles using numerical methods |
 | **Subscription Economics** | The three pillars of product analytics: customer lifetime value, churn prediction, and A/B testing |
-| **Real Estate** | Evidence that the statistical methods used here were learned rigorously through structured coursework |
+| **Real Estate** | Regression on the King County housing dataset — the canonical benchmark for applied predictive modeling |
 | **Data Generators** | Proof of the ability to build analytical systems without waiting for someone else to provide the data |
 | **API Integration** | Proof that this can transition from a portfolio project to a production tool without rewriting everything |
 
