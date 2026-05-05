@@ -1,39 +1,37 @@
 # macroeconomic-capture
 
-> Dos hipótesis macroeconómicas que normalmente solo se discuten en prosa,
-> aquí cuantificadas con datos sintéticos y modelos econométricos básicos:
-> el **crowding-out fiscal** sobre la inversión privada, y la identificación
-> de **empresas zombies** (firmas que sobreviven solo por costos de capital
-> artificialmente bajos).
+> Two macroeconomic hypotheses normally argued in prose, here quantified with
+> synthetic data and basic econometrics: **fiscal crowding-out** of private
+> investment, and the identification of **zombie firms** (companies that survive
+> only because the cost of capital is artificially low).
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## ¿Por qué este proyecto?
+## Why this project
 
-La macroeconomía está plagada de hipótesis difíciles de testear porque los
-experimentos controlados son imposibles. Pero podemos: (a) generar datos
-sintéticos consistentes con un mecanismo causal hipotético, (b) ajustar el
-modelo que asume el mecanismo, y (c) ver qué condiciones hacen detectable el
-efecto. Esto es valioso pedagógicamente y como banco de pruebas para
-metodología.
+Macroeconomics is full of hypotheses that are hard to test because controlled
+experiments are impossible. But you can: (a) generate synthetic data
+consistent with a hypothesized causal mechanism, (b) fit a model that assumes
+that mechanism, and (c) see what conditions make the effect detectable. That
+is valuable both pedagogically and as a methodology test bench.
 
 ## Stack
 
-| Capa | Tecnología |
+| Layer | Technology |
 |---|---|
-| Generación sintética | `numpy` + `pandas` |
-| Modelos | `statsmodels` (OLS, paneles, IV) |
-| Visualización | `matplotlib` + `seaborn` |
+| Synthetic generation | `numpy` + `pandas` |
+| Models | `statsmodels` (OLS, panel, IV) |
+| Visualization | `matplotlib` + `seaborn` |
 
 ## Notebooks
 
-| # | Notebook | Hipótesis |
+| # | Notebook | Hypothesis |
 |---|---|---|
-| 01 | `01_Fiscal_Crowding_Out.ipynb` | Más deuda pública → menos inversión privada |
-| 02 | `02_Zombie_Corporations.ipynb` | Tasas bajas mantienen vivas firmas no rentables |
+| 01 | `01_Fiscal_Crowding_Out.ipynb` | More public debt → less private investment |
+| 02 | `02_Zombie_Corporations.ipynb` | Low rates keep unprofitable firms alive |
 
-## Arquitectura
+## Architecture
 
 ```mermaid
 flowchart LR
@@ -54,10 +52,6 @@ jupyter lab notebooks/
 pytest -m unit
 ```
 
-## Licencia
+## License
 
-MIT — ver [LICENSE](LICENSE).
-
-## Contrato del portafolio
-
-Sigue [PRODUCTION_TEMPLATE.md](../PRODUCTION_TEMPLATE.md).
+MIT — see [LICENSE](LICENSE).

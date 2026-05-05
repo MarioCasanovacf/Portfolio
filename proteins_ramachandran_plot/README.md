@@ -1,37 +1,36 @@
 # proteins-ramachandran-plot
 
-> Generación de gráficos de Ramachandran (ángulos diedros φ/ψ) desde
-> estructuras PDB reales — caso de estudio: **1AHO** (neurotoxina pequeña con
-> hélices α y láminas β bien definidas).
+> Ramachandran plots (φ/ψ dihedral angles) generated from real PDB structures —
+> case study: **1AHO** (a small neurotoxin with well-defined α-helices and β-sheets).
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## ¿Por qué este proyecto?
+## Why this project
 
-El gráfico de Ramachandran es la herramienta canónica para validar el
-plegamiento de proteínas — cada punto corresponde a un par (φ, ψ) por residuo y
-las regiones permitidas reflejan restricciones estéricas universales.
-Reproducirlo desde cero (sin PyMOL ni Chimera) demuestra dominio práctico de
-geometría molecular y de la API estructural de Biopython.
+The Ramachandran plot is the canonical tool for validating protein folding —
+each point corresponds to a (φ, ψ) pair per residue, and the allowed regions
+reflect universal steric constraints. Reproducing it from scratch (without
+PyMOL or Chimera) demonstrates practical command of molecular geometry and of
+the Biopython structural API.
 
 ## Stack
 
-| Capa | Tecnología |
+| Layer | Technology |
 |---|---|
 | Fetch | `urllib` + RCSB PDB |
 | Parsing | `biopython` (Bio.PDB) |
-| Cálculo de diedros | `Bio.PDB.PPBuilder` + trigonometría manual |
-| Visualización | `matplotlib` + `seaborn` (kde overlay) |
+| Dihedral computation | `Bio.PDB.PPBuilder` + manual trigonometry |
+| Visualization | `matplotlib` + `seaborn` (KDE overlay) |
 
-## Arquitectura
+## Architecture
 
 ```mermaid
 flowchart LR
     PDB[(RCSB PDB)] --> F[fetch_pdb 1AHO]
     F --> RAW[data/1aho.pdb]
     RAW --> P[Bio.PDB.PPBuilder]
-    P --> A[phi/psi por residuo]
+    P --> A[phi/psi per residue]
     A --> R[Ramachandran scatter + KDE]
 ```
 
@@ -46,7 +45,7 @@ jupyter lab notebooks/
 pytest -m unit
 ```
 
-## Estructura
+## Layout
 
 ```
 proteins_ramachandran_plot/
@@ -57,10 +56,6 @@ proteins_ramachandran_plot/
 └── pyproject.toml
 ```
 
-## Licencia
+## License
 
-MIT — ver [LICENSE](LICENSE).
-
-## Contrato del portafolio
-
-Sigue [PRODUCTION_TEMPLATE.md](../PRODUCTION_TEMPLATE.md).
+MIT — see [LICENSE](LICENSE).

@@ -1,43 +1,42 @@
 # cloud-infrastructure-support
 
-> Pipeline analítico de extremo a extremo sobre telemetría sintética de
-> infraestructura cloud — los cuatro pilares de la analítica (descriptivo,
-> diagnóstico, predictivo, prescriptivo) aplicados a logs, tickets y métricas
-> de salud de servidores.
+> End-to-end analytical pipeline on synthetic cloud infrastructure telemetry —
+> the four pillars of analytics (descriptive, diagnostic, predictive,
+> prescriptive) applied to logs, tickets, and server health metrics.
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## ¿Por qué este proyecto?
+## Why this project
 
-Las áreas de "support" cloud (SRE / NOC / DevOps) acumulan toneladas de
-telemetría heterogénea: logs estructurados, métricas de CPU/memoria, tickets de
-incidentes. La pregunta interesante no es "¿qué pasó?" sino "¿qué va a pasar?
-y ¿qué debemos hacer al respecto?". Este proyecto camina los cuatro niveles de
-analítica sobre el mismo dataset sintético, mostrando cómo cada nivel agrega
-valor incremental.
+Cloud "support" organizations (SRE / NOC / DevOps) accumulate tons of
+heterogeneous telemetry: structured logs, CPU/memory metrics, incident
+tickets. The interesting question isn't "what happened?" but "what's about
+to happen, and what should we do about it?". This project walks the four
+analytical levels over the same synthetic dataset, showing how each level
+adds incremental value.
 
 ## Stack
 
-| Capa | Tecnología |
+| Layer | Technology |
 |---|---|
-| Generación sintética | `numpy` + `pandas` |
-| Anomalías | `scikit-learn` (IsolationForest, LOF) |
-| Forecasting | `prophet` / `statsmodels` (opcional) |
-| Clasificación de riesgo | `scikit-learn` (gradient boosting, calibración) |
-| Visualización | `matplotlib` + `seaborn` |
+| Synthetic generation | `numpy` + `pandas` |
+| Anomalies | `scikit-learn` (IsolationForest, LOF) |
+| Forecasting | `prophet` / `statsmodels` (optional) |
+| Risk classification | `scikit-learn` (gradient boosting, calibration) |
+| Visualization | `matplotlib` + `seaborn` |
 
-## Cuatro notebooks, cuatro niveles
+## Four notebooks, four levels
 
-| # | Notebook | Nivel | Pregunta |
+| # | Notebook | Level | Question |
 |---|---|---|---|
-| 01 | `01_descriptive_health_monitor.ipynb` | Descriptivo | ¿Qué está pasando ahora? |
-| 02 | `02_diagnostic_anomaly_detection.ipynb` | Diagnóstico | ¿Por qué pasó este evento? |
-| 03 | `03_predictive_ticket_forecasting.ipynb` | Predictivo | ¿Cuántos tickets voy a tener mañana? |
-| 04 | `04_prescriptive_escalation_risk.ipynb` | Prescriptivo | ¿A qué ticket le doy prioridad? |
-| 05 | `05_api_integration.ipynb` | Integración | Cómo expondría esto vía API |
+| 01 | `01_descriptive_health_monitor.ipynb` | Descriptive | What's happening right now? |
+| 02 | `02_diagnostic_anomaly_detection.ipynb` | Diagnostic | Why did this event happen? |
+| 03 | `03_predictive_ticket_forecasting.ipynb` | Predictive | How many tickets will we get tomorrow? |
+| 04 | `04_prescriptive_escalation_risk.ipynb` | Prescriptive | Which ticket should I prioritize? |
+| 05 | `05_api_integration.ipynb` | Integration | How would I expose this through an API? |
 
-## Arquitectura
+## Architecture
 
 ```mermaid
 flowchart LR
@@ -60,7 +59,7 @@ jupyter lab notebooks/
 pytest -m unit
 ```
 
-## Estructura
+## Layout
 
 ```
 cloud_infrastructure_support/
@@ -75,10 +74,6 @@ cloud_infrastructure_support/
 └── tests/
 ```
 
-## Licencia
+## License
 
-MIT — ver [LICENSE](LICENSE).
-
-## Contrato del portafolio
-
-Sigue [PRODUCTION_TEMPLATE.md](../PRODUCTION_TEMPLATE.md).
+MIT — see [LICENSE](LICENSE).

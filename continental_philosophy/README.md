@@ -1,40 +1,39 @@
 # continental-philosophy
 
-> Filosofía continental aplicada con métodos cuantitativos:
-> un **grafo dialéctico de conocimiento** sobre el corpus de la *Fenomenología
-> del Espíritu* de Hegel y una simulación de **teoría de juegos evolutivos**
-> sobre la dialéctica amo-esclavo de Kojève.
+> Continental philosophy approached with quantitative methods: a
+> **dialectical knowledge graph** over Hegel's *Phenomenology of Spirit* corpus,
+> and an **evolutionary game theory** simulation over Kojève's master/slave
+> dialectic.
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## ¿Por qué este proyecto?
+## Why this project
 
-La filosofía continental rara vez se modela computacionalmente. Este proyecto
-demuestra que dos de sus aparatos centrales —**dialéctica** (Hegel) y la
-**lucha por reconocimiento** (Kojève)— pueden representarse como (a) un grafo
-dirigido con centralidad eigenvector, y (b) un sistema evolutivo de agentes
-con payoffs asimétricos. El resultado no pretende ser exégesis sino prueba de
-que las herramientas cuantitativas pueden iluminar argumentos que normalmente
-viven solo en prosa.
+Continental philosophy is rarely modeled computationally. This project
+demonstrates that two of its central apparatuses — **dialectics** (Hegel) and
+the **struggle for recognition** (Kojève) — can be represented as (a) a
+directed graph with eigenvector centrality, and (b) an evolutionary system of
+agents with asymmetric payoffs. The point isn't exegesis; it's to show that
+quantitative tools can illuminate arguments that usually live only in prose.
 
 ## Stack
 
-| Capa | Tecnología |
+| Layer | Technology |
 |---|---|
-| Corpus + grafo | `networkx` + tokenización ligera |
-| Centralidad | `networkx.eigenvector_centrality` |
+| Corpus + graph | `networkx` + light tokenization |
+| Centrality | `networkx.eigenvector_centrality` |
 | Game theory | `numpy` (replicator dynamics) |
-| Visualización | `matplotlib` |
+| Visualization | `matplotlib` |
 
 ## Notebooks
 
-| # | Notebook | Método |
+| # | Notebook | Method |
 |---|---|---|
-| 01 | `01_Dialectical_Knowledge_Graph.ipynb` | Grafo dialéctico + centralidad |
-| 02 | `02_Kojeve_Evolutionary_Game_Theory.ipynb` | Replicator dynamics master/slave |
+| 01 | `01_Dialectical_Knowledge_Graph.ipynb` | Dialectical graph + centrality |
+| 02 | `02_Kojeve_Evolutionary_Game_Theory.ipynb` | Master/slave replicator dynamics |
 
-## Arquitectura
+## Architecture
 
 ```mermaid
 flowchart LR
@@ -55,10 +54,6 @@ jupyter lab notebooks/
 pytest -m unit
 ```
 
-## Licencia
+## License
 
-MIT — ver [LICENSE](LICENSE).
-
-## Contrato del portafolio
-
-Sigue [PRODUCTION_TEMPLATE.md](../PRODUCTION_TEMPLATE.md).
+MIT — see [LICENSE](LICENSE).

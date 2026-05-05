@@ -1,38 +1,36 @@
 # real-estate
 
-> Predicción de precios de venta de casas sobre el dataset de **King County
-> (Seattle area, 2014-2015)** — EDA, ingeniería de características, y modelos
-> de regresión, hechos con la disciplina de un proyecto productivo, no como
-> notebook desechable.
+> House sale price prediction on the **King County (Seattle area, 2014–2015)**
+> dataset — EDA, feature engineering, and regression models, done with the
+> discipline of a production project rather than as a throwaway notebook.
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## ¿Por qué este proyecto?
+## Why this project
 
-El King County dataset es el "Iris de real estate" — todo el mundo lo usa
-porque es accesible, suficientemente desordenado para ser interesante, y tiene
-una variable objetivo clara (`price`). Pero la mayoría de los notebooks que lo
-abordan se quedan en EDA superficial. Este proyecto recorre el pipeline
-completo: limpieza → feature engineering geoespacial → comparación de
-baselines lineales vs gradient boosting → diagnóstico de residuos.
+The King County dataset is the "Iris of real estate" — everyone uses it
+because it is accessible, messy enough to be interesting, and has a clear
+target variable (`price`). Most notebooks that touch it stop at superficial
+EDA. This project walks the full pipeline: cleaning → geospatial feature
+engineering → linear vs gradient-boosted baselines → residual diagnostics.
 
 ## Stack
 
-| Capa | Tecnología |
+| Layer | Technology |
 |---|---|
-| EDA + transformaciones | `pandas` + `numpy` |
-| Visualización | `matplotlib` + `seaborn` |
-| Modelos | `scikit-learn` (linear, ridge, RF, GBM) |
-| Boosting opcional | `xgboost` / `lightgbm` |
+| EDA + transformations | `pandas` + `numpy` |
+| Visualization | `matplotlib` + `seaborn` |
+| Models | `scikit-learn` (linear, ridge, RF, GBM) |
+| Optional boosting | `xgboost` / `lightgbm` |
 
-## Análisis
+## Analysis
 
-| Notebook | Pregunta |
+| Notebook | Question |
 |---|---|
-| `house_sales_king_county.ipynb` | ¿Qué features explican mejor el precio y qué baseline gana? |
+| `house_sales_king_county.ipynb` | Which features best explain price, and which baseline wins? |
 
-## Arquitectura
+## Architecture
 
 ```mermaid
 flowchart LR
@@ -42,7 +40,7 @@ flowchart LR
     F --> M1[Linear / Ridge]
     F --> M2[Random Forest]
     F --> M3[Gradient Boosting]
-    M1 & M2 & M3 --> R[Comparación + residuos]
+    M1 & M2 & M3 --> R[Comparison + residuals]
 ```
 
 ## Quick Start
@@ -56,10 +54,6 @@ jupyter lab house_sales_king_county.ipynb
 pytest -m unit
 ```
 
-## Licencia
+## License
 
-MIT — ver [LICENSE](LICENSE).
-
-## Contrato del portafolio
-
-Sigue [PRODUCTION_TEMPLATE.md](../PRODUCTION_TEMPLATE.md).
+MIT — see [LICENSE](LICENSE).

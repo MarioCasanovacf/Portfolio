@@ -7,24 +7,24 @@
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## ¿Por qué este proyecto?
+## Why this project
 
-Las distancias inter-átomicas son la materia prima del plegamiento de proteínas
-y de modelos como AlphaFold. Este proyecto descarga estructuras reales del PDB
-y reproduce análisis de distancias / contactos sin requerir GPUs ni bases de
-datos especializadas — útil para entender qué computan los modelos de plegamiento
-sin la opacidad de un modelo entrenado.
+Inter-atomic distances are the raw material of protein folding and of models
+like AlphaFold. This project downloads real PDB structures and reproduces
+distance/contact analysis without GPUs or specialized databases — useful for
+understanding what folding models compute, without the opacity of a trained
+network.
 
 ## Stack
 
-| Capa | Tecnología | Por qué |
+| Layer | Technology | Why |
 |---|---|---|
-| Fetch | `urllib` + RCSB PDB | API pública, sin autenticación |
-| Parsing | `biopython` | Estándar para PDB/mmCIF |
-| Análisis | `numpy` + `pandas` | Distancias y contact maps |
-| Visualización | `matplotlib` + `seaborn` | Heatmaps, Ramachandran-style plots |
+| Fetch | `urllib` + RCSB PDB | Public API, no authentication |
+| Parsing | `biopython` | Standard for PDB/mmCIF |
+| Analysis | `numpy` + `pandas` | Distance matrices and contact maps |
+| Visualization | `matplotlib` + `seaborn` | Heatmaps, Ramachandran-style plots |
 
-## Arquitectura
+## Architecture
 
 ```mermaid
 flowchart LR
@@ -41,38 +41,33 @@ flowchart LR
 git clone https://github.com/MarioCasanovacf/Portfolio.git
 cd Portfolio/proteins_alphafold_distances
 pip install -e ".[dev,notebooks]"
-python src/data_fetcher.py            # baja 1UBQ
-jupyter lab notebooks/                # abre el análisis
+python src/data_fetcher.py            # downloads 1UBQ
+jupyter lab notebooks/                # opens the analysis
 pytest -m unit                        # smoke tests
 ```
 
-## Estructura
+## Layout
 
 ```
 proteins_alphafold_distances/
 ├── src/
-│   └── data_fetcher.py       # PDB downloader (1UBQ por defecto)
+│   └── data_fetcher.py       # PDB downloader (1UBQ by default)
 ├── notebooks/
 │   └── 01_AlphaFold_Spatial_Distances.ipynb
 ├── data/
-│   └── *.pdb                 # estructuras descargadas
+│   └── *.pdb                 # downloaded structures
 ├── tests/
 │   └── unit/test_data_fetcher.py
 └── pyproject.toml
 ```
 
-## Datos
+## Data
 
-| Archivo | Origen | Descripción |
+| File | Source | Description |
 |---|---|---|
-| `1ubq.pdb` | RCSB PDB | Ubiquitina humana, 76 residuos — caso canónico |
+| `1ubq.pdb` | RCSB PDB | Human ubiquitin, 76 residues — canonical case |
 
-## Licencia
+## License
 
-MIT — ver [LICENSE](LICENSE). Código del portafolio público de
+MIT — see [LICENSE](LICENSE). Public portfolio code by
 [Mario Casanova](https://github.com/MarioCasanovacf).
-
-## Contrato del portafolio
-
-Este proyecto sigue el contrato uniforme de
-[`PRODUCTION_TEMPLATE.md`](../PRODUCTION_TEMPLATE.md).

@@ -1,39 +1,38 @@
 # computational-physics
 
-> Dos experimentos numéricos clásicos: dispersión de Rutherford por Monte Carlo
-> y la ecuación de Schrödinger evolucionada con el esquema implícito de
-> **Crank–Nicolson**. La idea es aterrizar dos métodos numéricos pesados
-> (estocástico vs determinístico) en problemas físicos que tienen interpretación
-> intuitiva.
+> Two classic numerical experiments: Rutherford scattering by Monte Carlo and
+> the Schrödinger equation evolved with the implicit **Crank–Nicolson** scheme.
+> The point is to ground two heavy numerical methods (stochastic vs deterministic)
+> in physical problems with intuitive interpretations.
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## ¿Por qué este proyecto?
+## Why this project
 
-- **Rutherford**: introduce simulación Monte Carlo y muestreo por importancia.
-- **Schrödinger / Crank–Nicolson**: introduce métodos espectrales y resolución
-  de sistemas tridiagonales — el corazón de muchos solvers de PDEs.
+- **Rutherford**: introduces Monte Carlo simulation and importance sampling.
+- **Schrödinger / Crank–Nicolson**: introduces spectral methods and tridiagonal
+  system solvers — the core of many PDE solvers.
 
-Ambos casos están al alcance de un laptop, son visualizables, y muestran cómo
-la física requiere herramientas numéricas distintas según el régimen.
+Both cases run on a laptop, are visualizable, and show how physics requires
+different numerical tools depending on the regime.
 
 ## Stack
 
-| Capa | Tecnología |
+| Layer | Technology |
 |---|---|
-| Cómputo | `numpy` + `scipy.linalg` (tridiagonales) |
-| Datos sintéticos | generador propio (`src/data_generator.py`) |
-| Visualización | `matplotlib` (animaciones, contornos de probabilidad) |
+| Compute | `numpy` + `scipy.linalg` (tridiagonal solvers) |
+| Synthetic data | in-house generator (`src/data_generator.py`) |
+| Visualization | `matplotlib` (animations, probability contours) |
 
 ## Notebooks
 
-| # | Notebook | Método |
+| # | Notebook | Method |
 |---|---|---|
-| 01 | `01_Rutherford_Scattering_Simulation.ipynb` | Monte Carlo de partículas α |
-| 02 | `02_Schrodinger_Crank_Nicolson.ipynb` | Crank–Nicolson 1D |
+| 01 | `01_Rutherford_Scattering_Simulation.ipynb` | Monte Carlo of α-particles |
+| 02 | `02_Schrodinger_Crank_Nicolson.ipynb` | 1D Crank–Nicolson |
 
-## Arquitectura
+## Architecture
 
 ```mermaid
 flowchart LR
@@ -54,10 +53,6 @@ jupyter lab notebooks/
 pytest -m unit
 ```
 
-## Licencia
+## License
 
-MIT — ver [LICENSE](LICENSE).
-
-## Contrato del portafolio
-
-Sigue [PRODUCTION_TEMPLATE.md](../PRODUCTION_TEMPLATE.md).
+MIT — see [LICENSE](LICENSE).

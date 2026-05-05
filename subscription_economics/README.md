@@ -1,41 +1,41 @@
 # subscription-economics
 
-> Tres preguntas canónicas de un negocio de suscripción —
-> ¿quién se queda?, ¿quién se va?, ¿qué intervención funciona? —
-> resueltas con cohortes, predicción de churn desde telemetría, y A/B testing de
-> onboarding sobre datos sintéticos pero estructuralmente realistas.
+> Three canonical questions for a subscription business —
+> who stays, who leaves, which intervention works —
+> answered with cohort retention, churn prediction from telemetry, and
+> onboarding A/B testing on synthetic but structurally realistic data.
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## ¿Por qué este proyecto?
+## Why this project
 
-La economía de suscripción se gana o se pierde en tres frentes interrelacionados:
-**retención** (cohorte), **predicción de abandono** (early warning), y
-**experimentación causal** (A/B). Este proyecto los aborda como un sistema
-coherente: las cohortes alimentan al modelo de churn, y los resultados del
-experimento informan la intervención en cohortes futuras.
+A subscription business is won or lost across three interrelated fronts:
+**retention** (cohort), **churn prediction** (early warning), and
+**causal experimentation** (A/B). This project addresses them as a coherent
+system: cohorts feed the churn model, and experiment results inform the
+intervention applied to future cohorts.
 
 ## Stack
 
-| Capa | Tecnología |
+| Layer | Technology |
 |---|---|
-| Datos sintéticos | `numpy` + `pandas` |
-| Análisis de cohortes | `pandas` (resample, groupby) |
+| Synthetic data | `numpy` + `pandas` |
+| Cohort analysis | `pandas` (resample, groupby) |
 | Survival / LTV | `lifelines` |
-| Churn prediction | `scikit-learn` (gradient boosting + calibración) |
+| Churn prediction | `scikit-learn` (gradient boosting + calibration) |
 | A/B testing | `scipy.stats` + bootstrap |
-| Visualización | `matplotlib` + `seaborn` |
+| Visualization | `matplotlib` + `seaborn` |
 
 ## Notebooks
 
-| # | Notebook | Pregunta |
+| # | Notebook | Question |
 |---|---|---|
-| 01 | `01_Cohort_Retention_and_LTV.ipynb` | ¿Cuál es el LTV por cohorte? |
-| 02 | `02_Churn_Prediction_Telemetry.ipynb` | ¿Quién va a cancelar próximamente? |
-| 03 | `03_AB_Testing_Onboarding.ipynb` | ¿El nuevo onboarding mueve la aguja? |
+| 01 | `01_Cohort_Retention_and_LTV.ipynb` | What is the LTV per cohort? |
+| 02 | `02_Churn_Prediction_Telemetry.ipynb` | Who is about to cancel? |
+| 03 | `03_AB_Testing_Onboarding.ipynb` | Does the new onboarding move the needle? |
 
-## Arquitectura
+## Architecture
 
 ```mermaid
 flowchart LR
@@ -58,18 +58,14 @@ jupyter lab notebooks/
 pytest -m unit
 ```
 
-## Datos sintéticos
+## Synthetic data
 
-| CSV | Filas | Descripción |
+| CSV | Rows | Description |
 |---|---|---|
-| `hardware_users.csv` | usuarios | Características del usuario y dispositivo |
-| `subscriptions.csv` | suscripciones | Plan, fechas de inicio/fin, estado |
-| `telemetry_logs_202303.csv` | eventos | Telemetría mensual para predicción de churn |
+| `hardware_users.csv` | users | User and device characteristics |
+| `subscriptions.csv` | subscriptions | Plan, start/end dates, status |
+| `telemetry_logs_202303.csv` | events | Monthly telemetry for churn prediction |
 
-## Licencia
+## License
 
-MIT — ver [LICENSE](LICENSE).
-
-## Contrato del portafolio
-
-Sigue [PRODUCTION_TEMPLATE.md](../PRODUCTION_TEMPLATE.md).
+MIT — see [LICENSE](LICENSE).

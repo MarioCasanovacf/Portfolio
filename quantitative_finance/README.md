@@ -9,31 +9,30 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Code style: ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-## ¿Por qué este proyecto?
+## Why this project
 
-Las tres rutinas presentadas — reconstrucción de LOB, valuación de opciones
-asiáticas con Heston, y asignación de capital con HRP — son ejercicios canónicos
-de finanzas cuantitativas que normalmente viven en notebooks dispersos sin
-infraestructura. Este repo los promueve a un toolkit instalable, reproducible
-bit-a-bit y testeado, alineado con el contrato del portafolio
-([`PRODUCTION_TEMPLATE.md`](../PRODUCTION_TEMPLATE.md)).
+The three workloads here — LOB reconstruction, Asian-option valuation under the
+Heston model, and HRP capital allocation — are canonical exercises of
+quantitative finance that usually live in scattered notebooks with no surrounding
+infrastructure. This repo promotes them to an installable, bit-reproducible,
+fully tested toolkit.
 
-El objetivo no es presentar resultados nuevos sino **demostrar madurez de
-ingeniería** en un dominio que muchos portfolios solo prototipean.
+The point isn't to publish new findings; it's to **demonstrate engineering
+maturity** in a domain most portfolios only prototype.
 
 ## Stack
 
-| Capa | Tecnología | Por qué |
+| Layer | Technology | Why |
 |---|---|---|
-| Configuración | `pydantic-settings` v2 | Type-safe, env-aware, jerárquica |
-| Logging | `structlog` v24 | Salida estructurada, contextual |
-| Datos | `numpy` + `pandas` | Estándar del ecosistema cuantitativo |
-| Modelos | `scipy`, `scikit-learn` | Clustering jerárquico para HRP, optimización |
-| Tests | `pytest` + `pytest-cov` | Markers `unit`/`integration`, threshold 75% |
-| Calidad | `ruff` + `mypy` (strict) + `bandit` + `gitleaks` | Pre-commit + CI |
+| Configuration | `pydantic-settings` v2 | Type-safe, env-aware, hierarchical |
+| Logging | `structlog` v24 | Structured, contextual output |
+| Data | `numpy` + `pandas` | Standard of the quant stack |
+| Models | `scipy`, `scikit-learn` | Hierarchical clustering for HRP, optimization |
+| Tests | `pytest` + `pytest-cov` | `unit`/`integration` markers, 75% threshold |
+| Quality | `ruff` + `mypy` (strict) + `bandit` + `gitleaks` | Pre-commit + CI |
 | CI | GitHub Actions | Matrix Python 3.11/3.12/3.13 |
 
-## Arquitectura
+## Architecture
 
 ```mermaid
 flowchart LR
@@ -71,28 +70,28 @@ flowchart LR
 git clone https://github.com/MarioCasanovacf/Portfolio.git
 cd Portfolio/quantitative_finance
 pip install -e ".[dev,notebooks]"
-qfinance generate-data --all     # regenera ambos CSV deterministas
-pytest -m unit                   # tests rápidos
-jupyter lab notebooks/           # abre los análisis
+qfinance generate-data --all     # regenerate both deterministic CSVs
+pytest -m unit                   # fast tests
+jupyter lab notebooks/           # open the analyses
 ```
 
-## Estructura
+## Layout
 
 ```
 quantitative_finance/
 ├── src/quantitative_finance/
 │   ├── config.py            # Pydantic Settings, env_prefix QFINANCE_
-│   ├── cli.py               # entrypoint qfinance
+│   ├── cli.py               # qfinance entrypoint
 │   ├── data/
 │   │   └── generator.py     # LOB + asset prices, deterministic
 │   ├── utils/
 │   │   └── logging.py       # structlog setup
 │   └── models/              # [planned] HRP, Heston, LOB analytics
 ├── tests/
-│   ├── conftest.py          # fixtures compartidas
-│   └── unit/                # tests con @pytest.mark.unit | integration
-├── notebooks/               # análisis exploratorios
-├── data/                    # CSVs generados
+│   ├── conftest.py          # shared fixtures
+│   └── unit/                # tests with @pytest.mark.unit | integration
+├── notebooks/               # exploratory analyses
+├── data/                    # generated CSVs
 ├── docs/
 │   ├── architecture.md
 │   └── adr/                 # Architecture Decision Records
@@ -101,10 +100,10 @@ quantitative_finance/
 └── pyproject.toml
 ```
 
-## Configuración
+## Configuration
 
-Todas las opciones se sobrescriben vía variables de entorno con prefijo
-`QFINANCE_` o vía un archivo `.env`:
+Every option can be overridden via environment variables prefixed with
+`QFINANCE_`, or through a `.env` file:
 
 ```bash
 QFINANCE_RANDOM_SEED=99 qfinance generate-data --lob
@@ -112,26 +111,24 @@ QFINANCE_LOB_N_EVENTS=100000 qfinance generate-data --lob
 QFINANCE_LOG_LEVEL=DEBUG qfinance generate-data --all
 ```
 
-Ver [`config.py`](src/quantitative_finance/config.py) para la lista completa.
+See [`config.py`](src/quantitative_finance/config.py) for the full list.
 
 ## ADRs
 
-Decisiones arquitectónicas registradas en [`docs/adr/`](docs/adr/):
+Architecture decisions recorded in [`docs/adr/`](docs/adr/):
 
 - [001 — Synthetic data strategy](docs/adr/001-synthetic-data-strategy.md)
 - [002 — Modular package layout vs flat](docs/adr/002-modular-vs-flat-layout.md)
 
-## Contribuir
+## Contributing
 
-Ver [CONTRIBUTING.md](CONTRIBUTING.md). El proyecto se adhiere al
-[contrato de producción del portafolio](../PRODUCTION_TEMPLATE.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Roadmap
 
-Ver [CHANGELOG.md](CHANGELOG.md) y [PLAN.md](PLAN.md) para el plan de elevación
-incremental (promoción de notebooks a módulos, reportes HTML, validación
-walk-forward).
+See [CHANGELOG.md](CHANGELOG.md) for what's shipped and what's planned next
+(notebook-to-module promotion, HTML reports, walk-forward validation).
 
-## Licencia
+## License
 
-MIT — ver [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).
