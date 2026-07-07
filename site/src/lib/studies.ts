@@ -58,15 +58,6 @@ export const studies: Study[] = [
     companion: true,
   },
   {
-    // Placeholder — a second applied-ML study is being chosen. Reserved slot.
-    slug: 'ml-second',
-    track: 'industry',
-    domain: 'Applied machine learning',
-    title: 'A second applied machine-learning study',
-    dek: '',
-    methods: [],
-  },
-  {
     slug: 'legislative-pipeline',
     track: 'industry',
     domain: 'Legislative data engineering',
@@ -95,6 +86,15 @@ export const studies: Study[] = [
     published: true,
   },
   {
+    // Placeholder — a second applied-ML study is being chosen. Reserved slot.
+    slug: 'ml-second',
+    track: 'industry',
+    domain: 'Applied machine learning',
+    title: 'A second applied machine-learning study',
+    dek: '',
+    methods: [],
+  },
+  {
     slug: 'hierarchical-risk-parity',
     track: 'industry',
     domain: 'Quantitative finance',
@@ -113,14 +113,6 @@ export const studies: Study[] = [
 
   // ── Intellectual · play → "Experiments" ─────────────────────────────────────
   {
-    slug: 'ramachandran',
-    track: 'intellectual',
-    domain: 'Structural biology',
-    title: 'Ramachandran topology from atomic coordinates',
-    dek: 'Dihedral φ and ψ angles computed from scratch using vector geometry over PDB-sourced atomic coordinates. The plot reveals alpha-helix and beta-sheet basins as data, not as illustration.',
-    methods: ['Vector geometry', 'PDB parsing'],
-  },
-  {
     slug: 'legislative-experiments',
     track: 'intellectual',
     domain: 'Computational politics',
@@ -128,6 +120,14 @@ export const studies: Study[] = [
     dek: 'Exploratory tests on the LXVI roll-call: the two blocs actually agree 57% of the time, absence is used to skip routine votes (not dodge contentious ones), floor leaders track their caucus to ≥99.6%, and the only deputies who cross the aisle are all from MC — including, at the same rate, MC’s own floor coordinator.',
     methods: ['DuckDB + pandas', 'Roll-call analysis', 'Jupyter'],
     published: true,
+  },
+  {
+    slug: 'ramachandran',
+    track: 'intellectual',
+    domain: 'Structural biology',
+    title: 'Ramachandran topology from atomic coordinates',
+    dek: 'Dihedral φ and ψ angles computed from scratch using vector geometry over PDB-sourced atomic coordinates. The plot reveals alpha-helix and beta-sheet basins as data, not as illustration.',
+    methods: ['Vector geometry', 'PDB parsing'],
   },
   {
     slug: 'symplectic-integration',
