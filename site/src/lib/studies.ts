@@ -58,6 +58,15 @@ export const studies: Study[] = [
     companion: true,
   },
   {
+    // Placeholder — a second applied-ML study is being chosen. Reserved slot.
+    slug: 'ml-second',
+    track: 'industry',
+    domain: 'Applied machine learning',
+    title: 'A second applied machine-learning study',
+    dek: '',
+    methods: [],
+  },
+  {
     slug: 'legislative-pipeline',
     track: 'industry',
     domain: 'Legislative data engineering',
@@ -84,15 +93,6 @@ export const studies: Study[] = [
     dek: 'The file-based coordinator that assembled much of this portfolio, examined as its own subject: a shared task-DAG, TTL file-locks, and a producer≠approver rule the CLI enforces by refusing the command rather than asking nicely. On the board that relocated the site, revived the legislative pipeline and drafted the neighbouring studies — 18 of 22 tasks reached done, every producer task was verdicted by a different agent than wrote it, and one over-confident result got sent back through a fix loop before it could ship. The two that failed did so because the tool could not edit a dependency edge, so they were retired and rebuilt; the honest gaps — a file collision never actually blocked on this board, no cost comparison against one careful agent — are the load-bearing part.',
     methods: ['Shared blackboard (task DAG)', 'TTL write-locks', 'Producer ≠ approver', 'Evidence replay'],
     published: true,
-  },
-  {
-    // Placeholder — a second applied-ML study is being chosen. Reserved slot.
-    slug: 'ml-second',
-    track: 'industry',
-    domain: 'Applied machine learning',
-    title: 'A second applied machine-learning study',
-    dek: '',
-    methods: [],
   },
   {
     slug: 'hierarchical-risk-parity',
