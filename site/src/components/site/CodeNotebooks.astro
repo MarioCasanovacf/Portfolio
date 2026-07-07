@@ -1,0 +1,181 @@
+---
+// A small, code-forward sampler: a handful of notebooks with a line on what
+// each one actually does, linking out to the repository. Not the polished
+// case-study narrative — this is the code itself. "See the rest" goes to GitHub.
+const REPO = 'https://github.com/MarioCasanovacf/Portfolio';
+const blob = (path: string) => `${REPO}/blob/main/${path}`;
+
+const samples = [
+  {
+    domain: 'Cloud infrastructure',
+    file: '01_error_budget.ipynb',
+    path: '01_professional/cloud_infrastructure_support/notebooks/01_error_budget.ipynb',
+    note: 'The arithmetic of a promise: how much downtime a 99.9% target actually buys, read off 787 real incidents captured from public status pages — normalised per provider, because each window is a different length.',
+  },
+  {
+    domain: 'Quantitative finance',
+    file: '03_Hierarchical_Risk_Parity.ipynb',
+    path: '01_professional/quantitative_finance/notebooks/03_Hierarchical_Risk_Parity.ipynb',
+    note: 'Cluster the correlation matrix, quasi-diagonalise it, and bisect the resulting tree — portfolio weights that never invert a covariance matrix and move continuously with the inputs.',
+  },
+  {
+    domain: 'Computational physics',
+    file: '02_Schrodinger_Crank_Nicolson.ipynb',
+    path: '02_intellectual/computational_physics/notebooks/02_Schrodinger_Crank_Nicolson.ipynb',
+    note: 'A wavepacket tunnelling through a barrier, evolved by the Crank–Nicolson scheme — unconditionally stable, unitary, solved as a tridiagonal system at every step.',
+  },
+  {
+    domain: 'Structural biology',
+    file: '01_Ramachandran_Plot_Generator.ipynb',
+    path: '02_intellectual/proteins_ramachandran_plot/notebooks/01_Ramachandran_Plot_Generator.ipynb',
+    note: 'φ and ψ dihedral angles computed from raw PDB atomic coordinates with nothing but vector geometry — the α-helix and β-sheet basins fall out as data, not as illustration.',
+  },
+];
+---
+
+<section class="code-page">
+  <div class="code-eyebrow">Code</div>
+  <h1 class="code-title">Now the code itself.</h1>
+  <p class="code-lede">
+    The case studies argue; the notebooks compute. Here is a small sample — a
+    few I find worth reading for how they behave, across the applied work and the
+    experiments. It is a taste, not the shelf. For the rest, the whole repository
+    is open.
+  </p>
+
+  <div class="code-rows">
+    {samples.map((s) => (
+      <a class="code-row" href={blob(s.path)} target="_blank" rel="noopener">
+        <div class="code-row__meta">
+          <div class="code-row__domain">{s.domain}</div>
+          <code class="code-row__file">{s.file}</code>
+        </div>
+        <div class="code-row__body">
+          <p class="code-row__note">{s.note}</p>
+          <span class="code-row__cta">View on GitHub →</span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <a class="code-repo-cta" href={REPO} target="_blank" rel="noopener">
+    Browse the full repository →
+  </a>
+</section>
+
+<style>
+  .code-page {
+    padding: 96px var(--gutter-desktop);
+  }
+  @media (max-width: 760px) {
+    .code-page { padding: 64px var(--gutter-mobile); }
+  }
+
+  .code-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 12px;
+  }
+  .code-title {
+    font-family: var(--font-display);
+    font-size: 56px;
+    line-height: 1.03;
+    letter-spacing: -0.02em;
+    margin: 0 0 24px 0;
+    color: var(--ink);
+    max-width: 16ch;
+    font-weight: 400;
+  }
+  @media (max-width: 760px) {
+    .code-title { font-size: 40px; }
+  }
+  .code-lede {
+    font-family: var(--font-serif);
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 40rem;
+    margin: 0 0 56px 0;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .code-rows {
+    border-top: 1px solid var(--ink);
+  }
+  .code-row {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 32px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    color: inherit;
+    text-decoration: none;
+    transition: transform 180ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  .code-row:hover { transform: translateX(4px); }
+  @media (max-width: 760px) {
+    .code-row { grid-template-columns: 1fr; gap: 10px; }
+  }
+
+  .code-row__domain {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .code-row__file {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--ink-3);
+    margin-top: 8px;
+    word-break: break-all;
+  }
+
+  .code-row__note {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+    max-width: 40rem;
+    text-align: justify;
+    hyphens: auto;
+  }
+  .code-row__cta {
+    display: inline-block;
+    margin-top: 12px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--oxblood);
+  }
+
+  .code-repo-cta {
+    display: inline-block;
+    margin-top: 48px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 22px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    border-radius: 2px;
+    transition: background 160ms, color 160ms;
+  }
+  .code-repo-cta:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+</style>

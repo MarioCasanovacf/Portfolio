@@ -1,0 +1,42 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-copy">© {year} Mario Casanova</div>
+  <div class="footer-credit">Set in GFS Didot, EB Garamond, IBM Plex Sans &amp; Plex Mono.</div>
+  <div class="footer-version">v 1.0</div>
+</footer>
+
+<style>
+  .site-footer {
+    padding: 32px var(--gutter-desktop) 48px;
+    border-top: 1px solid var(--ink);
+    display: flex;
+    align-items: baseline;
+    gap: 32px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+  @media (max-width: 760px) {
+    .site-footer {
+      padding: 24px var(--gutter-mobile);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  }
+
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+
+  .footer-credit {
+    margin-left: auto;
+  }
+  @media (max-width: 760px) {
+    .footer-credit { margin-left: 0; flex-basis: 100%; }
+  }
+</style>

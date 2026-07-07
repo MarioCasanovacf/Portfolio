@@ -1,0 +1,264 @@
+/* =============================================================
+   Mario Casanova — Design tokens
+   Sober, serene, scientific. Mitteleuropean modernism.
+   No gradients. No glow. No high-tech.
+   ============================================================= */
+
+/* -------- Web fonts (Google Fonts substitutes; see fonts/README.md) ------ */
+@import url('https://fonts.googleapis.com/css2?family=GFS+Didot&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap');
+
+:root {
+  /* ---------- Paper (warm off-whites — backgrounds) ---------- */
+  --paper:        #F4EFE6;   /* primary canvas */
+  --paper-deep:   #EBE4D6;   /* inset panels, code blocks */
+  --paper-shade:  #DFD7C5;   /* hover state for paper surfaces */
+  --paper-hi:     #FAF6EE;   /* lifted cards, dialogs */
+
+  /* ---------- Ink (warm-shifted blacks — type & strokes) ---------- */
+  --ink:          #1A1814;   /* primary type */
+  --ink-2:        #3C3833;   /* secondary type, captions */
+  --ink-3:        #6B655C;   /* tertiary type, metadata */
+  --ink-4:        #948D82;   /* disabled, muted UI */
+  --rule:         #1A1814;   /* hairlines (use at low alpha for soft) */
+  --rule-soft:    rgba(26, 24, 20, 0.16);
+
+  /* ---------- Oxblood (single chromatic accent — links, emphasis) ---------- */
+  --oxblood:      #6E1F1F;
+  --oxblood-2:    #8A2B2B;   /* hover */
+  --oxblood-tint: rgba(110, 31, 31, 0.08);  /* selection, callout bg */
+
+  /* ---------- Ochre (secondary accent — charts, eyebrows) ---------- */
+  --ochre:        #A87333;
+  --ochre-2:      #C28A45;
+  --ochre-tint:   rgba(168, 115, 51, 0.10);
+
+  /* ---------- Diagrammatic series (charts only — used sparingly) ---------- */
+  --series-1: #1A1814;   /* ink */
+  --series-2: #6E1F1F;   /* oxblood */
+  --series-3: #A87333;   /* ochre */
+  --series-4: #2E4A3F;   /* dark forest — quiet chart fourth */
+  --series-5: #6B655C;   /* warm grey */
+
+  /* ---------- Semantic ---------- */
+  --bg:            var(--paper);
+  --bg-deep:       var(--paper-deep);
+  --bg-hi:         var(--paper-hi);
+  --fg:            var(--ink);
+  --fg-2:          var(--ink-2);
+  --fg-3:          var(--ink-3);
+  --fg-muted:      var(--ink-4);
+  --link:          var(--oxblood);
+  --link-hover:    var(--oxblood-2);
+  --selection-bg:  var(--oxblood-tint);
+  --selection-fg:  var(--ink);
+  --focus-ring:    var(--oxblood);
+
+  /* ---------- Type families ---------- */
+  --font-display:  'GFS Didot', 'Walbaum', 'Didot', 'Bodoni 72', Georgia, serif;
+  --font-serif:    'EB Garamond', 'Sabon', 'Garamond', Georgia, serif;
+  --font-sans:     'IBM Plex Sans', 'Söhne', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:     'IBM Plex Mono', 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  /* ---------- Type ramp (all sizes in px / line-height in px) ---------- */
+  --t-display-size:   72px;
+  --t-display-lh:     80px;
+  --t-h1-size:        48px;
+  --t-h1-lh:          56px;
+  --t-h2-size:        32px;
+  --t-h2-lh:          40px;
+  --t-h3-size:        22px;
+  --t-h3-lh:          32px;
+  --t-bodyL-size:     18px;
+  --t-bodyL-lh:       28px;
+  --t-body-size:      16px;
+  --t-body-lh:        24px;
+  --t-ui-size:        15px;
+  --t-ui-lh:          24px;
+  --t-caption-size:   13px;
+  --t-caption-lh:     20px;
+  --t-eyebrow-size:   11px;
+  --t-eyebrow-lh:     16px;
+  --t-mono-size:      14px;
+  --t-mono-lh:        22px;
+
+  /* ---------- Spacing (4-px base, named in 4ths) ---------- */
+  --s-1:   4px;
+  --s-2:   8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  20px;
+  --s-6:  24px;
+  --s-8:  32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+  --s-32: 128px;
+
+  /* ---------- Radii ---------- */
+  --radius-0: 0;
+  --radius-1: 2px;
+  --radius-2: 4px;
+
+  /* ---------- Shadow (essentially none) ---------- */
+  --shadow-none:  none;
+  --shadow-paper: 0 1px 2px rgba(26, 24, 20, 0.08);
+  --shadow-lift:  0 2px 6px rgba(26, 24, 20, 0.10);
+
+  /* ---------- Motion ---------- */
+  --ease:      cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast:  120ms;
+  --dur-base:  180ms;
+  --dur-slow:  240ms;
+
+  /* ---------- Layout ---------- */
+  --measure-body:    32rem;   /* ~62–68 chars at 18px */
+  --measure-narrow:  24rem;
+  --measure-wide:    44rem;
+  --gutter-mobile:   24px;
+  --gutter-desktop:  96px;
+}
+
+/* =============================================================
+   Semantic element styles
+   ============================================================= */
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-serif);
+  font-size: var(--t-body-size);
+  line-height: var(--t-body-lh);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--fg);
+  margin: 0 0 var(--s-4) 0;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--t-h1-size);
+  line-height: var(--t-h1-lh);
+}
+h2 {
+  font-size: var(--t-h2-size);
+  line-height: var(--t-h2-lh);
+}
+h3 {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--t-h3-size);
+  line-height: var(--t-h3-lh);
+  letter-spacing: 0;
+}
+
+p {
+  font-family: var(--font-serif);
+  font-size: var(--t-body-size);
+  line-height: var(--t-body-lh);
+  margin: 0 0 var(--s-4) 0;
+  max-width: var(--measure-body);
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-thickness var(--dur-base) var(--ease),
+              color var(--dur-base) var(--ease);
+}
+a:hover {
+  text-decoration-thickness: 2px;
+  color: var(--link-hover);
+}
+a:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+code, pre, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-size);
+  line-height: var(--t-mono-lh);
+}
+code {
+  background: var(--paper-deep);
+  padding: 2px 6px;
+  border-radius: var(--radius-1);
+}
+pre {
+  background: var(--paper-deep);
+  padding: var(--s-4) var(--s-6);
+  border-radius: var(--radius-1);
+  overflow-x: auto;
+  margin: 0 0 var(--s-6) 0;
+}
+
+blockquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--t-h2-size);
+  line-height: var(--t-h2-lh);
+  color: var(--fg-2);
+  margin: var(--s-12) 0;
+  padding-left: var(--s-6);
+  border-left: 2px solid var(--oxblood);
+  max-width: var(--measure-wide);
+}
+blockquote cite {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--t-caption-size);
+  font-style: normal;
+  letter-spacing: 0.04em;
+  color: var(--fg-3);
+  margin-top: var(--s-3);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: var(--s-12) 0;
+}
+
+/* Utility classes ---------------------------------------------------------- */
+
+.t-display    { font-family: var(--font-display); font-size: var(--t-display-size); line-height: var(--t-display-lh); font-weight: 400; letter-spacing: -0.01em; }
+.t-h1         { font-family: var(--font-display); font-size: var(--t-h1-size);      line-height: var(--t-h1-lh);      font-weight: 400; letter-spacing: -0.01em; }
+.t-h2         { font-family: var(--font-display); font-size: var(--t-h2-size);      line-height: var(--t-h2-lh);      font-weight: 400; }
+.t-h3         { font-family: var(--font-sans);    font-size: var(--t-h3-size);      line-height: var(--t-h3-lh);      font-weight: 500; }
+.t-bodyL      { font-family: var(--font-serif);   font-size: var(--t-bodyL-size);   line-height: var(--t-bodyL-lh);   font-weight: 400; }
+.t-body       { font-family: var(--font-serif);   font-size: var(--t-body-size);    line-height: var(--t-body-lh);    font-weight: 400; }
+.t-ui         { font-family: var(--font-sans);    font-size: var(--t-ui-size);      line-height: var(--t-ui-lh);      font-weight: 400; }
+.t-caption    { font-family: var(--font-sans);    font-size: var(--t-caption-size); line-height: var(--t-caption-lh); font-weight: 500; letter-spacing: 0.02em; color: var(--fg-3); }
+.t-eyebrow    { font-family: var(--font-sans);    font-size: var(--t-eyebrow-size); line-height: var(--t-eyebrow-lh); font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-2); }
+.t-mono       { font-family: var(--font-mono);    font-size: var(--t-mono-size);    line-height: var(--t-mono-lh);    font-weight: 400; }
+
+.rule         { border-top: 1px solid var(--rule); }
+.rule-double  { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); height: 5px; }
+.rule-soft    { border-top: 1px solid var(--rule-soft); }
+
+.ink   { color: var(--ink); }
+.ink-2 { color: var(--ink-2); }
+.ink-3 { color: var(--ink-3); }
+.ox    { color: var(--oxblood); }
+.ochre { color: var(--ochre); }
+
+.bg-paper      { background: var(--paper); }
+.bg-paper-deep { background: var(--paper-deep); }
+.bg-paper-hi   { background: var(--paper-hi); }

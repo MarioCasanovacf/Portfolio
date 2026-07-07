@@ -1,0 +1,504 @@
+---
+layout: ../../layouts/CaseStudyLayout.astro
+slug: legislative-experiments
+domain: Computational politics
+n: "05"
+total: "12"
+date: "2026-07-05"
+title: "Five hypotheses about a one-party chamber"
+lede: >-
+  The companion pipeline showed that every caucus in Mexico's LXVI Chamber votes
+  as a near-perfect bloc, and that the six blocs resolve into two coalitions.
+  That's the structure. This notebook tests five behavioural hypotheses against
+  the same 274 votes and 554 deputies — whether the opposition's own bills earn
+  government support, whether absence is a way to dodge a hard vote, whether the
+  deputies who trade insults on television trade votes on the floor — and closes
+  with two of my own: whether any of the first five could ever have changed an
+  outcome, and whether the government's dominant party could have governed
+  without its junior allies at all.
+methods:
+  - DuckDB + pandas
+  - Roll-call analysis
+  - Jupyter
+stack:
+  - Python 3.12
+  - DuckDB
+  - pandas
+notebookUrl: https://github.com/MarioCasanovacf/Portfolio/tree/main/02_intellectual/legislative_experiments
+reference: >-
+  On vote 242's real-world context: Infobae, "Reforma electoral: Ricardo Monreal
+  da a conocer las razones de peso del PT y el PVEM para no acompañar propuesta
+  de Sheinbaum" (22 Feb 2026) and "Diputados rechazan reforma electoral de
+  Sheinbaum, se tambalea alianza con el Verde y PT" (11 Mar 2026); Expansión
+  Política, "Los desacuerdos entre Morena, PT y PVEM por la reforma electoral
+  continúan, asegura Monreal" (21 Feb 2026).
+---
+
+import { Section, Prose, Figure, CodeBlock, Equation, Quote, Callout } from "~/components/case-study";
+
+<Callout kind="aside">
+
+This is the companion piece to **[the legislative data pipeline →](/case-studies/legislative-pipeline/)**,
+run against the same warehouse: 274 recorded votes, 554 deputies, 136,947 individual
+ballots. That piece established the structure. This one pokes at the behaviour.
+
+</Callout>
+
+<Section n="01" slug="do-the-blocs-disagree" title="How often do the two blocs actually disagree?">
+
+<Prose>
+
+Two hypotheses ask about the *use* of that structure: do bills the opposition
+initiates get government support, and do bills the government initiates get
+opposition support. Both ask who wrote each bill, and the roll-call record does
+not carry an author — that lives in a different system, the SIL, keyed by
+*iniciativa* and not by *votación*. Zero of the 274 vote titles name a proponent.
+
+What the record *does* carry is the observable shadow of the question: on each
+vote, does the opposition bloc land on the same side as the government? A high
+rate of agreement is the footprint of cross-aisle support, whoever wrote the text.
+
+</Prose>
+
+<Figure n="1" width="wide" caption="274 recorded votes of the LXVI Chamber, reduced to a side per bloc (majority of FOR vs AGAINST) and compared. Bipartisan and divided together account for 273 of 274 votes; the single remaining vote is a tie in one bloc.">
+
+<svg viewBox="0 0 620 150" role="img" aria-label="Segmented bar of 274 votes: 157 bipartisan, 116 divided, 1 other.">
+  <g font-family="IBM Plex Sans">
+    <text x="10" y="24" font-size="13" font-weight="600" fill="#1A1814">274 recorded votes of the LXVI Chamber</text>
+    <rect x="10" y="40" width="343.8" height="48" fill="#2E4A3F"/>
+    <text x="181.9" y="69" text-anchor="middle" font-size="13" fill="#F4EFE6">157</text>
+    <rect x="353.8" y="40" width="254.0" height="48" fill="#6E1F1F"/>
+    <text x="480.8" y="69" text-anchor="middle" font-size="13" fill="#F4EFE6">116</text>
+    <rect x="607.8" y="40" width="2.2" height="48" fill="#6B655C"/>
+    <g font-size="11" fill="#3C3833">
+      <rect x="10" y="112" width="12" height="12" fill="#2E4A3F"/>
+      <text x="27" y="122">Bipartisan — both blocs FOR</text>
+      <rect x="230" y="112" width="12" height="12" fill="#6E1F1F"/>
+      <text x="247" y="122">Divided — government vs opposition</text>
+      <rect x="470" y="112" width="12" height="12" fill="#6B655C"/>
+      <text x="487" y="122">Other</text>
+    </g>
+  </g>
+</svg>
+
+</Figure>
+
+<Prose>
+
+A majority of votes — **157 of 274, 57%** — are bipartisan: the opposition lands
+on the government's own side. The blocs are genuinely opposed on only 116, 42%.
+And the government bloc is **never** on the losing side (joint rejections: zero),
+because essentially nothing reaches the floor that it opposes.
+
+That answers what the record *can* answer. It does not answer whose bill those
+157 bipartisan votes actually were — the opposition's, backed by the government
+(H1), or the government's, backed by the opposition (H2). That distinction needs
+bill authorship from the SIL, a separate capture I haven't done yet.
+
+</Prose>
+
+<Callout kind="limits">
+
+Two of the five hypotheses ask *who initiated* a bill, and the vote record simply
+doesn't say. The 57% bipartisan figure is the closest honest proxy — it says how
+often the two sides end up agreeing, not who moved first.
+
+</Callout>
+
+</Section>
+
+<Section n="02" slug="absence-as-a-no" title="Is absence used to dodge a vote?">
+
+<Prose>
+
+It's common knowledge in Mexico, more folklore than statistic, that a deputy who
+doesn't want to be seen voting no simply doesn't show up — the absence standing
+in for the vote. If that's right, the 116 contentious (divided) votes from
+Section 01 should show *more* absence than the routine, consensual ones: a
+recorded no is costly exactly when the two sides are actually fighting.
+
+</Prose>
+
+<Figure n="2" width="wide" caption="Absence rate by caucus, consensus votes versus contentious (divided) votes. Every caucus is more absent on the routine votes, by 0.8 to 4.0 points — the opposite of the folk hypothesis.">
+
+<svg viewBox="0 0 620 300" role="img" aria-label="Grouped bar chart: absence rate is higher on consensus votes than contentious votes for all six caucuses.">
+  <g font-family="IBM Plex Sans">
+    <text x="60" y="20" font-size="13" font-weight="600" fill="#1A1814">Deputies show up MORE for contentious votes, not less</text>
+    <g stroke="#1A1814" stroke-width="0.5" opacity="0.3">
+      <line x1="60" y1="140" x2="600" y2="140" stroke-dasharray="2 3"/>
+      <line x1="60" y1="30" x2="600" y2="30" stroke-dasharray="2 3"/>
+    </g>
+    <line x1="60" y1="30" x2="60" y2="250" stroke="#1A1814" stroke-width="0.5" opacity="0.5"/>
+    <line x1="60" y1="250" x2="600" y2="250" stroke="#1A1814" stroke-width="1"/>
+    <g fill="#6B655C" font-size="10" text-anchor="end">
+      <text x="54" y="253">0</text>
+      <text x="54" y="143">7</text>
+      <text x="54" y="33">14</text>
+    </g>
+    <rect x="69" y="80.3" width="32" height="169.7" fill="#6B655C"/>
+    <rect x="109" y="124.3" width="32" height="125.7" fill="#6E1F1F"/>
+    <text x="105" y="266" text-anchor="middle" font-size="11" fill="#1A1814">MORENA</text>
+    <rect x="159" y="96.0" width="32" height="154.0" fill="#6B655C"/>
+    <rect x="199" y="108.6" width="32" height="141.4" fill="#6E1F1F"/>
+    <text x="195" y="266" text-anchor="middle" font-size="11" fill="#1A1814">PVEM</text>
+    <rect x="249" y="61.4" width="32" height="188.6" fill="#6B655C"/>
+    <rect x="289" y="111.7" width="32" height="138.3" fill="#6E1F1F"/>
+    <text x="285" y="266" text-anchor="middle" font-size="11" fill="#1A1814">PT</text>
+    <rect x="339" y="63.0" width="32" height="187.0" fill="#6B655C"/>
+    <rect x="379" y="125.9" width="32" height="124.1" fill="#6E1F1F"/>
+    <text x="375" y="266" text-anchor="middle" font-size="11" fill="#1A1814">PRI</text>
+    <rect x="429" y="61.4" width="32" height="188.6" fill="#6B655C"/>
+    <rect x="469" y="91.3" width="32" height="158.7" fill="#6E1F1F"/>
+    <text x="465" y="266" text-anchor="middle" font-size="11" fill="#1A1814">PAN</text>
+    <rect x="519" y="70.9" width="32" height="179.1" fill="#6B655C"/>
+    <rect x="559" y="132.1" width="32" height="117.9" fill="#6E1F1F"/>
+    <text x="555" y="266" text-anchor="middle" font-size="11" fill="#1A1814">MC</text>
+    <g font-size="10" fill="#3C3833">
+      <rect x="60" y="280" width="12" height="12" fill="#6B655C"/>
+      <text x="77" y="290">consensus votes</text>
+      <rect x="200" y="280" width="12" height="12" fill="#6E1F1F"/>
+      <text x="217" y="290">contentious (divided) votes</text>
+    </g>
+  </g>
+</svg>
+
+</Figure>
+
+<Prose>
+
+The hypothesis is rejected, and the data points the other way. Every caucus is
+*more* absent on the consensus votes than on the contentious ones — a gap of
+−0.8 to −4.0 points. When the blocs actually split, deputies turn up; it's the
+unanimous procedural *decretos* they skip.
+
+Two more corrections to the folk model. Abstention is not the escape hatch
+either — it sits under 2% for every caucus, so the real non-vote is recorded as
+**absent**, not abstain. And the opposition votes no openly: PAN and PRI each
+cast an explicit *against* on roughly 37% of their ballots, MC on 32% — they are
+not hiding a no behind an empty seat, they are putting it on the record.
+
+</Prose>
+
+</Section>
+
+<Section n="03" slug="leader-or-led" title="Does the floor leader move with the party, or the party with the leader?">
+
+<Prose>
+
+For each of the six *coordinadores*, how often do they land on their own
+caucus's majority side? Pearson correlation is the wrong tool here — the
+government's leaders are a near-constant yes, with zero variance to correlate
+against — so the honest statistic is simply the agreement rate, plus a look at
+who actually turns up.
+
+Discipline is total. Every coordinator agrees with their own caucus on **at
+least 99.6%** of votes — Monreal (MORENA), Lixa (PAN), Moreira (PRI), Puente
+Salas (PVEM) and Ortega Pacheco (MC) all at 100%, Sandoval Flores (PT) at 99.6%.
+There is no correlation to measure because there is no variance left: the leader
+*is* the line.
+
+What does vary is who bothers to be there. The government and PRI/PAN leaders
+are almost always present — Monreal absent 0.7% of votes, Lixa 0.0%, Moreira
+0.7%. The two smaller opposition leaders are absent **more than their own
+rank-and-file**: Ivonne Ortega (MC) misses 16.8% of votes against a 9.7% party
+average, and Reginaldo Sandoval (PT) misses 11.3% against a 10.7% party average
+— a quieter story about which floor leaders actually work the floor.
+
+</Prose>
+
+</Section>
+
+<Section n="04" slug="media-rivals" title="Do the media rivals vote like rivals?">
+
+<Prose>
+
+Take the deputies who trade blows on television and see whether they trade votes
+on the floor too. A hand-picked set — two PAN figures who spar publicly with
+MORENA, three MORENA figures who spar back, PRI's most visible voice, MC's most
+visible voice — scored on same-side agreement across every vote where both cast
+a FOR or AGAINST.
+
+The obvious result shows up first, and it isn't the interesting one: within a
+caucus the media figures agree 100% of the time, and across the aisle that falls
+to the mid-50s — the same coalition split the companion piece already
+established, now with faces on it. Confirmed, not discovered; anyone who has
+watched a floor session already knew Congress votes in blocs.
+
+</Prose>
+
+<Prose>
+
+The actual finding is one level down, and it connects back to Experiment 03.
+There, MC's own floor coordinator, Ivonne Ortega, agreed with her caucus's
+majority on **100%** of votes — total discipline, no exception. And yet on the
+subset of votes where the government's FOR side is contested, Ortega herself
+sides with the government about **22%** of the time — almost exactly the same
+rate as her own rank-and-file. Every one of the eight deputies most likely to
+cross the floor is from Movimiento Ciudadano, clustered tightly between 21% and
+25%, and the coordinator sits right in the middle of that cluster, not below it.
+
+</Prose>
+
+<Figure n="3" width="wide" caption="Share of contested votes (government FOR, opposition bloc AGAINST) on which each deputy sides with the government anyway. All eight are MC; the coordinator (ochre) crosses at essentially the same rate as her own rank-and-file — this is not a leader losing control of her caucus, it's the caucus moving together.">
+
+<svg viewBox="0 0 660 340" role="img" aria-label="Bar chart: eight Movimiento Ciudadano deputies, including the party's own floor coordinator, siding with the government on 21 to 25 percent of contested votes.">
+  <g font-family="IBM Plex Sans">
+    <text x="220" y="59" text-anchor="end" font-size="11" fill="#1A1814">Gaona Domínguez · MC</text>
+    <rect x="230" y="44.0" width="316.7" height="22" fill="#6E1F1F"/>
+    <text x="554.7" y="59" font-size="11" fill="#3C3833">25%</text>
+    <text x="220" y="91" text-anchor="end" font-size="11" fill="#1A1814">Mercado Castro · MC</text>
+    <rect x="230" y="76.0" width="291.3" height="22" fill="#6E1F1F"/>
+    <text x="529.3" y="91" font-size="11" fill="#3C3833">23%</text>
+    <text x="220" y="123" text-anchor="end" font-size="11" fill="#1A1814">Longoria López · MC</text>
+    <rect x="230" y="108.0" width="278.7" height="22" fill="#6E1F1F"/>
+    <text x="516.7" y="123" font-size="11" fill="#3C3833">22%</text>
+    <text x="220" y="155" text-anchor="end" font-size="11" fill="#1A1814">Samperio Montaño · MC</text>
+    <rect x="230" y="140.0" width="278.7" height="22" fill="#6E1F1F"/>
+    <text x="516.7" y="155" font-size="11" fill="#3C3833">22%</text>
+    <text x="220" y="187" text-anchor="end" font-size="11" fill="#1A1814" font-weight="600">Ortega Pacheco · MC — floor coordinator</text>
+    <rect x="230" y="172.0" width="278.7" height="22" fill="#A87333"/>
+    <text x="516.7" y="187" font-size="11" fill="#3C3833">22%</text>
+    <text x="220" y="219" text-anchor="end" font-size="11" fill="#1A1814">González Franco · MC</text>
+    <rect x="230" y="204.0" width="278.7" height="22" fill="#6E1F1F"/>
+    <text x="516.7" y="219" font-size="11" fill="#3C3833">22%</text>
+    <text x="220" y="251" text-anchor="end" font-size="11" fill="#1A1814">Ruiz Hernández · MC</text>
+    <rect x="230" y="236.0" width="278.7" height="22" fill="#6E1F1F"/>
+    <text x="516.7" y="251" font-size="11" fill="#3C3833">22%</text>
+    <text x="220" y="283" text-anchor="end" font-size="11" fill="#1A1814">Sánchez Rivera · MC</text>
+    <rect x="230" y="268.0" width="266.0" height="22" fill="#6E1F1F"/>
+    <text x="504.0" y="283" font-size="11" fill="#3C3833">21%</text>
+    <line x1="230" y1="306" x2="610" y2="306" stroke="#1A1814" stroke-width="1"/>
+    <line x1="230" y1="36" x2="230" y2="306" stroke="#1A1814" stroke-width="0.5" opacity="0.15"/>
+    <text x="230" y="320" text-anchor="middle" font-size="10" fill="#6B655C">0%</text>
+    <line x1="357" y1="36" x2="357" y2="306" stroke="#1A1814" stroke-width="0.5" opacity="0.15"/>
+    <text x="357" y="320" text-anchor="middle" font-size="10" fill="#6B655C">10%</text>
+    <line x1="483" y1="36" x2="483" y2="306" stroke="#1A1814" stroke-width="0.5" opacity="0.15"/>
+    <text x="483" y="320" text-anchor="middle" font-size="10" fill="#6B655C">20%</text>
+    <line x1="610" y1="36" x2="610" y2="306" stroke="#1A1814" stroke-width="0.5" opacity="0.15"/>
+    <text x="610" y="320" text-anchor="middle" font-size="10" fill="#6B655C">30%</text>
+  </g>
+</svg>
+
+</Figure>
+
+<Prose>
+
+That isn't a coordinator failing to lead — it's the whole caucus, leadership
+included, occasionally taking a position the rest of the opposition doesn't. MC
+is disciplined *twice over*: near-total cohesion within itself (Experiment 03),
+and a periodic, coordinated departure from PRI and PAN as a unit. That makes MC
+less a "reluctant hinge" of a few individual mavericks and more a small third
+pole with its own standing position — organised enough that when it breaks from
+the rest of the opposition, it breaks together, and small enough that it never
+decides an outcome (Experiment 05 settles that one).
+
+</Prose>
+
+</Section>
+
+<Section n="05" slug="could-opposition-have-won" title="Could the opposition ever have won on the floor?">
+
+<Prose>
+
+This one isn't on the original list of five — it follows directly from the
+fourth. If MC is the hinge, the caucus most willing to break from the rest of
+the opposition and land with the government, a hinge is supposed to swing
+something. I expected that on at least a few of the 274 votes, tight enough for
+MC's roughly-one-in-four defection rate to matter, the crossover would have been
+*load-bearing*: the difference between a bill passing and failing.
+
+So: take the government bloc's own FOR count, alone, on each vote, and set it
+against the worst case the government could face — every other deputy present,
+opposition or otherwise, voting AGAINST. If that worst case still clears, no
+crossover from anyone, in either direction, was ever needed.
+
+</Prose>
+
+<Prose>
+
+**It never was — not once.** The government bloc's own FOR count beats the
+worst-case AGAINST on **all 274 votes**: a median cushion of 302 ballots, and a
+minimum of 25 on the single tightest vote of the term. There is no vote in this
+legislature where opposition unity, MC's defections, or anyone crossing the
+aisle in either direction could have changed the outcome. The arithmetic was
+settled the day the coalition was sworn in, before a single one of the 274
+debates happened.
+
+That reframes the fourth finding more than it extends it. MC's crossover votes
+are a real, measurable behavioural signature — Section 04 isn't wrong about
+that — they are just never a *consequential* one. A hinge, even a stiff one,
+still turns something; structurally, nothing here ever did.
+
+</Prose>
+
+<Callout kind="limits">
+
+This uses the ordinary (simple) majority rule — FOR beats AGAINST — the same
+rule Section 01 uses to score sides. The warehouse carries a flag for
+constitutional, two-thirds votes, but only for the two much older legislatures
+it also holds; it isn't populated yet for this one, so I can't split out any
+vote here that may have needed a supermajority instead of an ordinary one. For
+reference, the government's own roster is about 72% of the 554 deputies ever
+recorded this term — above the two-thirds line on paper, but with none of the
+25-vote cushion found here for ordinary majorities.
+
+This isn't a hypothetical gap. Vote 242 (the tightest one above, margin +25)
+is a real, named vote: the 11 March 2026 constitutional reform cutting
+plurinominal (party-list) seats from 200 to 100. It clears the ordinary-majority
+arithmetic (259 to 234). It needed a two-thirds, 334-vote threshold to actually
+amend the constitution, and didn't get one — the Chamber rejected it. The next
+section picks this vote back up.
+
+</Callout>
+
+</Section>
+
+<Section n="06" slug="junior-partners-veto" title="Do the junior coalition partners hold real veto power?">
+
+<Prose>
+
+A further idea, also mine, follows from Experiment 05 rather than from the
+original five. The government bloc's floor safety margin never fails — but that
+bloc is three parties, not one, and MORENA is by far the largest. A party that
+agrees to run fewer of its own candidates and share districts with a bigger ally,
+in exchange for a guaranteed bloc of seats, is trading numbers for leverage: it
+becomes too small to ever win alone, but potentially large enough to be missed.
+So: is MORENA's own headcount, by itself, already a working majority, or does
+the coalition's comfortable margin in Experiment 05 actually belong to its
+allies?
+
+I can't verify *how* PVEM and PT arrived at their specific seat share (which
+districts each party ran, and on what terms) from a vote warehouse; that lives
+in electoral and candidacy records (INE), a different system entirely, and I'm
+not going to dress up a plausible story as a finding. What the warehouse can
+measure is the outcome: does MORENA alone clear the same worst-case bar the full
+coalition cleared on all 274 votes?
+
+</Prose>
+
+<Prose>
+
+**It doesn't — not on nearly a quarter of the term's votes.** MORENA's own FOR
+count fails the same worst-case test on **62 of 274 votes (23%)**, and on its
+single worst vote of the term the shortfall runs to 63 ballots. And the
+shortfall isn't confined to contested politics: 38 of those 62 votes are ones
+the *entire chamber*, opposition included, ultimately voted for. MORENA needed
+its allies' headcount even to pass bills nobody was fighting.
+
+MORENA's own roster is 278 of the 554 deputies ever recorded this term, 50.2%,
+a bare majority on paper before a single vote is cast. PVEM (70, 12.6%) and PT
+(51, 9.2%) supply the other 21.8 points that turn that thin majority into the
+72%-of-the-roster supermajority Experiment 05 tested.
+
+That's the *capacity* for a veto. Vote 242 is where it stopped being
+hypothetical.
+
+</Prose>
+
+<Figure n="4" width="inline" caption="Vote 242, 11 March 2026: the constitutional reform cutting plurinominal seats from 200 to 100. MORENA's own coalition partners supplied 96 of the 234 votes against it.">
+
+<svg viewBox="0 0 480 190" role="img" aria-label="Vote 242 party breakdown: MORENA 246 for, 3 against; PVEM 12 for, 49 against; PT 1 for, 47 against.">
+  <g font-family="IBM Plex Sans" font-size="11">
+    <text x="10" y="26" fill="#1A1814" font-weight="600">MORENA</text>
+    <rect x="90" y="14" width="246" height="18" fill="#2E4A3F"/>
+    <text x="340" y="27" fill="#3C3833">246 FOR</text>
+    <rect x="90" y="34" width="3" height="18" fill="#6E1F1F"/>
+    <text x="98" y="47" fill="#3C3833" font-size="10">3 against</text>
+    <text x="10" y="86" fill="#1A1814" font-weight="600">PVEM</text>
+    <rect x="90" y="74" width="12" height="18" fill="#2E4A3F"/>
+    <text x="106" y="87" fill="#3C3833" font-size="10">12 for</text>
+    <rect x="90" y="94" width="49" height="18" fill="#6E1F1F"/>
+    <text x="143" y="107" fill="#3C3833">49 AGAINST</text>
+    <text x="10" y="146" fill="#1A1814" font-weight="600">PT</text>
+    <rect x="90" y="134" width="1" height="18" fill="#2E4A3F"/>
+    <text x="95" y="147" fill="#3C3833" font-size="10">1 for</text>
+    <rect x="90" y="154" width="47" height="18" fill="#6E1F1F"/>
+    <text x="141" y="167" fill="#3C3833">47 AGAINST</text>
+    <line x1="90" y1="10" x2="90" y2="180" stroke="#1A1814" stroke-width="0.5" opacity="0.3"/>
+  </g>
+</svg>
+
+</Figure>
+
+<Prose>
+
+President Sheinbaum's own party voted for the reform almost unanimously: 246
+FOR, 3 AGAINST. Her coalition partners did not: PVEM cast 12 FOR against 49
+AGAINST, PT cast 1 FOR against 47 AGAINST. Between them, PVEM and PT supplied 96
+of the 234 votes against. The reform closed at 259 to 234, short of the 334 a
+constitutional amendment needs. Rejected.
+
+The self-interest is not subtle. Plurinominal seats are how a party with modest
+district-level support still holds a bloc in the Chamber; PVEM and PT get most
+of their seats that way, MORENA mostly doesn't. Halving the list from 200 to 100
+would have cost the allies far more than it would have cost MORENA. Ricardo
+Monreal (MORENA's own floor coordinator, the one scored at 100% agreement with
+his caucus in Section 03) spent the weeks before the vote publicly
+acknowledging the reform was being renegotiated with PT and PVEM because it
+would not pass without them. It didn't pass, and they're why.
+
+So the honest version of this section isn't "PVEM and PT hold a veto they've
+never used." It's narrower and more interesting: on the 273 votes that don't
+touch their own seats, they vote with the government as disciplined as anyone in
+this chamber (the companion piece's own Rice index already puts both above
+0.99). On the one vote that did touch their own seats, discipline stopped, the
+veto capacity above converted into an actual veto, and the government's flagship
+reform of the term failed.
+
+</Prose>
+
+<Callout kind="limits">
+
+How PVEM and PT arrived at this specific seat share (coalition registration,
+which districts each party ran, on what terms) still sits in INE's electoral
+records, not in this vote warehouse; that half of the story is unverified here.
+What vote 242 verifies is the *use* of the resulting leverage, not its origin.
+
+</Callout>
+
+</Section>
+
+<Section n="07" slug="what-survived" title="What survived, what didn't, what's next.">
+
+<Prose>
+
+Seven hypotheses in, one thing hasn't moved: everything genuinely contested
+about how this Chamber votes sits upstream of the vote itself — in who won the
+2024 election and how the seats fell — not in what happens on the floor
+afterward.
+
+- **H1 — opposition-initiated bills get government support.** Unanswerable as-is —
+  needs bill authorship from the SIL. Proxy: 57% of votes are bipartisan.
+- **H2 — government-initiated bills get opposition support.** Unanswerable as-is —
+  same gap.
+- **H3 — absence substitutes for a "no" vote.** Rejected — absence is *higher* on
+  consensus votes; abstention is near zero; the opposition votes no openly.
+- **H4 — media rivals vote as rivals.** Confirmed, but the sharper finding was one
+  level down: MC's own floor coordinator crosses to the government at the same
+  rate as her rank-and-file — bloc-level movement, not individual defection.
+- **H5 — the floor leader correlates with the party.** Confirmed, degenerately —
+  ≥99.6% agreement leaves no variance to correlate; the real variance is
+  attendance.
+- **H6 — the opposition's crossovers were sometimes decisive.** Rejected — the
+  government's own FOR count beats the worst-case AGAINST on all 274 votes; no
+  crossover, from anyone, ever changed an outcome.
+- **H7 — PVEM and PT are decorative allies, not structurally necessary.**
+  Rejected, decisively — MORENA's own headcount fails the same worst-case bar on
+  62 of 274 votes, and on the one vote that touched the allies' own seats (the
+  March 2026 plurinominal reform), the latent veto was actually used: PVEM and
+  PT supplied 96 of the 234 votes that sank it.
+
+Five, Six and Seven say the same thing from three angles, and vote 242 is where
+all three meet: bloc discipline means there's no individual defection worth
+looking for, bloc arithmetic means opposition unity wouldn't have mattered even
+if it existed, and the bloc itself turns out to be a coalition whose largest
+member needs its allies — and on the one vote where the allies' own interests
+were at stake, that need went unmet. The one genuinely new capture still worth
+doing is **bill authorship** from the SIL. It would turn the 57% bipartisan
+figure into the actual test of H1 and H2, who proposes what the other side ends
+up backing. Everything else here is already answered, on real votes, reconciled
+to the chamber's own official tallies.
+
+</Prose>
+
+</Section>

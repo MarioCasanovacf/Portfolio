@@ -1,0 +1,22 @@
+---
+interface Props {
+  width?: 'inline' | 'wide' | 'full';
+  n?: number | string;
+  caption?: string;
+}
+
+const { width = 'inline', n, caption } = Astro.props;
+---
+
+<figure class={`cs-figure cs-figure--${width}`}>
+  <div class="cs-figure__rule" aria-hidden="true"></div>
+  <div class="cs-figure__canvas">
+    <slot />
+  </div>
+  {(n != null || caption) && (
+    <figcaption class="cs-figure__caption">
+      {n != null && <span class="cs-figure__label">Fig. {n} —</span>}
+      {caption && <span class="cs-figure__text">{caption}</span>}
+    </figcaption>
+  )}
+</figure>

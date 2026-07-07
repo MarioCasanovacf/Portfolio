@@ -1,0 +1,119 @@
+---
+const stack = [
+  ['Stack', 'Python · SQL · Power BI · Tableau · C#'],
+  ['Languages', 'Spanish · English'],
+  ['Based in', 'Mexico City'],
+  ['Sectors', 'Finance · Startups · Research'],
+];
+---
+
+<section id="about" class="about">
+  <div class="about-mark">
+    <div class="about-eyebrow">About</div>
+    <div class="about-monogram">
+      M<sup class="about-c">C</sup>
+    </div>
+  </div>
+  <div class="about-body">
+    <p class="about-lead">
+      I solve problems. My career has been defined by receiving hard problems, business indications or vague ideas and finding optimal solutions, not by staying inside a single toolkit or title. I am technically autonomous but deeply collaborative, that's why I break through bureaucratic and generational barriers to align teams around clear outcomes.
+    </p>
+    <p class="about-paragraph">
+      What drives me is building things that matter for businesses — tools, models, and systems that contribute real value as applied technology, not just to a dry code, but to how we understand and act on the world.
+    </p>
+    <dl class="about-stack">
+      {stack.map(([k, v]) => (
+        <div>
+          <dt>{k}</dt>
+          <dd>{v}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: 96px var(--gutter-desktop);
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 48px;
+  }
+  @media (max-width: 760px) {
+    .about {
+      grid-template-columns: 1fr;
+      padding: 64px var(--gutter-mobile);
+      gap: 32px;
+    }
+  }
+
+  .about-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .about-monogram {
+    font-family: var(--font-display);
+    font-size: 80px;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-top: 24px;
+    font-weight: 400;
+  }
+  .about-c {
+    font-size: 0.4em;
+    color: var(--oxblood);
+    margin-left: 4px;
+  }
+
+  .about-body {
+    max-width: 36rem;
+  }
+
+  .about-lead {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .about-paragraph {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin-top: 24px;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .about-stack {
+    margin: 48px 0 0 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--ink);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .about-stack dt {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .about-stack dd {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    color: var(--ink);
+    margin: 8px 0 0 0;
+  }
+</style>

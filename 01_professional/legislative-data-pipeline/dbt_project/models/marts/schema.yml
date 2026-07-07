@@ -1,0 +1,82 @@
+version: 2
+
+models:
+  - name: dim_legislator
+    description: >
+      Legislator dimension that keeps a dated version history (a functional SCD
+      Type 2), conformed across both real sources: dipMex (legs 60-61) versioned
+      by legislature term, and SITL (legs 64-66) versioned by dated party run
+      (a new version each time a deputy's caucus changes). One row per validity
+      span; votes are attributed as-of the vote date.
+    columns:
+      - name: legislator_key
+        tests:
+          - unique
+          - not_null
+      - name: source
+        description: "Provenance of the version: 'dipmex' (term-grain) or 'sitl' (dated party-run grain)."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["dipmex", "sitl"]
+      - name: legislator_id
+        tests:
+          - not_null
+      - name: effective_from
+        description: "Start of this version's validity (term start, or the date a party run begins). Inclusive."
+        tests:
+          - not_null
+      - name: effective_to
+        description: "End of validity (exclusive): the term end + 1, or the date the next party run begins."
+        tests:
+          - not_null
+      - name: is_current
+        description: "TRUE for the single most recent version of each legislator"
+      - name: _hash
+        description: "Change-detection hash (party|state|district) for the incremental MERGE"
+
+  - name: dim_party
+    description: >
+      Political party reference dimension. Seeded with major Mexican parties.
+    columns:
+      - name: party_code
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_vote
+    description: >
+      Individual legislator votes, conformed across dipMex (60-61) and SITL
+      (64-66). Grain: one per legislator per vote event. Joined to dim_legislator
+      AS-OF the vote date on (source, legislator_id) — for SITL this resolves the
+      deputy's caucus on that date. Primary table for cohesion, attendance, and
+      voting-pattern analysis.
+    columns:
+      - name: legislator_key
+        description: "FK to dim_legislator, resolved as-of vote_date."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_legislator')
+              field: legislator_key
+      - name: source
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["dipmex", "sitl"]
+      - name: legislature
+        tests:
+          - not_null
+      - name: vote_cast
+        tests:
+          - accepted_values:
+              values: ["FOR", "AGAINST", "ABSTAIN", "ABSENT", "PRESENT"]
+
+  - name: fact_vote_summary
+    description: >
+      Aggregate vote outcomes. One row per vote event with totals and computed metrics.
+    columns:
+      - name: vote_event_id
+        tests:
+          - unique
+          - not_null

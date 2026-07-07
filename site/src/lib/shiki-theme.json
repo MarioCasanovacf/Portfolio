@@ -1,0 +1,83 @@
+{
+  "name": "papier-noir",
+  "displayName": "Papier Noir",
+  "type": "light",
+  "colors": {
+    "editor.background": "#EBE4D6",
+    "editor.foreground": "#1A1814",
+    "editor.lineHighlightBackground": "#DFD7C5",
+    "editor.selectionBackground": "#A87333",
+    "editorCursor.foreground": "#6E1F1F"
+  },
+  "tokenColors": [
+    {
+      "scope": ["comment", "punctuation.definition.comment"],
+      "settings": { "foreground": "#6B655C", "fontStyle": "italic" }
+    },
+    {
+      "scope": [
+        "keyword",
+        "keyword.control",
+        "storage.type",
+        "storage.modifier",
+        "keyword.other.import",
+        "keyword.operator.new",
+        "keyword.operator.expression"
+      ],
+      "settings": { "foreground": "#1A1814", "fontStyle": "normal" }
+    },
+    {
+      "scope": [
+        "string",
+        "string.quoted",
+        "string.template",
+        "punctuation.definition.string"
+      ],
+      "settings": { "foreground": "#A87333" }
+    },
+    {
+      "scope": ["constant.numeric", "constant.language.boolean", "constant.language.null"],
+      "settings": { "foreground": "#3C3833" }
+    },
+    {
+      "scope": ["entity.name.function", "support.function", "meta.function-call"],
+      "settings": { "foreground": "#1A1814" }
+    },
+    {
+      "scope": ["support.function.builtin", "support.type"],
+      "settings": { "foreground": "#3C3833" }
+    },
+    {
+      "scope": ["keyword.operator", "punctuation.separator", "punctuation.terminator"],
+      "settings": { "foreground": "#3C3833" }
+    },
+    {
+      "scope": ["variable", "variable.other", "variable.parameter", "meta.definition.variable"],
+      "settings": { "foreground": "#1A1814" }
+    },
+    {
+      "scope": ["entity.name.class", "entity.name.type", "support.class"],
+      "settings": { "foreground": "#1A1814", "fontStyle": "normal" }
+    },
+    {
+      "scope": ["constant.character.escape"],
+      "settings": { "foreground": "#6E1F1F" }
+    },
+    {
+      "scope": ["string.regexp"],
+      "settings": { "foreground": "#6E1F1F" }
+    },
+    {
+      "scope": ["entity.name.tag", "punctuation.definition.tag"],
+      "settings": { "foreground": "#1A1814", "fontStyle": "normal" }
+    },
+    {
+      "scope": ["entity.other.attribute-name"],
+      "settings": { "foreground": "#3C3833" }
+    },
+    {
+      "scope": ["meta.decorator", "punctuation.definition.decorator"],
+      "settings": { "foreground": "#6E1F1F" }
+    }
+  ]
+}

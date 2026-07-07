@@ -1,0 +1,103 @@
+---
+const pathname = Astro.url.pathname;
+const isActive = (path: string) => {
+  if (path === '/') return pathname === '/';
+  return pathname === path || pathname.startsWith(path + '/');
+};
+
+const base = import.meta.env.BASE_URL; // '/Portfolio/' on the project page, '/' on a custom domain
+// Astro's BASE_URL may or may not have a trailing slash — normalise once.
+const b = base.endsWith('/') ? base : base + '/';
+const items = [
+  { id: 'case-studies', href: b,                  label: 'Case Studies', n: '01' },
+  { id: 'experiments',  href: `${b}experiments`,  label: 'Experiments',  n: '02' },
+  { id: 'code',         href: `${b}code`,         label: 'Code',         n: '03' },
+  { id: 'blog',         href: `${b}blog`,         label: 'Blog',         n: '04' },
+  { id: 'about',        href: `${b}about`,        label: 'About',        n: '05' },
+];
+
+// "Case Studies" is active on / and on any /case-studies/* page.
+const activeId = (() => {
+  if (pathname === '/' || pathname.startsWith('/case-studies')) return 'case-studies';
+  if (pathname.startsWith('/experiments')) return 'experiments';
+  if (pathname.startsWith('/code')) return 'code';
+  if (pathname.startsWith('/blog')) return 'blog';
+  if (pathname.startsWith('/about') || pathname.startsWith('/contact')) return 'about';
+  return null;
+})();
+---
+
+<header class="site-header">
+  <a href={base} class="logo">
+    Mario<span class="logo-dot">·</span>Casanova
+  </a>
+  <nav class="site-nav">
+    {items.map(it => (
+      <a
+        href={it.href}
+        class:list={['nav-link', { 'nav-link--active': activeId === it.id }]}
+      >
+        <span class="nav-num">{it.n}</span>
+        {it.label}
+      </a>
+    ))}
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 18px var(--gutter-desktop);
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    background: var(--paper);
+    position: relative;
+    z-index: 10;
+  }
+  @media (max-width: 760px) {
+    .site-header { padding: 14px var(--gutter-mobile); gap: 16px; }
+  }
+
+  .logo {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .logo-dot {
+    color: var(--oxblood);
+    margin: 0 0.5em;
+  }
+
+  .site-nav {
+    margin-left: auto;
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+  @media (max-width: 760px) {
+    .site-nav { gap: 14px; }
+  }
+
+  .nav-link {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+  .nav-link--active { color: var(--oxblood); }
+  .nav-link:hover { color: var(--oxblood); }
+
+  .nav-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    margin-right: 4px;
+  }
+</style>

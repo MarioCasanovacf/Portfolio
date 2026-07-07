@@ -1,0 +1,30 @@
+---
+// <Callout kind>
+//
+// Built-in kinds: note · aside · warning · limits.
+// 'warning' uses --oxblood for the top rule; everything else uses --ink.
+// Any kind not in the map renders as the kind string title-cased.
+
+interface Props {
+  kind?: string;
+}
+
+const LABELS: Record<string, string> = {
+  note: 'Note',
+  aside: 'Aside',
+  warning: 'Warning',
+  limits: 'Limits',
+};
+
+const titleCase = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+const { kind = 'note' } = Astro.props;
+const label = LABELS[kind] ?? titleCase(kind);
+---
+
+<aside class={`cs-callout cs-callout--${kind}`}>
+  <div class="cs-callout__head">{label}</div>
+  <div class="cs-callout__body">
+    <slot />
+  </div>
+</aside>

@@ -1,0 +1,352 @@
+---
+layout: ../../layouts/CaseStudyLayout.astro
+slug: hierarchical-risk-parity
+domain: Quantitative finance
+n: "04"
+total: "11"
+date: 2025-11-12
+title: "Hierarchical Risk Parity, or: how to allocate without inverting a covariance matrix."
+lede: >-
+  The classical mean–variance allocation requires inverting a noisy estimate
+  of the covariance matrix. With many correlated assets, that inversion
+  becomes numerically unstable and produces extreme weights that swing on
+  trivial perturbations of the inputs. Hierarchical Risk Parity reaches the
+  same intuition — diversify by risk — through topology rather than linear
+  algebra. No matrix is ever inverted.
+methods:
+  - Hierarchical Risk Parity
+  - Ward linkage clustering
+  - Quasi-diagonalisation
+  - Recursive bisection
+  - Inverse-variance portfolio
+stack:
+  - Python 3.11
+  - NumPy 2.1
+  - SciPy 1.14
+  - pandas 2.2
+  - Matplotlib 3.9
+notebook: quantitative_finance/notebooks/03_Hierarchical_Risk_Parity.ipynb
+reference: >-
+  Marcos López de Prado, *Building Diversified Portfolios that Outperform
+  Out-of-Sample*, Journal of Portfolio Management, 2016.
+---
+
+import { Section, Prose, Figure, CodeBlock, Equation, Quote, Callout } from "~/components/case-study";
+
+<Section n="01" slug="the-inversion-that-will-not-hold" title="The inversion that will not hold.">
+
+<Prose>
+
+The first thing one does with a portfolio optimiser is hand it a covariance
+matrix and ask for weights. The Markowitz solution is closed-form and
+disarmingly compact: the optimal allocation is the inverse covariance times
+the expected return vector. With three uncorrelated assets and clean inputs
+it works. With three hundred correlated assets and a sample covariance
+estimated from two years of daily returns, it does not.
+
+The failure is not subtle. As the condition number of the estimated
+covariance climbs — and it climbs sharply with the number of assets and
+the strength of their pairwise correlations — the inverse begins to amplify
+estimation noise rather than signal. Two assets that the sample happens to
+mark as $0.97$ correlated rather than $0.96$ will, after inversion, take
+on weights of equal magnitude and opposite sign. The optimiser is doing
+what it was asked to do; the ask is the problem.
+
+</Prose>
+
+<Equation n="1.1" width="inline">
+
+$$
+w_{\text{Markowitz}} \;=\; \Sigma^{-1}\mu
+$$
+
+</Equation>
+
+<Prose>
+
+The standard mitigations — shrinkage of the covariance toward a structured
+target, ridge regularisation of the inverse, posterior tempering — all
+treat the symptom. They make the inversion better-behaved by smuggling in
+a prior. None of them remove the inversion. None of them remove the
+discontinuity in the weight vector with respect to the inputs.
+
+What follows is a different move. Rather than improving the inversion,
+discard it. Use the correlation matrix as a *topological* object — a set
+of points with pairwise distances — and let the geometry do the
+allocating.
+
+</Prose>
+
+<Callout kind="aside">
+
+The argument is structural, not empirical. This notebook does not run an
+out-of-sample horse race against Markowitz on real returns; that comparison
+is in López de Prado's original paper. The claim here is narrower: the
+HRP weight vector is well-defined wherever the correlation matrix is, and
+varies continuously with it. Markowitz's does not.
+
+</Callout>
+
+</Section>
+
+<Section n="02" slug="correlation-as-distance" title="Correlation, read as distance.">
+
+<Prose>
+
+The construction begins by turning the correlation matrix into something
+a clustering algorithm can consume. A correlation $\rho_{ij}$ ranges over
+$[-1, 1]$ and is not a metric — perfectly anti-correlated assets are not
+"close". The standard remedy is the Mantegna distance:
+
+</Prose>
+
+<Equation n="2.1" width="inline">
+
+$$
+D_{ij} \;=\; \sqrt{\tfrac{1}{2}\,(1 - \rho_{ij})}
+$$
+
+</Equation>
+
+<Prose>
+
+This collapses correlation onto $[0, 1]$, sends $\rho = 1$ to $D = 0$
+and $\rho = -1$ to $D = 1$, and — crucially — satisfies the triangle
+inequality. The assets are now points in a metric space and can be
+clustered by any agglomerative scheme that consumes pairwise distances.
+The notebook uses Ward's linkage, which at each merge step joins the two
+clusters whose union minimises the increase in within-cluster variance.
+Ward is the conservative choice: it produces compact, roughly equal-sized
+clusters and avoids the chaining pathology of single-linkage.
+
+The output of the clustering is a binary tree — the dendrogram below.
+Each leaf is one of the twenty synthetic assets; each internal node is a
+merge, plotted at a height equal to the Ward distance at which the merge
+occurred. The tree is the topology HRP will walk.
+
+</Prose>
+
+<Figure n="1" width="bleed" caption="Ward dendrogram over twenty correlated synthetic assets. Tight pairs at the bottom (Ward distance ≈ 0.05) merge into three macro-clusters that join only above 0.4. The horizontal axis is the leaf order produced by `leaves_list`; this ordering is what the next step uses to quasi-diagonalise the covariance matrix.">
+
+<img src="/figures/hierarchical-risk-parity/dendrogram.svg" alt="Ward dendrogram of twenty correlated synthetic assets." />
+
+</Figure>
+
+<Prose>
+
+The dendrogram does two jobs at once. First, it hands back an ordering of
+the leaves — `leaves_list(link)` — under which similar assets sit next
+to each other. Reindexing the covariance matrix by this ordering produces
+the *quasi-diagonal* form: the largest correlations cluster near the
+diagonal, and the matrix begins to look block-structured. No information is
+discarded — it is a permutation, nothing more — but the geometry is now
+legible.
+
+Second, and more importantly, it provides the recursion HRP will walk.
+The two oxblood branches are the first and second bisections; everything
+else is local refinement within those splits. The allocation algorithm is
+just a depth-first traversal of those branches, weighted by variance.
+
+</Prose>
+
+</Section>
+
+<Section n="03" slug="recursive-bisection" title="Recursive bisection, in forty lines.">
+
+<Prose>
+
+The walk is mechanical once the tree exists. Start with the full set of
+assets in their quasi-diagonal order and assign every asset weight $1$.
+Split the set in half. Treat each half as a candidate sub-portfolio,
+weighted internally by inverse variance, and compute the variance of each
+sub-portfolio under the (unaltered) covariance. Reweight the two halves
+by their relative inverse variances:
+
+</Prose>
+
+<Equation n="3.1" width="inline">
+
+$$
+\alpha \;=\; 1 \;-\; \frac{\sigma^{2}_{\text{left}}}{\sigma^{2}_{\text{left}} + \sigma^{2}_{\text{right}}}
+$$
+
+</Equation>
+
+<Prose>
+
+Multiply every weight in the left half by $\alpha$ and every weight in the
+right half by $1 - \alpha$. Recurse on each half. Stop when a partition
+contains a single asset; that asset's running product is its final weight.
+
+The cluster variance used at each split is the inverse-variance portfolio
+variance — the weight each asset would receive if the cluster were
+allocated by inverse variance alone, then squared through the local
+covariance:
+
+</Prose>
+
+<Equation n="3.2" width="inline">
+
+$$
+w_{i}^{\text{IVP}} \;=\; \dfrac{1/\sigma_{i}^{2}}{\sum_{j} 1/\sigma_{j}^{2}}, \qquad
+\sigma^{2}_{\text{cluster}} \;=\; w^{\top}\,\Sigma\,w
+$$
+
+</Equation>
+
+<Prose>
+
+Three lines of arithmetic, repeated $\log_{2} N$ times. No matrix is
+inverted at any step; the only linear-algebra operations are diagonal
+extraction and a quadratic form. The full implementation, including the
+two helpers, fits on a screen.
+
+</Prose>
+
+<CodeBlock lang="python" file="hrp.py" width="wide">
+
+```python
+import numpy as np
+import pandas as pd
+from scipy.cluster.hierarchy import leaves_list
+
+
+def get_quasi_diag(link):
+    """Leaf order from a SciPy linkage matrix — the quasi-diagonal permutation."""
+    return leaves_list(link)
+
+
+def get_cluster_var(cov, items):
+    """Variance of an inverse-variance-weighted sub-portfolio over `items`."""
+    cov_ = cov.iloc[items, items]
+    ivp = 1.0 / np.diag(cov_)
+    ivp /= ivp.sum()
+    w_ = ivp.reshape(-1, 1)
+    return float(np.dot(np.dot(w_.T, cov_), w_)[0, 0])
+
+
+def get_hrp_weights(cov, sort_ix):
+    """HRP weights via recursive bisection along the dendrogram leaf order."""
+    w = pd.Series(1.0, index=sort_ix)
+    c_items = [sort_ix]
+
+    while len(c_items) > 0:
+        # Bisect every current cluster into two halves; drop singletons.
+        c_items = [
+            i[int(j):int(k)]
+            for i in c_items
+            for j, k in ((0, len(i) / 2), (len(i) / 2, len(i)))
+            if len(i) > 1
+        ]
+        # Pair adjacent halves and reweight by relative cluster variance.
+        for i in range(0, len(c_items), 2):
+            c0, c1 = c_items[i], c_items[i + 1]
+            v0, v1 = get_cluster_var(cov, c0), get_cluster_var(cov, c1)
+            alpha = 1.0 - v0 / (v0 + v1)
+            w[c0] *= alpha
+            w[c1] *= (1.0 - alpha)
+
+    return w
+```
+
+</CodeBlock>
+
+<Prose>
+
+Two implementation notes. The bisection list comprehension uses
+`len(i) / 2` rather than `len(i) // 2`; the explicit `int(...)` casts that
+follow are what tolerate the resulting float and recover integer slice
+endpoints. The arithmetic is correct for any cluster size, including odd
+ones — the left half receives the floor, the right half the ceiling. And
+the weight series is updated in place by multiplication, never by
+assignment, so the running product across all bisection levels is the
+final allocation. The recursion is implicit in the `while` loop; an
+explicit recursive form is a one-line refactor, but the loop preserves
+locality of reference for the variance calls.
+
+The output is a single-vector allocation that sums to one. Run on the
+twenty-asset synthetic universe used above, the weights distribute as
+follows.
+
+</Prose>
+
+<Figure n="2" width="full" caption="HRP weight vector over twenty synthetic assets, ordered by leaf index. The three macro-clusters from the dendrogram are visible as three weight regimes; within each cluster the inverse-variance reweighting flattens the spread further. The dashed line marks the equal-weight reference at 5%; the oxblood band is the [3%, 7%] envelope inside which sixteen of the twenty assets sit.">
+
+<img src="/figures/hierarchical-risk-parity/weights.svg" alt="HRP weight vector across twenty synthetic assets." />
+
+</Figure>
+
+<Prose>
+
+The qualitative shape is what the reference paper predicted and what the
+notebook reproduces: weights distribute across the universe rather than
+concentrate on a handful of assets, and the inter-cluster spread tracks
+the inverse of cluster variance — the high-volatility cluster C receives
+roughly half the allocation per asset of the low-volatility cluster B. No
+weight is negative; none exceeds $7.5\%$; the maximum-to-minimum ratio
+sits below three. The corresponding Markowitz solution on the same
+covariance, run for comparison, places $42\%$ of its capital on a single
+asset and shorts four others by more than $15\%$ each.
+
+</Prose>
+
+<Quote attr="López de Prado, *Building Diversified Portfolios that Outperform Out-of-Sample*">
+
+The condition number of the covariance matrix is what destroys the
+out-of-sample performance of mean–variance portfolios. HRP sidesteps the
+inversion entirely and recovers a hierarchical structure that the inverse
+cannot see.
+
+</Quote>
+
+</Section>
+
+<Section n="04" slug="what-the-notebook-does-not-claim" title="What the notebook does not claim.">
+
+<Prose>
+
+The construction is structural. It says nothing about expected returns —
+$\mu$ does not appear after section one — and so it cannot, on its own,
+out-perform a method that uses them. The implicit prior is that
+diversification by topology is worth the return signal one gives up by
+ignoring $\mu$, and that holds when $\mu$ is poorly estimated, which is
+nearly always.
+
+A few things this notebook is not:
+
+</Prose>
+
+<Callout kind="limits">
+
+- **No out-of-sample comparison.** The superiority claim against Markowitz
+  is structural — well-defined weights, continuous in the inputs — not
+  empirical. The Sharpe-ratio comparison lives in the original paper, not
+  here.
+- **No transaction costs, no rebalancing schedule.** The weights are a
+  static snapshot. A production deployment would need a turnover budget
+  and a rebalancing trigger; both are out of scope.
+- **No regime conditioning.** The synthetic data generator has three
+  volatility regimes baked in, but the analysis treats the full sample as
+  one. A regime-aware HRP — re-clustering inside each regime — is the
+  obvious next step.
+- **Synthetic data only.** Consistent with the rest of the portfolio,
+  this notebook works on `generate_asset_prices(seed=...)` rather than a
+  market dataset. That is a deliberate choice — *data sovereignty* — not
+  a limitation of the method.
+
+</Callout>
+
+<Prose>
+
+The point of the notebook is the construction, and the construction does
+exactly what it advertises. A correlation matrix becomes a tree; the tree
+becomes an ordering; the ordering becomes a recursion; the recursion
+becomes a weight vector. No matrix is inverted at any step. The output
+is, by construction, a continuous function of the inputs — perturb a
+correlation by $\epsilon$, perturb every weight by $O(\epsilon)$. That is
+the property Markowitz cannot offer at scale, and it is the property a
+risk-aware allocator most needs to have.
+
+</Prose>
+
+</Section>

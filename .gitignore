@@ -1,6 +1,20 @@
 # Data files (too large for git)
 **/data/synthetic/*.csv
 
+# NDA — the sentiment project embeds real customer review text verbatim across
+# its analysis reports AND its code (validation samples, highlights, stage-1
+# diagnosis). Kept LOCAL until properly scrubbed. The public case study lives in
+# site/ (which quotes no real reviews) and is unaffected.
+01_professional/review_sentiment_ml/
+
+# Mid-flight (T-116 real_estate revival) — excluded until the project settles.
+_pendiente_decision/real_estate/
+
+# Node / site (Astro)
+node_modules/
+site/dist/
+site/.astro/
+
 # Python
 __pycache__/
 *.py[cod]

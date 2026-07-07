@@ -1,0 +1,34 @@
+---
+// <CodeBlock lang file width> wraps a fenced code block. The actual syntax
+// highlighting comes from Astro's global Shiki config (papier-noir theme),
+// applied to ```lang ... ``` fences inside MDX. This component just adds
+// the file/lang chrome around the rendered <pre>.
+//
+// Usage in MDX:
+//
+//   <CodeBlock lang="python" file="hrp.py" width="wide">
+//
+//   ```python
+//   def foo(): ...
+//   ```
+//
+//   </CodeBlock>
+
+interface Props {
+  lang?: string;
+  file?: string;
+  width?: 'inline' | 'wide';
+}
+
+const { lang = 'python', file, width = 'inline' } = Astro.props;
+---
+
+<div class={`cs-code cs-code--${width}`}>
+  <div class="cs-code__head">
+    {file && <span class="cs-code__file">{file}</span>}
+    <span class="cs-code__lang">{lang}</span>
+  </div>
+  <div class="cs-code__body">
+    <slot />
+  </div>
+</div>

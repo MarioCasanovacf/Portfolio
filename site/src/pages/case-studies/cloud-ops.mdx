@@ -1,0 +1,662 @@
+---
+layout: ../../layouts/CaseStudyLayout.astro
+slug: cloud-ops
+domain: Cloud infrastructure
+n: "03"
+total: "12"
+date: "2026-07-04"
+title: "Operating on clouds you can't control"
+lede: >-
+  A support operation runs on GitHub, Anthropic, Cloudflare and fifteen other
+  providers it cannot fix. Five questions a NOC lead actually decides — what SLO
+  to sign, which number to staff with, how many engineers the worst week needs,
+  whether minute-zero prediction works, and what to triage when the outage isn't
+  yours — answered on 787 real status-page incidents and 700 real CI runs, with
+  the assumption tests executed on the page and one honest null published on
+  purpose.
+methods:
+  - Error-budget arithmetic
+  - Log-normal TTR (pre-registered contest)
+  - Erlang C · Allen–Cunneen
+  - Leakage-audited prediction
+  - cμ-rule tournament
+stack:
+  - Python 3.12
+  - pandas + SciPy
+  - scikit-learn
+  - Statuspage APIs
+notebookUrl: https://github.com/MarioCasanovacf/Portfolio/tree/main/01_professional/cloud_infrastructure_support
+reference: >-
+  M. B. Kline, *Suitability of the lognormal distribution for corrective
+  maintenance repair times* (1984); J. F. C. Kingman, *The single server queue
+  in heavy traffic* (1961); A. K. Erlang, *Solution of some problems in the
+  theory of probabilities* (1917).
+---
+
+import { Section, Prose, Figure, CodeBlock, Equation, Quote, Callout } from "~/components/case-study";
+
+<Prose>
+
+There is a kind of question that only sounds simple: what availability can a
+support team honestly promise when everything the promise depends on belongs to
+someone else? The team this study is built around — the persona is a NOC and
+support lead — runs its operation on GitHub, Anthropic, Cloudflare, Datadog and
+fourteen other providers, and when any of them breaks, nobody on that team can
+fix a line of it. What the lead does control is exactly three things: the
+headcount on call, the internal SLO that gets signed, and what the queue does
+during a pile-up. Five notebooks, five questions, one decision each.
+
+The data is real, captured rather than generated: 787 incidents from the public
+status pages of 18 cloud providers (captured 2026-06-27, expanded 2026-07-03)
+and 700 GitHub Actions runs from seven large open-source repositories
+(2026-05-13 to 06-27). Real data buys honesty and sells convenience. Each
+status-page API returns roughly its last fifty incidents, so a chatty
+provider's fifty cover days while a quiet provider's cover years (Twilio ≈ 9
+days, Atlassian ≈ 6 years); every rate below is therefore computed strictly
+inside each provider's own observation window, and no cross-provider
+reliability ranking appears anywhere on this page. Providers also declare only
+the incidents they choose to declare, which makes every availability figure an
+upper bound on a lower bound of user pain.
+
+The analysis rules were fixed before anything was fit — which distributions
+compete, what counts as a tie, how many outliers the test is allowed to flag —
+and the results are reported as declared, including one deliberate null
+(Section 4), where an AUC of 0.9 would have been evidence of a bug rather than
+a triumph. That is the working stance throughout: the code behind any of these
+methods can be learned in a fortnight, and the durable skill is knowing which
+number is an answer and which is an artifact of the window it was measured in.
+
+</Prose>
+
+<Section n="01" slug="the-number-you-can-sign" title="The number you can sign, and the arithmetic that caps it.">
+
+<Prose>
+
+Availability looks like a measurement and behaves like a policy. The formula is
+innocent — one minus downtime over window — but two choices hide inside it.
+Overlapping incidents cannot simply be summed (Twilio's naive duration sum
+reaches 277% of its own nine-day window, which would report negative
+availability), so downtime has to be the union of intervals. And someone has to
+decide what a six-hour `minor` is worth, a question the data cannot answer
+because it is a policy weight, not an observable. So the notebook runs three
+declared weighting schemes side by side instead of picking one, and the
+weighting turns out to be the result: under the same CSV, Twilio's availability
+is 0% if any declared incident counts as a full outage and 100% if only
+major-and-above incidents count (it declared none). Whoever fixes the weights
+fixes the conclusion, which is why the weights belong inside the SLO document,
+signed alongside the number they produce.
+
+With the middle scheme (graduated weights: critical 1, major 0.5, minor 0.1),
+hypothetical budgets become concrete. A 99.0% SLO allows 432 minutes of
+downtime per 30 days; 99.5% allows 216; 99.9% allows 43.2. GitHub, inside its
+own 65-day observed window, never fits under any of them: every rolling 30-day
+window consumed between 631 and 1,751 weighted minutes, which is 1.5× to 4.1×
+the 99.0% budget and an implied availability of 95.95% to 98.54%. There is no
+30-day stretch in this capture during which GitHub would have met even a 99.0%
+SLO.
+
+</Prose>
+
+<Figure n="1" width="wide" caption="GitHub's weighted downtime in every rolling 30-day window of its 65-day capture, against the error budgets of three hypothetical SLOs. The line never crosses below the 99.0% budget: the mildest window burned 1.5× that budget, the worst 4.1×. Adjacent windows share 29 of 30 days, so the curve shows how the level moved, not independent samples. Source: NB01, graduated (S2) impact weighting.">
+
+<svg viewBox="0 0 700 320" role="img" aria-label="Line chart of GitHub rolling 30-day weighted downtime, always far above the 99.0 percent error budget.">
+  <g font-family="IBM Plex Sans">
+    <g stroke="#1A1814" stroke-width="0.5" opacity="0.15">
+      <line x1="70" y1="183.3" x2="670" y2="183.3"/>
+      <line x1="70" y1="106.7" x2="670" y2="106.7"/>
+      <line x1="70" y1="30" x2="670" y2="30"/>
+    </g>
+    <line x1="70" y1="30" x2="70" y2="260" stroke="#1A1814" stroke-width="0.5" opacity="0.5"/>
+    <line x1="70" y1="260" x2="670" y2="260" stroke="#1A1814" stroke-width="1"/>
+    <g fill="#6B655C" font-size="10" text-anchor="end">
+      <text x="64" y="263">0</text>
+      <text x="64" y="186">600</text>
+      <text x="64" y="110">1,200</text>
+      <text x="64" y="33">1,800</text>
+    </g>
+    <text x="70" y="16" fill="#6B655C" font-size="10">weighted downtime in trailing 30-day window (minutes)</text>
+    <g stroke="#1A1814" stroke-width="1" stroke-dasharray="4 3" opacity="0.65">
+      <line x1="70" y1="204.8" x2="670" y2="204.8"/>
+      <line x1="70" y1="232.4" x2="670" y2="232.4"/>
+      <line x1="70" y1="254.5" x2="670" y2="254.5"/>
+    </g>
+    <g fill="#3C3833" font-size="9.5">
+      <text x="76" y="200">99.0% SLO budget · 432 min</text>
+      <text x="76" y="228">99.5% · 216 min</text>
+      <text x="76" y="251">99.9% · 43 min</text>
+    </g>
+    <polyline fill="none" stroke="#6E1F1F" stroke-width="2" points="70.0,51.8 86.7,50.8 103.3,54.6 120.0,55.0 136.7,36.3 153.3,85.1 170.0,79.7 186.7,98.1 203.3,116.5 220.0,119.7 236.7,113.0 253.3,112.8 270.0,113.8 286.7,126.2 303.3,164.6 320.0,176.7 336.7,176.7 353.3,165.1 370.0,165.1 386.7,155.2 403.3,155.5 420.0,156.6 436.7,156.6 453.3,161.0 470.0,159.0 486.7,157.1 503.3,149.1 520.0,149.1 536.7,151.6 553.3,151.6 570.0,151.6 586.7,154.3 603.3,154.0 620.0,154.0 636.7,170.3 653.3,171.2 670.0,179.3"/>
+    <circle cx="136.7" cy="36.3" r="3.5" fill="#6E1F1F"/>
+    <text x="146" y="34" fill="#6E1F1F" font-size="10" font-weight="600">1,751 min · 4.1× the 99.0% budget</text>
+    <circle cx="670" cy="179.3" r="3.5" fill="#6E1F1F"/>
+    <text x="662" y="170" fill="#6E1F1F" font-size="10" font-weight="600" text-anchor="end">631 min · 1.5×</text>
+    <g stroke="#6B655C">
+      <line x1="70" y1="260" x2="70" y2="265"/>
+      <line x1="220" y1="260" x2="220" y2="265"/>
+      <line x1="453.3" y1="260" x2="453.3" y2="265"/>
+      <line x1="670" y1="260" x2="670" y2="265"/>
+    </g>
+    <g fill="#6B655C" font-size="10" text-anchor="middle">
+      <text x="70" y="280">May 23</text>
+      <text x="220" y="280">Jun 1</text>
+      <text x="453.3" y="280">Jun 15</text>
+      <text x="670" y="280">Jun 28</text>
+    </g>
+    <text x="370" y="306" fill="#1A1814" font-size="11" text-anchor="middle">30-day window end date (2026)</text>
+  </g>
+</svg>
+
+</Figure>
+
+<Prose>
+
+The bound this places on a promise is multiplicative. A service that needs two
+dependencies up simultaneously inherits the product of their availabilities; a
+service that can fail over to either of two independent alternatives inherits
+the product of their *un*availabilities:
+
+</Prose>
+
+<Equation n="1.1" width="inline">
+
+$$
+A_{\text{serial}} = A_1 A_2,
+\qquad
+A_{\text{parallel}} = 1 - (1 - A_1)(1 - A_2)
+$$
+
+</Equation>
+
+<Prose>
+
+Observed under the graduated scheme, GitHub delivers 97.29% and Anthropic
+97.66% in their respective windows, so a service serially dependent on both
+delivers 95.02% — before counting its own failures. Run the arithmetic the
+other way and redundancy earns its price: two independent providers of that
+grade in parallel yield 99.94%, which turns an arithmetically impossible 99.9%
+into an achievable one. The load-bearing word is *independent*. If both
+alternatives sit behind the same CDN, cloud, or DNS, their failures correlate
+and the parallel formula stops being a bound and becomes an overestimate — and
+this capture already contains a portrait of correlated failure, in Twilio's
+45-incidents-in-nine-days storm.
+
+</Prose>
+
+</Section>
+
+<Section n="02" slug="the-most-expensive-true-sentence" title="The most expensive true sentence in operations.">
+
+<Prose>
+
+Every provider status page eventually tells you the same comforting thing:
+incidents resolve in about an hour. Across this capture (787 incidents from 18
+public status pages, 721 with usable durations) that sentence is technically
+true, since the median resolution time is 95 minutes. The mean is 505. Five
+hundred and five minutes.
+
+</Prose>
+
+<Figure n="2" width="wide" caption="Resolution times of 721 real incidents (GitHub, Anthropic, Cloudflare, Datadog and 14 more), log scale. The solid line is the median (95 min); the dashed line is the mean (505 min), dragged rightward by multi-day incidents. Source: NB02, public status-page APIs, captured June–July 2026.">
+
+<svg viewBox="0 0 840 320" role="img" aria-label="Distribution of 721 real incident resolution times, log scale, with median and mean marked.">
+  <g font-family="IBM Plex Sans">
+    <line x1="70" y1="265" x2="790" y2="265" stroke="#6B655C" stroke-width="1"/>
+    <g stroke="#6B655C">
+      <line x1="236.3" y1="265" x2="236.3" y2="270"/>
+      <line x1="365.7" y1="265" x2="365.7" y2="270"/>
+      <line x1="495.1" y1="265" x2="495.1" y2="270"/>
+      <line x1="595.3" y1="265" x2="595.3" y2="270"/>
+      <line x1="735.8" y1="265" x2="735.8" y2="270"/>
+    </g>
+    <g fill="#6B655C" font-size="12" text-anchor="middle">
+      <text x="236.3" y="285">10 min</text>
+      <text x="365.7" y="285">1 h</text>
+      <text x="495.1" y="285">6 h</text>
+      <text x="595.3" y="285">1 day</text>
+      <text x="735.8" y="285">1 week</text>
+    </g>
+    <g fill="#948D82" opacity="0.85">
+      <rect x="123.3" y="262.6" width="25.2" height="2.4"/>
+      <rect x="176.7" y="260.2" width="25.2" height="4.8"/>
+      <rect x="203.3" y="243.5" width="25.2" height="21.5"/>
+      <rect x="230.0" y="219.5" width="25.2" height="45.5"/>
+      <rect x="256.7" y="212.3" width="25.2" height="52.7"/>
+      <rect x="283.3" y="169.3" width="25.2" height="95.7"/>
+      <rect x="310.0" y="104.6" width="25.2" height="160.4"/>
+      <rect x="336.7" y="102.2" width="25.2" height="162.8"/>
+      <rect x="363.3" y="40.0" width="25.2" height="225.0"/>
+      <rect x="390.0" y="49.6" width="25.2" height="215.4"/>
+      <rect x="416.7" y="85.5" width="25.2" height="179.5"/>
+      <rect x="443.3" y="109.4" width="25.2" height="155.6"/>
+      <rect x="470.0" y="159.7" width="25.2" height="105.3"/>
+      <rect x="496.7" y="171.6" width="25.2" height="93.4"/>
+      <rect x="523.3" y="209.9" width="25.2" height="55.1"/>
+      <rect x="550.0" y="229.1" width="25.2" height="35.9"/>
+      <rect x="576.7" y="236.3" width="25.2" height="28.7"/>
+      <rect x="603.3" y="248.2" width="25.2" height="16.8"/>
+      <rect x="630.0" y="257.8" width="25.2" height="7.2"/>
+      <rect x="656.7" y="250.6" width="25.2" height="14.4"/>
+      <rect x="683.3" y="250.6" width="25.2" height="14.4"/>
+      <rect x="710.0" y="255.4" width="25.2" height="9.6"/>
+      <rect x="736.7" y="257.8" width="25.2" height="7.2"/>
+      <rect x="763.3" y="253.0" width="25.2" height="12.0"/>
+    </g>
+    <line x1="398.8" y1="32" x2="398.8" y2="265" stroke="#1A1814" stroke-width="1.5"/>
+    <text x="392.8" y="26" text-anchor="end" font-size="13" fill="#1A1814" font-weight="600">median · 95 min</text>
+    <line x1="519.6" y1="32" x2="519.6" y2="265" stroke="#6E1F1F" stroke-width="1.5" stroke-dasharray="5 3"/>
+    <text x="525.6" y="26" font-size="13" fill="#6E1F1F" font-weight="600">mean · 505 min</text>
+  </g>
+</svg>
+
+</Figure>
+
+<Prose>
+
+That five-fold gap is not a defect of the data; what helps us explain it is
+that it is the signature of the process that generates it. Resolving an
+incident is a chain of steps (diagnose, locate, repair, verify), each one
+scaling the time of the one before, and multiplicative processes produce
+exactly this shape — a friendly middle and a brutal tail — as reliably as they
+produce the distribution of incomes or the sizes of
+cities.<sup id="fnref1"><a href="#fn1">1</a></sup> So the two numbers do
+different jobs, and it is worth being blunt about the assignment. The median
+talks to humans: runbooks, user comms, what usually happens. The mean sizes the
+team, because workload consumes means, not medians. And promises (SLOs,
+escalation clocks) belong to the empirical percentiles — the p90 here is ten
+hours — because the fitted tail stops being trustworthy exactly where promises
+live.
+
+Nor can the tail be cleaned away. The pre-registered outlier test, run
+expecting it to flag the multi-day monsters, flagged exactly one point out of
+721 — a record opened and resolved six seconds apart, a status-page bookkeeping
+artifact, on the *short* side. Nine-day incidents are not anomalies waiting to
+be deleted. They are the distribution.
+
+A tempting reading is that providers are hiding something. I don't think they
+are. A status page is not wrong to quote the typical incident, since "typical"
+is a fair description of the middle of this distribution; it is answering a
+different question than the one a budget asks, and the two facts are perfectly
+compatible: the same distribution has a middle you can communicate and a tail
+you must staff for. Which number you take from it should depend on which
+decision you are funding. What that choice does to an on-call roster — the
+difference between the team the textbook recommends and the team this
+variability actually requires — is the next section's question.
+
+</Prose>
+
+</Section>
+
+<Section n="03" slug="textbook-team-measured-team" title="The textbook team and the measured team.">
+
+<Prose>
+
+In the worst observed week, how many on-call engineers does it take for 90% of
+incidents to start being handled within 30 minutes? The week has a name: across
+the four whole weeks (2026-05-31 to 06-27) that nine providers' capture windows
+jointly cover, the worst is June 7–13 — 36 declared incidents, about 5.14 per
+day, with a mean open duration of 156 minutes. The textbook answer comes from
+Erlang C,<sup id="fnref2"><a href="#fn2">2</a></sup> which will happily produce
+a headcount as long as two assumptions hold: arrivals are Poisson, and
+service-time variability is modest (c²ₛ = 1).
+
+Both assumptions were tested rather than assumed, and both fail. Daily arrivals
+are overdispersed (variance over mean = 1.65, p ≈ 0.02 — bursty, exactly as a
+platform problem spawning correlated incidents would suggest). Service times
+are worse: the measured c²ₛ is 13.5, and a single incident carries almost all
+of it — one Zoom degradation stayed open 6,515 minutes, four and a half days,
+and dropping that one row collapses c²ₛ to 1.3. The temptation to delete it is
+the temptation to staff for a world in which multi-day vendor incidents do not
+happen. They do; Section 2's tail is made of them; the row stays.
+
+So the same week gets two readings. Erlang C, fed the mean load, says two
+engineers clear the target: P(wait > 30 min) = 9.2%, a margin of 0.8 points
+under the 10% ceiling. The Allen–Cunneen correction, fed the measured c²ₐ =
+1.65 and c²ₛ = 13.5, says two engineers fail (11.7%) and three clear it with
+room to spare (1.9%). The textbook is not wrong because someone computed it
+badly — it is exactly right for the world it assumes, one where variability
+sits at 1, and this data lives in a world where it sits at 13.5, which is
+precisely why the corrected column is the one I believe. Propagated through a
+bootstrap (weeks resampled by day-of-week, durations resampled whole), the
+answer is a range rather than a point: two to four engineers, plan for three.
+
+</Prose>
+
+<Figure n="3" width="wide" caption="One week, two readings. The probability that an incident waits more than 30 minutes for a responder, as a function of on-call headcount, under the same measured arrival rate and mean service time. Erlang C assumes c²ₛ = 1; Allen–Cunneen consumes the measured c²ₐ = 1.65 and c²ₛ = 13.5. At c = 2 the textbook clears the 10% target and the measured world does not. Source: NB03, peak week June 7–13.">
+
+<svg viewBox="0 0 700 300" role="img" aria-label="Paired bar chart of the probability of waiting more than 30 minutes for one to five engineers, under Erlang C and Allen-Cunneen.">
+  <g font-family="IBM Plex Sans">
+    <g stroke="#1A1814" stroke-width="0.5" opacity="0.15">
+      <line x1="90" y1="178.3" x2="650" y2="178.3"/>
+      <line x1="90" y1="106.7" x2="650" y2="106.7"/>
+      <line x1="90" y1="35" x2="650" y2="35"/>
+    </g>
+    <g fill="#6B655C" font-size="10" text-anchor="end">
+      <text x="82" y="253">0</text>
+      <text x="82" y="181">0.2</text>
+      <text x="82" y="110">0.4</text>
+      <text x="82" y="38">0.6</text>
+    </g>
+    <text x="90" y="16" fill="#6B655C" font-size="10">P(wait longer than 30 min)</text>
+    <line x1="90" y1="214.2" x2="650" y2="214.2" stroke="#1A1814" stroke-width="1" stroke-dasharray="4 3" opacity="0.7"/>
+    <text x="648" y="209" fill="#3C3833" font-size="9.5" text-anchor="end">10% target</text>
+    <g>
+      <rect x="108" y="66.5" width="36" height="183.5" fill="#2E4A3F"/>
+      <rect x="148" y="52.5" width="36" height="197.5" fill="#6E1F1F"/>
+      <rect x="220" y="217.0" width="36" height="33.0" fill="#2E4A3F"/>
+      <rect x="260" y="208.0" width="36" height="42.0" fill="#6E1F1F"/>
+      <rect x="332" y="245.4" width="36" height="4.6" fill="#2E4A3F"/>
+      <rect x="372" y="243.2" width="36" height="6.8" fill="#6E1F1F"/>
+      <rect x="444" y="249.5" width="36" height="0.5" fill="#2E4A3F"/>
+      <rect x="484" y="249.1" width="36" height="0.9" fill="#6E1F1F"/>
+      <rect x="556" y="249.8" width="36" height="0.2" fill="#2E4A3F"/>
+      <rect x="596" y="249.7" width="36" height="0.3" fill="#6E1F1F"/>
+    </g>
+    <g fill="#3C3833" font-size="9" text-anchor="middle">
+      <text x="126" y="61">51.2%</text>
+      <text x="166" y="47">55.1%</text>
+      <text x="238" y="211">9.2%</text>
+      <text x="278" y="202">11.7%</text>
+      <text x="350" y="240">1.3%</text>
+      <text x="390" y="232">1.9%</text>
+      <text x="464" y="243">0.14%</text>
+      <text x="504" y="234">0.25%</text>
+      <text x="576" y="243">0.01%</text>
+      <text x="616" y="234">0.03%</text>
+    </g>
+    <line x1="90" y1="250" x2="650" y2="250" stroke="#1A1814" stroke-width="1"/>
+    <g fill="#1A1814" font-size="11" text-anchor="middle">
+      <text x="146" y="270">c = 1</text>
+      <text x="258" y="270">c = 2</text>
+      <text x="370" y="270">c = 3</text>
+      <text x="482" y="270">c = 4</text>
+      <text x="594" y="270">c = 5</text>
+    </g>
+    <text x="370" y="292" fill="#1A1814" font-size="11" text-anchor="middle">on-call engineers</text>
+    <g font-size="10">
+      <rect x="380" y="24" width="12" height="12" fill="#2E4A3F"/>
+      <text x="398" y="34" fill="#3C3833">Erlang C — textbook, assumes c²ₛ = 1</text>
+      <rect x="380" y="42" width="12" height="12" fill="#6E1F1F"/>
+      <text x="398" y="52" fill="#3C3833">Allen–Cunneen — measured c²ₐ = 1.65, c²ₛ = 13.5</text>
+    </g>
+  </g>
+</svg>
+
+</Figure>
+
+<Prose>
+
+The reason the difference between two and three is worth arguing about is that
+queues do not degrade linearly. Removing one engineer from three multiplies the
+probability of a 30-minute-plus wait by 6.1× (from 1.9% to 11.7%, straight
+through the target); removing another multiplies it by 4.7× more, to 55% — a
+coin flip that an incident sits unattended for half an hour, with a mean queue
+wait of roughly a full day, because a single responder saturates the moment a
+long incident collides with a new arrival. The last engineer you cut is never
+one third of the capacity. They are the entire buffer against collisions.
+
+</Prose>
+
+</Section>
+
+<Section n="04" slug="a-null-worth-publishing" title="A prediction audited, and a null worth keeping.">
+
+<Prose>
+
+When a provider posts a new incident, the on-call engineer has thirty seconds
+to decide whether to wait it out or start paging people. Can anything known at
+that exact moment — minute zero, before anything has happened — predict whether
+the incident will turn out long, meaning above the 75th percentile of duration
+(about 3.5 hours)? I fixed the expected outcome before running anything: with
+the features legitimately available at t = 0, an honest AUC should land
+between 0.5 and 0.7, and a result near 0.9 would not be a win but evidence of
+leakage — information from after t = 0 dressed up as a feature.
+
+The leak in question is built into the capture. A status page upgrades an
+incident's impact label as things unfold, and a single snapshot records the
+settled, final label, not the minute-0 declaration; long incidents get
+upgraded, so the settled label partially encodes the outcome being predicted.
+It cannot be un-leaked, but it can be measured. One model knowingly includes
+the settled label, a second model excludes it and the gap between them is the
+size of the leak.
+
+The honest model lands at AUC 0.636 (95% CI 0.592–0.681) against 0.5 for
+guessing — real signal, weak, and almost entirely provider identity, because
+the share of long incidents runs from 6% at Anthropic to 60% at Twilio. The
+model is a lookup table of provider base rates wearing a regression. The leak,
+meanwhile, measures 0.006 of AUC (CI −0.008 to 0.020, straddling zero): the
+settled label, which knows strictly more than any minute-0 label could, adds
+essentially nothing once provider is in the model — and on its own it is nearly
+chance (0.539), since pooled across 17 providers with incompatible conventions,
+"major" means whatever each provider's house style wants it to mean.
+
+</Prose>
+
+<Figure n="4" width="wide" caption="Minute-zero prediction of long incidents: pooled out-of-fold AUC with class-stratified 95% bootstrap CIs. The axis spans 0.4–1.0 with chance (0.5) marked; the pre-declared honest range was 0.5–0.7. Adding the settled impact label (the declared leak) moves the honest model by 0.006, an interval that straddles zero. Source: NB04, 774 incidents, 194 positives.">
+
+<svg viewBox="0 0 700 240" role="img" aria-label="Dot and whisker chart of AUC for four models, all between 0.5 and 0.65.">
+  <g font-family="IBM Plex Sans">
+    <line x1="311.7" y1="40" x2="311.7" y2="205" stroke="#1A1814" stroke-width="1" stroke-dasharray="3 3" opacity="0.4"/>
+    <text x="311.7" y="32" fill="#6B655C" font-size="10" text-anchor="middle">chance = 0.5</text>
+    <g fill="#1A1814" font-size="11" text-anchor="end">
+      <text x="228" y="64">Majority class</text>
+      <text x="228" y="104">Settled impact only</text>
+      <text x="228" y="144">Honest minute-0 model</text>
+      <text x="228" y="184">Ceiling with declared leak</text>
+    </g>
+    <circle cx="311.7" cy="60" r="4.5" fill="#6E1F1F"/>
+    <text x="311.7" y="48" fill="#3C3833" font-size="10" text-anchor="middle">0.500</text>
+    <line x1="306.6" y1="100" x2="371.1" y2="100" stroke="#948D82" stroke-width="3"/>
+    <circle cx="339.6" cy="100" r="4.5" fill="#6E1F1F"/>
+    <text x="339.6" y="88" fill="#3C3833" font-size="10" text-anchor="middle">0.539</text>
+    <line x1="377.6" y1="140" x2="441.4" y2="140" stroke="#948D82" stroke-width="3"/>
+    <circle cx="409.1" cy="140" r="4.5" fill="#6E1F1F"/>
+    <text x="409.1" y="128" fill="#3C3833" font-size="10" text-anchor="middle">0.636</text>
+    <line x1="379.8" y1="180" x2="447.1" y2="180" stroke="#948D82" stroke-width="3"/>
+    <circle cx="414.1" cy="180" r="4.5" fill="#6E1F1F"/>
+    <text x="414.1" y="168" fill="#3C3833" font-size="10" text-anchor="middle">0.643</text>
+    <line x1="240" y1="205" x2="670" y2="205" stroke="#1A1814" stroke-width="1"/>
+    <g stroke="#6B655C">
+      <line x1="240" y1="205" x2="240" y2="210"/>
+      <line x1="311.7" y1="205" x2="311.7" y2="210"/>
+      <line x1="383.3" y1="205" x2="383.3" y2="210"/>
+      <line x1="455" y1="205" x2="455" y2="210"/>
+      <line x1="526.7" y1="205" x2="526.7" y2="210"/>
+      <line x1="598.3" y1="205" x2="598.3" y2="210"/>
+      <line x1="670" y1="205" x2="670" y2="210"/>
+    </g>
+    <g fill="#6B655C" font-size="10" text-anchor="middle">
+      <text x="240" y="224">0.4</text>
+      <text x="311.7" y="224">0.5</text>
+      <text x="383.3" y="224">0.6</text>
+      <text x="455" y="224">0.7</text>
+      <text x="526.7" y="224">0.8</text>
+      <text x="598.3" y="224">0.9</text>
+      <text x="670" y="224">1.0</text>
+    </g>
+    <text x="455" y="238" fill="#1A1814" font-size="10" text-anchor="middle">AUC — out-of-fold, stratified 5-fold CV</text>
+  </g>
+</svg>
+
+</Figure>
+
+<Prose>
+
+If the most informed version of a label cannot help, the less informed one
+certainly cannot. So the defensible policy escalates on elapsed time rather
+than on a minute-zero guess: any provider incident still open past roughly 3.5
+hours (the pooled 75th percentile) gets escalated. Section 2 already supplied
+the justification, because TTR is far from memoryless — an incident that has
+already run three hours genuinely is evidence of a long one. Elapsed time is
+the one predictor a status page hands you for free, with no leakage attached.
+The null stays in the study on purpose: it is a finding that helps a
+decision-maker to stop shopping for a minute-zero crystal ball and spend the
+effort on the escalation clock instead. You can't always predict, and sometimes
+you shouldn't.
+
+</Prose>
+
+</Section>
+
+<Section n="05" slug="triage-when-the-outage-is-not-yours" title="Triage when the outage is not yours.">
+
+<Prose>
+
+The last decision is what the queue does during a pile-up, when everything in
+it is externally blocked: nobody on the team can shorten a provider's
+resolution time, only mitigate while it runs (fail over, apply a workaround,
+communicate proactively). Three policies compete over 1,000 perturbed replays
+of the real peak week (28 incidents from an 11-provider panel; arrival times
+and severities fixed; durations resampled from per-severity fits; identical
+draws for every policy, so differences are pure policy effects). FIFO works
+tickets in arrival order and follows the classic convention of owning an
+incident until it closes. Severity-first jumps to the worst thing, same
+ownership convention. The cμ-rule<sup id="fnref3"><a href="#fn3">3</a></sup>
+orders by damage rate times mitigation speed. The clause that matters releases
+each incident the moment its mitigation lands, because passively
+watching a provider's status page has a service rate of roughly zero and the
+rule refuses to staff work that completes nothing.
+
+The tournament is lopsided in an instructive way. The cμ-rule is strictly best
+in 94.7% of replays and never loses; the remaining 5.3% are exact three-way
+ties, replays in which no queue ever forms and discipline has nothing to act
+on. FIFO against severity-first, meanwhile, is a statistical tie: identical
+damage in 79% of replays and a mean margin near 0.2% otherwise. A decomposition
+variant settles where the advantage lives — severity-first ordering combined
+with the cμ release rule produces damage identical to the full cμ-rule in every
+single replicate. The ordering contributes nothing at this load; it seems to me that the entire
+advantage is the release rule of never staffing the passive monitoring of an
+external incident. Blatantly obvious in hindsight.
+
+</Prose>
+
+<Figure n="5" width="wide" caption="Two comparisons over the same 1,000 replays of the real peak week. Top: the cμ-rule against the better of FIFO and severity-first — strictly best in 94.7% of replays, never strictly beaten, with the rest exact ties. Bottom: FIFO against severity-first, the ordering question alone, identical damage in 79.0% of replays. Source: NB05, common random numbers, seed 20240401.">
+
+<svg viewBox="0 0 700 250" role="img" aria-label="Two stacked bars: the c-mu rule wins 94.7 percent of replays and never loses; FIFO and severity-first tie in 79 percent.">
+  <g font-family="IBM Plex Sans">
+    <text x="195" y="42" fill="#1A1814" font-size="11" font-weight="600">cμ-rule vs the better of FIFO / severity-first</text>
+    <rect x="195" y="52" width="454.6" height="36" fill="#6E1F1F"/>
+    <text x="422" y="74" fill="#F4EFE6" font-size="12" text-anchor="middle">strictly best · 94.7%</text>
+    <rect x="649.6" y="52" width="25.4" height="36" fill="#D8CEBB" stroke="#948D82" stroke-width="0.8"/>
+    <text x="675" y="104" fill="#3C3833" font-size="9.5" text-anchor="end">exact ties 5.3% · beaten 0.0%</text>
+    <line x1="662" y1="90" x2="662" y2="93" stroke="#948D82" stroke-width="0.8"/>
+    <text x="195" y="132" fill="#1A1814" font-size="11" font-weight="600">FIFO vs severity-first — the ordering question alone</text>
+    <rect x="195" y="142" width="379.2" height="36" fill="#948D82"/>
+    <text x="384" y="164" fill="#F4EFE6" font-size="12" text-anchor="middle">identical damage · 79.0%</text>
+    <rect x="574.2" y="142" width="60.5" height="36" fill="#2E4A3F"/>
+    <rect x="634.7" y="142" width="40.3" height="36" fill="#A87333"/>
+    <line x1="604" y1="178" x2="604" y2="185" stroke="#948D82" stroke-width="0.8"/>
+    <text x="604" y="196" fill="#2E4A3F" font-size="9.5" text-anchor="middle">severity-first wins 12.6%</text>
+    <line x1="655" y1="178" x2="655" y2="199" stroke="#948D82" stroke-width="0.8"/>
+    <text x="655" y="210" fill="#A87333" font-size="9.5" text-anchor="middle">FIFO wins 8.4%</text>
+    <line x1="195" y1="224" x2="675" y2="224" stroke="#1A1814" stroke-width="1"/>
+    <g stroke="#6B655C">
+      <line x1="195" y1="224" x2="195" y2="229"/>
+      <line x1="435" y1="224" x2="435" y2="229"/>
+      <line x1="675" y1="224" x2="675" y2="229"/>
+    </g>
+    <g fill="#6B655C" font-size="10" text-anchor="middle">
+      <text x="195" y="243">0%</text>
+      <text x="435" y="243">50% of 1,000 replays</text>
+      <text x="675" y="243">100%</text>
+    </g>
+  </g>
+</svg>
+
+</Figure>
+
+<Prose>
+
+It is worth being honest about the ceiling: only about 5% of total damage is
+controllable at all, the rest being provider resolution time that no policy can
+touch and the cμ-rule captures essentially all of that 5%, while the
+ownership habit spends it babysitting incidents nobody on the team can resolve.
+The margins are modest (median 3.7% less damage than FIFO, stretching to 17% in
+a hypothetical saturation scenario that never occurred in the data); the
+direction survived every sensitivity probe, including flat severity weights and
+an empirical bootstrap in place of the fitted durations.
+
+The runbook that falls out is short. The trigger comes from Section 1's burn
+framing applied to workload: arm overload mode when the trailing-24-hour
+severity-weighted open time crosses the window's 95th percentile (≈ 3,640
+weighted minutes, against a median day of ≈ 1,540 — the real peak week fired it
+at 2.4× the trigger). Once armed, one engineer works mitigation tasks in cμ
+order and releases each incident on completion; the other owns the aggregate
+communication. And nobody's job is to watch a provider's status page: a webhook
+re-enters the provider's own resolution as a five-minute closeout task, so
+engineer-minutes are only ever spent where the service rate is above zero.
+
+</Prose>
+
+</Section>
+
+<Section n="06" slug="what-nine-weeks-cannot-promise" title="What nine weeks cannot promise, and the first thing to do about it.">
+
+<Prose>
+
+Every number above is a description of one capture: nine weeks of common
+observation at the short end, windows differing by a factor of 250 across
+providers, and one provider (Twilio) whose entire sample is probably a single
+platform crisis. Nothing here claims stationarity. Whether next quarter's
+incidents will resemble this window's is a question this data cannot answer —
+and it is, of course, exactly the question every staffing plan and every signed
+SLO is implicitly betting on. The methods survive that admission better than
+the numbers do. The burn computation, the distribution contest with its
+executed assumption tests, the variability-corrected queue, the leakage audit,
+and the replay tournament all transfer to anyone's window; the specific 95%,
+the specific three engineers, and the specific 3.5-hour clock do not.
+
+If I had to start closing that gap tomorrow, the first step is already sitting
+in the repository: re-run the capture monthly (the collection scripts ship with
+the case study) and watch whether the per-provider medians hold. It is cheap,
+it attacks the window problem directly rather than by assumption, and every
+other conclusion in this stack inherits whatever stability that check reveals.
+A staffing model re-fitted quarterly keeps you running in circles. A staffing
+model computed in June and still trusted in December is just superstition with
+confidence intervals to show your stakeholders.
+
+</Prose>
+
+<Callout kind="explore">
+
+Section 3's staffing question has a live companion, **[the interactive staffing
+calculator →](/case-studies/staffing-calculator/)**, where you can set the pace
+of arrivals and the length of a fix yourself, flip the one switch that controls
+how predictable the fixes are, and watch two engineers stop being enough.
+
+</Callout>
+
+<Callout kind="footnotes">
+
+<span id="fn1"><sup>1</sup></span> There is a century of formalism underneath
+this: the log-normal family for repair times (Kline 1984, MIL-HDBK-338B), where
+"log-normal" means a quantity whose logarithm follows the normal bell curve
+(the shape that multiplicative processes produce), and, one level up, Kingman's
+V·U·T relation: expected waiting time is roughly V × U × T, where V measures
+how variable arrivals and service times are, U is utilization pressure (the
+busy fraction ρ turned into ρ/(1−ρ), a ratio that explodes as occupation
+approaches 100%), and T is the mean service time. The page keeps the preview
+info in footnotes on purpose because the argument should stand without it, and
+the tools are learned on the job anyway.
+
+<span id="fn2"><sup>2</sup></span> The queueing floor is older than nearly
+everything it gets applied to: A. K. Erlang derived the delay formula in 1917
+for the Copenhagen telephone exchange, under the assumption that service times
+follow an exponential distribution. The Allen–Cunneen approximation is the
+standard correction when measured variability refuses that assumption: it
+scales the expected wait by (c²ₐ + c²ₛ)/2, where c²ₐ is the squared
+coefficient of variation of the times between arrivals and c²ₛ the same
+measure for service times (variance divided by squared mean, so 1 is the
+exponential benchmark and anything above 1 is rougher than the textbook
+world).
+
+<span id="fn3"><sup>3</sup></span> The cμ-rule is a 1950s scheduling result
+(Smith 1956 for the deterministic case; Cox and Smith 1961 for the queueing
+form). The name is its formula: priority = c × μ, where c is the damage a
+waiting incident causes per minute and μ is the rate at which your team can
+actually complete work on it. Its quiet corollary (work with μ near zero earns
+priority near zero, so passive waiting is never staffed) is the part doing all
+the work in this section.
+
+</Callout>
+
+</Section>

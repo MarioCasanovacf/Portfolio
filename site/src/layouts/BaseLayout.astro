@@ -1,0 +1,41 @@
+---
+import '../styles/colors_and_type.css';
+import '../styles/case-study.css';
+import 'katex/dist/katex.min.css';
+
+import Header from '../components/site/Header.astro';
+import Footer from '../components/site/Footer.astro';
+
+interface Props {
+  title: string;
+  showHeader?: boolean;
+  showFooter?: boolean;
+}
+
+const { title, showHeader = true, showFooter = true } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body>
+    {showHeader && <Header />}
+    <slot />
+    {showFooter && <Footer />}
+  </body>
+</html>
+
+<style is:global>
+  body {
+    margin: 0;
+    background-image:
+      radial-gradient(rgba(26, 24, 20, 0.020) 1px, transparent 1px),
+      radial-gradient(rgba(26, 24, 20, 0.014) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+  }
+</style>

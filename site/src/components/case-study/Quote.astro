@@ -1,0 +1,27 @@
+---
+// <Quote attr> — re-uses the global <blockquote> styling from
+// colors_and_type.css (GFS Didot italic, oxblood 2px left rule, max-width
+// 44rem). The component adds the <cite> attribution. The attr supports
+// inline markdown for *italic* (commonly used for book titles) — anything
+// else passes through as plain text.
+
+interface Props {
+  attr?: string;
+}
+
+const { attr } = Astro.props;
+
+// Render *italic* markdown inside the attr. No nesting, no other markdown.
+const attrHtml = attr
+  ? attr.replace(/\*([^*]+)\*/g, '<em>$1</em>')
+  : '';
+---
+
+<blockquote class="cs-quote">
+  <div class="cs-quote__body">
+    <slot />
+  </div>
+  {attr && (
+    <cite class="cs-quote__attr">— <span set:html={attrHtml} /></cite>
+  )}
+</blockquote>

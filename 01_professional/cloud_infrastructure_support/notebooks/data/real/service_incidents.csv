@@ -1,0 +1,788 @@
+provider,incident_id,name,impact,status,created_at,resolved_at,duration_min,affected_components,shortlink
+github,v0b3bpsyvqtk,Disruption with some GitHub services,minor,resolved,2026-06-27T14:02:52.169Z,2026-06-27T20:33:11.027Z,390.3,,https://stspg.io/h85w6wz46mvk
+github,9ndxtnrwjf37,"Degradation with Webhooks, Pull Requests and Actions",major,resolved,2026-06-25T17:50:19.310Z,2026-06-25T18:27:52.177Z,37.5,Webhooks|Issues|Pull Requests|Actions,https://stspg.io/t882b0gccf1h
+github,9n670kvk0vw9,We are seeing elevated errors with Next Edit Suggestions and Completions,minor,resolved,2026-06-23T23:04:50.369Z,2026-06-23T23:29:34.640Z,24.7,,https://stspg.io/87nklrsyfs65
+github,5t81zk0vrk3z,Disruption with Copilot next edit suggestions,minor,resolved,2026-06-17T17:57:49.168Z,2026-06-17T19:28:16.628Z,90.5,,https://stspg.io/7tn8k5v6kzjj
+github,kn7gv3tlfc54,Incident With Webhooks,none,resolved,2026-06-17T19:00:00.000Z,2026-06-17T19:00:00.000Z,0.0,,https://stspg.io/t0qkhqpm5vlm
+github,rfmjwng33vjf,Incident with Copilot Availability,critical,resolved,2026-06-17T03:50:22.910Z,2026-06-17T04:44:07.904Z,53.7,Copilot,https://stspg.io/nhj5lsy4gbzz
+github,1s444p9sf9wg,Disruption with some GitHub services,major,resolved,2026-06-16T17:45:34.667Z,2026-06-16T18:15:24.555Z,29.8,Copilot AI Model Providers,https://stspg.io/0y9pgmg78442
+github,d9b4dsg8d0r6,Multiple services have elevated errors and endpoint failures when checking feature flags,minor,resolved,2026-06-15T18:32:02.989Z,2026-06-15T19:10:15.147Z,38.2,,https://stspg.io/hsz6jwmfm76g
+github,67w72l5v25x3,Increased latency with webhooks,minor,resolved,2026-06-15T15:37:36.378Z,2026-06-15T17:37:39.293Z,120.0,Webhooks,https://stspg.io/4py2y12w7qpl
+github,4yz3c18qmdxn,Incident with Webhooks,minor,resolved,2026-06-11T19:42:05.864Z,2026-06-11T22:19:48.338Z,157.7,Webhooks,https://stspg.io/rl21t9c4ywrz
+github,fcj3088jg1wx,Authentication issues related to API requests,critical,resolved,2026-06-10T15:20:36.942Z,2026-06-10T16:39:05.460Z,78.5,API Requests|Issues,https://stspg.io/wtyzzxm33wvj
+github,jpd6l1jq0r54,"Degraded availability for GitHub.com, GraphQL API, and Webhooks UI/API",none,resolved,2026-06-08T15:00:00.000Z,2026-06-08T15:00:00.000Z,0.0,,https://stspg.io/0f8dp6dk9726
+github,71hv2q6tk693,Disruption with Claude Opus 4.7,minor,resolved,2026-06-08T09:05:44.338Z,2026-06-08T10:03:32.680Z,57.8,Copilot AI Model Providers,https://stspg.io/6g6hjsmx2f2w
+github,m7n7sm0sr1pz,Pull Requests and Issues unavailable for signed-out users,critical,resolved,2026-06-08T07:11:37.583Z,2026-06-08T08:36:22.611Z,84.8,Issues|Pull Requests|Actions,https://stspg.io/hvhc1m3z7sf9
+github,4843jm0lsls6,EU Network Maintenance,minor,resolved,2026-06-06T15:31:33.001Z,2026-06-06T18:49:15.588Z,197.7,,https://stspg.io/tc4vhv29qs4c
+github,b0plzff6yl6f,Disruption with some GitHub services in the EU region,minor,resolved,2026-06-06T16:53:35.825Z,2026-06-06T17:07:46.835Z,14.2,Packages,https://stspg.io/qy483vm80t46
+github,2nmfnbknhlnv,"Auth issue resulting in API impacts, including some Slack and Teams channel subscriptions",minor,resolved,2026-06-05T17:20:31.897Z,2026-06-05T22:21:09.754Z,300.6,,https://stspg.io/qzt7bjn4vt07
+github,5h5lmbffp07c,Copilot Code Review Failing,critical,resolved,2026-06-04T18:02:54.000Z,2026-06-04T19:59:27.372Z,116.6,,https://stspg.io/jssh5k7mdbtp
+github,tf25qs8wdw5h,Disruption with some GitHub services,minor,resolved,2026-06-03T19:42:55.938Z,2026-06-04T04:11:59.625Z,509.1,,https://stspg.io/snw2bl07nss4
+github,j240y90h4g0r,Disruption with some GitHub services,minor,resolved,2026-06-03T03:13:28.911Z,2026-06-03T06:46:59.476Z,213.5,,https://stspg.io/mp1r6nlnzs0s
+github,5wdgxw2rvbt3,Delays with Code Scanning and Billing,minor,resolved,2026-06-01T15:17:09.709Z,2026-06-02T00:17:58.986Z,540.8,,https://stspg.io/ct11xsjs29k7
+github,rhqcgg8lg6mm,Disruption with OpenAI Models,critical,resolved,2026-05-28T19:01:00.375Z,2026-05-28T20:41:58.586Z,101.0,Copilot,https://stspg.io/d82bfd7406c6
+github,11n51rf8tf27,Elevated error rates across multiple services,none,resolved,2026-05-28T19:07:00.000Z,2026-05-28T19:07:00.000Z,0.0,,https://stspg.io/xjc52mryt9y0
+github,f3kmjlk25vhd,Webhook APIs and UI Degraded,minor,resolved,2026-05-28T01:13:30.907Z,2026-05-28T01:32:27.735Z,18.9,Webhooks,https://stspg.io/b3pmwnvwf3my
+github,xy1tt3hs572m,"Incident with Pull Requests, Issues, Git Operations and API Requests",minor,resolved,2026-05-27T12:10:09.592Z,2026-05-27T13:16:54.083Z,66.7,Git Operations|API Requests|Issues|Pull Requests,https://stspg.io/148qcpmdxhsd
+github,xflkh26pm7vv,Disruption with some GitHub services,minor,resolved,2026-05-26T15:44:22.358Z,2026-05-26T16:35:57.736Z,51.6,Copilot,https://stspg.io/v4430xcj69m6
+github,gnftqj9htp0g,Incident with Actions and Pages,critical,resolved,2026-05-26T10:57:13.848Z,2026-05-26T13:18:48.000Z,141.6,Actions|Pages,https://stspg.io/6gzfzr1dx684
+github,tm84vy58jq0h,Elevated rate of Git push errors,major,resolved,2026-05-25T09:02:00.000Z,2026-05-25T09:02:00.000Z,0.0,,https://stspg.io/84pxgjmzgb04
+github,k5z4d1v1tqmt,Intermittent errors with app installation token authentication,minor,resolved,2026-05-23T16:00:55.001Z,2026-05-23T19:32:26.000Z,211.5,,https://stspg.io/0pb44wwxf426
+github,g6ffrm0rfvz9,Incident with Actions,minor,resolved,2026-05-20T16:58:52.281Z,2026-05-20T20:14:16.596Z,195.4,Actions,https://stspg.io/w64c15qfl7pz
+github,ykb44v068g8v,Incident with Copilot,none,resolved,2026-05-19T05:30:00.000Z,2026-05-19T05:30:00.000Z,0.0,,https://stspg.io/933s0plq1vyv
+github,ctf7nxpq5jzn,Actions is experiencing degraded availability,critical,resolved,2026-05-15T08:13:44.570Z,2026-05-15T08:48:30.015Z,34.8,Actions|Pages,https://stspg.io/t7b04pp8m64b
+github,t5mch8tlq6vl,[Retroactive] Incident with GitHub.com,none,resolved,2026-05-15T01:30:00.000Z,2026-05-15T02:30:00.000Z,60.0,,https://stspg.io/p4d680c0ck2d
+github,8wxkrmhm6744,Incident with CodeQL,minor,resolved,2026-05-13T14:41:28.123Z,2026-05-13T16:03:53.103Z,82.4,,https://stspg.io/x7dkmf5rx5vx
+github,z3jhyg3l0dvx,"Incident with CodeQL, Webhooks, Notifications, and Slack Integration",minor,resolved,2026-05-12T14:38:14.000Z,2026-05-12T17:43:32.963Z,185.3,Webhooks|Actions,https://stspg.io/rpk8yxmh6tyd
+github,81b05nqkhylj,Incident with high errors on Git Operations,minor,resolved,2026-05-11T14:25:30.205Z,2026-05-11T14:33:52.815Z,8.4,Git Operations,https://stspg.io/wdb70rpb1bqv
+github,qp0lxr014sw8,CCR and CCA failing to start for PR comments,critical,resolved,2026-05-07T05:02:01.482Z,2026-05-07T06:56:16.253Z,114.2,,https://stspg.io/3cmg3m4kbtsn
+github,f5pb5d5mr9yh,Incident with Pull Requests,critical,resolved,2026-05-06T15:25:23.789Z,2026-05-06T19:04:36.034Z,219.2,Pull Requests,https://stspg.io/dcjk8q4j4660
+github,n8htfgj6wv3t,Disruption with some GitHub services,critical,resolved,2026-05-06T11:21:28.353Z,2026-05-06T11:59:51.901Z,38.4,,https://stspg.io/68zqk7hjbzm5
+github,1qzncbrxcsy4,"Incident with Actions, we are investigating reports of degraded availability",major,resolved,2026-05-06T07:19:07.862Z,2026-05-06T09:44:26.204Z,145.3,Actions,https://stspg.io/j22b66h0j5xl
+github,8kn8t67gdy36,Increased Latency and Failures for SSH Git Operations,minor,resolved,2026-05-05T16:49:36.780Z,2026-05-05T18:35:41.881Z,106.1,Git Operations,https://stspg.io/x8fvngz3t6ck
+github,1j40g94rn22j,Incident with Actions,critical,resolved,2026-05-05T13:37:58.322Z,2026-05-05T17:26:52.164Z,228.9,Actions,https://stspg.io/dbhtfmy83gg4
+github,72q3n8yxthcy,Incident with Issues and Webhooks,critical,resolved,2026-05-04T15:45:34.959Z,2026-05-04T16:40:05.231Z,54.5,Git Operations|Webhooks|Issues|Pull Requests|Actions|Packages|Pages|Codespaces,https://stspg.io/59t64kh1cxkr
+github,x69zbgdyfzg0,Incomplete pull request results in repositories,minor,resolved,2026-04-28T14:17:34.682Z,2026-05-01T04:15:09.831Z,3717.6,Pull Requests,https://stspg.io/87w0vmv3sz1r
+github,dbypmw7h77l5,Disruption with some GitHub services,minor,resolved,2026-04-28T13:59:16.225Z,2026-04-28T17:09:02.449Z,189.8,Actions,https://stspg.io/70pkmpfqz6pc
+github,ql942tw29yl6,GitHub search is degraded,critical,resolved,2026-04-27T16:31:07.245Z,2026-04-27T22:46:42.326Z,375.6,Issues|Pull Requests|Actions|Packages,https://stspg.io/x5cnngb211t7
+github,vq183jvj6vrw,Disruption with some GitHub services,minor,resolved,2026-04-27T16:48:18.031Z,2026-04-27T19:02:59.816Z,134.7,,https://stspg.io/sqvl4sp1cfgz
+github,3dqg0nhwnxs2,Delays with Actions Jobs for Larger Runners using VNet Injection in the East US region,minor,resolved,2026-04-24T19:02:39.061Z,2026-04-25T00:36:04.272Z,333.4,,https://stspg.io/mcrpvdrwjzf3
+github,zsg1lk7w13cf,Incident with Pull Requests,minor,resolved,2026-04-23T19:50:51.291Z,2026-04-23T21:43:26.000Z,112.6,Pull Requests,https://stspg.io/byp3p9jymrpl
+github,40f3r1jvjwl2,Disruption with users unable to start Claude and Codex agent task from the web,minor,resolved,2026-04-23T19:28:42.976Z,2026-04-23T19:42:25.277Z,13.7,,https://stspg.io/nwmzvw3twyyg
+claude_anthropic,9284yk6xxd0h,elevated errors on Opus 48,none,resolved,2026-06-27T18:00:00.000Z,2026-06-27T18:00:00.000Z,0.0,,https://stspg.io/86p1g659mdnm
+claude_anthropic,wkzf38t1yh8z,Elevated errors on Opus 4.8 Fast,none,resolved,2026-06-24T18:22:47.855Z,2026-06-24T18:33:56.506Z,11.1,,https://stspg.io/qw162hld7mzp
+claude_anthropic,8b0rggdfh1hv,Elevated error rate on Claude Opus 4.8,minor,resolved,2026-06-24T13:16:17.545Z,2026-06-24T14:56:21.835Z,100.1,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/wnw8wdn9sfwm
+claude_anthropic,18bq2kw867g5,Claude.ai is experiencing elevated error rates,minor,resolved,2026-06-23T18:24:12.291Z,2026-06-23T18:32:57.379Z,8.8,claude.ai,https://stspg.io/hl3355csbyxv
+claude_anthropic,jbhf20wjmzrf,Elevated error rate across multiple models,critical,resolved,2026-06-23T14:19:06.033Z,2026-06-23T16:44:28.022Z,145.4,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/kx1ygc7qfvx1
+claude_anthropic,2stpj60m2fr9,Elevated errors for Claude Opus 4.8,minor,resolved,2026-06-23T06:28:56.197Z,2026-06-23T08:45:58.019Z,137.0,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/7tlhvndrdpm9
+claude_anthropic,bbcpk0t2cj4p,Elevated errors across many models,minor,resolved,2026-06-22T19:14:18.940Z,2026-06-22T19:45:45.449Z,31.4,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/2lhl1q3958qt
+claude_anthropic,dymmnf6xk0mg,Elevated errors for Claude Opus 4.8,minor,resolved,2026-06-22T08:11:50.416Z,2026-06-22T14:44:16.735Z,392.4,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/jjzw7yp300my
+claude_anthropic,lv35v0q9nsj2,"Elevated Error Rates for Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 4.6, and Haiku 4.5",major,resolved,2026-06-22T00:37:06.363Z,2026-06-22T02:06:43.543Z,89.6,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/n57njqf1mk5l
+claude_anthropic,nbp7j8k3kgw2,Opus 4.8 errors,minor,resolved,2026-06-20T17:07:13.906Z,2026-06-20T18:02:23.277Z,55.2,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/61p6brhqlxks
+claude_anthropic,1p98mj17s1z2,Elevated error rates on the Claude API,minor,resolved,2026-06-19T08:17:59.775Z,2026-06-19T08:45:47.997Z,27.8,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/05r0qhzdjrx5
+claude_anthropic,46z2bnxchg61,Elevated errors for Claude Opus 4.8,minor,resolved,2026-06-19T06:07:26.676Z,2026-06-19T07:17:19.953Z,69.9,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/wy80wxj6y429
+claude_anthropic,jlbvcpfwwq8z,Service disruption on Claude services,major,resolved,2026-06-18T07:41:30.336Z,2026-06-18T08:19:22.116Z,37.9,claude.ai,https://stspg.io/0hjwxjxbpdfz
+claude_anthropic,s107yx224p9r,Elevated errors for Claude Opus 4.8,minor,resolved,2026-06-17T15:34:18.385Z,2026-06-17T16:28:10.294Z,53.9,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/jhq0vtzfn0yv
+claude_anthropic,k8563n9wd0r8,Elevated errors for Claude Opus 4.8,minor,resolved,2026-06-17T08:24:34.955Z,2026-06-17T10:03:12.447Z,98.6,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/rd83d4611qzr
+claude_anthropic,zw75lhl39skc,Elevated errors for Claude Opus 4.8,minor,resolved,2026-06-17T05:08:19.998Z,2026-06-17T06:37:45.424Z,89.4,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/nbnfb446kwm9
+claude_anthropic,8chgzf3fs27n,Elevated errors on Claude Sonnet 4.6 and Opus 4.8,minor,resolved,2026-06-17T00:47:11.160Z,2026-06-17T02:50:39.111Z,123.5,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/fx46sjxykmsc
+claude_anthropic,41395mspl1rf,Elevated errors for Claude Opus 4.8,major,resolved,2026-06-16T20:50:01.946Z,2026-06-16T22:02:34.876Z,72.5,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/tslzsk6f4hlf
+claude_anthropic,8q88rrz9rjd0,Opus 4.8 errors,none,resolved,2026-06-16T19:59:26.511Z,2026-06-16T20:16:07.194Z,16.7,claude.ai|Claude Code,https://stspg.io/0qxpsl8p5gr7
+claude_anthropic,xmhsglsz3h3w,Elevated errors across many models,minor,resolved,2026-06-16T17:29:52.486Z,2026-06-16T19:32:23.759Z,122.5,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/1tl45njm4dyl
+claude_anthropic,slm0mhv6r1pf,Elevated errors on Claude Opus 4.8,minor,resolved,2026-06-15T06:20:31.019Z,2026-06-15T08:56:11.620Z,155.7,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/b1vb5315yt9v
+claude_anthropic,1trjx6gxk1bt,Elevated errors on Claude Opus 4.8,minor,resolved,2026-06-13T02:03:03.013Z,2026-06-13T02:11:58.215Z,8.9,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/wdbhcs86nngm
+claude_anthropic,s9w82lp9dcn9,We’ve suspended access to Claude Mythos 5 and Claude Fable 5,critical,monitoring,2026-06-13T00:50:43.835Z,,,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/kqx0j625mrgv
+claude_anthropic,j8ghp7dk6lym,Elevated errors across models,major,resolved,2026-06-11T16:54:52.467Z,2026-06-11T17:56:08.221Z,61.3,,https://stspg.io/7pwy7kxz7yzr
+claude_anthropic,sp7cf0cghqsk,Elevated errors on Claude Opus 4.6,minor,resolved,2026-06-11T14:37:07.546Z,2026-06-11T15:01:51.449Z,24.7,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/r2r8c96brb9n
+claude_anthropic,32lyxmplb5wz,Elevated errors on Claude Haiku 4.5,minor,resolved,2026-06-10T13:06:47.552Z,2026-06-10T17:21:33.620Z,254.8,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/hrq9j1llp424
+claude_anthropic,xwrtmlm3tnxf,Elevated errors on Claude Opus 4.6,minor,resolved,2026-06-09T20:32:27.254Z,2026-06-09T22:10:31.955Z,98.1,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/l9wbh8vqh3k2
+claude_anthropic,wtcn4knnnfzc,Fable not available in the model picker in Claude Code Desktop,major,resolved,2026-06-09T18:24:06.706Z,2026-06-09T21:03:01.644Z,158.9,Claude Code,https://stspg.io/jb2jyj5prfmm
+claude_anthropic,cmsxwks3fzd9,Elevated errors on Claude Opus 4.8 (Fast Mode),minor,resolved,2026-06-09T03:13:08.261Z,2026-06-09T03:42:08.379Z,29.0,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/pck33z3r9h36
+claude_anthropic,1gjynxqv85rk,Elevated errors on Claude Opus 4.8,minor,resolved,2026-06-08T22:20:42.584Z,2026-06-08T22:36:14.494Z,15.5,claude.ai|Claude Console (platform.claude.com)|Claude Code|Claude Cowork,https://stspg.io/b1ym53l7ntdq
+claude_anthropic,8b7xx9g8rkhm,Elevated errors on Claude Opus 4.7,minor,resolved,2026-06-08T21:05:25.930Z,2026-06-08T21:56:44.884Z,51.3,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/9ph775tb1mgl
+claude_anthropic,829kf0y1f7pn,Elevated errors on Claude Haiku 4.5,minor,resolved,2026-06-08T19:10:50.160Z,2026-06-08T19:52:06.416Z,41.3,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/1yggzs0zxvn4
+claude_anthropic,3n1flr3mnpgl,Elevated errors on Claude Opus 4.7,minor,resolved,2026-06-08T17:15:03.849Z,2026-06-08T19:22:14.510Z,127.2,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/qhh9nm2syrzr
+claude_anthropic,1h2k3ryt64wl,Elevated errors on Claude Opus 4.7,minor,resolved,2026-06-07T14:35:14.290Z,2026-06-07T15:41:04.372Z,65.8,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code,https://stspg.io/8qky14s62z49
+claude_anthropic,s4pq658bt69h,Degraded performance for multiple models,minor,resolved,2026-06-07T03:31:30.653Z,2026-06-07T04:28:29.254Z,57.0,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/j020f82m0mg8
+claude_anthropic,6ptd5skgmy3v,Elevated errors on Claude Opus 4.8,minor,resolved,2026-06-06T18:37:44.139Z,2026-06-06T19:05:27.178Z,27.7,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/32dgd2bnmh8z
+claude_anthropic,b1gzqlnpxxxk,Opus 4.8 degraded service,minor,resolved,2026-06-06T09:27:59.685Z,2026-06-06T10:14:41.534Z,46.7,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code,https://stspg.io/qczg788px29n
+claude_anthropic,fprlnsvdnr2k,Elevated errors on many Claude models,major,resolved,2026-06-05T15:19:26.634Z,2026-06-05T18:28:04.170Z,188.6,,https://stspg.io/14frvys1dj2g
+claude_anthropic,thp2kyjx60qn,Elevated errors on Opus 4.7,minor,resolved,2026-06-03T07:10:01.269Z,2026-06-03T07:38:04.935Z,28.1,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code,https://stspg.io/g64x0s4kk5bg
+claude_anthropic,0w1blp7cngrr,Issue affecting some Claude Code services,major,resolved,2026-06-03T04:17:04.989Z,2026-06-03T07:36:48.555Z,199.7,Claude Code,https://stspg.io/26bl9ymsst7p
+claude_anthropic,zkr25thltwc9,Elevated errors on multiple models,major,resolved,2026-06-02T06:04:59.243Z,2026-06-02T11:49:06.139Z,344.1,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code,https://stspg.io/j1r06qml3bvy
+claude_anthropic,vxp8fdrckj7q,Degraded performance for Claude Sonnet 4.6,minor,resolved,2026-06-01T18:28:42.394Z,2026-06-01T19:06:53.632Z,38.2,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/yt45tdcb7c50
+claude_anthropic,8p6f4r16xxmp,Elevated errors on Claude Sonnet 4.6,minor,resolved,2026-06-01T14:40:22.947Z,2026-06-01T15:41:10.741Z,60.8,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/nypdcrtdn3t0
+claude_anthropic,qc88nvqjv99m,Elevated errors for Claude Opus 4.7,minor,resolved,2026-06-01T12:15:34.802Z,2026-06-01T13:33:56.047Z,78.4,claude.ai|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/9r2pkqq2zhh6
+claude_anthropic,z4pz8z34hr4x,Sonnet 4.5 elevated errors,minor,resolved,2026-06-01T09:08:55.932Z,2026-06-01T09:28:37.883Z,19.7,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code,https://stspg.io/22x7sjxvzqm1
+claude_anthropic,rk70zc69m54p,Opus 4.7 elevated errors,minor,resolved,2026-06-01T06:48:44.543Z,2026-06-01T07:22:22.384Z,33.6,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code,https://stspg.io/09t6472c707k
+claude_anthropic,694jznhm6tsl,opus 4.7 elevated errors,minor,resolved,2026-05-30T22:58:03.318Z,2026-05-31T00:16:20.528Z,78.3,claude.ai|Claude Console (platform.claude.com),https://stspg.io/5sy83gs4ytbw
+claude_anthropic,2zr0rkdxjdtc,Elevated errors for Claude Opus 4.8,major,resolved,2026-05-29T18:35:22.808Z,2026-05-29T19:12:08.252Z,36.8,,https://stspg.io/03j611vnshfp
+claude_anthropic,5s24h0pbdj5d,Elevated errors on Claude Opus 4.8,minor,resolved,2026-05-29T08:30:14.324Z,2026-05-29T08:45:43.307Z,15.5,claude.ai|Claude Console (platform.claude.com)|Claude API (api.anthropic.com)|Claude Code|Claude Cowork,https://stspg.io/2zd5npm1vfzq
+claude_anthropic,8q00jfj4yfv6,Billing and subscription management issues,minor,resolved,2026-05-28T19:04:04.091Z,2026-05-28T19:23:57.798Z,19.9,,https://stspg.io/1bm8nzs3bzw2
+gcp,5fGQt4VbkDnr3Yp8PXPr,,,,,,,,
+gcp,41E5S3mkTGDfkZuJZH5k,,,,,,,,
+gcp,8cY8jdUpEGGbsSMSQk7J,,,,,,,,
+cloudflare,j83lpd337qwj,"Issues with network performance in ENAM and WNAM, US",major,monitoring,2026-07-03T01:10:20.460Z,,,Argo Smart Routing|Network,https://stspg.io/x4vj844yfnd7
+cloudflare,2z7ff0166l22,Cloudflare Workers build delays,minor,resolved,2026-07-02T13:40:49.000Z,2026-07-02T23:39:17.862Z,598.5,Workers Builds,https://stspg.io/171tpnq09pbf
+cloudflare,4sfv79jntx9d,Realtimekit Issues,minor,resolved,2026-07-02T15:05:09.918Z,2026-07-02T22:31:30.854Z,446.3,RealtimeKit,https://stspg.io/06z86spkqy02
+cloudflare,q7nbm42dpxdp,"Network Congestion in Newark, NJ (EWR)",none,resolved,2026-07-02T22:12:08.734Z,2026-07-02T22:12:08.793Z,0.0,,https://stspg.io/wnc8zpcnn157
+cloudflare,nvb2xgsjcg6w,"Cloudflare is investigating issues with network performance in ENAM and WNAM, US",major,resolved,2026-07-02T00:23:22.923Z,2026-07-02T10:15:43.792Z,592.3,Argo Smart Routing|Network,https://stspg.io/wknf2sjp9xrr
+cloudflare,58q0fn0b641n,Cloudflare is aware of and investigating an issue with Cloudflare Workers Builds,minor,resolved,2026-07-02T00:35:16.000Z,2026-07-02T01:40:24.433Z,65.1,Workers Builds,https://stspg.io/fkccl5fvsm0x
+cloudflare,2ymq7qqs6ldk,Workers Observability issues,minor,resolved,2026-07-01T23:00:42.842Z,2026-07-01T23:25:17.682Z,24.6,Workers Observability,https://stspg.io/6v5fp9dc9nfz
+cloudflare,s9tpsd5xw0v7,"Network Performance Issues in Phoenix, AZ",minor,resolved,2026-06-30T19:15:01.914Z,2026-06-30T23:14:51.905Z,239.8,"Phoenix, AZ, United States - (PHX)",https://stspg.io/q2jmf4rl8y8g
+cloudflare,0955vj167g80,R2 Returning 503 for Buckets in WNAM,minor,resolved,2026-06-30T14:19:17.940Z,2026-06-30T22:16:24.485Z,477.1,R2,https://stspg.io/sv9drbsk781d
+cloudflare,z1474bw3cxmy,Cloudflare fonts issues,minor,resolved,2026-06-30T13:30:28.800Z,2026-06-30T15:31:14.867Z,120.8,Pages|Workers,https://stspg.io/ngtjmlf4f5lt
+cloudflare,lycfg3ll64j1,Web Analytics Errors and Workers Smart Placement delays,minor,resolved,2026-06-30T13:06:57.903Z,2026-06-30T14:02:01.680Z,55.1,Analytics|Workers,https://stspg.io/f56yphcyx3cc
+cloudflare,kf5zjmm65wn2,MTLS Validation issues,minor,resolved,2026-06-30T13:08:30.094Z,2026-06-30T13:48:01.760Z,39.5,CDN/Cache,https://stspg.io/0vgtwr5r9cyt
+cloudflare,bgjy93d5f5ht,Cloudflare for SaaS API,minor,resolved,2026-06-29T20:20:21.257Z,2026-06-29T21:33:39.133Z,73.3,SSL for SaaS Provisioning,https://stspg.io/5mbwdjtct858
+cloudflare,7twjb50gmsyt,Errors when uploading Custom Certificates,minor,resolved,2026-06-26T12:33:09.963Z,2026-06-26T15:00:48.855Z,147.6,SSL Certificate Provisioning,https://stspg.io/g1n6wvn06bn1
+cloudflare,h4srr1zqfdxj,"Increased 499 errors in Ashburn, US between 13:48 - 14:06 UTC",none,resolved,2026-06-26T13:48:00.000Z,2026-06-26T13:48:00.000Z,0.0,,https://stspg.io/6hg6rgxdy0nl
+cloudflare,279zxtq5ng3k,404 error when accessing Support cases,minor,resolved,2026-06-26T09:41:24.063Z,2026-06-26T11:29:56.772Z,108.5,Dashboard,https://stspg.io/8x39tjv9zbd2
+cloudflare,bpz4p8wxt2lw,Cloudflare Workers AI Issues,minor,resolved,2026-06-25T23:59:15.059Z,2026-06-26T02:15:49.091Z,136.6,Workers AI,https://stspg.io/dhx9vpgc42dm
+cloudflare,2h6156v6cfpw,Increased 5xx errors in the India Region,minor,resolved,2026-06-25T14:10:18.966Z,2026-06-26T00:06:28.326Z,596.2,Network,https://stspg.io/557d2cbbp1n0
+cloudflare,nmy6ps27xf0f,Workers KV errors via REST API,minor,resolved,2026-06-25T13:13:27.000Z,2026-06-25T14:31:01.937Z,77.6,Pages|Workers KV,https://stspg.io/cz814glbng02
+cloudflare,yslvlb2m83hd,Network Performance Issues in Ashburn,minor,resolved,2026-06-25T06:27:50.721Z,2026-06-25T07:24:35.191Z,56.7,"Ashburn, VA, United States - (IAD)|Network",https://stspg.io/dshwm7391nbr
+cloudflare,nz2q9yl3lf3m,Issues with granular roles for Cloudflare Tunnel and Mesh,minor,resolved,2026-06-24T15:16:41.509Z,2026-06-24T17:30:29.106Z,133.8,Mesh|Tunnel,https://stspg.io/05pyf0430db2
+cloudflare,2n71653fn8pq,"Network Performance Issues - Increased HTTP 5XX Errors in Ashburn, US",none,resolved,2026-06-23T16:00:00.000Z,2026-06-23T16:00:00.000Z,0.0,,https://stspg.io/0g2l9y0tj35v
+cloudflare,qg38wlcnz4ys,Email Delivery Delays,minor,resolved,2026-06-22T20:27:00.585Z,2026-06-22T21:44:47.714Z,77.8,Dashboard,https://stspg.io/nvsxhk1n5lm2
+cloudflare,v3yl7jqmqj51,Increased Error Rates,none,resolved,2026-06-22T13:35:03.000Z,2026-06-22T21:22:25.562Z,467.4,Analytics|CDN/Cache|Durable Objects,https://stspg.io/2276w5rw3mp4
+cloudflare,nq5q2glxd4yw,Customers may see incorrect invoice payment status,minor,resolved,2026-06-16T15:53:32.000Z,2026-06-22T16:04:54.160Z,8651.4,Billing|Dashboard,https://stspg.io/86y7mlr7gs44
+cloudflare,v07jy3n7nbnt,Cloudflare is investigating an issue where customers are being blocked deploying Managed Rules,minor,resolved,2026-06-22T14:24:34.501Z,2026-06-22T15:15:34.069Z,51.0,Firewall,https://stspg.io/740yzyvltf7p
+cloudflare,ypbqbwr8h2jq,Replicate elevated error rate,none,resolved,2026-06-22T14:49:05.174Z,2026-06-22T15:00:34.306Z,11.5,,https://stspg.io/xm28b76jw1pt
+cloudflare,p8m2wmk6t774,SSL Certificate Provisioning Delays,minor,resolved,2026-06-21T13:46:52.199Z,2026-06-21T14:01:16.337Z,14.4,SSL Certificate Provisioning,https://stspg.io/wspnnr4qpzsd
+cloudflare,kv8v7ymsglkc,Reported Durable Objects count discrepancies,minor,resolved,2026-06-19T09:17:52.779Z,2026-06-20T04:31:03.829Z,1153.2,Workers Observability,https://stspg.io/k8ffx3r3rj17
+cloudflare,17hwtxphzv6t,New subscriptions may not be correctly activated,minor,resolved,2026-06-19T22:56:41.625Z,2026-06-19T23:18:52.099Z,22.2,Billing,https://stspg.io/4xc3tbjjcbv3
+cloudflare,8761p8rndm4z,Browser Isolation experiencing intermittent issues with keyboard input,none,resolved,2026-06-19T17:53:55.189Z,2026-06-19T21:15:36.470Z,201.7,Browser Isolation,https://stspg.io/fbjnz9yrjnn3
+cloudflare,f9kyt2y1bg4z,Durable Objects seeing increased error rates in ENAM region,minor,resolved,2026-06-18T23:58:58.158Z,2026-06-19T16:34:55.609Z,996.0,Containers|Durable Objects|R2|Realtime SFU|Realtime TURN Service|RealtimeKit,https://stspg.io/8rm5hpcxgdcs
+cloudflare,j4z09zpbjqzw,GraphQL queries failing,minor,resolved,2026-06-19T10:19:00.000Z,2026-06-19T12:19:00.000Z,120.0,,https://stspg.io/z1zkv4v6jks4
+cloudflare,19lzwx54d3pw,Delayed entitlements after zone upgrade,minor,resolved,2026-06-19T11:15:20.919Z,2026-06-19T12:15:02.261Z,59.7,Subscriptions,https://stspg.io/893yxgz9gjs4
+cloudflare,j6n2l9lh0z91,Cloudflare Notification Issue,none,resolved,2026-06-19T11:30:00.000Z,2026-06-19T11:30:00.000Z,0.0,,https://stspg.io/km3h51xnb33z
+cloudflare,5xskt6m7mf08,Cloudflare pages build failures,minor,resolved,2026-06-18T20:52:09.784Z,2026-06-19T00:36:08.781Z,224.0,Pages,https://stspg.io/zqcqqw4tmh52
+cloudflare,mgk3hczdd1vp,Degraded Domain Registration experience,minor,resolved,2026-06-18T10:00:00.000Z,2026-06-18T12:00:00.000Z,120.0,,https://stspg.io/nk8j1hnr5zxb
+cloudflare,n0t47f5qnxx1,Snippets requests returning Worker threw exception,minor,resolved,2026-06-18T00:46:54.545Z,2026-06-18T01:52:14.087Z,65.3,Snippets,https://stspg.io/0nbs2pj08dj8
+cloudflare,5v2txrvcyzk1,Browser Isolation Availability Issues,minor,resolved,2026-06-17T17:08:24.983Z,2026-06-17T18:48:24.226Z,100.0,Browser Isolation,https://stspg.io/1l1ls680vxrd
+cloudflare,dvrsxt4t6ts6,Cloudflare Network Interconnect 2.0 BGP Route Propagation Issues,minor,resolved,2026-06-17T11:34:09.652Z,2026-06-17T12:57:30.331Z,83.3,Cloud Network Interconnect (CNI),https://stspg.io/drdwjtnflh7d
+cloudflare,0lyhr3bkgk7h,Workers Observability query failures,minor,resolved,2026-06-17T07:26:17.276Z,2026-06-17T11:44:51.566Z,258.6,Workers Observability,https://stspg.io/ng5q7yfpy8n1
+cloudflare,ps1snnzz54pq,Workers AI experiencing degraded availability in some models,minor,investigating,2026-06-16T14:02:19.241Z,,,Workers AI,https://stspg.io/hp348196t57r
+cloudflare,7w6fhh5xmsm5,Intermittent Slow Cache Responses,minor,resolved,2026-06-13T23:22:51.793Z,2026-06-14T03:40:37.336Z,257.8,CDN/Cache,https://stspg.io/q2qrn9853lth
+cloudflare,443x5fm5hzch,Cloudflare Dashboard and Cloudflare API service issues,minor,resolved,2026-06-12T14:27:54.664Z,2026-06-12T15:27:46.744Z,59.9,API|Dashboard,https://stspg.io/klhx5y1xf3r3
+cloudflare,577y4jq4b12x,Waiting Room analytics showing a drop in number of active users,minor,resolved,2026-06-12T10:55:25.941Z,2026-06-12T14:40:53.352Z,225.5,Waiting Room,https://stspg.io/pslwkns9fgg2
+cloudflare,chrc0442m0mp,Billing Invoice UI issue,minor,resolved,2026-06-11T18:12:00.358Z,2026-06-12T11:50:59.502Z,1059.0,Billing,https://stspg.io/ypqxdy3ckj7n
+cloudflare,9rjxrnltdbtx,Turnstile loading issues,none,resolved,2026-06-12T09:30:00.000Z,2026-06-12T09:30:00.000Z,0.0,,https://stspg.io/xww3pm18njjr
+cloudflare,gym7vnj1qx3m,"Network Performance Issues in Brisbane, QLD, Australia - (BNE)",minor,resolved,2026-06-12T01:17:20.973Z,2026-06-12T01:39:12.732Z,21.9,"Brisbane, QLD, Australia - (BNE)",https://stspg.io/0p7mv0gqpthz
+cloudflare,h10cp76zjck0,Elevated number of TTFB in PHL,minor,resolved,2026-06-12T00:30:00.000Z,2026-06-12T00:45:00.000Z,15.0,,https://stspg.io/gqv32js3ngjm
+cloudflare,qr3q2sz45wh9,Workers Observability query failures,minor,resolved,2026-06-11T15:39:21.823Z,2026-06-11T16:09:57.708Z,30.6,Workers Observability,https://stspg.io/fl59q362n1vj
+vercel,bgmdgj7m7bgm,"Degraded performance on CDN, Dashboard, Functions in Washington, Cleveland (iad1, cle1)",minor,resolved,2026-07-02T16:31:55.765Z,2026-07-02T16:46:33.807Z,14.6,"Dashboard|CLE1 - Cleveland, East US|IAD1 - Washington DC, USA|Functions",https://stspg.io/k50rhwbpqxwq
+vercel,kndhly1hl696,"Increase in Workflow runs stuck in pending, failed",minor,resolved,2026-07-01T16:57:02.933Z,2026-07-01T18:30:29.000Z,93.4,Workflow,https://stspg.io/q6nb60k20jgd
+vercel,9mwnzxknwysy,Intermittent Login Failures on Vercel Dashboard,major,resolved,2026-06-26T13:08:09.000Z,2026-06-26T15:14:03.417Z,125.9,Dashboard,https://stspg.io/mv7d6s5y2w5q
+vercel,x4ngbgzymq4h,Increase in Workflow runs stuck as pending,major,resolved,2026-06-25T07:45:00.625Z,2026-06-25T13:43:22.720Z,358.4,Workflow,https://stspg.io/6rjcs694wc3s
+vercel,bc8kw6cjklny,Degraded Domain Search in Vercel Dashboard,minor,resolved,2026-06-23T23:24:24.620Z,2026-06-23T23:34:35.849Z,10.2,Domain Registration,https://stspg.io/4wq1dnwtkzfg
+vercel,3h7jsmmrljwt,Resolved: Elevated ERR_STREAM_PREMATURE_CLOSE errors in Vercel Functions,none,resolved,2026-06-19T17:54:16.000Z,2026-06-19T17:54:16.000Z,0.0,Functions,https://stspg.io/clqq0f551l8m
+vercel,fyjmwj5qy4vz,"Partial disruption of Observability, Analytics, Firewall, and Usage in dashboard",minor,resolved,2026-06-16T13:39:02.353Z,2026-06-16T15:39:55.447Z,120.9,Dashboard|Observability|Speed Insights|Web Analytics|Firewall,https://stspg.io/00m5l68d3w2m
+vercel,2f4kf430rmlz,"Elevated latency and errors in FRA1 Vercel Region (Frankfurt, Germany)",major,resolved,2026-06-14T21:03:53.514Z,2026-06-15T01:24:24.954Z,260.5,"FRA1 - Frankfurt, Germany, Europe",https://stspg.io/v33c687sl3l8
+vercel,l7m81jfvmv0v,Elevated Build Errors for Secure Compute/Static IPs Projects,major,resolved,2026-06-09T14:09:36.817Z,2026-06-09T14:46:02.014Z,36.4,Builds,https://stspg.io/w4mmm60615kp
+vercel,yzhdk6nhy1kx,"Elevated Functions Invocation Errors in DUB1 (Dublin, Ireland) Region",minor,resolved,2026-06-08T18:57:47.000Z,2026-06-08T20:00:11.807Z,62.4,Functions,https://stspg.io/y4pp4nyhm4g6
+vercel,s3625k1ftc1b,Elevated Errors Creating New Deployments,minor,resolved,2026-06-01T19:21:13.671Z,2026-06-01T20:02:11.550Z,41.0,Builds,https://stspg.io/1bk3tqkfm0xj
+vercel,yqvf53mhyb78,Elevated Function Invocation Errors in Stockholm region (ARN1),minor,resolved,2026-05-28T16:00:14.669Z,2026-05-28T16:59:49.272Z,59.6,Functions|Routing Middleware,https://stspg.io/bmzvr8067f2s
+vercel,rqs9fn6trp82,Elevated Errors on Vercel Dashboard (Project Overview Page),minor,resolved,2026-05-27T04:50:59.151Z,2026-05-27T05:02:13.000Z,11.2,Dashboard,https://stspg.io/8w25lg7k4qdw
+vercel,xxfj4qsz4qk6,Delays Loading Runtime Logs,minor,resolved,2026-05-25T14:58:41.000Z,2026-05-25T16:22:39.461Z,84.0,Logs,https://stspg.io/gp73wd5plwt9
+vercel,jmrsg4wcbtnn,Elevated Build Failures (GitHub connected projects),minor,resolved,2026-05-23T10:43:45.466Z,2026-05-23T18:44:30.000Z,480.7,Builds,https://stspg.io/gck741vpfk2k
+vercel,mq7wpz9mf8yl,Build Failures for Some Next.js Deployments,none,resolved,2026-05-22T17:11:29.408Z,2026-05-22T17:11:29.466Z,0.0,Builds,https://stspg.io/9gpm992vwn60
+vercel,4pv662qvyqhv,Elevated Build Errors,minor,resolved,2026-05-21T15:01:57.744Z,2026-05-21T21:31:15.064Z,389.3,Builds,https://stspg.io/9xd8yb4qzw4p
+vercel,0qjk7n7347h8,Missing Build CPU Minutes Usage Data,minor,resolved,2026-05-20T20:07:17.300Z,2026-05-21T06:08:03.000Z,600.8,Builds,https://stspg.io/xt6sl3hp53c5
+vercel,0pl74z9tcpmk,Increased Function Invocation Errors - ERR_MODULE_NOT_FOUND,minor,resolved,2026-05-18T21:42:09.416Z,2026-05-18T23:52:05.000Z,129.9,,https://stspg.io/6knpl12q53h5
+vercel,qngjxgf9x5w5,Support cases cannot be submitted,minor,resolved,2026-05-18T15:00:40.013Z,2026-05-18T15:41:21.058Z,40.7,Support Chat,https://stspg.io/2q99b3m91q6j
+vercel,m8v3dqtrx9wh,Workflow usage amounts are incorrectly calculated,minor,resolved,2026-05-15T10:34:54.922Z,2026-05-15T16:18:40.793Z,343.8,Workflow,https://stspg.io/xkf8cxf311zv
+vercel,g2s8l4dkcy0p,"Vercel Queues, and Vercel Workflow runs were delayed",minor,resolved,2026-05-09T04:45:55.566Z,2026-05-09T05:40:31.567Z,54.6,Queues|Workflow,https://stspg.io/p12l9y9vfxbx
+vercel,3vnlpmlcglh7,SSL Certificate Generation Delays,none,resolved,2026-05-08T18:30:00.000Z,2026-05-08T19:15:00.000Z,45.0,,https://stspg.io/mg8hhsxqbrt6
+vercel,418yk87trzt0,Delays Processing Builds,minor,resolved,2026-05-08T16:30:46.163Z,2026-05-08T16:41:35.210Z,10.8,Builds,https://stspg.io/dqhcvvtfvh6w
+vercel,c5zv0h9jh4g4,"Elevated errors across multiple services in IAD1 (Washington, D.C., USA)",minor,resolved,2026-05-08T01:18:59.122Z,2026-05-08T06:39:41.720Z,320.7,Functions|Queues|Routing Middleware|Workflow,https://stspg.io/ly616zh32rl9
+vercel,ks5fxkbhnznp,Elevated Errors Creating New Deployments,minor,resolved,2026-05-07T21:14:53.285Z,2026-05-07T21:48:50.466Z,34.0,Builds,https://stspg.io/wgn0w9x6dspk
+vercel,x2jxfxb8cnlf,"Failures to load data across multiple services on the Vercel dashboard, API, and CLI",minor,resolved,2026-05-05T15:15:40.677Z,2026-05-06T00:38:17.472Z,562.6,Dashboard|API|Observability|Speed Insights|Web Analytics,https://stspg.io/w0b29c0hbblr
+vercel,d5nm9qbpj2gq,Increased error rate in Workflows,major,resolved,2026-05-05T23:30:08.000Z,2026-05-06T00:19:54.260Z,49.8,Workflow,https://stspg.io/nv7645g6vw5c
+vercel,th8nmsd7nnqh,"Request Failures in ICN1 (Seoul, South Korea)",major,resolved,2026-05-04T21:30:00.000Z,2026-05-04T21:30:00.000Z,0.0,,https://stspg.io/n0h84y0r27kz
+vercel,n84pxhcqtfp1,"Elevated Functions Invocation Errors in ICN1 (Seoul, South Korea) Region",none,resolved,2026-05-01T11:30:44.384Z,2026-05-01T11:30:44.444Z,0.0,Functions|Routing Middleware,https://stspg.io/zkyhqllf81gg
+vercel,225xm7lsvrdz,Elevated Build Errors,minor,resolved,2026-04-30T18:57:03.061Z,2026-04-30T19:45:06.696Z,48.1,Builds,https://stspg.io/xpq0lwmt1yqt
+vercel,dkxw71p59755,Elevated Build Errors for Secure Compute/Static IPs Projects,minor,resolved,2026-04-30T17:30:26.949Z,2026-04-30T18:00:10.633Z,29.7,Builds,https://stspg.io/wsp0rv3cz1g4
+vercel,j7fqlhkhmng6,Elevated Domains Errors,minor,resolved,2026-04-29T15:28:00.839Z,2026-04-29T16:42:35.620Z,74.6,Dashboard|Domain Registration,https://stspg.io/cpt63yzm29tj
+vercel,fj1l831cmjlk,Errors Deploying Templates,minor,resolved,2026-04-28T15:46:22.195Z,2026-04-28T16:53:40.983Z,67.3,Builds,https://stspg.io/qcg7qnr3xj1z
+vercel,gp7hyv3p9lh7,Delayed Usage Data for Observability Events,minor,resolved,2026-04-28T09:00:00.000Z,2026-04-28T09:00:00.000Z,0.0,,https://stspg.io/1fymnc6pnjhg
+vercel,r98wgd6yk2q7,"Errors Purchasing Domains, AI Gateway Credits",minor,resolved,2026-04-25T00:39:58.762Z,2026-04-25T04:19:37.629Z,219.6,Dashboard,https://stspg.io/29qbhs8hwfcr
+vercel,rmjrmx866ytg,Delays Loading Logs,minor,resolved,2026-04-22T18:25:40.186Z,2026-04-23T01:12:50.143Z,407.2,Logs,https://stspg.io/fmrgpm6hwfbg
+vercel,jzslkpxzv3x1,Partial Observability Outage Affecting Compute Telemetry,minor,resolved,2026-04-22T23:00:00.000Z,2026-04-22T23:00:00.000Z,0.0,,https://stspg.io/t21ks8bv18kk
+vercel,0yxcg01fmkrt,Elevated errors on Vercel Dashboard,minor,resolved,2026-04-21T13:51:39.746Z,2026-04-21T14:41:39.008Z,50.0,Dashboard,https://stspg.io/xnv54x757ns7
+vercel,d6v8pn1phpky,Observability Alerts degraded,minor,resolved,2026-04-20T09:38:32.000Z,2026-04-20T22:18:02.695Z,759.5,Observability,https://stspg.io/8pbf2k5stwjl
+vercel,mq881xjms6bq,Elevated errors on Vercel Dashboard and API endpoints,minor,resolved,2026-04-20T19:40:58.989Z,2026-04-20T20:56:06.813Z,75.1,Dashboard|Builds|API,https://stspg.io/wrqpg5spy92n
+vercel,lk2q4f19llwb,Unaccessible runtime logs in the dashboard,major,resolved,2026-04-20T10:10:28.869Z,2026-04-20T10:36:15.596Z,25.8,Logs,https://stspg.io/m6czdx9vzjnz
+vercel,y0nj9lwzywk3,"Delays Loading Observability, Analytics and Speed Insights",minor,resolved,2026-04-19T20:43:03.000Z,2026-04-19T21:39:23.070Z,56.3,Dashboard|Logs|Speed Insights|Web Analytics,https://stspg.io/s7zffq0qxtnl
+vercel,bnsx15h1zws7,Elevated queue times for deployments on the Hobby plan,minor,resolved,2026-04-07T18:06:45.565Z,2026-04-07T18:56:26.102Z,49.7,Builds,https://stspg.io/th8dzywxmplp
+vercel,xp5s28zds60n,Builds logs stuck in loading state in iad1,minor,resolved,2026-04-07T07:19:44.304Z,2026-04-07T08:37:27.937Z,77.7,Builds|Logs,https://stspg.io/zmym753mdstn
+vercel,820l7jdlx34z,Elevated INTERNAL_UNEXPECTED_ERROR error rates for some deployments,minor,resolved,2026-04-02T18:39:57.683Z,2026-04-02T23:09:16.439Z,269.3,Builds,https://stspg.io/drc0srj06t3t
+vercel,5r9bp5y8rql2,Elevated errors (SIGSEGV) for Vercel Functions running Node.js 20 in cle1 and dub1 regions,minor,resolved,2026-04-02T14:10:14.765Z,2026-04-02T18:53:26.350Z,283.2,Functions,https://stspg.io/2zy4m92qfj2n
+vercel,3lm82hkft7tg,Elevated errors creating deployments with integrations and increased delays in delivering webhooks,minor,resolved,2026-04-01T20:48:18.344Z,2026-04-01T22:17:28.723Z,89.2,Builds,https://stspg.io/vmlj4vync5gk
+vercel,ly8p39yx244w,Elevated Errors Creating Deployments,major,resolved,2026-03-31T21:11:26.533Z,2026-03-31T21:23:25.874Z,12.0,Builds,https://stspg.io/j9zr622csryh
+vercel,9ks3dc1z7th0,Degraded Support Case Submission,major,resolved,2026-03-31T13:10:16.253Z,2026-03-31T13:29:06.982Z,18.8,Support Center,https://stspg.io/ytrnn9286y73
+npm,7574lvmfqxg4,intermittent Publish Failures,minor,resolved,2026-06-12T12:08:45.195Z,2026-06-12T12:57:11.898Z,48.4,Package publishing,https://stspg.io/nfrqyp1lqxm1
+npm,h2yc0jb1h4hr,npm website issues,minor,resolved,2026-04-29T20:07:03.898Z,2026-04-29T20:49:19.445Z,42.3,www.npmjs.com website,https://stspg.io/hjbyk95wj0lm
+npm,5d5wyzgs0yvg,Degraded Performance in View Package and Login on npmjs.com,minor,resolved,2026-04-29T16:48:33.212Z,2026-04-29T19:35:36.995Z,167.1,www.npmjs.com website,https://stspg.io/l7v8c09r84v3
+npm,blv1c65xmwwd,npm website degraded service,minor,resolved,2026-04-28T19:55:01.731Z,2026-04-28T22:24:35.441Z,149.6,www.npmjs.com website,https://stspg.io/7ztl7g3pp518
+npm,7q86pc3q1zgv,npm Website is unavailable,critical,resolved,2026-04-27T21:06:13.477Z,2026-04-27T22:30:40.261Z,84.4,www.npmjs.com website,https://stspg.io/hzv35p2qrz32
+npm,y715hyy146p2,Increased errors in viewing packages and authentication on npmjs.com,none,resolved,2026-04-01T10:05:18.479Z,2026-04-01T13:12:14.540Z,186.9,www.npmjs.com website,https://stspg.io/ck61p1vklx7l
+npm,71xrzlv2ddvz,Degraded Performance in View Package and Login on npmjs.com,minor,resolved,2026-03-31T19:12:32.074Z,2026-03-31T21:49:23.294Z,156.9,www.npmjs.com website,https://stspg.io/ksspyfc8tm1q
+npm,4c9s71vs4rs6,delay and errors viewing packages and submitting web based authentication,minor,resolved,2026-03-30T16:41:25.672Z,2026-03-30T19:17:37.458Z,156.2,www.npmjs.com website,https://stspg.io/9h3zy61kv19h
+npm,tnd276tdmbby,delay and errors viewing packages and submitting web based authentication,minor,resolved,2026-03-30T14:54:58.862Z,2026-03-30T15:59:17.415Z,64.3,www.npmjs.com website,https://stspg.io/yp6c3lqqsfk5
+npm,wjpr7d1kq5s1,Issue with npm website and login.,major,resolved,2026-03-25T22:39:14.709Z,2026-03-25T23:26:04.736Z,46.8,www.npmjs.com website,https://stspg.io/64sps5l1qm0t
+npm,2cfxmzw4mqt6,Degraded performance for package publish,minor,resolved,2026-03-05T11:41:18.350Z,2026-03-05T17:35:57.112Z,354.6,Package publishing,https://stspg.io/9sb1ykc8ln68
+npm,9jrddvx1b89p,Degraded performance with package installation,minor,resolved,2026-02-25T18:43:34.689Z,2026-02-25T20:03:47.282Z,80.2,Package installation,https://stspg.io/2ztpmtcf69vb
+npm,gtqg0zs1yvm3,npm publishing impacted,minor,resolved,2026-02-17T20:01:39.812Z,2026-02-17T22:28:57.831Z,147.3,Package publishing,https://stspg.io/0xz4k5jqmtsp
+npm,13qztnk1l4dh,Degraded Experience Installing and Viewing Packages,minor,resolved,2026-01-29T20:04:33.697Z,2026-01-29T20:49:34.667Z,45.0,www.npmjs.com website|Package installation,https://stspg.io/5hlwdsj47fqp
+npm,bptmjs4rmx8q,Issue connecting to website and registry,major,resolved,2025-12-05T09:02:54.570Z,2025-12-05T09:42:42.215Z,39.8,www.npmjs.com website|Package installation|Package publishing|Package search|Security Audit|Replication Feed,https://stspg.io/t0nl12lpj8g6
+npm,67q3d5th9kcc,npmjs.com - Service Disruption,none,resolved,2025-11-18T13:34:33.668Z,2025-11-18T19:11:15.245Z,336.7,www.npmjs.com website,https://stspg.io/rjrg4cyb2nqg
+npm,8c94rgnhqx9k,Issue with npm website and login,minor,resolved,2025-11-06T13:56:25.448Z,2025-11-06T14:28:51.288Z,32.4,www.npmjs.com website,https://stspg.io/lfw28vvn3p24
+npm,7h414wqttky8,Issue with package publishing,minor,resolved,2025-10-20T17:20:06.226Z,2025-10-20T20:15:20.709Z,175.2,Package publishing,https://stspg.io/94jlm5t2vx5m
+npm,m3wkdj3c1q57,Degraded performance of package publish and install,minor,resolved,2025-10-20T09:31:58.553Z,2025-10-20T13:32:47.165Z,240.8,Package installation|Package publishing,https://stspg.io/60f8ts02gg26
+npm,40dnjfbcxj9v,Degraded performance on npmjs.com,minor,resolved,2025-10-03T18:07:58.133Z,2025-10-04T01:42:55.683Z,455.0,www.npmjs.com website,https://stspg.io/k4wqlg2ky5dp
+npm,njwnds2vmdhz,Degraded Package Install Experience,minor,resolved,2025-08-26T12:40:43.175Z,2025-08-26T15:49:55.169Z,189.2,Package installation,https://stspg.io/9jz91ylgppfp
+npm,b0f9jxcs1b67,Incident with npm registry and website affecting logins and publishing,minor,resolved,2025-08-07T22:31:38.360Z,2025-08-07T23:05:56.214Z,34.3,www.npmjs.com website|Package installation|Package publishing|Security Audit,https://stspg.io/4c99sgtb2c2p
+npm,z95xc4ythnnn,Issue with package publish with provenance,minor,resolved,2025-06-12T21:00:22.330Z,2025-06-12T22:25:08.695Z,84.8,Package publishing,https://stspg.io/rtzh6flfmljd
+npm,dn5mcp85737y,"Issues with package install, package publish, and login.",major,resolved,2025-06-12T18:14:31.707Z,2025-06-12T20:58:59.490Z,164.5,www.npmjs.com website|Package installation|Package publishing,https://stspg.io/pw7dp1kt5frp
+npm,bndr0gf8nnsq,Issues publishing and installing packages,minor,resolved,2025-04-11T02:46:34.910Z,2025-04-11T14:51:12.236Z,724.6,Package installation|Package publishing,https://stspg.io/wk3g29hzj4g2
+npm,j17xz3yd9pd9,Issues publishing and installing packages,major,resolved,2025-04-05T10:53:51.023Z,2025-04-05T15:15:57.403Z,262.1,Package installation|Package publishing,https://stspg.io/ykq2pwnxgvhp
+npm,hdtkrsqp134s,Intermittent issue with viewing and installing packages,minor,resolved,2025-04-01T16:40:26.288Z,2025-04-01T19:40:59.032Z,180.5,www.npmjs.com website|Package installation,https://stspg.io/lxzsjgplvs8j
+npm,jlqm624klvs2,npm is experiencing intermittent degraded installs,minor,resolved,2025-01-08T22:05:06.494Z,2025-01-09T00:50:20.222Z,165.2,Package installation,https://stspg.io/rf127d7f68xy
+npm,bxvmmvlqzfds,"Package Install failures due to ""304 Not Modified"" responses in Mumbai, India region",major,resolved,2024-12-17T12:50:30.918Z,2024-12-17T16:19:11.695Z,208.7,Package installation,https://stspg.io/6v8d2fkbdgbg
+npm,psj9zh3lb9md,Intermittent issues with package install,minor,resolved,2024-11-16T13:31:40.319Z,2024-11-16T14:58:05.560Z,86.4,Package installation,https://stspg.io/392r757wl17p
+npm,s9fstrc9sfgq,Failures to publish packlages,minor,resolved,2024-10-10T20:25:27.488Z,2024-10-10T21:40:46.572Z,75.3,Package publishing,https://stspg.io/ymg5s4hyfnc9
+npm,zvpm95sgl89p,Issue with publishing packages,minor,resolved,2024-09-24T22:49:44.544Z,2024-09-25T00:37:01.298Z,107.3,Package publishing,https://stspg.io/xc3tnvvlyn6h
+npm,qfmzhxz3frwb,README files not rendering on npmjs.com website,minor,resolved,2024-08-09T11:18:08.960Z,2024-08-09T11:47:03.766Z,28.9,www.npmjs.com website,https://stspg.io/m4txrkhfdntk
+npm,dscg27mzph3d,Intermittent Issues with View Package,minor,resolved,2024-06-20T19:37:11.493Z,2024-06-20T21:15:22.984Z,98.2,www.npmjs.com website,https://stspg.io/2vyznqszrgw6
+npm,25b12z1q22nq,Issue with search and replication feed,minor,resolved,2024-06-17T19:59:51.097Z,2024-06-17T21:36:35.692Z,96.7,Package search|Replication Feed,https://stspg.io/lgm1kl733q30
+npm,2v41lbhcj771,"Failures publishing, deprecating, and installing packages",major,resolved,2024-06-11T15:09:19.271Z,2024-06-11T16:44:09.301Z,94.8,Package installation|Package publishing,https://stspg.io/5shjsh314bfw
+npm,qj1sgg136lbr,Intermittent failures installing scoped packages,major,resolved,2024-06-03T17:55:19.723Z,2024-06-03T19:38:02.504Z,102.7,Package installation,https://stspg.io/vgq59rtw7jlg
+npm,jq0pj3dcq3vm,Issue with Private Package Installs,minor,resolved,2024-05-03T00:26:24.953Z,2024-05-03T03:36:08.949Z,189.7,Package installation,https://stspg.io/z1r46l81tgzx
+npm,lbkwcyh9xywh,Issues publishing packages,none,resolved,2024-04-09T21:01:49.106Z,2024-04-10T00:44:34.418Z,222.8,Package publishing,https://stspg.io/86clb3x2c54p
+npm,hv0gwqg8w4g2,npm support is down,minor,resolved,2024-01-24T17:56:53.237Z,2024-01-24T19:37:00.339Z,100.1,www.npmjs.com website,https://stspg.io/17jcf80p5j9s
+npm,9fzxc35nwg9x,Degraded performance,minor,resolved,2023-12-15T22:32:47.264Z,2023-12-15T23:13:43.337Z,40.9,www.npmjs.com website|Package installation,https://stspg.io/j4ql9hcklx9h
+npm,lg5km21sh5x6,Issue installing and publishing private packages,major,resolved,2023-12-08T19:13:41.197Z,2023-12-08T20:35:40.248Z,82.0,Package installation|Package publishing,https://stspg.io/bkkybbt62w6f
+npm,v8qxw7q1vqsw,Email Verification is failing,minor,resolved,2023-11-27T15:07:17.795Z,2023-11-28T01:07:04.521Z,599.8,www.npmjs.com website,https://stspg.io/w9y1s76qsl00
+npm,20scwz6g8stz,Increase in errors when viewing a package in npmjs.com,minor,resolved,2023-11-16T11:28:48.073Z,2023-11-16T12:28:52.482Z,60.1,www.npmjs.com website,https://stspg.io/13y21vj3h4gn
+npm,rw2d4cncb2mc,npmjs.com Login Issues,minor,resolved,2023-11-07T11:34:28.532Z,2023-11-07T14:29:18.234Z,174.8,www.npmjs.com website,https://stspg.io/kzyhvjc7jm62
+npm,zdznxkrp22py,Package Install Issues,major,resolved,2023-10-30T20:17:52.479Z,2023-10-30T20:42:30.215Z,24.6,Package installation,https://stspg.io/jdm9xvb5j226
+npm,js8nczq7d8x8,Delay in OTP emails being sent,minor,resolved,2023-10-14T12:11:40.134Z,2023-10-14T13:26:41.598Z,75.0,www.npmjs.com website,https://stspg.io/0zpz5rjt7skq
+npm,ppc7g19dqsv5,Degraded performance when publishing packages,minor,resolved,2023-09-27T21:55:38.002Z,2023-09-27T23:35:16.107Z,99.6,Package publishing,https://stspg.io/v0yzvq7193cs
+npm,7h9lj1gwtg3c,Degraded performance when publishing packages,minor,resolved,2023-09-27T15:56:40.704Z,2023-09-27T16:53:53.230Z,57.2,Package publishing,https://stspg.io/9n00kzswd2mr
+npm,gcyprsg83rhy,Degradation of service when trying to access private packages,minor,resolved,2023-09-25T20:36:07.167Z,2023-09-26T17:33:21.167Z,1257.2,Package installation|Package publishing,https://stspg.io/4mh69ysxtm8r
+datadog,rpj3lwgx1s3s,Errors Pulling Container Images,critical,resolved,2026-07-02T20:25:57.077-04:00,2026-07-02T21:29:11.981-04:00,63.2,Container Registry,https://stspg.io/gs85vq0xmxcx
+datadog,smc2wgcmsx6r,Elevated Error Rates,none,resolved,2026-07-01T14:31:20.464-04:00,2026-07-01T16:37:08.245-04:00,125.8,,https://stspg.io/h1vdjddg90hd
+datadog,71vvxf0rxxnz,Delayed data processing and errors in multiple products,major,resolved,2026-06-30T13:51:54.596-04:00,2026-06-30T16:32:44.628-04:00,160.8,APM|CI Visibility|Code Coverage|Database Monitoring|Error Tracking|Observability Pipelines|RUM|Synthetics|Test Optimization,https://stspg.io/5snql687z9c4
+datadog,41jdllgcbk9s,Delayed Monitors Notifications,major,resolved,2026-06-30T06:35:02.766-04:00,2026-06-30T07:18:50.339-04:00,43.8,Monitors,https://stspg.io/hsz1r8ww26gn
+datadog,29t1p0vx8sjz,Delayed APM Trace Metrics,none,resolved,2026-06-26T09:38:59.132-04:00,2026-06-26T09:45:37.493-04:00,6.6,,https://stspg.io/w6292y3bqkk1
+datadog,yx8jxssylc2v,Delayed CI Visibility data,minor,resolved,2026-06-25T19:23:01.642-04:00,2026-06-25T19:32:26.545-04:00,9.4,CI Visibility,https://stspg.io/kzsp8r6t4847
+datadog,z9tr62bmp8v3,Metrics Queries,major,resolved,2026-06-22T17:27:41.508-04:00,2026-06-22T18:41:36.494-04:00,73.9,Metrics and Infra Monitoring,https://stspg.io/z9s5hk7jc45c
+datadog,7l0kwdnv43j8,Delayed Events,minor,resolved,2026-06-18T12:13:18.539-04:00,2026-06-18T12:33:28.910-04:00,20.2,Monitors,https://stspg.io/tdw3spf8slj1
+datadog,3fnvmf6kckds,Delayed Evaluation,minor,resolved,2026-06-12T13:12:28.442-04:00,2026-06-12T15:39:44.126-04:00,147.3,APM|Metrics and Infra Monitoring|Monitors,https://stspg.io/j0xmm8v17tmx
+datadog,p0gz2w4ng7hp,Increased latency across multiple products,minor,resolved,2026-06-08T07:05:03.193-04:00,2026-06-08T08:59:27.139-04:00,114.4,Cloud Cost Management|Cloud Network Monitoring|Cloud Security Management|Database Monitoring,https://stspg.io/k3z1l9vwjhkp
+datadog,xqyrslhjs303,Azure Metrics Reporting,critical,resolved,2026-05-15T22:17:24.976-04:00,2026-05-15T23:43:01.802-04:00,85.6,Metrics and Infra Monitoring,https://stspg.io/l0b8n3g0ysky
+datadog,shjkvbwy06nl,Delayed Metric Loading,minor,resolved,2026-05-14T14:24:38.680-04:00,2026-05-14T15:48:24.589-04:00,83.8,Metrics and Infra Monitoring|Monitors,https://stspg.io/sskp2jtfd9sj
+datadog,j4v5lc1lvgf1,Degraded Web Application Performance,minor,resolved,2026-05-13T11:16:27.132-04:00,2026-05-13T11:53:19.730-04:00,36.9,APM|Database Monitoring,https://stspg.io/cwzjd95rnzhd
+datadog,wjrkhvg9ydc1,Delayed Monitors Notifications,critical,resolved,2026-05-07T20:06:53.061-04:00,2026-05-08T10:07:35.466-04:00,840.7,APM|CI Visibility|Error Tracking|Log Management|Metrics and Infra Monitoring|Monitors|RUM,https://stspg.io/rbj54mc4nhgs
+datadog,s1mcpzcxhr9x,Delays in APM-based Monitor Notifications,minor,resolved,2026-05-05T14:14:03.754-04:00,2026-05-05T15:52:31.844-04:00,98.5,Monitors,https://stspg.io/rww57bn61jkp
+datadog,dw41jpjjghhs,Elevated Error Rates for Metrics Queries,major,resolved,2026-04-30T20:45:48.677-04:00,2026-04-30T21:19:56.916-04:00,34.1,Metrics and Infra Monitoring,https://stspg.io/17n4grhvbmjt
+datadog,0p99flrd9mln,Delays in AWS and Azure cloud integration metrics ingestion,major,resolved,2026-04-24T12:27:19.942-04:00,2026-04-24T12:50:36.003-04:00,23.3,Metrics and Infra Monitoring|Monitors,https://stspg.io/xw01xpvggm3n
+datadog,7ht7d7xsnbhy,Delayed Metrics,major,resolved,2026-04-15T18:38:22.912-04:00,2026-04-15T20:37:38.862-04:00,119.3,Metrics and Infra Monitoring,https://stspg.io/32s2j42tn8xz
+datadog,q2njm9l08tjb,"Notifications to Pagerduty, VictorOps, Slack, Webhook, Microsoft Teams and OpsGenie are not delivered",major,resolved,2026-04-10T10:54:11.000-04:00,2026-04-10T16:59:49.000-04:00,365.6,Monitors,https://stspg.io/18986pkc2dgr
+datadog,y1trpqc54210,Delayed Traces in APM Trace Search,major,resolved,2026-03-27T14:57:08.423-04:00,2026-03-27T15:30:04.932-04:00,32.9,APM,https://stspg.io/4qqxn4k2w7n5
+datadog,1qdv7gx89vwv,Delayed Monitors Notifications,major,resolved,2026-03-26T10:24:24.753-04:00,2026-03-26T15:56:35.378-04:00,332.2,Monitors,https://stspg.io/vl9tsrk9z2ld
+datadog,j5zpb9phy9m6,"Intermittent ""No Data"" Status for Monitors",major,resolved,2026-03-18T20:54:23.191-04:00,2026-03-18T22:53:46.258-04:00,119.4,Monitors,https://stspg.io/43kkcl1tqrrk
+datadog,9ksfbdb59mtn,Web Application Not Loading,critical,resolved,2026-03-13T05:26:35.665-04:00,2026-03-13T06:30:25.499-04:00,63.8,Web Application,https://stspg.io/mfp6qzq5bd51
+datadog,qqb6y9g81rw6,Delayed RUM data,minor,resolved,2026-02-23T23:31:54.191-05:00,2026-02-24T02:08:31.512-05:00,156.6,Cloud Cost Management|RUM,https://stspg.io/f7nly8tc2198
+datadog,l3xqsgb18fvy,Monitors - Delayed Evaluation for Multiple Products,minor,resolved,2026-02-18T14:30:23.632-05:00,2026-02-18T15:37:18.980-05:00,66.9,APM|Data Streams Monitoring|Log Management|Metrics and Infra Monitoring|Monitors|RUM|Universal Service Monitoring,https://stspg.io/c6d05hsplhbv
+datadog,vkqm21bfss9c,Delayed Traces in APM,minor,resolved,2026-02-11T19:57:47.013-05:00,2026-02-11T21:08:46.715-05:00,71.0,APM|Metrics and Infra Monitoring,https://stspg.io/19l6tqc8m1b2
+datadog,g5vw545yn7vt,Delayed Traces in APM Trace Search,minor,resolved,2026-02-11T15:56:50.834-05:00,2026-02-11T18:44:55.420-05:00,168.1,APM|Monitors,https://stspg.io/4znpw24vxbbg
+datadog,g545g04n9xkr,Delays in Monitor Evaluations,major,resolved,2026-02-05T10:24:58.173-05:00,2026-02-05T12:43:22.857-05:00,138.4,APM|Application Security Management|Cloud SIEM|Incident Response|Log Management|Metrics and Infra Monitoring|Monitors|RUM|Synthetics,https://stspg.io/kzxxld69ftmr
+datadog,1hmvg62sxmjp,Delayed Distribution Monitors Evaluations,critical,resolved,2026-01-29T12:35:31.807-05:00,2026-01-29T14:55:05.164-05:00,139.6,Monitors,https://stspg.io/kywknq2z0ht1
+datadog,6vndlbw8vzqp,Monitors - Delayed Evaluation,minor,resolved,2026-01-28T15:30:31.000-05:00,2026-01-28T18:36:23.179-05:00,185.9,Monitors,https://stspg.io/55l2cqg035fj
+datadog,0vy6kj9tgmt6,Web Application Not Loading,critical,resolved,2026-01-22T13:51:22.114-05:00,2026-01-22T14:27:45.914-05:00,36.4,APM|App Builder|Application Security Management|Application Vulnerability Management|Audit Trail|CI Visibility|Cloud Cost Management|Cloud Network Monitoring|Cloud Security Management|Cloud SIEM|Code Security|Continuous Profiler|Database Monitoring|Data Jobs Monitoring|Data Streams Monitoring|Incident Response|LLM Observability|Log Management|Metrics and Infra Monitoring|Mobile Application|Monitors|NDM|Observability Pipelines|Package Repositories|RUM|Sensitive Data Scanner|Serverless|Synthetics|Universal Service Monitoring|Web Application,https://stspg.io/qzwqj368qbvk
+datadog,476hf8wnc4l0,Delayed Events,minor,resolved,2026-01-18T07:33:26.505-05:00,2026-01-18T09:24:41.174-05:00,111.2,Metrics and Infra Monitoring,https://stspg.io/w2k14cxk8th3
+datadog,rxrmt186707r,Delayed Processes data,major,resolved,2025-12-12T16:49:44.306-05:00,2025-12-12T18:43:52.417-05:00,114.1,Metrics and Infra Monitoring,https://stspg.io/ppc0471xzd9w
+datadog,c4gh438m6pp3,Delayed APM metric ingestion,major,resolved,2025-12-12T13:37:34.103-05:00,2025-12-12T16:52:51.132-05:00,195.3,Metrics and Infra Monitoring,https://stspg.io/qwpxql6b48pl
+datadog,xj87f6z9mm3w,Metrics data ingestion delayed and monitor evaluations degraded,minor,resolved,2025-12-09T15:16:17.223-05:00,2025-12-09T16:08:28.161-05:00,52.2,Metrics and Infra Monitoring,https://stspg.io/5hqhsx3549dz
+datadog,cvdjtf81756n,Web Application Not Loading,critical,resolved,2025-11-19T14:08:07.752-05:00,2025-11-19T14:44:17.410-05:00,36.2,Web Application,https://stspg.io/h30gbqqk6wgl
+datadog,29fsc4rhsscg,Delayed Monitors Notifications,minor,resolved,2025-11-18T08:17:44.575-05:00,2025-11-18T08:53:58.019-05:00,36.2,Monitors,https://stspg.io/0r75b5ng1fc2
+datadog,bg2rxpyn1hc3,Dashboards Not Loading,major,resolved,2025-11-17T11:23:14.226-05:00,2025-11-17T12:20:10.000-05:00,56.9,Web Application,https://stspg.io/bbdxgwpv272q
+datadog,92sk80qxml0t,Web Application Not Loading,minor,resolved,2025-11-13T13:58:01.396-05:00,2025-11-13T14:07:51.517-05:00,9.8,Web Application,https://stspg.io/4mf4y6y1ft31
+datadog,tw86ncfv8q78,Delayed Metrics for APM and distribution metrics,minor,resolved,2025-11-05T10:42:35.000-05:00,2025-11-05T12:57:12.658-05:00,134.6,APM|Metrics and Infra Monitoring|Monitors,https://stspg.io/f3zkd8tmhdxm
+datadog,01x71sjh4ymw,Metrics data ingestion delayed and monitor evaluations degraded,major,resolved,2025-10-28T14:32:04.041-04:00,2025-10-28T18:01:26.977-04:00,209.4,Metrics and Infra Monitoring|Monitors,https://stspg.io/ch4x738bv5qx
+datadog,vjgmxjdf0ps5,Multiple products impacted with data delays,major,resolved,2025-10-20T08:45:48.000-04:00,2025-10-22T10:40:11.620-04:00,2994.4,APM|App Builder|Cloud Cost Management|Continuous Profiler|Log Management|RUM|Workflow Automation,https://stspg.io/gzvrd592kg4t
+datadog,ww8rhx2j8mfz,Multiple products impacted with data delays,major,resolved,2025-10-20T06:14:51.025-04:00,2025-10-20T07:31:39.466-04:00,76.8,Cloud Security Management|Incident Response,https://stspg.io/29j9dsc8llxg
+datadog,twnwtk275knx,"Delayed AWS, GCP, Azure, SaaS integrations Metrics and Logs",critical,resolved,2025-10-14T13:14:52.729-04:00,2025-10-14T15:19:29.164-04:00,124.6,Metrics and Infra Monitoring,https://stspg.io/x812ktyhkf0q
+datadog,hh6gwk0tpxp4,Delayed Metrics,minor,resolved,2025-10-01T13:24:26.350-04:00,2025-10-01T14:56:58.554-04:00,92.5,Metrics and Infra Monitoring|NDM,https://stspg.io/70rkrl7qxbjl
+datadog,7sndd8tqsgmh,"Host Tags, Service Checks, and Datadog Events Delayed Evaluation",minor,resolved,2025-09-29T14:17:49.310-04:00,2025-09-29T15:43:49.299-04:00,86.0,Metrics and Infra Monitoring|Monitors,https://stspg.io/20z0hrj42hl9
+datadog,6f8k1c5tp7xr,[SSO] Login Errors from Google SSO,major,resolved,2025-09-18T11:11:40.000-04:00,2025-09-18T12:24:53.594-04:00,73.2,Web Application,https://stspg.io/h24hd899znxk
+datadog,tz244yxksqj3,Delayed Metrics,minor,resolved,2025-09-17T11:25:07.540-04:00,2025-09-17T12:08:00.816-04:00,42.9,APM|Metrics and Infra Monitoring,https://stspg.io/yb24r9gbm6r2
+datadog,7dlr9zdj9vcm,Delayed Monitors Notifications,minor,resolved,2025-09-05T12:11:53.183-04:00,2025-09-05T12:37:00.247-04:00,25.1,Monitors,https://stspg.io/m8d2m51pndbr
+datadog,0mpr69w0zh2b,Delayed RUM data,minor,resolved,2025-09-02T10:13:08.462-04:00,2025-09-02T11:16:30.004-04:00,63.4,RUM,https://stspg.io/3sy8pp5f3qk0
+twilio,t78w3x5xk4fy,SMS Delivery Receipt Delays From a Subset of Twilio Long Codes to Zong Pakistan,minor,resolved,2026-07-02T11:53:02.070-07:00,2026-07-02T19:50:33.382-07:00,477.5,"SMS, APAC",https://stspg.io/6xk6ccfy95qp
+twilio,xw085vvjp2qg,Issue With Some Verified Senders Appearing as Unverified,minor,resolved,2026-06-30T18:02:31.091-07:00,2026-07-02T17:14:00.848-07:00,2831.5,Verify|SMS,https://stspg.io/45ljknphcc7s
+twilio,v037gr8ph9cd,SMS Delivery Delays from a Subset of Twilio Alphanumeric Numbers to Airtel Niger,minor,resolved,2026-07-02T11:29:52.212-07:00,2026-07-02T16:10:45.925-07:00,280.9,"SMS, Middle East & Africa",https://stspg.io/zx14h4b1n6f0
+twilio,kpp4f1fvsd2d,SMS Delivery Delays from a Subset of Twilio Alphanumeric Sender IDs and Long Codes to Altice Dominican Republic,minor,resolved,2026-07-02T10:14:10.384-07:00,2026-07-02T14:55:07.754-07:00,281.0,"SMS, Latin America",https://stspg.io/39dnxrrm5zrn
+twilio,s4j0qr1jrmmh,SMS Delivery Delays and Failures from Twilio to Orange Ivory Coast,minor,monitoring,2026-07-02T10:40:45.743-07:00,,,"SMS, Middle East & Africa",https://stspg.io/mqq8gp6fctgs
+twilio,wmzgrvzcpw4z,Voice Call Failures from Twilio Phone Numbers to Vivo Telefonica Brazil,minor,identified,2026-07-02T09:09:07.519-07:00,,,"Voice, Latin America",https://stspg.io/8rjf0clny2cp
+twilio,6klffwq28s4r,SMS Delivery Delays from Twilio to Asia Cell Iraq,minor,monitoring,2026-07-02T01:11:34.006-07:00,,,"SMS, Middle East & Africa",https://stspg.io/dzk8xn5crg98
+twilio,8ncfrdm0ljh4,SMS Delivery Delays and Failures From Bitel In Peru To a Subset Of Twilio Shortcode,minor,resolved,2026-06-25T16:28:12.451-07:00,2026-07-01T23:57:37.007-07:00,9089.4,"SMS, Latin America",https://stspg.io/t43c6xbhq8gl
+twilio,scr89dmfpkpz,User Authentication Identity SNA Missing Redirects in Philippines,minor,resolved,2026-06-30T22:03:20.060-07:00,2026-07-01T21:04:23.053-07:00,1381.0,Verify Silent Network Auth,https://stspg.io/tz00md3mqr7v
+twilio,d21hf313fgds,SMS Delivery Failures from Twilio to Natcom Haiti,minor,identified,2026-07-01T14:06:45.051-07:00,,,"SMS, Latin America",https://stspg.io/92msq4szl7y2
+twilio,fk6z3jnfsvlz,SMS Delivery Failures from Twilio to Tigo Bolivia,minor,identified,2026-07-01T13:56:16.396-07:00,,,"SMS, Latin America",https://stspg.io/y3qt7cx40r42
+twilio,gq72d8jjscps,Automated Alert: No Customer Impact,none,resolved,2026-07-01T09:10:53.891-07:00,2026-07-01T10:22:19.554-07:00,71.4,,https://stspg.io/psp1vc3n3xq6
+twilio,xr1zzz0l88z9,High Number of 500s Returned by Pied-Piper-Api Due to Elasticsearch Timeouts,none,resolved,2026-07-01T09:30:42.000-07:00,2026-07-01T09:30:42.000-07:00,0.0,,https://stspg.io/vw2m3ttc4ny9
+twilio,dk6nff6544k7,SMS Delivery Failures from Twilio to Globul Bulgaria,minor,resolved,2026-07-01T03:54:47.046-07:00,2026-07-01T06:19:46.709-07:00,145.0,"SMS, Europe",https://stspg.io/s6lh77q3cx9p
+twilio,cp3ks63214nx,SMS Delivery Delays and Failures from Twilio to Liberty Mobile Puerto Rico,minor,resolved,2026-07-01T00:06:19.763-07:00,2026-07-01T04:26:20.816-07:00,260.0,"SMS, Latin America",https://stspg.io/n59mxvghngcq
+twilio,yhgqk5n7qwg0,"SMS Delivery Delays From Mobile Subscribers to Twilio United States, Canada, and Puerto Rico Phone Numbers",minor,resolved,2026-06-30T20:01:32.898-07:00,2026-06-30T22:55:51.006-07:00,174.3,"SMS Long Code, North America|SMS Short Code, North America|SMS Toll-Free, North America|SMS, Latin America",https://stspg.io/l47zhbd1k8ny
+twilio,f525m1njcyk9,Even Though the AU Sender Ids Were Registered With Acma and Shared Across the Sub Accounts Sms Are Delivered as Unverified From Today,minor,resolved,2026-06-30T17:16:48.766-07:00,2026-06-30T17:22:29.746-07:00,5.7,Verify,https://stspg.io/768rb6drr6jp
+twilio,vd2mzbb5k4bm,Conversation Intelligence Is Not Processing Conversations and Will Have Delays Running Operators,minor,resolved,2026-06-30T14:57:58.984-07:00,2026-06-30T17:04:45.667-07:00,126.8,Conversation Intelligence,https://stspg.io/wxftty12wpz7
+twilio,xf806tsmqpvv,SMS Delivery Delays and Failures from Twilio to MTN Nigeria,minor,resolved,2026-06-30T12:57:01.936-07:00,2026-06-30T15:44:06.490-07:00,167.1,"SMS, Middle East & Africa",https://stspg.io/bs1wydxc8q5x
+twilio,x5j6n977qv1x,File Type Sources Failing to Update,minor,resolved,2026-06-30T13:29:47.340-07:00,2026-06-30T13:54:23.566-07:00,24.6,Enterprise Knowledge,https://stspg.io/dh4tgzpr65cj
+twilio,fs0t1ngvnsv5,USD Charges Are Failing for Customers in Twilio Mexico Cisa Subsidiary,minor,resolved,2026-06-29T13:45:45.289-07:00,2026-06-30T12:19:41.119-07:00,1353.9,Billing,https://stspg.io/4kl8211fp369
+twilio,htlr9k71dr17,SMS Delivery Delays from Twilio to MTS Russia,minor,resolved,2026-06-29T22:00:56.479-07:00,2026-06-30T12:11:46.749-07:00,850.8,"SMS, Europe",https://stspg.io/3dlyrh6hfs3s
+twilio,36hmxcdfdmd0,SMS Delivery Delays and Failures from Twilio Phone Numbers to Yettel Bulgaria,minor,resolved,2026-06-30T05:03:17.941-07:00,2026-06-30T10:41:34.684-07:00,338.3,"SMS, Europe",https://stspg.io/3n2wvvspvptc
+twilio,xlfshnftls2z,SMS Delivery Delays from Twilio to Etisalat United Arab Emirates,minor,resolved,2026-06-29T01:58:57.588-07:00,2026-06-30T05:07:22.239-07:00,1628.4,"SMS, Middle East & Africa",https://stspg.io/w8mpkgtq0tv1
+twilio,wgcwmj7prpt2,SMS Delivery Delays and Failures Between a Subset of Twilio Short Codes and Multiple Networks in Peru,none,resolved,2026-06-29T21:32:03.130-07:00,2026-06-29T21:32:03.295-07:00,0.0,"SMS, Latin America",https://stspg.io/tcb438kfj5gx
+twilio,1rcs8gj5ky7v,SMS Delivery Delays from Twilio Phone Numbers to Lycamobile United Kingdom,minor,resolved,2026-06-29T03:38:32.911-07:00,2026-06-29T17:27:48.025-07:00,829.3,"SMS, Europe",https://stspg.io/z49hphklr9sf
+twilio,r73vh769rgc7,SMS Delivery Delays from Twilio Phone Numbers to Tigo Paraguay,minor,resolved,2026-06-29T12:22:05.056-07:00,2026-06-29T15:57:12.997-07:00,215.1,"SMS, Latin America",https://stspg.io/1s932g7l5bcf
+twilio,2c1dfjn3w5mk,SMS Delivery Delays from Twilio Phone Numbers to Smart Cambodia,minor,resolved,2026-06-29T05:13:11.468-07:00,2026-06-29T08:23:57.599-07:00,190.8,"SMS, APAC",https://stspg.io/fsrzct4c3jch
+twilio,bd9m3kwsht87,Issues Accessing IAM Pages in the Twilio Console,none,resolved,2026-06-29T04:41:00.224-07:00,2026-06-29T05:17:46.602-07:00,36.8,,https://stspg.io/v44x5fttthk3
+twilio,jthv71l5fll5,Issues Accessing the Subaccounts Tab in Voice Insights,minor,resolved,2026-06-29T00:50:08.016-07:00,2026-06-29T02:08:09.409-07:00,78.0,Voice Insights US1|Voice Insights AU1|Voice Insights IE1,https://stspg.io/n5r33y6v8828
+twilio,s4thwb69cq58,SMS Delivery Delays and Failures from Twilio to Access Malawi,minor,resolved,2026-06-27T02:43:11.423-07:00,2026-06-28T23:00:40.008-07:00,2657.5,"SMS, Middle East & Africa",https://stspg.io/0f6lppf9w2pw
+twilio,3ssdrj97hz9r,SMS Delivery Delays from Twilio to Lycamobile United Kingdom,minor,resolved,2026-06-28T08:41:53.424-07:00,2026-06-28T19:17:34.704-07:00,635.7,"SMS, Europe",https://stspg.io/t0yjr6tfg19q
+twilio,xmx80873fy3p,MMS Delivery Receipt Delays from a Subset of Twilio Short Codes to Multiple Networks in United States,minor,resolved,2026-06-27T11:05:03.239-07:00,2026-06-28T02:23:53.210-07:00,918.8,"MMS Short Code, North America",https://stspg.io/7ctstbpl1xlz
+twilio,y0mc54103j41,SMS Delivery Delays from Twilio to MTN Nigeria,minor,resolved,2026-06-27T15:03:14.696-07:00,2026-06-28T02:07:40.957-07:00,664.4,"SMS, Middle East & Africa",https://stspg.io/8dxhwjxbj94q
+twilio,bm1lc89d2mmh,SMS Delivery Delays from Twilio to Telefonica El Salvador,minor,resolved,2026-06-27T14:22:23.384-07:00,2026-06-27T21:54:19.319-07:00,451.9,"SMS, Latin America",https://stspg.io/fwm7rf58n9zd
+twilio,q1xb3ktytq13,Intermittent 503 Errors at the Message Send Endpoint,minor,resolved,2026-06-26T14:58:22.535-07:00,2026-06-26T15:57:34.101-07:00,59.2,Programmable Messaging API,https://stspg.io/ymzwfs0w22j4
+twilio,5n66d95rjc83,SMS Delivery Failures from Twilio to Multiple Networks in Multiple Countries in the Middle East,minor,resolved,2026-06-26T04:55:10.908-07:00,2026-06-26T13:59:40.198-07:00,544.5,"SMS, Middle East & Africa",https://stspg.io/8hgrq5cy6l6j
+twilio,1khdgtpn2cbv,SMS Delivery Failures from a Subset of Twilio Long Codes to Globe Philippines,minor,resolved,2026-06-26T10:32:27.527-07:00,2026-06-26T10:35:12.715-07:00,2.8,"SMS, APAC",https://stspg.io/093h8y7slqq9
+twilio,xs6bw3qj42ym,SMS Delivery Delays and Failures from a Subset of Twilio Long Codes to Multiple Networks in Philippines,minor,resolved,2026-06-25T22:40:55.199-07:00,2026-06-26T05:27:55.281-07:00,407.0,"SMS, APAC",https://stspg.io/qsd056vdvvv8
+twilio,vsd7v1ssgzft,SMS Delivery Delays and Failures From a Subset of Twilio Sender IDs to SmartFren Indonesia,minor,resolved,2026-06-24T20:32:34.931-07:00,2026-06-26T00:35:20.612-07:00,1682.8,"SMS, APAC",https://stspg.io/xmplyfhb0bxt
+twilio,9gwzn3pyh1lk,SMS Delivery Delays from Twilio to Wind tre Italy,minor,resolved,2026-06-25T16:30:20.562-07:00,2026-06-25T23:07:15.835-07:00,396.9,"SMS, Europe",https://stspg.io/nd6wtn64xy4t
+twilio,lx76mlw4113t,Voice Call Failures and Audio Quality Degradation from Italy to a Subset of Twilio Italy Phone Numbers,minor,resolved,2026-06-25T04:13:07.921-07:00,2026-06-25T22:45:30.107-07:00,1112.4,"Voice, Europe",https://stspg.io/snfdfsk016j4
+twilio,h0krgqfhf2vy,Intermittent Issues with Inbound Message Status Updates Across Multiple Channels,minor,resolved,2026-06-25T14:14:50.361-07:00,2026-06-25T15:40:11.515-07:00,85.4,Flex Conversations|SMS|Messaging Channels|Conversations|RCS Messaging,https://stspg.io/txc059bm0rfv
+twilio,jn1x3cwjqynp,Engineers are Investigating Issues with a Subset of Pages in Console,minor,resolved,2026-06-25T09:24:34.000-07:00,2026-06-25T11:42:11.147-07:00,137.6,Console,https://stspg.io/wnnqhw3zw1s8
+twilio,ymfmxxwzry8t,SMS Delivery Delays and Failures from Twilio to Orange Botswana,minor,resolved,2026-06-24T04:45:09.080-07:00,2026-06-25T11:35:10.388-07:00,1850.0,"SMS, Middle East & Africa",https://stspg.io/5ncxlxfs3z9x
+twilio,qhbdhr9pmhhx,Retroactive Incident: Twilio Verify API Affected,none,resolved,2026-06-25T06:28:17.714-07:00,2026-06-25T06:28:17.771-07:00,0.0,REST API,https://stspg.io/ngk0l9wn1y5n
+twilio,mtyq4r594wb2,SMS Delivery Failures from a Subset of Twilio Short Codes to Verizon United States,minor,resolved,2026-06-25T02:09:44.963-07:00,2026-06-25T04:50:36.901-07:00,160.9,"SMS Short Code, North America",https://stspg.io/67vylr2vrwkq
+twilio,7yhzjclj2w9z,User Authentication Identity SNA Failure Increase and Gateway API Failure Increase for EE in United Kingdom,minor,resolved,2026-06-24T07:54:03.687-07:00,2026-06-25T01:06:06.351-07:00,1032.0,Verify Silent Network Auth,https://stspg.io/6g73rngtsy4t
+twilio,blnckqklsvby,SMS Delivery Delays from Twilio Phone Numbers to Telefonica Venezuela,minor,resolved,2026-06-24T16:05:42.055-07:00,2026-06-24T23:47:07.023-07:00,461.4,"SMS, Latin America",https://stspg.io/f0kznnxwgbjc
+twilio,nhcn76sq79v8,Messaging Service Whatsapp Geo Match Degraded,minor,resolved,2026-06-24T11:16:56.064-07:00,2026-06-24T16:47:16.599-07:00,330.3,Messaging Channels|Messaging Services,https://stspg.io/lwg85ynl3pw3
+dropbox,hdg94pq9kwgb,Shared content downloads are degraded,minor,resolved,2026-06-08T19:43:48.449Z,2026-06-12T16:54:48.009Z,5591.0,API,https://stspg.io/r2y8dh12hqf1
+dropbox,0yf2tzsb2dkt,Opening a video or audio file might not be working for users,minor,resolved,2026-05-27T20:05:40.641Z,2026-05-27T22:31:57.377Z,146.3,Mobile Application,https://stspg.io/hnmfk2gjsk45
+dropbox,jnnysc59s84z,Availability was impacted across a number of services,none,resolved,2026-05-18T17:00:00.000Z,2026-05-18T17:00:00.000Z,0.0,,https://stspg.io/c3k4yzbq7npg
+dropbox,c2332s4s59qc,Dropbox may be unavailable for some users,major,resolved,2026-04-15T03:51:52.798Z,2026-04-15T04:16:33.686Z,24.7,Website,https://stspg.io/6sj633blsn7j
+dropbox,x0pz71gj2kt2,Dash Chat might not be working for some users,minor,resolved,2026-04-09T21:32:31.738Z,2026-04-10T00:54:51.792Z,202.3,Dash,https://stspg.io/mq5zcznkr95j
+dropbox,7sk6tmhjntkq,Dropbox.com is not working for some users,minor,resolved,2026-01-22T01:30:41.000Z,2026-01-22T10:00:34.000Z,509.9,Website,https://stspg.io/8gp6yw4gl9g7
+dropbox,dw73q8991lbx,We’re having some trouble with our payment page,minor,resolved,2026-01-15T06:59:52.231Z,2026-01-15T08:19:51.813Z,80.0,Website,https://stspg.io/94ryjch8zht2
+dropbox,rv4s502gjxt6,DocSend impacted by ongoing Cloudflare outage,major,resolved,2025-11-18T14:38:23.260Z,2025-11-18T14:53:39.066Z,15.3,DocSend,https://stspg.io/3ybkh950h5nm
+dropbox,ygpccbh12mmn,Dropbox Chat unavailable,major,resolved,2025-11-14T20:00:04.549Z,2025-11-14T21:11:24.305Z,71.3,Website|Desktop Application|Mobile Application|Support Services,https://stspg.io/pzb13bhppcvg
+dropbox,ysdnz99hhbf4,Google Drive and One Drive Dash connectors are not working for some users,minor,resolved,2025-10-21T14:32:54.628Z,2025-10-21T21:13:12.109Z,400.3,Dash,https://stspg.io/ygc9k6m1mk1k
+dropbox,54wwj5295j7p,Images not loading in Dropbox Paper,minor,resolved,2025-10-14T09:06:38.753Z,2025-10-14T12:49:33.333Z,222.9,Paper,https://stspg.io/m928sx8qjvxk
+dropbox,j26kng7dqvrb,Dropbox is not working as expected for some users.,minor,resolved,2025-09-23T18:55:17.493Z,2025-09-23T19:17:29.502Z,22.2,Website|Desktop Application|Dash|DocSend,https://stspg.io/p11d3k6w6dst
+dropbox,5x2hj7pd5vyl,Dropbox.com is not working for some users,minor,resolved,2025-09-02T13:16:25.560Z,2025-09-02T13:48:54.657Z,32.5,Website,https://stspg.io/5sqqx0jxl32k
+dropbox,qw2zcbx56cg8,Pop up to sign in On Microsoft Office Files,minor,resolved,2025-08-29T19:17:03.447Z,2025-08-30T10:01:05.343Z,884.0,Desktop Application,https://stspg.io/1w3fhm1r7lgc
+dropbox,rfhwycp3mdfw,Intermittent Loading Issues on Dropbox Website,minor,resolved,2025-05-23T19:31:05.057Z,2025-05-23T20:24:54.984Z,53.8,Website,https://stspg.io/n2n81ms83bb8
+dropbox,j47qrn8xzbgs,The Dash Confluence connector may be unavailable for some users.,minor,resolved,2025-05-15T16:35:16.782Z,2025-05-16T19:15:31.726Z,1600.2,Dash,https://stspg.io/6d9v4m48vvjd
+dropbox,4l8htd2016pf,Dropbox may be unavailable for some users.,minor,resolved,2025-05-14T18:24:48.683Z,2025-05-14T19:24:00.483Z,59.2,Website|Desktop Application|Mobile Application|API|Paper|Dash|Replay,https://stspg.io/h68qkhbm6yp0
+dropbox,qg0zdcd545j2,Dash Search might not be working for some users.,minor,resolved,2025-05-05T21:38:12.770Z,2025-05-06T03:40:08.010Z,361.9,Dash,https://stspg.io/281rq0lrqpvv
+dropbox,819myyd174x1,Dash Chat might not be working for some users,minor,resolved,2025-05-05T18:26:57.589Z,2025-05-05T21:30:15.305Z,183.3,Dash,https://stspg.io/xxgrc28w4qpj
+dropbox,m4vmngw5nrm5,Dropbox may be unavailable for some users,minor,resolved,2025-05-01T21:57:54.028Z,2025-05-02T02:07:57.328Z,250.1,Website|Desktop Application|Replay|DocSend,https://stspg.io/9fl3xbhznn05
+dropbox,5pyrxmg9cwtv,Dropbox was not working as expected for some users,none,resolved,2025-04-17T17:21:54.425Z,2025-04-17T17:21:54.463Z,0.0,,https://stspg.io/jyzy989qtc01
+dropbox,qx8phd57ymk7,Issue downloading single files on safari 18.4,none,resolved,2025-04-09T19:58:36.656Z,2025-04-10T07:53:06.240Z,714.5,Website,https://stspg.io/dnl05jmyv5zv
+dropbox,6lcm24ynztty,Some Windows users may not be able to use the online-only functionality,minor,resolved,2025-03-20T20:35:18.923Z,2025-04-04T16:22:22.697Z,21347.1,Desktop Application,https://stspg.io/mv4lz6ss3sq8
+dropbox,np9rsdc10d1m,DocSend unavailable,major,resolved,2025-01-22T15:45:43.446Z,2025-01-22T15:52:34.282Z,6.8,DocSend,https://stspg.io/x6vpwvpzhh34
+dropbox,7xqwc5h408rs,Dash Answers was down for some users,none,resolved,2024-12-12T00:36:09.428Z,2024-12-12T00:36:09.456Z,0.0,Dash,https://stspg.io/pfpkx5mxvxdq
+dropbox,wqx7s21cr4tf,Desktop installer failing to download,minor,resolved,2024-11-07T23:31:10.379Z,2024-11-12T23:08:46.030Z,7177.6,Desktop Application,https://stspg.io/6jcftlhjrhdz
+dropbox,fw9gq0pm4yxr,Dropbox.com was down,none,resolved,2024-11-12T23:05:28.751Z,2024-11-12T23:05:28.821Z,0.0,Website|Desktop Application|Mobile Application|API|Paper|Passwords|Dash|Replay|DocSend|Support Services,https://stspg.io/l6vss7zlmwgb
+dropbox,l2m730df1t5p,Dropbox may not be working as expected,minor,resolved,2024-10-23T18:24:10.727Z,2024-10-23T18:59:51.455Z,35.7,Website|Desktop Application|Mobile Application|API|Paper|Passwords|Dash|Replay|DocSend|Support Services,https://stspg.io/rqrj232kvk3b
+dropbox,cgbskdwn7mts,Creating and opening a File Request might not be working for some users,minor,resolved,2024-09-26T21:37:30.904Z,2024-09-27T00:48:56.201Z,191.4,Website,https://stspg.io/hr29d20tty22
+dropbox,qxwy7bj9pvcv,The Desktop App might not be loading for some users,minor,resolved,2024-09-25T18:10:01.643Z,2024-09-26T00:01:32.962Z,351.5,Desktop Application,https://stspg.io/x970npt6r8rs
+dropbox,hxt5dbmb5tjj,Dropbox may not be working as expected for some users,none,resolved,2024-09-03T18:26:08.707Z,2024-09-03T19:20:49.782Z,54.7,,https://stspg.io/l0skryfy37gk
+dropbox,fpzgmrzltwyj,Desktop app installer may not be working as expected,minor,resolved,2024-07-09T20:54:57.901Z,2024-07-09T21:18:29.911Z,23.5,Desktop Application,https://stspg.io/vkgtl7rsrljr
+dropbox,91v3cytk9zwy,Dropbox.com may not be working as expected,minor,resolved,2024-07-08T21:43:11.000Z,2024-07-08T21:57:52.759Z,14.7,Website,https://stspg.io/2pb4ccb28s8w
+dropbox,flwvpy8ybj6t,Photos tab in Android app may not be loading as expected,minor,resolved,2024-06-21T18:30:29.000Z,2024-06-25T16:33:34.930Z,5643.1,Mobile Application,https://stspg.io/cw95zxt0xyq7
+dropbox,0xzfcjfbg6qj,Phone support may not be working as expected for some Team Admins,minor,resolved,2024-06-22T01:47:56.151Z,2024-06-22T05:46:31.169Z,238.6,Support Services,https://stspg.io/xz01x43bvmj4
+dropbox,qw9qy8ksfzpn,Enterprise console may not be working as expected,minor,resolved,2024-06-18T14:07:22.001Z,2024-06-18T16:18:06.254Z,130.7,Website,https://stspg.io/l63n9b1thtq2
+dropbox,g9p0hvdq1n1k,Degraded experience on mobile Android users,minor,resolved,2024-05-24T00:41:25.442Z,2024-06-07T19:40:50.489Z,21299.4,Mobile Application,https://stspg.io/fcyq6k0vpmlz
+dropbox,cvj5nhhgxghg,Dropbox is not working as expected for some users,minor,resolved,2024-05-30T18:43:52.794Z,2024-05-30T20:15:30.259Z,91.6,Website,https://stspg.io/hjrdhg1r1ghh
+dropbox,rc24b1lgtbr2,Viewing shared links might not be working for some users,minor,resolved,2024-05-29T15:57:14.731Z,2024-05-29T16:24:11.333Z,26.9,Website,https://stspg.io/3x1lr79r2mlx
+dropbox,hxfmj9qrw6qr,Dropbox is not working as expected for some users,minor,resolved,2024-05-28T15:46:25.348Z,2024-05-28T17:14:35.167Z,88.2,Website|Desktop Application|Mobile Application,https://stspg.io/wrfrck9f0645
+dropbox,p03j81xfbzjq,Brief intermittent availability issues,minor,resolved,2024-05-23T10:43:20.572Z,2024-05-23T11:32:02.418Z,48.7,Website|Desktop Application,https://stspg.io/vw6nj6lsjhxx
+dropbox,p6rsv1fgxhsb,Dropbox is not working for some users,minor,resolved,2024-05-17T16:38:59.178Z,2024-05-17T19:08:54.994Z,149.9,Website,https://stspg.io/p7ww33wjrg22
+dropbox,v96m7m80zzws,Single Sign-On (SSO) may not be working as expected,none,resolved,2024-05-14T00:19:56.861Z,2024-05-14T00:19:56.917Z,0.0,Website,https://stspg.io/9v9gjkp0l6lz
+dropbox,plz0zpnzbfpx,Single Sign-On (SSO) may not be working as expected,none,resolved,2024-05-13T15:31:17.312Z,2024-05-14T00:14:10.294Z,522.9,Support Services,https://stspg.io/j3ct8qszfjn3
+dropbox,lx8txvsgp84k,Audit logs may not be working as expected,minor,resolved,2024-04-29T03:30:08.928Z,2024-04-29T04:35:55.804Z,65.8,Website,https://stspg.io/j8nrpzcccs0p
+dropbox,fwxx258qmr7b,Dropbox desktop application may not be working as expected,minor,resolved,2024-04-24T15:30:53.843Z,2024-04-27T01:58:11.435Z,3507.3,Desktop Application,https://stspg.io/hvbw7t602jlj
+dropbox,rdh07wrx06kc,Signatures may not be working as expected for new users,minor,resolved,2024-04-26T13:46:52.241Z,2024-04-26T15:10:51.972Z,84.0,Website,https://stspg.io/b7n7g5xxhtzn
+dropbox,gcy31rpylhdm,Dropbox is not working for some users,minor,resolved,2024-04-25T18:47:31.952Z,2024-04-25T19:13:59.796Z,26.5,Website|Desktop Application|Paper|Replay,https://stspg.io/g5zq433v1f6j
+dropbox,7sw303g0k0pl,Shared sub-content may be inaccessible,minor,resolved,2024-04-24T14:40:21.849Z,2024-04-25T18:18:39.350Z,1658.3,Website,https://stspg.io/450lkgj5g6zv
+dropbox,4j24qkzbqf01,Dash may not be working as expected,minor,resolved,2024-04-24T01:38:32.957Z,2024-04-24T02:30:57.160Z,52.4,Dash,https://stspg.io/1fy2wf3x7km9
+discord,9kp14l66ty8s,Intermittent chat functionality issues,minor,resolved,2026-06-29T11:46:22.622-07:00,2026-06-29T13:24:21.260-07:00,98.0,API,https://stspg.io/kkdbyktwf42v
+discord,rtskh59jhdp2,Activities cannot be launched,major,resolved,2026-06-10T10:15:38.349-07:00,2026-06-10T11:35:12.294-07:00,79.6,,https://stspg.io/sxth7s567by1
+discord,w13pp3bc12v3,All clients may see issues connecting to Discord,major,resolved,2026-06-09T14:24:31.040-07:00,2026-06-09T14:44:14.070-07:00,19.7,Gateway,https://stspg.io/2nt2792k0yg8
+discord,vrdywypml5lf,"API errors affecting message sends, session starts, and billing operations",major,resolved,2026-05-21T18:55:43.997-07:00,2026-05-21T20:39:59.372-07:00,104.3,API,https://stspg.io/5xc5drn5x1p8
+discord,7p0t57ddsbgk,Guild + Session Availability,none,resolved,2026-05-08T23:25:52.281-07:00,2026-05-09T00:01:44.236-07:00,35.9,,https://stspg.io/p9zy8727d9w0
+discord,4hpm4454hxtx,Increased API Errors,major,resolved,2026-05-08T12:08:32.005-07:00,2026-05-08T15:38:17.335-07:00,209.8,,https://stspg.io/yj8w3fd3p7jn
+discord,k42p6rqypf7v,Message Sends affected on certain channels,major,resolved,2026-05-02T10:03:31.594-07:00,2026-05-02T10:29:17.660-07:00,25.8,API,https://stspg.io/p6fddpk44db0
+discord,mjj0126tzs2r,Connection Delays,minor,resolved,2026-04-28T12:20:14.879-07:00,2026-04-28T14:12:03.026-07:00,111.8,Gateway,https://stspg.io/xmt90d9bj9fm
+discord,g904ygw2n408,User Profile Errors,major,resolved,2026-04-18T19:37:27.045-07:00,2026-04-18T20:52:20.329-07:00,74.9,,https://stspg.io/jvy2q3ghtcyn
+discord,947scltt0c6j,Issues with invites,minor,resolved,2026-04-16T12:47:09.573-07:00,2026-04-16T13:30:06.453-07:00,42.9,API,https://stspg.io/ktpv1rcvk1dr
+discord,44jrtg7vmnzx,Embeds not working,minor,resolved,2026-04-06T18:48:05.433-07:00,2026-04-06T19:52:03.247-07:00,64.0,API,https://stspg.io/ll3l61zny6dp
+discord,zsm67cmjp81g,Captchas Not Showing,none,resolved,2026-03-30T22:11:48.484-07:00,2026-03-30T22:36:51.800-07:00,25.1,,https://stspg.io/0lg0s3rbj1cp
+discord,jt67pjfbbs3q,General API errors,major,resolved,2026-03-28T14:23:50.319-07:00,2026-03-28T14:44:16.991-07:00,20.4,API,https://stspg.io/ydgzkcnrmmxx
+discord,9sng5r2j71sq,Issues connecting to Discord,critical,resolved,2026-03-25T12:21:47.075-07:00,2026-03-25T15:38:17.907-07:00,196.5,API|Gateway,https://stspg.io/61fw0d5ddysp
+discord,hm33xk31dk46,Elevated errors for streaming and messaging,minor,resolved,2026-03-25T08:18:46.585-07:00,2026-03-25T08:51:12.759-07:00,32.4,API|Push Notifications,https://stspg.io/fdnrlv6w4jkw
+discord,2vw56wyzvjqn,Failure to start new voice calls,major,resolved,2026-03-19T19:47:07.528-07:00,2026-03-19T22:56:47.669-07:00,189.7,,https://stspg.io/4lq25k7pwl99
+discord,dsv750sj44fn,Applications experiencing 503 errors,major,resolved,2026-03-12T13:50:26.853-07:00,2026-03-12T14:06:00.560-07:00,15.6,,https://stspg.io/lyp50tfbf531
+discord,jxpmdts24t6d,Applications experiencing 503 errors,major,resolved,2026-03-12T14:04:13.338-07:00,2026-03-12T14:04:13.386-07:00,0.0,,https://stspg.io/mznzwkb63ghw
+discord,nhs3zcp3g3j7,Some servers unavailable,major,resolved,2026-03-11T16:07:07.963-07:00,2026-03-11T16:33:11.258-07:00,26.1,Gateway,https://stspg.io/x89wjkrxkyvx
+discord,k22tny62jcw3,A/V E2EE Enforcement for Non-stage Voice Calls,none,resolved,2026-03-02T12:02:15.000-08:00,2026-03-11T10:25:06.008-07:00,12802.9,,https://stspg.io/vwcdsf0ngghc
+discord,clqzb7y8t0r8,Issues sending and loading messages,major,resolved,2026-03-09T10:08:03.357-07:00,2026-03-09T10:58:48.107-07:00,50.7,API,https://stspg.io/y5d4s8y4g5nw
+discord,jvqsklfdcvt8,UK/AU: Issues Completing Age Verification via k-ID,minor,resolved,2026-03-05T19:26:36.000-08:00,2026-03-05T19:49:19.990-08:00,22.7,Desktop|iOS|Android|Web,https://stspg.io/0zdtdpxmmxgl
+discord,f3dxbcrcsysw,Guild Unavailability,major,resolved,2026-03-04T17:37:11.746-08:00,2026-03-04T17:58:07.567-08:00,20.9,,https://stspg.io/k9sdr00kz7sl
+discord,nm7zsjzv8kd2,Continued issues with presence and DM delivery,major,resolved,2026-02-28T13:54:29.000-08:00,2026-02-28T14:54:27.900-08:00,60.0,Gateway,https://stspg.io/0ddnmh6vwg2y
+discord,fvb0y6yp00sn,possible issues with presence and DM delivery,minor,resolved,2026-02-28T06:39:39.835-08:00,2026-02-28T08:37:54.888-08:00,118.3,Gateway,https://stspg.io/x2wy1l9ntk92
+discord,ptxvtqh0kb24,"presence briefly dropped, some DM messages not delivered (refresh to receive them)",none,resolved,2026-02-28T06:00:00.000-08:00,2026-02-28T06:00:00.000-08:00,0.0,,https://stspg.io/yd22g77jf1zp
+discord,3269g35l9mls,Unavailable Servers and Voice Calls,none,resolved,2026-02-27T13:52:42.622-08:00,2026-02-27T14:26:41.734-08:00,34.0,,https://stspg.io/sf8s45bxfxvx
+discord,vh11np1zhfbp,Voice and video errors,major,resolved,2026-01-27T13:23:55.995-08:00,2026-01-27T15:03:12.620-08:00,99.3,,https://stspg.io/87ly25wnrmsr
+discord,r7nw212j7k2m,Failing message sends on some channels,major,resolved,2026-01-24T16:35:07.937-08:00,2026-01-24T22:04:31.034-08:00,329.4,API|Search,https://stspg.io/5gcjghv153m0
+discord,xt705bsck7sk,Investigating slow and failing requests,major,resolved,2025-12-19T14:55:38.534-08:00,2025-12-19T15:23:14.719-08:00,27.6,,https://stspg.io/8rk4c81gvb9g
+discord,l5vl9vchdqy5,Voice issues in some regions,minor,resolved,2025-12-17T09:49:43.930-08:00,2025-12-17T10:09:27.981-08:00,19.7,,https://stspg.io/7nxhvyzk9m28
+discord,rpjs6gtf6qwy,API and Homepage Availability Issues,major,resolved,2025-12-05T01:14:18.956-08:00,2025-12-05T01:22:58.738-08:00,8.7,,https://stspg.io/byf8rg0122cg
+discord,wwprfgd2yl2w,Chat Functionality Degraded In Certain Regions,minor,resolved,2025-12-03T07:53:12.702-08:00,2025-12-03T10:29:26.880-08:00,156.2,,https://stspg.io/lk5wd7l08dv1
+discord,r7919gwty4gc,Connectivity issues,none,resolved,2025-11-18T04:58:36.874-08:00,2025-11-18T11:29:55.840-08:00,391.3,,https://stspg.io/l13s91jskz9n
+discord,7qg3jjsxcv7p,API Availability Issues,major,resolved,2025-11-17T13:57:19.152-08:00,2025-11-17T14:33:45.551-08:00,36.4,API,https://stspg.io/cs9g1z4pd2d9
+discord,5sqkt5xhj2pc,API Availability Issues,major,resolved,2025-11-15T05:42:50.917-08:00,2025-11-15T10:38:02.480-08:00,295.2,,https://stspg.io/6cm6z475f35r
+discord,by04x5gnnng3,Developer Docs Outage,none,resolved,2025-11-12T12:55:21.858-08:00,2025-11-12T14:11:15.508-08:00,75.9,,https://stspg.io/y8zxy6n8j27l
+discord,x7sztj89v9qh,This is a test,minor,resolved,2025-10-23T12:51:22.474-07:00,2025-10-23T12:51:52.650-07:00,0.5,,https://stspg.io/ff577wljnv94
+discord,wjc45hhfps84,Failed Webhook Messages with Attachments,none,resolved,2025-10-09T09:05:51.873-07:00,2025-10-09T09:53:57.503-07:00,48.1,,https://stspg.io/m12rt6wgxtf4
+discord,84nqclp3rtg5,Issues connecting to Voice,major,resolved,2025-10-01T10:30:10.477-07:00,2025-10-01T11:04:49.526-07:00,34.7,Atlanta|Brazil|Rotterdam|Hong Kong|India|Japan|Russia|Singapore|South Africa|South Korea|Sydney|US Central|US East|US South|US West,https://stspg.io/t2f0nqqf1p0p
+discord,91qwn7zg2sts,API availability issues,major,resolved,2025-09-29T13:14:35.836-07:00,2025-09-29T13:44:02.069-07:00,29.4,API,https://stspg.io/2l473mj2q8n4
+discord,8txdt4wws1cl,Leave Server Issues,none,resolved,2025-09-27T15:09:05.375-07:00,2025-09-27T15:42:05.158-07:00,33.0,,https://stspg.io/txdv9b7z33zc
+discord,9bm86bnmfhfr,Guilds Unavailability,critical,resolved,2025-09-08T14:24:33.347-07:00,2025-09-08T16:56:08.204-07:00,151.6,API|Gateway,https://stspg.io/vls8z9z2x0p4
+discord,kj58wct508y0,API availability issue,major,resolved,2025-08-30T05:13:57.189-07:00,2025-08-30T06:32:22.186-07:00,78.4,API,https://stspg.io/wksd7pwgds1r
+discord,8jvrf6155dpc,Server Unavailability,none,resolved,2025-08-27T14:17:26.548-07:00,2025-08-27T14:39:01.865-07:00,21.6,,https://stspg.io/zcmdwk7jgcxc
+discord,tpft9rsmvvqm,Push notifications for muted conversations,none,resolved,2025-08-15T21:58:15.047-07:00,2025-08-16T19:19:35.129-07:00,1281.3,,https://stspg.io/s9t9mq8vpz4f
+discord,kvsqxkhkt72v,Voice/Video Connection Issues,none,resolved,2025-08-15T21:07:23.393-07:00,2025-08-16T00:49:04.700-07:00,221.7,,https://stspg.io/9ppf75lf00y4
+discord,ltwd38nhhvv3,Android Captcha errors,none,resolved,2025-08-14T07:59:11.178-07:00,2025-08-15T13:32:15.000-07:00,1773.1,Android,https://stspg.io/q5z7m9hmygbn
+discord,qnhh31d4f3wp,Android Captcha errors,minor,resolved,2025-08-13T14:22:10.239-07:00,2025-08-14T07:43:44.718-07:00,1041.6,Android,https://stspg.io/wlz2x795zrqd
+discord,shn3xdb3wtrh,Shop Errors,none,resolved,2025-08-08T17:37:44.673-07:00,2025-08-08T18:02:11.526-07:00,24.4,,https://stspg.io/8gynfy71n97f
+linear,01KWD2KQEMX6WZX233SAM02H4N,App not loading for some users in India,major,resolved,2026-06-30T20:12:59Z,2026-06-30T21:44:41Z,91.7,,
+linear,01KVQZ30JD7XNKMC0R6T7SCENW,Some customers experiencing issues with Linear loading and syncing,major,resolved,2026-06-22T15:27:22Z,2026-06-22T18:15:34Z,168.2,,
+linear,01KVQDYBEPPSGGVAQK0RX2JDJR,EU sync delays for some workspaces,minor,resolved,2026-06-22T10:27:44Z,2026-06-22T11:00:58Z,33.2,,
+linear,01KVBWJ7J3EW0QCDPZXC1V61PS,Increased latency while using Linear,minor,resolved,2026-06-17T22:52:22Z,2026-06-17T23:17:21Z,25.0,,
+linear,01KVB8Q3DZ7DHMFZWP0H8SC0CH,Some users may experience errors loading code diffs,minor,resolved,2026-06-17T17:05:30Z,2026-06-17T20:04:16Z,178.8,,
+linear,01KV8FEK30EWG11EGT8EWT8HDC,Some customers seeing delays ,minor,resolved,2026-06-16T15:05:28Z,2026-06-16T21:55:04Z,409.6,,
+linear,01KV5EX5X3NGZ5HS6F7C4ARXKD,Problems with right-clicking or opening context menus on issues,minor,resolved,2026-06-15T10:58:14Z,2026-06-15T11:03:33Z,5.3,,
+linear,01KTPNP4DVS4288KFK4CGVQ1CF,Partial Linear outage,minor,resolved,2026-06-09T17:08:07Z,2026-06-09T17:48:32Z,40.4,,
+linear,01KT9AW539AXRTX9SGH7MEB2AQ,In-App Contact Form experiencing issues,minor,resolved,2026-06-04T12:49:02Z,2026-06-04T15:09:29Z,140.4,,
+linear,01KT6WZ68KGQJMSP0FW2V8MD9S,Linear Agent code intelligence tools failing to run,minor,resolved,2026-06-03T14:07:33Z,2026-06-03T14:19:04Z,11.5,,
+linear,01KSZNXXYD62E02T3ZA83GQ47T,Delays affecting event processing in our US region,none,resolved,2026-05-31T18:49:50Z,2026-05-31T20:03:59Z,74.2,,
+linear,01KSQFMDNVAAWDJPNFRTZ1MCG2,Linear not loading for some users,critical,resolved,2026-05-28T14:25:52Z,2026-05-28T15:22:11Z,56.3,,
+linear,01KSQDB4SE0HF41849GMZARW2A,Asks Email Intake failing,critical,resolved,2026-05-28T13:45:51Z,2026-05-28T14:17:15Z,31.4,,
+linear,01KSFN3TVDAWZVGN319RED8DE5,Resolved - Delayed background processing for some users in EU region,none,resolved,2026-05-25T13:27:44Z,2026-05-25T13:11:00Z,-16.7,,
+linear,01KS7D3X6EJFFPH3TV3CMJM9AR,Resolved: Degraded search quality for some US workspaces,none,resolved,2026-05-22T08:34:03Z,2026-05-22T08:22:00Z,-12.1,,
+linear,01KRZ6CST1RR62T2RYPJ1BXT2H,Investigating delays in background processing,minor,resolved,2026-05-19T04:02:39Z,2026-05-19T04:56:47Z,54.1,,
+linear,01KRYGNQS81MJ4KY2Q1342AYC6,Errors affecting workspaces using cycles,minor,resolved,2026-05-18T21:43:03Z,2026-05-18T21:57:28Z,14.4,,
+linear,01KRKFGCA5G2CWMRC2MR00T2ZV,Degraded Slack integration performance,major,resolved,2026-05-14T14:51:00Z,2026-05-14T15:57:37Z,66.6,,
+linear,01KRECK9Z3ZEWHPVZGC5YHGFKM,Elevated latency affecting updates in Linear,minor,resolved,2026-05-12T15:23:58Z,2026-05-12T15:54:01Z,30.1,,
+linear,01KPTN55N3J510DAASZYY3ZJ2X,Linear agent intermittently unresponsive in Slack,minor,resolved,2026-04-22T13:13:01Z,2026-04-22T13:26:53Z,13.9,,
+linear,01KPR3Z08DB7Y5FBPDMBZYM375,Problems with events and processors in US region,none,resolved,2026-04-21T13:34:05Z,2026-04-21T11:00:00Z,-154.1,,
+linear,01KPP8P51MDZWZ7F87Z6YWRX1T,Delays in SLAs and Linear Agent,major,resolved,2026-04-20T20:18:09Z,2026-04-20T21:58:10Z,100.0,,
+linear,01KP0JZ1D303HFD5X8SADVEQ6W,Problems with events and processors (US East),minor,resolved,2026-04-12T10:14:28Z,2026-04-12T10:27:36Z,13.1,,
+linear,01KNP34FCAE0PBQTJZS45DGE5B,Delay in task processing for some users,minor,resolved,2026-04-08T08:25:25Z,2026-04-08T09:06:58Z,41.5,,
+linear,01KMG93PMHXFW3D404HJB4NNEE,Issue with auto create on new message by Slack workflows,minor,resolved,2026-03-24T15:58:42Z,2026-03-24T20:11:54Z,253.2,,
+atlassian,8xc8jr91pcjh,Issues with 403 user authentication errors across Atlassian products,none,resolved,2025-03-04T07:31:46.048Z,2025-03-04T07:31:46.088Z,0.0,,https://stspg.io/d9vzr30gswqr
+atlassian,kl4d5mfn26kc,Slowness in Jira.,none,resolved,2024-09-02T09:23:21.124Z,2024-09-10T13:15:07.668Z,11751.8,,https://stspg.io/gnd70qwf3n98
+atlassian,m0nz4gbbjmz2,Slow loading times and extended response times for Cloud products in the EU-West region.,none,resolved,2024-09-10T10:26:14.585Z,2024-09-10T12:43:48.654Z,137.6,,https://stspg.io/7kv4zlyf4fmn
+atlassian,d8jljnw353f3,High RDS CPU on multiple environments,none,resolved,2024-09-09T08:56:21.454Z,2024-09-09T18:12:32.915Z,556.2,,https://stspg.io/6w6ly5cgydvz
+atlassian,2rsqj1hmdg82,Data residency migrations halted.,minor,resolved,2024-08-20T11:46:28.000Z,2024-08-23T11:15:08.487Z,4288.7,,https://stspg.io/pd9n7p9p3vb4
+atlassian,2spys43jxslj,Some products are hard down,none,resolved,2024-07-03T20:51:01.430Z,2024-07-04T03:54:28.906Z,423.5,,https://stspg.io/7h7xnnb9dcq5
+atlassian,4dh7m57xqhfq,Some of the www.atlassian.com pages are inaccessible,none,resolved,2024-06-06T01:30:44.228Z,2024-06-06T04:30:02.883Z,179.3,,https://stspg.io/qn6bhjbczv28
+atlassian,gg9z8g8xsxc7,Service Disruptions Affecting Atlassian Products,none,postmortem,2024-02-14T21:57:44.069Z,2024-02-14T23:32:18.665Z,94.6,,https://stspg.io/r4h0jlkc4br7
+atlassian,5187qzxv1zvg,User searches failing,none,resolved,2024-02-07T16:40:28.383Z,2024-02-07T17:44:38.545Z,64.2,,https://stspg.io/nwbhj091jbtg
+atlassian,71sdcbz9gy53,Delayed SCIM provisioning syncs of users and groups from Identity Providers,none,resolved,2024-01-09T22:03:34.293Z,2024-01-12T17:13:28.840Z,4029.9,,https://stspg.io/trcvys1bxjkn
+atlassian,lvq7pq0zbgvr,Atlassian's cross product user search service is currently degraded.,none,postmortem,2023-12-18T15:04:25.450Z,2023-12-19T03:28:15.244Z,743.8,,https://stspg.io/3yxq4k25m6sr
+atlassian,httczs7wslz8,Org admins unable to access User Management,none,resolved,2023-11-22T04:27:42.585Z,2023-11-22T04:27:42.621Z,0.0,,https://stspg.io/27c3y3x0cfz8
+atlassian,3sf6vg9v8nqm,Email domain unverified,major,resolved,2023-10-24T00:22:32.906Z,2023-10-24T10:00:52.049Z,578.3,,https://stspg.io/xlcrsntd8s3p
+atlassian,b2lqb2yxry16,"For a limited number of customers, activation for new products on some tenants is blocked",none,resolved,2023-10-04T14:28:06.493Z,2023-10-04T17:20:32.547Z,172.4,,https://stspg.io/9q0x4gy5g22l
+atlassian,lgl84rzhxd0d,We are experiencing intermittent issues on Atlassian.com and Bitbucket Marketing pages,none,resolved,2023-09-29T16:26:31.000Z,2023-09-29T20:27:18.153Z,240.8,,https://stspg.io/7nk14plf0xcd
+atlassian,4jkh49j0jjh6,Infrastructure outage affecting attachments and Bitbucket Pipelines in all regions,none,resolved,2023-09-15T04:02:24.314Z,2023-09-15T05:19:25.622Z,77.0,,https://stspg.io/s2kkn9vx51tc
+atlassian,vk4mksp2hvj8,"Sign-ups, Product Activation, and Billing not working",none,resolved,2023-08-02T14:25:40.168Z,2023-08-02T15:59:20.026Z,93.7,,https://stspg.io/xq6c1zxx042m
+atlassian,pzh5b8cvfk2g,Performance issues and outages with Cloud products,none,postmortem,2023-07-06T11:18:50.943Z,2023-07-06T15:37:19.645Z,258.5,,https://stspg.io/y73s93jsl9d7
+atlassian,fthwx4svyskf,Sign-up is failing,none,resolved,2022-08-05T06:41:46.349Z,2022-08-05T06:41:46.390Z,0.0,,https://stspg.io/vfl8l062168l
+atlassian,wpphfps5ffpj,Partial app outage across multiple regions,none,resolved,2022-06-22T03:17:07.004Z,2022-06-22T03:33:33.007Z,16.4,,https://stspg.io/g9syxmx696d8
+atlassian,yz4mkc6j501q,Atlassian account session invalidations,none,resolved,2021-04-19T04:32:10.845Z,2021-04-30T01:34:05.130Z,15661.9,,https://stspg.io/ql9jsw73ndfh
+atlassian,r021q1l6nr1r,User Management Syncs are affected across all products,none,resolved,2021-02-12T02:28:07.620Z,2021-02-12T03:13:32.641Z,45.4,,https://stspg.io/tlr74xv5fd4g
+atlassian,wkg98r6wc1b5,Login / Signup with Microsoft not working,major,resolved,2020-09-28T23:39:35.045Z,2020-09-29T01:03:24.701Z,83.8,,http://stspg.io/n55q9mvx3w62
+atlassian,85fh4cc7749r,Increased latency in user searches,none,resolved,2020-01-22T22:19:48.395Z,2020-01-22T23:11:44.151Z,51.9,,http://stspg.io/c641pfy1nrg6
+atlassian,kw28xr3wyxmq,Intermittent DNS Resolution Errors,none,resolved,2019-10-22T22:32:42.112Z,2019-10-23T04:02:08.499Z,329.4,,http://stspg.io/e1be96263
+atlassian,skl1wrm8z4yd,Major outage affecting all purchasing systems,none,resolved,2019-09-30T17:40:32.830Z,2019-09-30T19:37:26.857Z,116.9,,http://stspg.io/91e56f832
+atlassian,dd0svkqq6dwg,Issues displaying avatars,none,resolved,2019-09-10T10:05:23.447Z,2019-09-10T11:45:48.611Z,100.4,,http://stspg.io/3961cf9c1
+atlassian,gzrclxcqvdsp,"Increased error rate in US East for Atlassian Jira, Confluence and Access customers",none,resolved,2019-07-15T15:42:29.613Z,2019-07-15T17:08:58.823Z,86.5,,http://stspg.io/85a9f9caa
+atlassian,w81fyrpz5qcl,App switcher not loading in Jira and Confluence for some customers,major,resolved,2019-07-01T09:03:21.600Z,2019-07-01T11:03:40.319Z,120.3,,http://stspg.io/d2bfd779a
+atlassian,sqq15l5bd34s,Atlassian Cloud email notifications issue,major,resolved,2019-06-19T12:00:14.371Z,2019-06-20T12:39:11.020Z,1478.9,,http://stspg.io/d5b25c71b
+atlassian,7tmh679kh794,Jira sidebar colour is not changing base on configuration,none,resolved,2019-05-21T09:53:42.330Z,2019-05-21T09:53:42.382Z,0.0,,http://stspg.io/60b483de7
+atlassian,3p4zfxggg0vv,Atlassian Cloud users experiencing outages,critical,resolved,2019-05-14T08:57:38.614Z,2019-05-14T11:04:20.413Z,126.7,,http://stspg.io/9c0c8c681
+atlassian,dgsyrnqfr2r0,Jira Users Receiving HTTP 500 Errors,major,resolved,2019-05-10T14:10:29.132Z,2019-05-10T14:37:03.785Z,26.6,,http://stspg.io/cb7cd57ba
+atlassian,mx1wvlvbw23y,Jira Imports are Failing,major,resolved,2019-05-07T07:30:37.229Z,2019-05-07T09:45:37.229Z,135.0,,http://stspg.io/06e0ed12a
+reddit,kynnbfzr4psn,Investigating elevated errors and issues loading comments,none,resolved,2026-05-20T13:58:02.553-07:00,2026-05-20T14:57:01.592-07:00,59.0,Desktop Web|Mobile Web|Native Mobile Apps|Comment Processing,https://stspg.io/tz3x22ht1rl0
+reddit,rj9mggtc19wf,Investigating elevated site errors and issues accessing media,minor,resolved,2026-05-18T10:39:06.058-07:00,2026-05-18T14:04:28.113-07:00,205.4,Desktop Web|Mobile Web|Reddit Media Storage|Native Mobile Apps,https://stspg.io/knd65sxh4xxx
+reddit,k9ycmsw7k868,AWS availability causing degradation in user experiences for various services,minor,resolved,2026-05-07T17:47:39.533-07:00,2026-05-11T07:26:42.038-07:00,5139.0,Desktop Web|Reddit Ads|Mobile Web,https://stspg.io/ybtylr9g2ttj
+reddit,4xtn9kzpw2v8,Search experience and subreddit experience is degraded,none,resolved,2026-05-05T16:44:02.922-07:00,2026-05-05T17:18:23.510-07:00,34.3,,https://stspg.io/t0hgs786hfqz
+reddit,wt5dz5yw7501,Issues with reporting,major,resolved,2026-04-30T12:32:29.350-07:00,2026-04-30T13:09:45.717-07:00,37.3,Desktop Web|Mobile Web|Native Mobile Apps,https://stspg.io/xb5skmy2k2k5
+reddit,3g8rl4wh1vy3,Elevated Site Errors,none,resolved,2026-04-07T13:18:53.598-07:00,2026-04-07T13:54:28.623-07:00,35.6,,https://stspg.io/jlrlrykck5gd
+reddit,qpwpll5pmvkz,Elevated site Errors,major,resolved,2026-04-06T11:49:51.015-07:00,2026-04-06T12:57:56.645-07:00,68.1,Reddit Infrastructure,https://stspg.io/qn572vkljlg6
+reddit,2vjc8h5hrrq5,Degraded performance for reddit.com,major,resolved,2026-03-03T16:35:10.545-08:00,2026-03-03T16:46:56.019-08:00,11.8,,https://stspg.io/r3qtn0n6yvbg
+reddit,kcnnpj79625y,Elevated Errors,none,resolved,2026-01-18T13:33:14.290-08:00,2026-01-18T13:44:11.934-08:00,11.0,Desktop Web|Reddit Infrastructure|Mobile Web|Native Mobile Apps,https://stspg.io/3yg99dzq3rwt
+reddit,brsn0q8r649z,Increased error rates across the site,major,resolved,2026-01-16T16:20:31.666-08:00,2026-01-16T19:37:58.779-08:00,197.5,Desktop Web|Mobile Web|Native Mobile Apps|Comment Processing,https://stspg.io/dkfn5906f13c
+reddit,j9smpl5kwyl5,Investigating elevated errors across reddit.com and native apps,minor,resolved,2026-01-13T09:01:09.468-08:00,2026-01-13T10:04:17.556-08:00,63.1,Desktop Web|Native Mobile Apps,https://stspg.io/hztf5ylc19sz
+reddit,pxtc317vq3qj,Video posts are not displaying correctly,minor,resolved,2025-12-18T14:49:44.000-08:00,2025-12-18T17:00:31.380-08:00,130.8,Desktop Web|Mobile Web|Native Mobile Apps,https://stspg.io/wknmsvcm18rl
+reddit,5n62vhqm9lch,Elevated errors,major,resolved,2025-12-09T10:28:59.031-08:00,2025-12-09T11:02:48.187-08:00,33.8,Desktop Web|Mobile Web|Native Mobile Apps,https://stspg.io/8hv39k9pq6lv
+reddit,sdww9r6lj44m,Elevated errors,minor,resolved,2025-12-08T21:05:51.809-08:00,2025-12-08T22:01:28.898-08:00,55.6,Desktop Web|Mobile Web|Native Mobile Apps,https://stspg.io/541210yyt514
+reddit,zc6wxh76w04b,iOS Push Notifications Not Working,minor,resolved,2025-11-30T10:48:04.145-08:00,2025-11-30T15:59:47.049-08:00,311.7,Native Mobile Apps,https://stspg.io/g9w18j74d4t0
+reddit,n1b0mjmndf4g,Increased error rates on Reddit,minor,resolved,2025-11-04T04:27:32.272-08:00,2025-11-04T05:17:44.301-08:00,50.2,Desktop Web|Mobile Web|Native Mobile Apps,https://stspg.io/dl9yk35p9fxt
+reddit,1hcw0z152lmf,Elevated errors,major,resolved,2025-10-20T03:24:34.863-07:00,2025-10-20T16:09:42.705-07:00,765.1,Desktop Web|Reddit Ads|Mobile Web|Native Mobile Apps|Vote Processing|Comment Processing|Spam Processing|Modmail,https://stspg.io/35q5h490dzvn
+reddit,z6vy1s1vk197,Elevated errors with comments,major,resolved,2025-08-25T16:15:21.263-07:00,2025-08-25T16:55:50.502-07:00,40.5,Desktop Web|Mobile Web|Native Mobile Apps|Vote Processing|Comment Processing|Spam Processing|Modmail,https://stspg.io/cmhyj10w6qh2
+reddit,08gt8gfb906r,Elevated errors with comments,major,resolved,2025-07-16T16:16:22.979-07:00,2025-07-16T22:42:55.204-07:00,386.5,Desktop Web|Mobile Web|Native Mobile Apps|Comment Processing,https://stspg.io/z604tjgt33rc
+reddit,70ytfyybg2w7,Investigating elevated site errors,major,resolved,2025-07-16T08:52:06.845-07:00,2025-07-16T09:38:22.572-07:00,46.3,Desktop Web|Mobile Web|Native Mobile Apps,https://stspg.io/g09kw42f8b8n
+reddit,cdq28049xp12,Elevated Errors,none,resolved,2025-06-19T11:24:28.068-07:00,2025-06-19T12:21:45.027-07:00,57.3,,https://stspg.io/k0z4vddx0sst
+reddit,t740dtmtb2z2,Elevated errors,critical,resolved,2025-06-03T12:00:27.814-07:00,2025-06-03T12:29:43.399-07:00,29.3,,https://stspg.io/y3tc4lklvbrh
+reddit,t2bmz821sqpm,Errors viewing image posts on mobile clients,major,resolved,2025-05-28T10:07:19.138-07:00,2025-05-28T10:59:54.441-07:00,52.6,Native Mobile Apps,https://stspg.io/twzf7c6bvy4k
+reddit,6d1m99b88gnt,Elevated Errors,major,resolved,2025-05-16T15:47:35.882-07:00,2025-05-16T16:53:40.194-07:00,66.1,,https://stspg.io/2k2p5rjz1bb4
+reddit,tzw7yxwqp6kb,Chat - elevated errors,major,resolved,2025-04-30T05:58:24.030-07:00,2025-04-30T06:34:21.852-07:00,36.0,Desktop Web|Native Mobile Apps,https://stspg.io/rg45tw858zl7
+reddit,f8tm205kh3y9,Investigating elevated site errors,major,resolved,2025-04-21T08:52:41.032-07:00,2025-04-21T09:21:25.414-07:00,28.7,Desktop Web|Native Mobile Apps,https://stspg.io/v12k0lfcg8k5
+reddit,1fy8bll7qjms,Missing Action Buttons For Moderators,minor,resolved,2025-04-02T12:20:27.935-07:00,2025-04-02T14:31:28.704-07:00,131.0,Desktop Web|Native Mobile Apps,https://stspg.io/hh9p3mt54lc4
+reddit,rvrpcx0smnh8,Degraded performance for reddit.com,none,resolved,2025-03-27T12:16:10.741-07:00,2025-03-28T03:54:46.289-07:00,938.6,Reddit Infrastructure,https://stspg.io/yzxl89065x2m
+reddit,6bkg7hsl8zf3,Degraded performance for comments,minor,resolved,2025-03-25T10:06:01.809-07:00,2025-03-25T12:30:39.311-07:00,144.6,Desktop Web|Mobile Web|Native Mobile Apps,https://stspg.io/2pcrhmm8kwx5
+reddit,t5ck4dt7pj31,Elevated Errors,minor,resolved,2025-03-24T14:29:18.732-07:00,2025-03-24T14:52:56.216-07:00,23.6,Comment Processing,https://stspg.io/dh83qzxbwm6h
+reddit,f40dgv6fr8qk,Delayed Comments,major,resolved,2025-03-01T03:01:54.607-08:00,2025-03-01T04:34:43.427-08:00,92.8,Comment Processing,https://stspg.io/vrsjv66s3r21
+reddit,g01bn6vpj1l5,Elevated Errors,none,resolved,2025-02-24T10:37:31.384-08:00,2025-02-24T11:54:48.855-08:00,77.3,,https://stspg.io/j2ytbg4fzy9w
+reddit,s9szfhh4bqb9,Elevated Errors,major,resolved,2025-02-21T16:58:40.355-08:00,2025-02-21T18:47:36.605-08:00,108.9,,https://stspg.io/v893trmszpsv
+reddit,hys0bz1hfyld,Increase in errors,none,resolved,2025-02-18T14:17:31.460-08:00,2025-02-18T14:57:28.802-08:00,40.0,,https://stspg.io/w0k76ynlv00k
+reddit,mlt4ymb57c3c,Site issues,none,resolved,2025-01-17T01:09:10.522-08:00,2025-01-17T02:36:36.340-08:00,87.4,Desktop Web|Mobile Web|Native Mobile Apps,https://stspg.io/hnmh8j3fzrk4
+reddit,y0gsrfy6dfrz,Degraded performance for reddit.com,minor,resolved,2024-11-21T07:51:25.825-08:00,2024-11-21T08:19:01.711-08:00,27.6,Desktop Web|Mobile Web|Native Mobile Apps,https://stspg.io/r0620mjf7cf6
+reddit,xrnjyrbj4t2m,Degraded performance for reddit.com,minor,resolved,2024-11-20T12:38:08.155-08:00,2024-11-20T20:08:02.219-08:00,449.9,Desktop Web|Mobile Web|Native Mobile Apps|Comment Processing|Spam Processing,https://stspg.io/7d8bsr0ztrzm
+reddit,4tr89ms0r453,Degraded performance for reddit.com,major,resolved,2024-11-05T20:07:09.645-08:00,2024-11-06T05:00:05.539-08:00,532.9,Desktop Web|Mobile Web|Native Mobile Apps|Vote Processing,https://stspg.io/c73b3f7dwr7q
+reddit,cc12j3tshch8,Web performance degraded,none,resolved,2024-10-14T01:12:39.662-07:00,2024-10-14T08:33:33.588-07:00,440.9,,https://stspg.io/t4k2g11s3jwx
+reddit,cjzbd0ksrkqx,Degraded Performance for reddit.com,minor,resolved,2024-09-19T12:15:14.738-07:00,2024-09-19T13:22:16.043-07:00,67.0,Native Mobile Apps|Vote Processing|Comment Processing,https://stspg.io/sx8mrtj5t1bx
+reddit,t8b942dzrwh1,Degraded Performance for reddit.com,critical,resolved,2024-08-28T13:16:34.656-07:00,2024-08-28T14:16:47.180-07:00,60.2,Desktop Web|Mobile Web|Native Mobile Apps|Vote Processing|Comment Processing|Spam Processing|Modmail,https://stspg.io/tb3n3yc1jgzn
+reddit,v3twwbc6srn5,Degraded Performance for reddit.com,minor,resolved,2024-08-13T13:51:45.896-07:00,2024-08-13T15:02:00.598-07:00,70.2,Desktop Web|Reddit Ads|Mobile Web|Native Mobile Apps,https://stspg.io/frgbt2k27fn6
+reddit,vj1wzh4m7f6n,Some subreddits/posts are failing to load,minor,resolved,2024-08-06T11:36:21.022-07:00,2024-08-06T12:27:50.109-07:00,51.5,Desktop Web|Mobile Web|Native Mobile Apps,https://stspg.io/j0ynh7xlf55n
+reddit,4c1vjlptgddq,Comment Processing is Delayed,major,resolved,2024-07-13T17:24:33.947-07:00,2024-07-13T18:51:41.271-07:00,87.1,,https://stspg.io/p3cg67mx46wf
+reddit,kg3dvmrr1gs4,Elevated API Errors,minor,resolved,2024-07-08T11:43:24.951-07:00,2024-07-08T12:54:51.736-07:00,71.4,Desktop Web,https://stspg.io/3nwx9gzth2g7
+reddit,wdhk0802p7sc,Comment tree processing is delayed,major,resolved,2024-06-27T19:17:49.000-07:00,2024-06-27T22:05:01.719-07:00,167.2,Comment Processing,https://stspg.io/w0cxc254zl4k
+reddit,grx0wwqcq22b,Issues with new post creation,minor,resolved,2024-05-16T13:12:55.521-07:00,2024-05-16T13:43:37.927-07:00,30.7,Desktop Web|Mobile Web|Native Mobile Apps,https://stspg.io/zkpqc3lswrsf
+reddit,mtfmwh87wfr9,Post Detail Issues,minor,resolved,2024-05-03T12:46:16.431-07:00,2024-05-03T14:27:30.936-07:00,101.2,Desktop Web|Mobile Web|Comment Processing,https://stspg.io/72xqvd374cc3
+reddit,g5gvrxbzdqws,Images (gifs) and Media uploading and creation within Chat is degraded,none,resolved,2024-04-30T15:36:33.380-07:00,2024-05-01T14:47:54.603-07:00,1391.4,,https://stspg.io/1tqmng0k5s9x
+reddit,014dkyf9dqfl,elevated error rates on many frontends #8256,none,resolved,2024-04-25T09:52:38.227-07:00,2024-04-25T10:42:20.164-07:00,49.7,Desktop Web|Reddit Ads|Mobile Web|Native Mobile Apps|Vote Processing|Comment Processing,https://stspg.io/581xd6l0gzkj
+openai,01KW2E6W0503W4NXJNCVAG8V6T,Codex Usage Limits Depleting Faster Than Expected,minor,resolved,2026-06-26T17:04:02Z,2026-06-29T17:06:33Z,4322.5,,
+openai,01KWDW344V7XWEQERJSEW62W57,"Codex, workspace analytics, conversation search, searching for custom GPTs, ChatGPT user invites, and Compliance Log Platform download endpoint not working in FedRAMP workspaces",minor,investigating,2026-07-01T03:38:18Z,,,,
+openai,01KW5HJAH5X1A2V62HP4ZST1V7,Issues with ChatGPT Windows desktop app,minor,resolved,2026-06-27T22:00:26Z,2026-06-28T03:29:18Z,328.9,,
+openai,01KV6NGBYE50GK3TRXHD2EMTXA,FedRAMP workspaces and API orgs have degraded performance,minor,resolved,2026-06-15T22:12:49Z,2026-06-26T23:07:55Z,15895.1,,
+openai,01KVZRA3Z551H993JHJ9P2TW9E,Small Number of Users Have Incorrectly Cancelled Subscription,minor,resolved,2026-06-25T16:02:50Z,2026-06-26T02:18:06Z,615.3,,
+openai,01KVYNAMMJ7AMF94YBECG6JG6Q,Users may encounter issues using access token with Codex,minor,resolved,2026-06-25T05:51:27Z,2026-06-25T11:03:38Z,312.2,,
+openai,01KVW3CQQ51SWCV4A1SWA6ATVM,gpt-4o-mini high error rate,minor,resolved,2026-06-24T05:59:33Z,2026-06-24T06:07:32Z,8.0,,
+openai,01KVTDW6E1PXBTY2A9XEBT4MY4,Users may experience elevated errors in ChatGPT uploading and downloading files ,major,resolved,2026-06-23T14:24:16Z,2026-06-23T16:38:19Z,134.1,,
+openai,01KVEZD06ZFM2CMDZQMQYDV9RK,chatgpt.com access issues,minor,resolved,2026-06-19T03:39:40Z,2026-06-19T05:23:27Z,103.8,,
+openai,01KVCZ38K0RJZTSX7Y70RQMV2D,SSO login errors for some ChatGPT Enterprise workspaces,minor,resolved,2026-06-18T08:55:52Z,2026-06-18T11:55:12Z,179.3,,
+openai,01KVCC8P5XTCA7H7W7E6A2MYJS,ChatGPT failing to load or save,minor,resolved,2026-06-18T03:26:46Z,2026-06-18T03:55:02Z,28.3,,
+openai,01KVB9JAB1PP9GS4A6AZ52TT5Y,Errors with conversations on Android and iOS devices,major,resolved,2026-06-17T17:20:22Z,2026-06-17T18:23:18Z,62.9,,
+openai,01KV7ZT644J4V94GSXMFPY2ANR,"Codex ""Selected Model is at Capacity"" Error",minor,resolved,2026-06-16T10:32:11Z,2026-06-16T13:48:12Z,196.0,,
+openai,01KV6W1JX2T4T1455777Q1R2W5,Users may experience issue with Codex Cloud tasks,minor,resolved,2026-06-16T00:07:04Z,2026-06-16T00:55:57Z,48.9,,
+openai,01KV67B3HB2B6JKHAMHCCYS0KZ,OAuth Account Creation / Login Error,minor,resolved,2026-06-15T18:05:16Z,2026-06-15T20:12:26Z,127.2,,
+openai,01KTWCER83NNKE698QXNXJG11M,Elevated 431 Errors,minor,resolved,2026-06-11T22:22:14Z,2026-06-12T00:47:57Z,145.7,,
+openai,01KTW7QY5W9DDYT0ETXX6MPVSY,Elevated error rates for GPT 5.5 in Codex,minor,resolved,2026-06-11T20:59:52Z,2026-06-11T22:28:09Z,88.3,,
+openai,01KTVCFSN91M935M3MD3Z9W7C9,Disruption in service availabilty for Free and Go users,minor,resolved,2026-06-11T13:03:34Z,2026-06-11T14:04:45Z,61.2,,
+openai,01KTHRCXQCANBBY5JTGEQ1XTPK,Disruption in service availabilty for Go users,minor,resolved,2026-06-07T19:19:19Z,2026-06-07T19:25:47Z,6.5,,
+openai,01KTHA1XMAS77H4GMQBKSNPK71,Disruption in service availabilty for Free and Go users,minor,resolved,2026-06-07T15:08:38Z,2026-06-07T18:06:11Z,177.6,,
+openai,01KTBZDS20E3PZ53DH2SCKXN49,Some users may experience issues accessing OpenAI accounts,none,resolved,2026-06-05T13:26:40Z,2026-06-05T16:09:19Z,162.7,,
+openai,01KTCF0M9HQ04JB48EXMMJVX5J,Voice mode availability impacted,minor,resolved,2026-06-05T17:59:06Z,2026-06-05T19:04:32Z,65.4,,
+openai,01KTC44AD7928NC4HHQWW9XE5F,Users unable to sign in using Microsoft personal accounts,minor,resolved,2026-06-05T14:48:53Z,2026-06-05T15:58:28Z,69.6,,
+openai,01KTC1ZHEQGEYJR6W372KNW3WF,Elevated error rates for Free users in conversations,minor,resolved,2026-06-05T14:11:19Z,2026-06-05T15:37:16Z,86.0,,
+openai,01KTA0V0N4KT7VV50DTJZ85XTA,Image API requests failing with 401s,minor,resolved,2026-06-04T19:12:53Z,2026-06-04T19:52:18Z,39.4,,
+digitalocean,rjfr3rbzxlx1,Managed Database Clusters,minor,investigating,2026-07-02T22:04:53.265Z,,,Global|Global,https://stspg.io/rpkck6zr7ht5
+digitalocean,76l7xym7jd5m,Agent Timeouts While Retrieving Data from Knowledge Bases,none,resolved,2026-07-01T06:25:23.501Z,2026-07-02T03:38:53.338Z,1273.5,Agent Runtime|Knowledge Bases,https://stspg.io/sp8b09xxqvjt
+digitalocean,phwpbgwcmkjn,DNS Lookup Failures for Managed Database,minor,resolved,2026-07-01T11:35:28.934Z,2026-07-01T16:28:25.933Z,292.9,FRA1|FRA1|DNS,https://stspg.io/r6yw4xc720r8
+digitalocean,8mvnl6s4cmdt,Droplet Resize,none,resolved,2026-07-01T11:13:21.135Z,2026-07-01T13:28:10.841Z,134.8,Cloud Control Panel,https://stspg.io/m6y2gmlz3jrv
+digitalocean,m2shb5ks2rml,Droplet Backup Service,none,resolved,2026-06-27T18:24:25.041Z,2026-06-27T18:24:25.102Z,0.0,Global,https://stspg.io/djw8kv2yfvcd
+digitalocean,psk2b3pgbblq,Anthropic Inference Model Availability,none,resolved,2026-06-27T04:43:29.854Z,2026-06-27T05:15:38.421Z,32.1,Inference,https://stspg.io/s2bx05f4wxkb
+digitalocean,nqkv7bnzr4l3,Monitoring Graphs in the Cloud Control Panel,minor,resolved,2026-06-19T14:00:32.960Z,2026-06-19T16:37:38.303Z,157.1,Global,https://stspg.io/8jy6pdvsszwm
+digitalocean,bfsh34myw3bc,Intermittent 500 Errors on Serverless/GenAI Inference API,none,resolved,2026-06-16T22:00:52.000Z,2026-06-17T00:29:42.280Z,148.8,Inference,https://stspg.io/40ln0gl1x56j
+digitalocean,505mwh53nwl2,"DeepSeek V4 Pro is returning HTTP 429 ""Rate limit exceeded""",major,resolved,2026-06-11T14:24:20.851Z,2026-06-11T17:42:05.051Z,197.7,Model Services,https://stspg.io/r8mzkb94pf9g
+digitalocean,nnt4rfbgn1y6,DNS API Service,minor,resolved,2026-06-04T10:12:10.120Z,2026-06-04T11:47:05.272Z,94.9,Global|Global|Global|DNS,https://stspg.io/c9tgc3txntpg
+digitalocean,y3p9v8vm4tfn,App Platform Deployments,minor,resolved,2026-05-29T00:14:19.240Z,2026-05-29T07:58:23.373Z,464.1,Global,https://stspg.io/c5cpdwx9rc37
+digitalocean,55wh1mbv7vbs,Cloud Firewall,minor,resolved,2026-05-20T12:08:27.021Z,2026-05-20T13:03:09.605Z,54.7,Cloud Firewall,https://stspg.io/5dzt41b39qvv
+digitalocean,sv0tfb6jhqz8,Cloud Firewall,minor,resolved,2026-05-20T05:35:48.457Z,2026-05-20T07:48:14.980Z,132.4,Cloud Firewall,https://stspg.io/6y9xmwmgkyy4
+digitalocean,spgd2scvttth,Block Storage Volume Performance,minor,resolved,2026-05-20T01:05:16.154Z,2026-05-20T05:13:50.000Z,248.6,NYC3,https://stspg.io/1cr62wpw64kx
+digitalocean,lrrw084g3whn,Anthropic reported outage that's impacting access to their Serverless Inference models,major,resolved,2026-05-15T01:21:51.685Z,2026-05-15T02:00:39.064Z,38.8,Agent Runtime,https://stspg.io/d47rft5t1t68
+digitalocean,gwgh41d5r0nz,"DNS service, Certificates and Managed MongoDB",minor,resolved,2026-05-14T13:57:38.574Z,2026-05-14T20:46:40.334Z,409.0,Global|DNS,https://stspg.io/r6dtr7gc9pch
+digitalocean,bnq93nhgvtm6,GradientAI: Agent Platform Playground Interaction Errors,major,resolved,2026-05-12T10:24:07.025Z,2026-05-12T11:37:12.000Z,73.1,Agent Runtime,https://stspg.io/ll1m0fw2m4g9
+digitalocean,7hb39w1wzmwf,Control Panel Errors - Unable to Enable 2FA and Google/GitHub,minor,resolved,2026-05-09T11:15:11.260Z,2026-05-09T14:42:15.691Z,207.1,Cloud Control Panel,https://stspg.io/tyb995vv9ykq
+digitalocean,p3zyn7c4jyx7,Let's Encrypt Outage Affecting Certificate Issuance and Managed Databases Operations,minor,resolved,2026-05-08T20:46:22.108Z,2026-05-08T21:54:44.593Z,68.4,Global|Global|Global|Global|Global,https://stspg.io/rw9m9n69q6tg
+digitalocean,h9t3sfjx36l3,Multiple Services in NYC2,minor,resolved,2026-05-08T18:01:42.481Z,2026-05-08T19:59:48.942Z,118.1,API|New York|NYC2|NYC2|NYC2|NYC2,https://stspg.io/tb7f2ntnj8hm
+digitalocean,z5fjzx3kp16z,Elevated 5xx “context canceled” errors impacting serverless inference,minor,resolved,2026-04-28T13:45:20.299Z,2026-04-28T19:33:38.769Z,348.3,Agent Runtime,https://stspg.io/qf13crcjzkmn
+digitalocean,5gsk0hfctqp5,Serverless Inference - Intermittent Rate Limiting Affecting Some Customers Using Anthropic Models,major,resolved,2026-04-27T10:38:30.000Z,2026-04-27T11:37:36.467Z,59.1,Agent Runtime,https://stspg.io/y8cgtdqrkct1
+digitalocean,1y9gxbdcqb71,Intermittent errors impacting some Serverless Inference models in ATL1,minor,resolved,2026-04-23T22:26:34.000Z,2026-04-23T23:51:58.178Z,85.4,Agent Runtime,https://stspg.io/z4pxt0jh8n97
+digitalocean,2rby4tk1q6mm,App Platform Deployments,minor,resolved,2026-04-23T08:08:37.488Z,2026-04-23T10:09:54.770Z,121.3,Global,https://stspg.io/0rby3knkk6s1
+digitalocean,p1jbzg2bvhj9,Cloud UI for Managed Kubernetes,minor,resolved,2026-04-23T07:01:46.702Z,2026-04-23T08:46:39.799Z,104.9,Global,https://stspg.io/3tff32qrsv77
+digitalocean,zjd34dpv45vr,Cloud Control Panel and API,minor,resolved,2026-04-22T11:06:49.867Z,2026-04-22T11:47:38.128Z,40.8,API|Cloud Control Panel,https://stspg.io/2wd37dxsqcrk
+digitalocean,v6qdbpt1dcd3,DNS Resolution for .co TLD,minor,resolved,2026-04-17T21:22:52.396Z,2026-04-18T14:10:35.084Z,1007.7,DNS,https://stspg.io/2s124dt3v3gl
+digitalocean,8whvfslclskl,Spaces availability in NYC3,none,resolved,2026-04-17T18:27:09.813Z,2026-04-17T18:27:09.864Z,0.0,NYC3,https://stspg.io/nftmlzbn2kd4
+digitalocean,cxh9f0hgw934,Serverless Inference,minor,resolved,2026-04-15T01:07:50.796Z,2026-04-15T02:56:44.874Z,108.9,Agent Runtime,https://stspg.io/yhy97jfdzszn
+digitalocean,4cc9krk5gy9p,App Platform Deployments,none,resolved,2026-04-14T17:57:22.326Z,2026-04-14T17:57:22.367Z,0.0,Global,https://stspg.io/qk6vnqw22fph
+digitalocean,8hj57rv32g6n,Managed Database Resizes,minor,resolved,2026-04-14T12:53:11.314Z,2026-04-14T15:19:38.282Z,146.4,Global|Global,https://stspg.io/v90w741klgft
+digitalocean,wjyr2cz6y3xb,Droplet Availability in All Regions,none,resolved,2026-04-10T20:32:35.032Z,2026-04-10T21:06:25.601Z,33.8,API|Global|Global|Cloud Control Panel,https://stspg.io/nm9g257py11j
+digitalocean,3kr7638lkhy9,Control Plane,none,resolved,2026-04-07T17:49:19.482Z,2026-04-07T17:49:19.537Z,0.0,API|Cloud Control Panel,https://stspg.io/95hk5rhl18dv
+digitalocean,bx60kdvsvtvb,Serverless Inference - High error rates for open source models ( Qwen 3 32B),minor,resolved,2026-04-07T12:49:27.325Z,2026-04-07T15:50:48.300Z,181.3,Agent Runtime,https://stspg.io/k6d360ll8gbm
+digitalocean,grhp94sd84gd,Serverless Inference Issue,minor,resolved,2026-04-06T12:28:01.026Z,2026-04-06T18:02:37.450Z,334.6,Agent Runtime,https://stspg.io/l42s2qz6hz2m
+digitalocean,p3ybkddb3wmm,Gradient AI Platform agents and services Accessibility,major,resolved,2026-03-20T08:50:11.185Z,2026-03-20T14:14:29.007Z,324.3,Agent Runtime,https://stspg.io/4g49pq97jlvn
+digitalocean,lg35bbsgn1cp,App platform seeing delays in deployments across FRA1 region,minor,resolved,2026-03-20T10:32:50.954Z,2026-03-20T12:01:24.265Z,88.6,Frankfurt,https://stspg.io/8rq4jr333wqw
+digitalocean,bx2zgwbwgltm,Gradient AI model availability,minor,resolved,2026-03-17T15:00:37.215Z,2026-03-17T19:49:27.605Z,288.8,Agent Runtime,https://stspg.io/thrrzdr0vm31
+digitalocean,pypzpnnc373w,Cloud Control Panel and API,none,resolved,2026-03-16T17:39:43.829Z,2026-03-16T17:39:43.893Z,0.0,API|Cloud Control Panel,https://stspg.io/whzv0dcwtg2b
+digitalocean,9pns1qlx6hqc,Degraded performance with BYOK Anthropic models,minor,resolved,2026-03-15T02:55:12.418Z,2026-03-15T03:31:58.736Z,36.8,Agent Runtime,https://stspg.io/v93qqgrdwzjb
+digitalocean,0bhc3myf4l0s,Delay in App Platform Deployments,minor,resolved,2026-03-13T21:30:19.813Z,2026-03-14T01:47:40.346Z,257.3,Global,https://stspg.io/h3f4kqpshs3c
+digitalocean,hl6fx4s2ydm1,Newly Created Managed Kubernetes Nodes,minor,resolved,2026-03-13T11:26:31.545Z,2026-03-13T16:35:05.145Z,308.6,Global,https://stspg.io/9lsmtzwwj3yb
+digitalocean,cqn6lrhjd3tr,Ubuntu/Debian Package Mirror Failure,none,resolved,2026-03-09T19:23:11.943Z,2026-03-09T19:23:11.992Z,0.0,Global,https://stspg.io/tn038zv25nk6
+digitalocean,k0cd863c8105,HTTP 522 Error on App Platform,none,resolved,2026-03-06T21:22:49.978Z,2026-03-06T21:22:50.041Z,0.0,Global,https://stspg.io/kjsfg0vqjnth
+digitalocean,8c4s46c9r7m9,App Platform Deployments,minor,resolved,2026-03-05T23:28:24.726Z,2026-03-06T01:12:26.515Z,104.0,Global,https://stspg.io/6k60d4pm3rky
+digitalocean,c7z5d74zrdhp,Internal Load Balancers Connectivity,minor,resolved,2026-03-05T00:23:30.936Z,2026-03-05T01:52:23.806Z,88.9,Global,https://stspg.io/x563tly1pmt3
+digitalocean,7pxx131dr1qt,App Platform Deployments,minor,resolved,2026-02-26T17:14:56.738Z,2026-02-27T04:55:52.123Z,700.9,Global,https://stspg.io/jn5x021ltzds
+digitalocean,1xs8w0shdkh2,Intermittent Errors with Llama 3.3-70B,minor,resolved,2026-02-26T16:00:23.000Z,2026-02-26T22:23:32.306Z,383.2,Agent Runtime,https://stspg.io/x44385wfgfpk
+digitalocean,wcdry38l3ls5,Control Panel Visibility,minor,resolved,2026-02-19T17:34:37.206Z,2026-02-19T18:42:16.710Z,67.7,Cloud Control Panel,https://stspg.io/dhrnpr7qzn1k
+digitalocean,l10ntywl5ssb,Spaces Availability in NYC3,none,resolved,2026-02-16T07:36:35.652Z,2026-02-16T10:58:04.057Z,201.5,NYC3|NYC3,https://stspg.io/s4vz9z8hr3qr
+circleci,82j91239k876,Outage impacting web experience and pipelines starting,critical,resolved,2026-07-02T15:25:28.360Z,2026-07-02T16:44:04.676Z,78.6,Pipelines & Workflows|CircleCI UI,https://stspg.io/n86hwbb1whpc
+circleci,njbxb52z1g1y,Some customers are unable to access their organizations,major,resolved,2026-06-29T10:23:34.607Z,2026-06-29T16:58:09.761Z,394.6,CircleCI UI,https://stspg.io/ty6ll6xj9c18
+circleci,6s53wvppvby5,Xcode 26.6 Demand + Queueing,minor,resolved,2026-06-26T15:00:00.000Z,2026-06-26T15:00:00.000Z,0.0,,https://stspg.io/z1sdwdk27983
+circleci,xyzcdfq55stc,Investigating — Usage API Not Available,minor,resolved,2026-06-25T22:44:15.737Z,2026-06-25T23:03:58.327Z,19.7,,https://stspg.io/0hqc49q254gd
+circleci,gvysjmkf4ct9,Issues with network routing for Mac jobs,major,resolved,2026-06-24T23:13:45.020Z,2026-06-25T03:06:41.792Z,232.9,macOS Jobs,https://stspg.io/mrq29l3fw2cm
+circleci,rp9y8kszn25j,Delays starting Docker jobs,major,postmortem,2026-06-23T18:34:35.096Z,2026-06-23T19:58:24.368Z,83.8,Docker Jobs,https://stspg.io/dw1r4sr0mrtl
+circleci,brp558x5kfn1,Issue authenticating only Bitbucket users,minor,resolved,2026-06-11T21:31:49.306Z,2026-06-12T00:18:31.301Z,166.7,Pipelines & Workflows,https://stspg.io/qjt275qv8plh
+circleci,76fmvjmy0jfx,Issues publishing orbs,minor,resolved,2026-06-10T22:39:15.430Z,2026-06-10T23:07:35.612Z,28.3,CircleCI API,https://stspg.io/zwjbxfw5b7yy
+circleci,lh98c0k4pc1h,Incident with GitHub APIs,minor,resolved,2026-06-10T16:30:49.849Z,2026-06-10T16:41:14.512Z,10.4,GitHub API Requests,https://stspg.io/86hq0zrpf1mp
+circleci,tqh9zwszp05w,Increased 500 Errors on Pipeline and Workflow API Endpoints and UI,minor,resolved,2026-06-09T17:45:04.136Z,2026-06-09T18:43:23.042Z,58.3,CircleCI API|CircleCI UI,https://stspg.io/frwqpjlwzb9r
+circleci,2rhbvp9382px,macOS jobs failing to start,major,resolved,2026-06-07T04:20:18.650Z,2026-06-07T04:44:29.255Z,24.2,macOS Jobs,https://stspg.io/fcqx1c8m4dqx
+circleci,b4jcpwt024vc,Errors on Cloud Docker Pulls,none,resolved,2026-06-02T12:52:06.923Z,2026-06-02T13:11:15.415Z,19.1,Docker Jobs,https://stspg.io/4yrvgyvkfqpy
+circleci,wcsh4hxwkrh7,Mac jobs failing to start,minor,resolved,2026-06-01T01:04:39.220Z,2026-06-01T03:26:10.499Z,141.5,macOS Jobs,https://stspg.io/n3brb41nn16r
+circleci,t7vt8j14jnbg,Mac jobs failing to start,minor,resolved,2026-05-31T18:15:41.770Z,2026-06-01T00:45:07.993Z,389.4,macOS Jobs,https://stspg.io/fd7x5v1g2kw9
+circleci,dqlq3v1q8pvn,Usage API data delayed for 5/28,none,resolved,2026-05-29T14:51:42.399Z,2026-05-29T18:10:15.886Z,198.6,CircleCI API,https://stspg.io/vc8xbt2r7rmw
+circleci,qhxl36d29vfl,Elevated 429 errors pulling from maven central,minor,resolved,2026-05-14T16:49:02.701Z,2026-05-14T19:38:54.325Z,169.9,Docker Jobs|Machine Jobs|macOS Jobs,https://stspg.io/c8h5p945vnkw
+circleci,d4gch9k0tcsq,GitHub incident with Pull Requests,none,resolved,2026-05-06T17:54:34.393Z,2026-05-06T21:26:23.566Z,211.8,GitHub Pull Requests,https://stspg.io/pttscyh3qsv1
+circleci,68kk6515ztfp,Some Pipelines are being lost,major,resolved,2026-05-06T19:42:48.226Z,2026-05-06T20:13:46.165Z,31.0,Pipelines & Workflows,https://stspg.io/m852c4blmtsk
+circleci,mspf5pqp7d42,"Usage API data is delayed for data from yesterday, 4/30. All prior data is available. We are investigating.",none,resolved,2026-05-01T10:04:37.280Z,2026-05-01T14:02:02.849Z,237.4,CircleCI API,https://stspg.io/ld03v9l2cm5c
+circleci,t30mkznmqskh,Jobs using Xcode 14.3.1 on m4pro.large are delayed.,minor,resolved,2026-05-01T10:51:24.148Z,2026-05-01T11:08:22.351Z,17.0,macOS Jobs,https://stspg.io/f6kcq9nb85wt
+circleci,90354ss2tb8t,Build failures Xcode 26.4.0,minor,resolved,2026-04-24T17:25:16.042Z,2026-04-24T18:36:22.290Z,71.1,macOS Jobs,https://stspg.io/c4b1vth00hcg
+circleci,2v2q3ht88fh1,Usage API data delayed this morning,none,resolved,2026-04-18T12:07:48.663Z,2026-04-18T15:05:36.562Z,177.8,CircleCI API,https://stspg.io/h7yfy5vyf3dw
+circleci,l7vz5yr3wrp0,Delays in Workflow and Job data in the Usage API,minor,resolved,2026-04-08T13:20:12.689Z,2026-04-08T20:33:29.716Z,433.3,CircleCI API,https://stspg.io/b6482c23v6nr
+circleci,2l1y8dhrvtzd,Degradation in CircleCI UI elements,major,postmortem,2026-04-06T20:33:28.468Z,2026-04-06T21:12:35.372Z,39.1,CircleCI UI,https://stspg.io/3qm63nb96zjy
+circleci,lxkrhs9rmrxv,Usage API data for 4/1 is incomplete with multiple columns showing null values. Data prior to 4/1 is unaffected. We are investigating.,minor,resolved,2026-04-02T19:19:48.929Z,2026-04-03T02:18:05.030Z,418.3,CircleCI API,https://stspg.io/78v0qz8pybdn
+circleci,hth87g8tfm2y,Some pipelines not triggering due to GitHub API failures,major,resolved,2026-04-01T11:55:06.957Z,2026-04-01T12:23:57.585Z,28.8,Pipelines & Workflows|GitHub API Requests,https://stspg.io/3q4dxfr93jhd
+circleci,g0b66jlry2kf,Pipelines — Workflow Creation Errors and Missing GitHub Status Updates,none,resolved,2026-03-18T16:00:00.000Z,2026-03-18T16:00:00.000Z,0.0,,https://stspg.io/n8qyfjwryytr
+circleci,01zmcr93tysy,Insights API and Dashboard displaying stale data for reporting windows greater than 24 hours,minor,resolved,2026-03-16T03:02:28.023Z,2026-03-16T03:52:47.915Z,50.3,CircleCI Insights,https://stspg.io/hk09l57sybkn
+circleci,v86p9jb46jt1,Unable to view orb list on Organization Settings page,minor,resolved,2026-03-11T01:58:22.909Z,2026-03-11T02:24:16.348Z,25.9,CircleCI API|CircleCI UI,https://stspg.io/q09f0398btms
+circleci,lg8x09p2d2n3,docker not working in cimg:*,minor,resolved,2026-03-02T17:59:14.000Z,2026-03-02T18:21:06.106Z,21.9,Docker Jobs,https://stspg.io/wqmcz2chv2f6
+circleci,r88g618tt765,Degradation in some checkout steps,minor,resolved,2026-02-26T22:50:46.222Z,2026-02-27T00:17:31.594Z,86.8,,https://stspg.io/vmpflb7sk964
+circleci,5xrywvlmqd9b,Sign-In Issue Affecting Email/Password Logins,major,resolved,2026-02-22T17:25:39.000Z,2026-02-22T19:05:41.510Z,100.0,,https://stspg.io/8hdkcgmsfw21
+circleci,6rpnwxd8zbt6,Pipeline UI Degradation and GitHub Checks Delivery,minor,resolved,2026-02-20T16:25:43.668Z,2026-02-20T17:44:25.887Z,78.7,CircleCI UI|Notifications & Status Updates,https://stspg.io/hczpgwq7t5cq
+circleci,8t0k593wrlf1,Bitbucket Organizations unavailable in the CircleCI UI,minor,resolved,2026-02-17T10:30:00.000Z,2026-02-17T10:30:00.000Z,0.0,,https://stspg.io/gm3h5jy39zy6
+circleci,y247jq72y6hn,Delay in Jobs starting,major,resolved,2026-02-10T15:21:51.462Z,2026-02-10T16:13:30.307Z,51.6,Docker Jobs,https://stspg.io/ny6pf64lcx9z
+circleci,0ss2l980mvxx,We are investigating issues with delays in pages loading,major,resolved,2026-02-09T19:48:42.585Z,2026-02-09T20:25:25.555Z,36.7,GitHub Git Operations|GitHub Pull Requests|GitHub Packages|GitHub Webhooks,https://stspg.io/x22vm6cvxqc6
+circleci,d1147yfn3mjr,Delays affecting Linux and Remote Docker jobs,minor,resolved,2026-02-03T17:46:09.335Z,2026-02-03T18:58:08.458Z,72.0,Machine Jobs,https://stspg.io/7wg0xb5q92w0
+circleci,wzg0fsnzs7hq,Email Notifications Delayed,minor,resolved,2026-02-02T20:07:00.941Z,2026-02-02T22:18:54.333Z,131.9,Notifications & Status Updates,https://stspg.io/zt9rrbp005zh
+circleci,zm1hqtf9tmnb,"Job start delays for arm-medium, large, xlarge, 2xl resources",minor,resolved,2026-01-29T19:29:44.085Z,2026-01-29T19:37:12.041Z,7.5,Machine Jobs,https://stspg.io/3yf27f90g95s
+circleci,d08dgsh3gppy,Delays in job start,minor,resolved,2026-01-12T18:08:00.000Z,2026-01-12T18:08:00.000Z,0.0,,https://stspg.io/wthgkjhb1k95
+circleci,wtsg771pdb09,Issues with jobs starting for certain Bitbucket users,minor,resolved,2026-01-08T11:23:57.566Z,2026-01-09T23:25:33.977Z,2161.6,Pipelines & Workflows,https://stspg.io/3vtkgz15bw2c
+circleci,n5xfqggvbrrn,"Higher wait times for Linux, Remote Docker and Mac resource classes",minor,resolved,2025-12-16T21:17:44.121Z,2025-12-16T22:12:19.192Z,54.6,Machine Jobs|macOS Jobs,https://stspg.io/01hpy13pwrpy
+circleci,w2ztzzvzy7pz,"Higher wait times for Linux, Remote Docker and ARM resource classes",none,resolved,2025-12-15T21:30:00.000Z,2025-12-15T21:30:00.000Z,0.0,,https://stspg.io/ts0l56qq6g3z
+circleci,x8k88dhlbxgw,"Usage API Data Unavailable for December 11, 2025",minor,resolved,2025-12-12T17:22:27.474Z,2025-12-12T19:07:37.662Z,105.2,CircleCI Insights,https://stspg.io/dzrfvhfds8qy
+circleci,1fnjbc82yqxy,Issue with Jobs,critical,resolved,2025-12-04T22:53:39.000Z,2025-12-05T00:15:51.914Z,82.2,Docker Jobs|Machine Jobs|macOS Jobs|Windows Jobs,https://stspg.io/d2blzd3f0sqg
+circleci,gk9pcm1jz8s0,MacOS jobs without a resource class set will not run,minor,resolved,2025-12-04T16:04:20.795Z,2025-12-04T17:49:55.683Z,105.6,macOS Jobs,https://stspg.io/22wmv2rvd7ws
+circleci,jq4bgq2sjt1r,Jobs not starting,minor,postmortem,2025-12-03T21:28:46.514Z,2025-12-03T23:48:16.000Z,139.5,Pipelines & Workflows,https://stspg.io/xd1wf6n7f2l4
+circleci,fjpg0vmh476k,Pipelines page not loading - Cont.,minor,postmortem,2025-12-03T21:31:42.724Z,2025-12-03T21:58:54.871Z,27.2,CircleCI UI,https://stspg.io/6z7clblh7wrz
+circleci,kvzp8x242n34,Jobs stuck in running state,minor,postmortem,2025-12-03T16:53:11.000Z,2025-12-03T18:12:05.619Z,78.9,Pipelines & Workflows,https://stspg.io/v139b6wx8ms2
+circleci,21cysyp8d333,Pipelines page not loading,minor,postmortem,2025-12-03T13:37:54.488Z,2025-12-03T15:30:01.541Z,112.1,CircleCI UI,https://stspg.io/2yzf7bqhlwrx
+zoom,qhbttyjdcyqr,Service Degradation Affecting Meta integration for Zoom.,minor,resolved,2026-07-01T23:40:44.096-07:00,2026-07-02T19:35:14.544-07:00,1194.5,"3rd Party Integration Clients (e.g. Salesforce, ServiceNow, Zendesk, Meta)",https://stspg.io/jfj4tcp1jzcx
+zoom,dnx4v772fw50,Service Degradation Affecting Zoom AI Services in Japan.,minor,resolved,2026-07-02T03:23:36.547-07:00,2026-07-02T04:15:58.563-07:00,52.4,Zoom AIC,https://stspg.io/crhm4ymv67qs
+zoom,7724vxk1512s,Service Degradation Affecting Meta integration for Zoom.,minor,resolved,2026-07-01T19:59:40.621-07:00,2026-07-01T21:00:35.470-07:00,60.9,"3rd Party Integration Clients (e.g. Salesforce, ServiceNow, Zendesk, Meta)",https://stspg.io/bb9wp7hwwyk2
+zoom,mnzy8cjs361y,Service Degradation Affecting ZoomMate Schedule Task,minor,resolved,2026-07-01T12:11:23.667-07:00,2026-07-01T12:28:02.380-07:00,16.6,ZoomMate,https://stspg.io/7jysvk0nmp5n
+zoom,rlzh0q260g4q,intermittent Service Degradation Affecting ZoomMate in the US Region.,minor,resolved,2026-06-29T14:14:14.835-07:00,2026-06-29T15:11:33.025-07:00,57.3,ZoomMate,https://stspg.io/hymblx4spy4q
+zoom,ndxjszdjtj0x,Service Degradation Affecting Zoom Voice Agent Service.,minor,resolved,2026-06-28T23:17:29.941-07:00,2026-06-29T01:31:30.741-07:00,134.0,Voice Agent|Chat Agent,https://stspg.io/rfnyb3rm9yfc
+zoom,c97dgv63htkb,Service Degradation Affecting Zoom Phone Inbound calls in US Region,minor,resolved,2026-06-27T06:11:21.722-07:00,2026-06-27T06:41:59.385-07:00,30.6,Calling (Inbound/Outbound),https://stspg.io/bkrmrf1d7x92
+zoom,36hs3bryww30,Service Degradation Affecting Zoom Web Service in Philippines.,minor,resolved,2026-06-24T23:10:36.399-07:00,2026-06-25T04:15:52.038-07:00,305.3,Web Portal,https://stspg.io/lbv6flpjb3d5
+zoom,lqgrnr6k9jld,Service Degradation Affecting Zoom Contact Center Services and Incorrect Offline Status Display for Zoom Rooms Scheduling in U.S Region.,minor,resolved,2026-06-22T23:57:52.000-07:00,2026-06-23T08:45:29.989-07:00,527.6,Zoom Contact Center|Scheduling Displays,https://stspg.io/x2qbghm919rd
+zoom,5m6r9440qkhc,Service Degradation Affected Zoom Contact Center in the US Region.,none,resolved,2026-06-22T10:22:24.437-07:00,2026-06-22T10:39:24.278-07:00,17.0,Zoom Contact Center,https://stspg.io/fqkdm6tlp7d4
+zoom,zht2q38n9rz2,Service Degradation Affecting ZoomMate and Zoom AI services in US Region.,minor,resolved,2026-06-22T09:31:52.756-07:00,2026-06-22T10:33:31.169-07:00,61.6,Zoom AIC|Zoom AIC|ZoomMate,https://stspg.io/kfk0nm53gxgw
+zoom,l2fft0vnwxq5,Service Degradation Affecting Zoom Meetings in US Region,minor,resolved,2026-06-22T07:25:46.052-07:00,2026-06-22T08:16:47.242-07:00,51.0,Zoom Meetings,https://stspg.io/3p0smq9z2jb9
+zoom,pnqq19zb8cvy,"Service Degradation Affecting Zoom Mail, Calendar and Scheduler services in US Region.",minor,resolved,2026-06-21T07:43:23.135-07:00,2026-06-21T15:55:46.923-07:00,492.4,Calendar|Mail|Zoom Scheduler,https://stspg.io/t4tkch9x43sn
+zoom,f0553sqlfyrp,"Service Degradation Affecting Zoom Mail, Calendar and Scheduler services in US Region",minor,resolved,2026-06-21T04:17:48.000-07:00,2026-06-21T05:16:46.001-07:00,59.0,Calendar|Mail|Zoom Scheduler,https://stspg.io/1zdrx4p1ryq8
+zoom,dhb870jxn030,Service Degradation Affecting Zoom Meeting Recordings,minor,resolved,2026-06-15T09:07:24.685-07:00,2026-06-19T21:42:29.292-07:00,6515.1,Recording,https://stspg.io/vqz4rq7xtqb2
+zoom,xt41k7sy4s2m,Incorrect offline status display for Zoom Rooms Scheduling Displays,minor,resolved,2026-06-15T10:05:19.246-07:00,2026-06-15T18:04:58.496-07:00,479.7,Scheduling Displays,https://stspg.io/ysfrxy4q72gt
+zoom,5vv2lq0pfzjp,Service Degradation Affecting Zoom Web AIC Docs creation.,minor,resolved,2026-06-15T04:03:28.268-07:00,2026-06-15T06:07:05.667-07:00,123.6,Zoom AIC,https://stspg.io/jx3zs0rffs2v
+zoom,f0lj585jpfj0,Service Degradation Affecting My Notes,minor,resolved,2026-06-14T21:31:30.000-07:00,2026-06-14T23:35:40.963-07:00,124.2,My Notes,https://stspg.io/1jn4947qlgqx
+zoom,40mfl7h9724g,Service Degradation Affected Zoom Contact Center’s Agent Experience.,none,resolved,2026-06-14T23:02:52.039-07:00,2026-06-14T23:19:10.383-07:00,16.3,Zoom Contact Center,https://stspg.io/rbm9mj3qbmc6
+zoom,hw6b9z9wgvrl,Service Degradation Affecting Zoom Whiteboard and Notes in Saudi Arabia.,minor,resolved,2026-06-12T20:08:29.000-07:00,2026-06-12T20:40:12.624-07:00,31.7,My Notes|Zoom Whiteboard,https://stspg.io/nghdn9ffjgtt
+zoom,4qdtfswjx2z9,Service degradation affecting Learning Center Webpages,minor,resolved,2026-06-11T06:17:47.102-07:00,2026-06-11T06:52:12.933-07:00,34.4,Zoom Learning Center,https://stspg.io/chd8swq8pdlr
+zoom,1qzbf7378jzw,Service Degradation Affecting Zoom Meeting Recordings in Australia and Japan,minor,resolved,2026-06-11T02:23:40.000-07:00,2026-06-11T03:35:53.839-07:00,72.2,Recording,https://stspg.io/glf6g12bkgpf
+zoom,7dkqvzqsy64j,A Subset of users experiencing Issues with Inbound and Outbound Calls for Zoom Phone and Zoom Contact Center in Singapore region,minor,resolved,2026-06-08T01:06:40.796-07:00,2026-06-08T01:55:38.625-07:00,49.0,Calling (Inbound/Outbound)|Voice (Inbound/Outbound),https://stspg.io/1mlk4txvf1ps
+zoom,cnxwr9cbjryf,A small subset of ZCC customers may have experienced inbound call failures in Unites States,none,resolved,2026-06-04T21:36:19.000-07:00,2026-06-04T21:46:25.281-07:00,10.1,Zoom Contact Center|Voice (Inbound/Outbound),https://stspg.io/9xnlksrw8zpf
+zoom,d877fy0zpl77,Service Degradation Affecting Giphy In Zoom Chat and Zoom In-Meeting Chat.,minor,resolved,2026-05-26T11:22:24.698-07:00,2026-06-04T19:44:54.000-07:00,13462.5,Zoom Chat,https://stspg.io/bvv9dk8l438n
+zoom,wbgthk3djvr7,Service Degradation Affecting Slides and Sheets,minor,resolved,2026-06-03T18:12:45.807-07:00,2026-06-03T19:08:15.989-07:00,55.5,Zoom Hub,https://stspg.io/y046h34y6y94
+zoom,hgztq9r8b00x,Intermittent Service Degradation Affecting submitting inquiries through our Contact Sales pages,none,resolved,2026-06-01T08:50:45.289-07:00,2026-06-01T09:47:48.538-07:00,57.1,Zoom Website,https://stspg.io/5sxwvg5h1f8h
+zoom,hr2rj3t7mhh7,Service Degradation Affecting Zoom Support Website,minor,resolved,2026-05-29T10:28:40.058-07:00,2026-05-29T11:52:05.462-07:00,83.4,Knowledge Base|Ticketing,https://stspg.io/svj3n5plh8sh
+zoom,znsy2wk841cz,Service Degradation with Live Transcription and Call Summary in the Australia Region,none,resolved,2026-05-28T18:30:24.000-07:00,2026-05-28T18:41:00.180-07:00,10.6,Live Transcription|Live Transcription|Closed Captioning|Transcription,https://stspg.io/ss9w4vbnhsdc
+zoom,fn20bz2s7g2j,Service Degradation Affecting Zoom AI Companion in United States,none,resolved,2026-05-28T09:00:28.622-07:00,2026-05-28T12:25:31.092-07:00,205.0,Zoom AIC|Zoom AIC,https://stspg.io/x6rq604dcql9
+zoom,bn0l1717v9pk,Service Degradation Affecting Zoom Support Website,minor,resolved,2026-05-28T08:20:46.000-07:00,2026-05-28T09:54:33.631-07:00,93.8,Knowledge Base|Ticketing,https://stspg.io/fb60xmwyt1v3
+zoom,094fjr4jhcjr,"Service Degradation Affecting Zoom Contact Center’s AI Companion, Zoom Virtual Agent's Chat and Voice AI Engagements.",minor,resolved,2026-05-27T08:33:32.000-07:00,2026-05-27T13:28:36.688-07:00,295.1,Voice Agent|Chat Agent|Zoom AIC,https://stspg.io/9lpt770x70ck
+zoom,l756vzbl52tk,Service Degradation Affecting Translations and Transcriptions of Zoom Rooms in Japan Region.,minor,resolved,2026-05-25T03:51:19.000-07:00,2026-05-25T04:37:32.105-07:00,46.2,Zoom Rooms|Translation|Transcription,https://stspg.io/hhw8zr2k6x8m
+zoom,v3f1v15mldyn,Service Degradation Affected Zoom Revenue Accelerator's Outbound Calls in Japan Region.,minor,resolved,2026-05-25T03:59:28.935-07:00,2026-05-25T04:12:03.710-07:00,12.6,Zoom Revenue Accelerator,https://stspg.io/fx841zm33bz3
+zoom,225nzczn6v86,Service Degradation Affecting Web Zoom Mail and Web Calendar Services.,minor,resolved,2026-05-18T11:08:10.892-07:00,2026-05-23T17:08:34.740-07:00,7560.4,Calendar|Mail,https://stspg.io/dgb18wwcrdz1
+zoom,l53sg6rc8skj,Service Degradation affecting Presence Interoperability Feature for a subset of users in North America region,minor,resolved,2026-05-22T12:31:04.143-07:00,2026-05-22T21:15:02.511-07:00,524.0,User Profiles and Presence,https://stspg.io/88pchqty2fvy
+zoom,7f58bvr9wy6l,Intermittent Issue Affecting MMS Inbound and Outbound Service with Zoom Phone and Zoom Contact Center in United States and Canada Regions.,minor,resolved,2026-05-18T20:56:48.754-07:00,2026-05-22T16:27:39.609-07:00,5490.8,SMS/MMS (Inbound/Outbound)|SMS/MMS (Inbound/Outbound),https://stspg.io/9vl3p5sd6nfp
+zoom,b0fdqg9qbphq,Issue Affected Inbound and Outbound Calls with Zoom Contact Center in North America Region.,none,resolved,2026-05-21T09:40:23.000-07:00,2026-05-21T09:52:57.459-07:00,12.6,Voice (Inbound/Outbound),https://stspg.io/72jlw305j6t9
+zoom,1frj41djbrjy,Service Degradation Affecting Zoom Contact Center SMS in US Region,minor,resolved,2026-05-21T01:38:45.230-07:00,2026-05-21T01:49:29.075-07:00,10.7,SMS/MMS (Inbound/Outbound),https://stspg.io/2whzpbw9h4vg
+zoom,gz6q80sjhmmj,Service Degradation affecting multiple Services in the North America region,minor,resolved,2026-05-20T13:33:00.164-07:00,2026-05-20T14:45:05.949-07:00,72.1,"Marketplace|Chatbot|3rd Party Integration Clients (e.g. Salesforce, ServiceNow, Zendesk, Meta)|Zoom Canvas|Zoom Events|Zoom Webinars|Cobrowse|3rd Party Messaging/Social (Inbound/Outbound)",https://stspg.io/5d279rwjngsn
+zoom,78xw6l1k6s63,Service Degradation Affecting a Subset of Users in Web Mail and Calendar,minor,resolved,2026-05-12T16:01:48.966-07:00,2026-05-17T01:39:29.242-07:00,6337.7,Calendar|Mail,https://stspg.io/01qch6vznn5s
+zoom,cgfq4shkv358,"Service Degradation Affecting Zoom Mail, Scheduler and Calendar Services.",minor,resolved,2026-05-16T07:24:02.697-07:00,2026-05-16T09:03:27.082-07:00,99.4,Calendar|Mail|Zoom Scheduler,https://stspg.io/1l6748qmf9qg
+zoom,qd7f1t5hs142,Users may have experienced intermittent issues with accessing the zoom.com homepage.,none,resolved,2026-05-16T00:46:16.180-07:00,2026-05-16T01:02:54.958-07:00,16.6,Zoom Website,https://stspg.io/2srcf6lclrjw
+zoom,g3h9bzm7cqsw,Service Degradation Affecting Inbound and Outbound SMS Messages for a Subset of users in Australia,minor,resolved,2026-05-11T16:19:08.000-07:00,2026-05-11T17:48:12.739-07:00,89.1,Zoom Contact Center|SMS/MMS (Inbound/Outbound)|SMS (Inbound/Outbound),https://stspg.io/22b3qq81d4np
+zoom,5pzjq6bfqx7v,Service Degradation Affecting Zoom Phone and Zoom Contact Center Inbound calls in India,minor,resolved,2026-05-10T23:04:25.486-07:00,2026-05-10T23:45:47.000-07:00,41.4,Calling (Inbound/Outbound)|Voice (Inbound/Outbound),https://stspg.io/z4d74mzd69jn
+zoom,c6774wj54fdc,Service Degradation Affecting Zoom Healthcare Integration in North America Region.,minor,resolved,2026-05-09T03:36:50.000-07:00,2026-05-09T13:53:33.721-07:00,616.7,Integrations/Calendar/Plug-In/Add-In,https://stspg.io/003r50vdq3bd
+zoom,7pxv1zmwq4lm,Service Degradation Affecting Zoom Doc Services in United States,minor,resolved,2026-05-08T07:47:27.387-07:00,2026-05-08T09:29:54.294-07:00,102.4,Zoom Canvas,https://stspg.io/ncmpv3ccw5wn
+zoom,90jlc607j9tk,Zoom Rooms incorrectly showing as offline in dashboard.,none,resolved,2026-05-07T20:38:02.352-07:00,2026-05-07T21:01:33.184-07:00,23.5,Zoom Rooms,https://stspg.io/mp8yz8w8rxy7
+zoom,4fzgzm1vwcz4,Service Degradation Affecting Zoom Clinical Notes in United States,minor,resolved,2026-04-29T08:45:58.979-07:00,2026-04-29T11:56:34.303-07:00,190.6,Clinical Notes,https://stspg.io/cvqxb6v914ym
+zoom,686k5y1vzrhr,Service Degradation Affecting Zoom Services in Canada.,none,resolved,2026-04-27T23:08:40.183-07:00,2026-04-28T00:21:55.824-07:00,73.3,Zoom Meetings|Zoom Phone|Zoom Clips|Zoom Canvas|Zoom Tasks,https://stspg.io/3s0nx4smqmw1
+figma,ddbwz1qj47l1,Figma Make disruption - Gemini 3.1 Pro,none,resolved,2026-06-18T23:46:52.175Z,2026-06-19T12:40:44.690Z,773.9,,https://stspg.io/fmvgg7bp5qdw
+figma,404gg8wp0yzy,Figma Make and Agent Service Disruption,none,resolved,2026-06-16T17:58:30.354Z,2026-06-16T19:41:02.000Z,102.5,,https://stspg.io/rd8sjt1hr61l
+figma,qvxr0g4j6wr7,Figma Make Service Disruption,none,resolved,2026-04-20T06:42:20.620Z,2026-04-20T15:50:45.000Z,548.4,,https://stspg.io/pvch6200yns1
+figma,rqqppqkspl38,Figma Make Service Disruption,none,resolved,2026-04-09T19:00:37.565Z,2026-04-10T16:00:12.983Z,1259.6,,https://stspg.io/pkrvl29jt9bc
+figma,gz35jpkd6g79,Figma Make Publishing Disruption,none,resolved,2026-03-12T14:00:18.239Z,2026-03-12T22:11:36.626Z,491.3,,https://stspg.io/9fbd2khgn1bl
+figma,m9n5ygbwl962,Variant Properties Disruption,none,resolved,2026-03-06T21:40:02.995Z,2026-03-07T18:08:40.390Z,1228.6,,https://stspg.io/frg11pn800ss
+figma,y8pltwjvzwsl,Figma Sites Publishing Disruption,none,resolved,2026-02-17T14:16:20.236Z,2026-02-17T20:00:26.000Z,344.1,,https://stspg.io/1psqkww11d6q
+figma,6r7n9yyrhh7q,Figma Make Publishing Disruption,none,resolved,2026-02-05T19:05:02.279Z,2026-02-06T00:34:43.000Z,329.7,,https://stspg.io/w0vjwkklpzs7
+figma,hvzk9m2f6y9d,Figma Make Publishing Disruption,none,resolved,2026-01-29T19:39:23.797Z,2026-02-02T01:57:54.967Z,4698.5,,https://stspg.io/27pdh3v9dftr
+figma,m0rzwjjq49jm,Figma AI service disruption,none,resolved,2026-01-27T20:01:22.156Z,2026-01-27T23:41:20.554Z,220.0,,https://stspg.io/yj5g95t49xsp
+figma,ws5z74jhgmn3,Figma Make service disruption,none,resolved,2026-01-23T01:05:34.161Z,2026-01-23T17:48:16.913Z,1002.7,,https://stspg.io/f8frwth715qs
+figma,7ywfg7g5vdlf,Figma Make publishing disruption,none,resolved,2026-01-07T18:19:24.835Z,2026-01-07T20:24:58.700Z,125.6,,https://stspg.io/kjw20xkl8lth
+figma,8c2c9s4w0p0k,Figma Make Service Disruption,none,resolved,2025-12-15T17:00:29.000Z,2025-12-15T17:30:21.000Z,29.9,,https://stspg.io/n60bpsw81tdz
+figma,292fckk253km,Service Disruption with Sites and Make,none,resolved,2025-11-18T14:01:25.000Z,2025-11-18T18:04:13.065Z,242.8,,https://stspg.io/6dfvjq02qyph
+figma,gf388g8vqg02,Figma service disruption,minor,resolved,2025-10-20T19:55:45.000Z,2025-10-21T06:53:59.732Z,658.2,Real-time collaboration server|APIs & Web Application,https://stspg.io/6ld891315m8h
+figma,bkpswv5x7pyc,Figma Make service disruption,none,resolved,2025-10-01T21:43:29.345Z,2025-10-02T03:53:08.616Z,369.7,,https://stspg.io/0fjk5k5sbmsy
+figma,hcj9r8n3dmxq,Mobile prototyping disruption for iOS,none,resolved,2025-09-06T03:16:04.407Z,2025-09-06T04:40:57.892Z,84.9,,https://stspg.io/spbp17drm9qz
+figma,148t07f9kf7d,Figma Community Forum Disruption,none,resolved,2025-06-13T16:52:09.831Z,2025-06-13T22:22:49.657Z,330.7,,https://stspg.io/czxxy1hspdvb
+figma,ndhnfhhgyy3f,Figma Publishing Disruption,none,resolved,2025-06-12T18:57:17.526Z,2025-06-12T23:03:45.300Z,246.5,,https://stspg.io/0kvw6gr0t0vn
+figma,pdkflg59v76w,Figma Make Service Disruption,none,resolved,2025-06-05T20:56:29.974Z,2025-06-05T23:31:57.815Z,155.5,,https://stspg.io/tvdczn067r4r
+figma,qklh3rp7sjyw,Service Disruption,none,resolved,2025-04-16T12:46:03.188Z,2025-04-16T13:24:04.140Z,38.0,,https://stspg.io/1vwyxzz4vz7d
+figma,vltfrg01khqg,Service Disruption,none,resolved,2025-04-11T17:53:28.175Z,2025-04-12T00:31:55.363Z,398.5,,https://stspg.io/gj6fgq1qjgrl
+figma,0l58j0l2gwrm,Service Disruption,none,resolved,2025-04-07T16:47:07.527Z,2025-04-08T05:51:16.767Z,784.2,Real-time collaboration server,https://stspg.io/ychfs0lwtx61
+figma,df14rwqk4521,Service disruption affecting Figma users on Chromebooks,none,resolved,2025-02-14T01:30:28.176Z,2025-02-25T16:23:38.346Z,16733.2,,https://stspg.io/24yglsblhry4
+figma,7yjr3b5xb9ct,Service disruption,none,resolved,2025-01-22T17:59:30.241Z,2025-01-22T21:28:01.650Z,208.5,,https://stspg.io/vg7m8bx18vvg
+figma,8rqmk3gvpjmy,Service Disruption,none,resolved,2025-01-22T02:30:00.000Z,2025-01-22T06:30:00.000Z,240.0,,https://stspg.io/0m2m67ng6mk0
+figma,qhvkh7f2gskf,Service disruption,none,resolved,2025-01-08T21:38:49.342Z,2025-01-08T23:07:08.557Z,88.3,,https://stspg.io/1hklh5yw974v
+figma,khz18xjzwg3d,Service disruption,none,resolved,2024-12-03T17:49:31.515Z,2024-12-03T19:22:19.442Z,92.8,,https://stspg.io/sqp46sd1l2q5
+figma,rc9qyvz0kyds,Service disruption,none,resolved,2024-11-28T00:34:41.632Z,2024-11-28T03:50:50.288Z,196.1,,https://stspg.io/fr24sh8tthtf
+figma,qs079s80k9r5,Service disruption,none,resolved,2024-10-08T17:17:42.500Z,2024-10-08T17:28:29.781Z,10.8,,https://stspg.io/d55l3gj1scfm
+figma,h42nwfc7mymr,Service disruption,none,resolved,2024-09-30T16:37:41.000Z,2024-09-30T19:01:26.426Z,143.8,,https://stspg.io/6bf2sxxwnkd5
+figma,yx9dfgjyy8jd,Service Disruption - Degradation in file search results,none,resolved,2024-09-26T17:42:34.392Z,2024-09-26T18:25:36.339Z,43.0,,https://stspg.io/4b4jzq2dz0fx
+figma,70s0lrwdxw5m,Service disruption,major,resolved,2024-09-10T07:57:52.392Z,2024-09-10T11:24:00.978Z,206.1,Real-time collaboration server,https://stspg.io/6zgbj7gjcsl8
+figma,dzqjnn9bg6g9,Service disruption - images not loading,minor,resolved,2024-09-09T22:06:04.278Z,2024-09-09T23:25:56.375Z,79.9,Real-time collaboration server,https://stspg.io/l3ctvp2dy0gn
+figma,6wdtxztlh74l,Service Disruption,minor,resolved,2024-09-09T12:02:28.892Z,2024-09-09T13:30:57.943Z,88.5,Real-time collaboration server,https://stspg.io/ywt47qbwrcsg
+figma,t8pdbxsjx00y,Service disruption,major,resolved,2024-07-22T13:58:30.000Z,2024-07-22T14:58:29.853Z,60.0,Real-time collaboration server|APIs & Web Application|AWS Infrastructure,https://stspg.io/989j7cvwp1m6
+figma,9m39f8b4w5vt,Service disruption,none,resolved,2024-06-10T23:17:45.620Z,2024-06-11T00:20:45.817Z,63.0,AWS Infrastructure,https://stspg.io/l5jyw5tx03qn
+figma,9trc3brlw7kk,Service disruption,none,resolved,2024-05-10T19:27:23.978Z,2024-05-10T19:27:24.006Z,0.0,,https://stspg.io/q51p4kdt3g41
+figma,pvtqh9q3n2lf,Figma experienced some delays in emails sending from Apr 9th to April 15th,none,resolved,2024-04-15T23:31:00.000Z,2024-04-15T23:31:00.000Z,0.0,,https://stspg.io/gfs7x60knlqf
+figma,46nf2pxsfr8k,Service Disruption,none,resolved,2024-02-28T01:33:00.000Z,2024-02-28T01:33:00.000Z,0.0,,https://stspg.io/x4rh1ddm23vs
+figma,6f8ktkwhqyg3,FigJam AI features disruption,minor,resolved,2024-02-14T15:59:04.039Z,2024-02-14T21:03:29.034Z,304.4,APIs & Web Application,https://stspg.io/2xf9d2ttbjxg
+figma,7pv5g1mprtgc,Service disruption,minor,resolved,2023-12-10T04:18:25.632Z,2023-12-10T04:18:33.145Z,0.1,AWS Infrastructure,https://stspg.io/lhgp30237rqm
+figma,0w8vc9q9fz89,Service Disruption,none,resolved,2023-11-21T00:11:16.493Z,2023-11-21T00:11:16.525Z,0.0,,https://stspg.io/sv73xxlpffz1
+figma,6zm2kmz2gwzn,Service disruption,minor,resolved,2023-11-15T20:55:20.342Z,2023-11-15T22:33:27.194Z,98.1,APIs & Web Application,https://stspg.io/p8dtst3kbqs9
+figma,txgmhs9vcvfg,Service disruption,none,resolved,2023-11-15T01:30:00.000Z,2023-11-15T01:30:00.000Z,0.0,,https://stspg.io/5xwgkhzgh5f2
+figma,zg1hmvpnw327,FigJam AI features disruption,none,resolved,2023-11-08T22:43:43.166Z,2023-11-10T06:44:42.135Z,1921.0,APIs & Web Application,https://stspg.io/ddxqlm2sgt35
+figma,xjxdrbxd2njc,FigJam AI features disruption,minor,resolved,2023-11-08T20:15:03.450Z,2023-11-08T20:52:43.072Z,37.7,APIs & Web Application,https://stspg.io/1mfmjc6j57ym
+figma,g30w85xhp8wf,Service disruption,major,resolved,2023-10-16T18:53:01.775Z,2023-10-16T20:04:55.950Z,71.9,APIs & Web Application,https://stspg.io/r6mq6kzq97gl
+figma,jr6gnp0ptnnr,Service disruption,none,resolved,2023-10-14T14:00:00.000Z,2023-10-14T14:00:00.000Z,0.0,,https://stspg.io/j4ln1zy9y8gl
+figma,wr8qn2vjrtl0,Service disruption,none,resolved,2023-10-11T20:30:00.000Z,2023-10-11T20:30:00.000Z,0.0,,https://stspg.io/3tnd00hybtdj

@@ -1,0 +1,22 @@
+---
+interface Props {
+  n?: number;
+  slug?: string;
+  title?: string;
+}
+
+const { n, slug, title } = Astro.props;
+const num = n != null ? String(n).padStart(2, '0') : null;
+---
+
+<section id={slug} class="cs-section" data-section-n={num}>
+  {title && (
+    <div class="cs-section__head cs-col">
+      <h3 class="cs-section__title">
+        {num && <span class="cs-section__num">{num}</span>}
+        {title}
+      </h3>
+    </div>
+  )}
+  <slot />
+</section>

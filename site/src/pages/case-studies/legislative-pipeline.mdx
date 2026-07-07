@@ -1,0 +1,500 @@
+---
+layout: ../../layouts/CaseStudyLayout.astro
+slug: legislative-pipeline
+domain: Legislative data engineering
+n: "02"
+total: "12"
+date: "2026-06-13"
+title: "Representative democracy in Mexico: data a server will render but no one will hand you"
+lede: >-
+  Mexican roll-call votes are public in the sense that a government server will
+  render them — one deputy, one vote, one HTML page at a time — and structured in
+  no sense at all. This pipeline captures them from two sources a decade apart,
+  conforms them into a single dated-history warehouse, and attributes 798,445
+  individual votes to whoever held the seat on the day each was cast. The
+  warehouse is the easy part. The hard part is declining the headline it seems to
+  offer.
+methods:
+  - Web scraping (httpx · BeautifulSoup)
+  - Conformed star schema
+  - SCD Type 2 (as-of join)
+  - Gaps-and-islands
+  - dbt + DuckDB
+stack:
+  - Python 3.12
+  - httpx + BeautifulSoup
+  - DuckDB
+  - dbt 1.11
+notebookUrl: https://github.com/MarioCasanovacf/Portfolio/tree/main/01_professional/legislative-data-pipeline
+reference: >-
+  Eric Magar, *dipMex* roll-call dataset (github.com/emagar/dipMex);
+  Chamber of Deputies — *Sistema de Información Legislativa y de Trámite* (SITL).
+---
+
+import { Section, Prose, Figure, CodeBlock, Equation, Quote, Callout } from "~/components/case-study";
+
+<Callout kind="explore">
+
+This pipeline has a live companion, **[the interactive vote explorer →](/case-studies/legislative-explorer/)**,
+where you can browse all 274 votes, by party and by deputy. What follows is how it
+was built and what the numbers turn out to say.
+
+</Callout>
+
+<Section n="01" slug="data-a-server-will-render" title="Where the record actually lives.">
+
+<Prose>
+
+There is no API. The Chamber of Deputies publishes every recorded vote of every
+deputy, but it publishes them the way a 2008 intranet would: one PHP page per
+party group per vote, surnames first and no comma, the party named in a header and
+nowhere in a field. The academic world has done better for the older
+legislatures (Eric Magar's *dipMex* corpus ships legislatures 60 and 61 as a
+clean roll-call *matrix*, every cell a vote code keyed to a stable legislator id),
+but it stops around 2015. The legislature anyone actually wants to study, the
+2024–2027 supermajority, exists only as that intranet.
+
+So the pipeline has two capture paths. dipMex is a static download: the matrix is
+unpivoted to one row per legislator per vote and lands as-is. SITL is scraped, and
+SITL fights back. It blocks non-browser user agents; it paginates a 500-seat
+chamber into party-group pages addressed by a parameter, `partidot`, that *looks*
+like a party id and is not.
+
+</Prose>
+
+<Callout kind="aside">
+
+`partidot` is a per-vote page index, not a stable party id: the same value maps to
+different parties in different votes, and a single party can spill across pages.
+The first capture trusted it, plus a "stop at the first empty page" shortcut, and
+silently collected one party of \~37 deputies per vote instead of the whole floor
+of \~500. The fix is to read the party from each page's header and to enumerate the
+pages from the per-vote `estadistico` summary rather than guessing the range. The
+lesson is the usual one: an HTML table will let you be wrong without telling you.
+
+</Callout>
+
+<Prose>
+
+The check that the capture is *right*, not merely plausible, is that SITL prints an
+official tally for each vote (so many for, against, abstaining, absent, per party).
+Those tallies are never read into the fact table; they are held back as an
+adversary. A dbt test aggregates our independently scraped per-deputy votes and
+asserts the counts equal SITL's official totals. They match on all 274 votes of
+the current legislature, every column.
+
+</Prose>
+
+</Section>
+
+<Section n="02" slug="one-dimension-two-times" title="When did a vote happen, and when did it count?">
+
+<Prose>
+
+A deputy's party is not a fixed fact. It is a fact *as of a date*. Deputies change
+caucus mid-term, so if you store party as a single column, every vote a deputy cast
+*before* the switch is retroactively credited to the party they *ended* in. The
+record quietly rewrites its own past.
+
+So `dim_legislator` stops storing party as one value and stores it as a sequence of
+dated rows: *this deputy belonged to MORENA from September to November, then to the
+PT from November on.* Each row is one validity span. `fact_vote` then looks a vote
+up by date: it picks the span whose half-open interval
+`[effective_from, effective_to)` contains the day the vote was cast, so an October
+vote resolves to MORENA and a December vote to the PT. (The pattern has a textbook
+name, a slowly-changing dimension, and the half-open interval is what guarantees
+every vote lands in exactly one span.)
+
+The catch is that the two sources tell you about time differently, so a "span" has
+to mean two different things. SITL stamps the party label on *every single vote*, so
+the exact day a deputy's label changes is visible in the data, and a span can begin
+on that day. dipMex can't do that: it gives a roster with nominal entry and exit dates,
+and those dates turned out too loose to trust, with about 4% of real votes falling
+*outside* the window the roster claims the deputy was even seated. So for the older
+legislatures the only boundary solid enough to bound a vote is the legislature
+term itself, one span per deputy per term.
+
+</Prose>
+
+<Prose>
+
+Building SITL's spans is a classic *gaps-and-islands* problem. Walk each deputy's
+votes in date order; every time the party label differs from the vote before it,
+start a new "island"; collapse each island into one dated span. The result is a
+single dimension carrying two kinds of span (a whole term for the old source, a
+dated party-run for the new) under one key built so the two id-spaces can never
+collide.
+
+</Prose>
+
+<CodeBlock lang="sql" file="dim_legislator.sql" width="wide">
+
+```sql
+-- SITL branch: a new version each time the party label changes between votes.
+WITH flagged AS (
+    SELECT legislator_id, vote_date, party,
+           CASE WHEN party IS DISTINCT FROM
+                LAG(party) OVER (PARTITION BY legislator_id ORDER BY vote_date)
+                THEN 1 ELSE 0 END AS is_change
+    FROM sitl_daily                      -- one party per deputy per day
+),
+islands AS (
+    SELECT *, SUM(is_change) OVER (PARTITION BY legislator_id ORDER BY vote_date) AS island
+    FROM flagged
+),
+runs AS (
+    SELECT legislator_id, MIN(party) AS party, MIN(vote_date) AS effective_from
+    FROM islands GROUP BY legislator_id, island
+)
+SELECT legislator_id, party, effective_from,
+       COALESCE(
+           LEAD(effective_from) OVER (PARTITION BY legislator_id ORDER BY effective_from),
+           term_end + 1
+       ) AS effective_to                 -- half-open: a vote on the boundary is the next run's
+FROM runs;
+```
+
+</CodeBlock>
+
+<Prose>
+
+The fact table then unions both sources and resolves each vote against the
+dimension on `(source, legislator_id)` and the date interval. The result is
+798,445 attributed votes across three legislatures (296,200 and 365,298 from
+dipMex, 136,947 from SITL), with not one orphaned vote. The same surrogate key,
+`md5(source · legislator_id · legislature · effective_from)`, is a function of
+business dates only, so it never churns between runs and the fact's foreign key
+stays valid.
+
+</Prose>
+
+</Section>
+
+<Section n="03" slug="what-the-count-says" title="What the count actually says.">
+
+<Prose>
+
+With the votes attributed, the obvious first question is party discipline. The
+Rice index measures it per party per vote (the margin between a caucus's *for* and
+*against* counts, normalised) and runs from 0 (a caucus split down the middle) to
+1 (a caucus voting as one).
+
+</Prose>
+
+<Equation n="3.1" width="inline">
+
+$$
+\mathrm{Rice}_p(v) \;=\; \frac{\bigl|\,\mathrm{for}_p(v) - \mathrm{against}_p(v)\,\bigr|}{\mathrm{for}_p(v) + \mathrm{against}_p(v)}
+$$
+
+</Equation>
+
+<Prose>
+
+Averaged over the legislature's 274 votes, the answer is the same for everyone:
+every caucus, government and opposition alike, votes as a near-perfect bloc. No
+party falls below 0.99. This is not a chamber where party lines get negotiated on
+the floor, because a caucus already this unanimous leaves a floor speech nothing to
+move, no wavering member left within reach of the vote that would show it; it is
+one where those lines are settled beforehand, because unanimity this total is
+exactly what a decision reached in caucus and merely ratified in session looks like
+once you count it. Same fact, read from both ends: nothing happens on the floor
+because everything already happened off it.
+
+</Prose>
+
+<Figure n="1" width="wide" caption="Party cohesion in the LXVI legislature (Rice index, averaged over 274 votes, present voters only). The axis is zoomed to 0.95–1.00 because every caucus clusters at the very top (PAN most disciplined at 0.9999, PT least at 0.993). All parties work as a bloc.">
+
+<svg viewBox="0 0 512 300" role="img" aria-label="Party cohesion Rice index for the LXVI legislature, all parties above 0.99.">
+  <g font-family="IBM Plex Sans" font-size="11">
+    <line x1="150" y1="40" x2="150" y2="252" stroke="#1A1814" stroke-width="0.5" opacity="0.5"/>
+    <line x1="150" y1="252" x2="470" y2="252" stroke="#1A1814" stroke-width="1"/>
+    <g fill="#6B655C" font-size="10" text-anchor="middle">
+      <text x="150" y="268">0.95</text>
+      <text x="310" y="268">0.975</text>
+      <text x="470" y="268">1.00</text>
+    </g>
+    <line x1="310" y1="40" x2="310" y2="252" stroke="#1A1814" stroke-width="0.5" stroke-dasharray="2 3" opacity="0.3"/>
+    <g>
+      <text x="140" y="48" text-anchor="end" fill="#1A1814">PAN</text>
+      <line x1="150" y1="44" x2="469" y2="44" stroke="#1A1814" stroke-width="0.6" opacity="0.18"/>
+      <circle cx="469" cy="44" r="4" fill="#6E1F1F"/>
+      <text x="461" y="36" text-anchor="end" fill="#3C3833" font-size="10">0.9999</text>
+      <text x="140" y="82" text-anchor="end" fill="#1A1814">PVEM</text>
+      <line x1="150" y1="78" x2="461" y2="78" stroke="#1A1814" stroke-width="0.6" opacity="0.18"/>
+      <circle cx="461" cy="78" r="4" fill="#6E1F1F"/>
+      <text x="453" y="70" text-anchor="end" fill="#3C3833" font-size="10">0.9986</text>
+      <text x="140" y="116" text-anchor="end" fill="#1A1814">PRI</text>
+      <line x1="150" y1="112" x2="460" y2="112" stroke="#1A1814" stroke-width="0.6" opacity="0.18"/>
+      <circle cx="460" cy="112" r="4" fill="#6E1F1F"/>
+      <text x="452" y="104" text-anchor="end" fill="#3C3833" font-size="10">0.9984</text>
+      <text x="140" y="150" text-anchor="end" fill="#1A1814">MORENA</text>
+      <line x1="150" y1="146" x2="451" y2="146" stroke="#1A1814" stroke-width="0.6" opacity="0.18"/>
+      <circle cx="451" cy="146" r="4" fill="#6E1F1F"/>
+      <text x="443" y="138" text-anchor="end" fill="#3C3833" font-size="10">0.9971</text>
+      <text x="140" y="184" text-anchor="end" fill="#1A1814">MC</text>
+      <line x1="150" y1="180" x2="438" y2="180" stroke="#1A1814" stroke-width="0.6" opacity="0.18"/>
+      <circle cx="438" cy="180" r="4" fill="#6E1F1F"/>
+      <text x="430" y="172" text-anchor="end" fill="#3C3833" font-size="10">0.9950</text>
+      <text x="140" y="218" text-anchor="end" fill="#1A1814">PT</text>
+      <line x1="150" y1="214" x2="425" y2="214" stroke="#1A1814" stroke-width="0.6" opacity="0.18"/>
+      <circle cx="425" cy="214" r="4" fill="#6E1F1F"/>
+      <text x="417" y="206" text-anchor="end" fill="#3C3833" font-size="10">0.9930</text>
+    </g>
+    <text x="310" y="292" text-anchor="middle" fill="#1A1814" font-size="11">Rice index (mean over 274 votes)</text>
+  </g>
+</svg>
+
+</Figure>
+
+<Prose>
+
+Discipline that total invites a second question — who, then, ever switched sides?
+The dated dimension answers it directly: 82 deputies hold more than one party
+version. Reported as a headline, that is a story about a volatile congress. It is
+also wrong.
+
+Of the 82, only 15 are *monotonic* switches, a clean, one-directional move
+through distinct parties, the shape an actual defection makes. Fifteen. The other
+67 are *oscillation*: a deputy whose label flips back and forth between the same two
+or three parties, vote after vote. Those parties are almost always MORENA, PVEM,
+and the PT (the three members of the governing coalition), and
+the flipping is SITL labelling the same coalition deputy inconsistently from one
+vote to the next, not anyone crossing the floor. The dimension records the label
+faithfully; the classification is what keeps the record from lying.
+
+</Prose>
+
+<Figure n="2" width="full" caption="Two deputies, two shapes. Guízar Macías (top) makes one clean monotonic switch, MORENA → PT, and stays. Gallardo García (bottom) oscillates between MORENA and the Verde vote after vote, the same coalition relabelled, not a sequence of defections. Fifteen deputies look like the first; sixty-seven like the second.">
+
+<svg viewBox="0 0 700 210" role="img" aria-label="Timeline contrasting one clean party switch against repeated oscillation.">
+  <g font-family="IBM Plex Sans">
+    <g stroke="#1A1814" stroke-width="0.5" opacity="0.22">
+      <line x1="161" y1="18" x2="161" y2="152"/>
+      <line x1="312" y1="18" x2="312" y2="152"/>
+      <line x1="464" y1="18" x2="464" y2="152"/>
+      <line x1="615" y1="18" x2="615" y2="152"/>
+    </g>
+    <text x="10" y="26" fill="#1A1814" font-size="13" font-weight="600">Guízar Macías</text>
+    <text x="134" y="26" fill="#6B655C" font-size="11">one clean switch · MORENA → PT</text>
+    <rect x="10" y="34" width="58" height="24" fill="#6E1F1F"/>
+    <rect x="68" y="34" width="622" height="24" fill="#A87333"/>
+    <text x="10" y="92" fill="#1A1814" font-size="13" font-weight="600">Gallardo García</text>
+    <text x="142" y="92" fill="#6B655C" font-size="11">oscillation · MORENA ↔ PVEM (one of 67)</text>
+    <rect x="10" y="100" width="58" height="24" fill="#6E1F1F"/>
+    <rect x="68" y="100" width="38" height="24" fill="#2E4A3F"/>
+    <rect x="106" y="100" width="35" height="24" fill="#6E1F1F"/>
+    <rect x="141" y="100" width="247" height="24" fill="#2E4A3F"/>
+    <rect x="388" y="100" width="25" height="24" fill="#6E1F1F"/>
+    <rect x="413" y="100" width="277" height="24" fill="#2E4A3F"/>
+    <line x1="10" y1="152" x2="690" y2="152" stroke="#1A1814" stroke-width="1"/>
+    <g fill="#6B655C" font-size="11">
+      <text x="10" y="168">Sep ’24</text>
+      <text x="161" y="168" text-anchor="middle">Nov</text>
+      <text x="312" y="168" text-anchor="middle">Jan ’25</text>
+      <text x="464" y="168" text-anchor="middle">Mar</text>
+      <text x="615" y="168" text-anchor="middle">May</text>
+    </g>
+    <g font-size="11" fill="#3C3833">
+      <rect x="10" y="190" width="12" height="12" fill="#6E1F1F"/>
+      <text x="27" y="200">MORENA</text>
+      <rect x="104" y="190" width="12" height="12" fill="#2E4A3F"/>
+      <text x="121" y="200">PVEM</text>
+      <rect x="182" y="190" width="12" height="12" fill="#A87333"/>
+      <text x="199" y="200">PT</text>
+    </g>
+  </g>
+</svg>
+
+</Figure>
+
+</Section>
+
+<Section n="04" slug="two-blocs-not-six" title="Two blocs, not six.">
+
+<Prose>
+
+If every caucus votes as a bloc, two questions follow. Is that level of discipline
+normal, or particular to this chamber? And do the six blocs themselves cluster
+into something larger?
+
+The older source answers the first. In the 60th and 61st legislatures (2006–2012)
+discipline was real but uneven: the tightest caucuses sat near 0.98–0.99, yet
+opposition groups ran visibly looser (the PRD around 0.92, the PT as low as 0.87).
+The current chamber has no such tail. Its *least* cohesive caucus, the PT at 0.993,
+is more unified than the *most* cohesive caucus of either earlier legislature. Party
+discipline is not new in Mexico; the uniformity of it is.
+
+</Prose>
+
+<Prose>
+
+The second question needs a different measure. The Rice index scores discipline
+*within* a party; to ask who votes *with* whom, reduce each party on each vote to
+the side its present majority took, then for every pair of parties count the share
+of votes where the two sides agree. Two parties are an effective bloc when that
+share approaches one and independent when it approaches one-half.
+
+The six caucuses collapse into two. MORENA, the PVEM and the PT (the governing
+coalition) agree with one another between 98.9% and 100% of the time: less an
+alliance than a single body voting under three names. Facing them, the PRI, the PAN
+and MC form a looser but unmistakable opposition, agreeing 88–94%. Across the aisle,
+agreement falls to 58–70%. The PRI, to take one case, votes with the PAN 94% of the
+time and with MORENA 58%; that gap alone identifies it as an opposition party,
+without anyone telling the model which side it sits on.
+
+</Prose>
+
+<Figure n="3" width="full" caption="Inter-party agreement in the LXVI legislature: for each pair of parties, the share of votes on which their present majorities take the same side (ties excluded). Each dark corner is a coalition (the governing MORENA–PVEM–PT at 98.9–100% and the PRI–PAN–MC opposition at 88–94%), while the pale off-diagonal blocks show how seldom the two meet, 58–70%.">
+
+<svg viewBox="0 0 543 533" role="img" aria-label="Inter-party vote agreement matrix for the LXVI legislature showing two blocs.">
+  <g font-family="IBM Plex Sans, sans-serif">
+    <text x="155" y="54" text-anchor="middle" font-size="11" fill="#1A1814" font-weight="600">MORENA</text>
+    <text x="222" y="54" text-anchor="middle" font-size="11" fill="#1A1814" font-weight="600">PVEM</text>
+    <text x="289" y="54" text-anchor="middle" font-size="11" fill="#1A1814" font-weight="600">PT</text>
+    <text x="356" y="54" text-anchor="middle" font-size="11" fill="#1A1814" font-weight="600">PRI</text>
+    <text x="423" y="54" text-anchor="middle" font-size="11" fill="#1A1814" font-weight="600">PAN</text>
+    <text x="490" y="54" text-anchor="middle" font-size="11" fill="#1A1814" font-weight="600">MC</text>
+    <text x="110" y="101" text-anchor="end" font-size="11" fill="#1A1814" font-weight="600">MORENA</text>
+    <rect x="124" y="66" width="62" height="62" fill="#EAE3D6"/>
+    <line x1="143" y1="109" x2="167" y2="85" stroke="#948D82" stroke-width="1"/>
+    <rect x="191" y="66" width="62" height="62" fill="#6E1F1F"/>
+    <text x="222" y="101" text-anchor="middle" font-size="13" fill="#F4EFE6">100</text>
+    <rect x="258" y="66" width="62" height="62" fill="#712423"/>
+    <text x="289" y="101" text-anchor="middle" font-size="13" fill="#F4EFE6">99</text>
+    <rect x="325" y="66" width="62" height="62" fill="#DFCEC6"/>
+    <text x="356" y="101" text-anchor="middle" font-size="13" fill="#1A1814">58</text>
+    <rect x="392" y="66" width="62" height="62" fill="#DECDC5"/>
+    <text x="423" y="101" text-anchor="middle" font-size="13" fill="#1A1814">58</text>
+    <rect x="459" y="66" width="62" height="62" fill="#CBAFA9"/>
+    <text x="490" y="101" text-anchor="middle" font-size="13" fill="#1A1814">65</text>
+    <text x="110" y="168" text-anchor="end" font-size="11" fill="#1A1814" font-weight="600">PVEM</text>
+    <rect x="124" y="133" width="62" height="62" fill="#6E1F1F"/>
+    <text x="155" y="168" text-anchor="middle" font-size="13" fill="#F4EFE6">100</text>
+    <rect x="191" y="133" width="62" height="62" fill="#EAE3D6"/>
+    <line x1="210" y1="176" x2="234" y2="152" stroke="#948D82" stroke-width="1"/>
+    <rect x="258" y="133" width="62" height="62" fill="#702323"/>
+    <text x="289" y="168" text-anchor="middle" font-size="13" fill="#F4EFE6">99</text>
+    <rect x="325" y="133" width="62" height="62" fill="#D5BFB8"/>
+    <text x="356" y="168" text-anchor="middle" font-size="13" fill="#1A1814">62</text>
+    <rect x="392" y="133" width="62" height="62" fill="#D3BCB5"/>
+    <text x="423" y="168" text-anchor="middle" font-size="13" fill="#1A1814">62</text>
+    <rect x="459" y="133" width="62" height="62" fill="#BE9B96"/>
+    <text x="490" y="168" text-anchor="middle" font-size="13" fill="#1A1814">70</text>
+    <text x="110" y="235" text-anchor="end" font-size="11" fill="#1A1814" font-weight="600">PT</text>
+    <rect x="124" y="200" width="62" height="62" fill="#712423"/>
+    <text x="155" y="235" text-anchor="middle" font-size="13" fill="#F4EFE6">99</text>
+    <rect x="191" y="200" width="62" height="62" fill="#702323"/>
+    <text x="222" y="235" text-anchor="middle" font-size="13" fill="#F4EFE6">99</text>
+    <rect x="258" y="200" width="62" height="62" fill="#EAE3D6"/>
+    <line x1="277" y1="243" x2="301" y2="219" stroke="#948D82" stroke-width="1"/>
+    <rect x="325" y="200" width="62" height="62" fill="#DDCCC5"/>
+    <text x="356" y="235" text-anchor="middle" font-size="13" fill="#1A1814">58</text>
+    <rect x="392" y="200" width="62" height="62" fill="#DBC8C1"/>
+    <text x="423" y="235" text-anchor="middle" font-size="13" fill="#1A1814">59</text>
+    <rect x="459" y="200" width="62" height="62" fill="#C6A8A2"/>
+    <text x="490" y="235" text-anchor="middle" font-size="13" fill="#1A1814">67</text>
+    <text x="110" y="302" text-anchor="end" font-size="11" fill="#1A1814" font-weight="600">PRI</text>
+    <rect x="124" y="267" width="62" height="62" fill="#DFCEC6"/>
+    <text x="155" y="302" text-anchor="middle" font-size="13" fill="#1A1814">58</text>
+    <rect x="191" y="267" width="62" height="62" fill="#D5BFB8"/>
+    <text x="222" y="302" text-anchor="middle" font-size="13" fill="#1A1814">62</text>
+    <rect x="258" y="267" width="62" height="62" fill="#DDCCC5"/>
+    <text x="289" y="302" text-anchor="middle" font-size="13" fill="#1A1814">58</text>
+    <rect x="325" y="267" width="62" height="62" fill="#EAE3D6"/>
+    <line x1="344" y1="310" x2="368" y2="286" stroke="#948D82" stroke-width="1"/>
+    <rect x="392" y="267" width="62" height="62" fill="#7F3A38"/>
+    <text x="423" y="302" text-anchor="middle" font-size="13" fill="#F4EFE6">94</text>
+    <rect x="459" y="267" width="62" height="62" fill="#8B4C4A"/>
+    <text x="490" y="302" text-anchor="middle" font-size="13" fill="#F4EFE6">89</text>
+    <text x="110" y="369" text-anchor="end" font-size="11" fill="#1A1814" font-weight="600">PAN</text>
+    <rect x="124" y="334" width="62" height="62" fill="#DECDC5"/>
+    <text x="155" y="369" text-anchor="middle" font-size="13" fill="#1A1814">58</text>
+    <rect x="191" y="334" width="62" height="62" fill="#D3BCB5"/>
+    <text x="222" y="369" text-anchor="middle" font-size="13" fill="#1A1814">62</text>
+    <rect x="258" y="334" width="62" height="62" fill="#DBC8C1"/>
+    <text x="289" y="369" text-anchor="middle" font-size="13" fill="#1A1814">59</text>
+    <rect x="325" y="334" width="62" height="62" fill="#7F3A38"/>
+    <text x="356" y="369" text-anchor="middle" font-size="13" fill="#F4EFE6">94</text>
+    <rect x="392" y="334" width="62" height="62" fill="#EAE3D6"/>
+    <line x1="411" y1="377" x2="435" y2="353" stroke="#948D82" stroke-width="1"/>
+    <rect x="459" y="334" width="62" height="62" fill="#8D504E"/>
+    <text x="490" y="369" text-anchor="middle" font-size="13" fill="#F4EFE6">88</text>
+    <text x="110" y="436" text-anchor="end" font-size="11" fill="#1A1814" font-weight="600">MC</text>
+    <rect x="124" y="401" width="62" height="62" fill="#CBAFA9"/>
+    <text x="155" y="436" text-anchor="middle" font-size="13" fill="#1A1814">65</text>
+    <rect x="191" y="401" width="62" height="62" fill="#BE9B96"/>
+    <text x="222" y="436" text-anchor="middle" font-size="13" fill="#1A1814">70</text>
+    <rect x="258" y="401" width="62" height="62" fill="#C6A8A2"/>
+    <text x="289" y="436" text-anchor="middle" font-size="13" fill="#1A1814">67</text>
+    <rect x="325" y="401" width="62" height="62" fill="#8B4C4A"/>
+    <text x="356" y="436" text-anchor="middle" font-size="13" fill="#F4EFE6">89</text>
+    <rect x="392" y="401" width="62" height="62" fill="#8D504E"/>
+    <text x="423" y="436" text-anchor="middle" font-size="13" fill="#F4EFE6">88</text>
+    <rect x="459" y="401" width="62" height="62" fill="#EAE3D6"/>
+    <line x1="478" y1="444" x2="502" y2="420" stroke="#948D82" stroke-width="1"/>
+    <line x1="124" y1="479" x2="320" y2="479" stroke="#6E1F1F" stroke-width="2"/>
+    <text x="222" y="498" text-anchor="middle" font-size="11" fill="#6E1F1F" font-weight="600">Government</text>
+    <line x1="325" y1="479" x2="521" y2="479" stroke="#2E4A3F" stroke-width="2"/>
+    <text x="423" y="498" text-anchor="middle" font-size="11" fill="#2E4A3F" font-weight="600">Opposition</text>
+  </g>
+</svg>
+
+</Figure>
+
+<Prose>
+
+So the discipline of the previous section is only half the structure. Each party is
+a near-perfect bloc, *and* the blocs themselves are organised into two stable
+coalitions that meet in the middle on barely more than half their votes. A chamber
+of six parties divides, in practice, into two.
+
+</Prose>
+
+<Callout kind="explore">
+
+Every one of these 274 votes is browsable on its own (each party's tally and each
+of the 554 deputies' individual vote) in the
+**[interactive vote explorer](/case-studies/legislative-explorer/)**.
+
+</Callout>
+
+</Section>
+
+<Section n="05" slug="what-it-does-not-claim" title="What the warehouse does not claim.">
+
+<Prose>
+
+The pipeline attributes votes; it does not adjudicate motives. A few boundaries are
+worth stating plainly.
+
+</Prose>
+
+<Callout kind="limits">
+
+- No cross-era identity. dipMex keys deputies by a *seat* id, SITL by its own
+  per-legislature `iddipt`. The same person across the 2009 and 2024 chambers is
+  two rows, deliberately: linking them needs a fuzzy name bridge, which is built
+  but reserved, since the conformed dimension is already correct at the (source,
+  legislator, span) grain without it.
+- A switch is a label run, not a verdict. `monotonic_switch` is the shape of a
+  defection, not proof of one; intra-coalition reassignment produces the same
+  shape. The view exposes the structure and leaves the reading to the analyst.
+- Coverage is honest, not total. dipMex gives complete roll-calls only for
+  legislatures 60–61; SITL covers the current 66 fully, with 64 and 65 rostered but
+  not yet scraped. Cohesion and alignment here are descriptive — a measurement, not
+  a cause.
+
+</Callout>
+
+<Prose>
+
+What the warehouse does claim, it earns. A vote that lived only as a row in an
+HTML table becomes a dated fact, attributed to whoever held the seat the day it was
+cast, reconciled to the chamber's own official totals on every one of 274 votes.
+The discipline of the data turns out to mirror the discipline of the chamber: read
+it carefully and the dramatic number — 82 — settles into the quiet, true one.
+
+</Prose>
+
+</Section>

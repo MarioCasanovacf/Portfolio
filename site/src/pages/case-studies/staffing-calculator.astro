@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StaffingCalculator from '~/components/explorer/StaffingCalculator.tsx';
+import '~/styles/staffing-calculator.css';
+
+const base = import.meta.env.BASE_URL;
+const b = base.endsWith('/') ? base : base + '/';
+---
+
+<BaseLayout title="The team the textbook recommends — Mario Casanova">
+  <main class="calculator-page">
+    <header class="calculator-head">
+      <div class="crumbs">
+        <span class="num">03 ⁄ 12</span>
+        <span class="domain">Cloud infrastructure</span>
+        <span class="sep"></span>
+        <a class="back" href={`${b}case-studies/cloud-ops/`}>← Case study</a>
+      </div>
+      <h1 class="title">The team the textbook recommends.</h1>
+      <p class="lede">
+        In the worst week this capture observed, incidents arrived about five times
+        a day and the average fix ran two and a half hours. The textbook says two
+        on-call engineers are enough for that week. Set the dials to a week of your
+        own, then flip the one switch that says how predictable your fixes are, and
+        watch what happens to the answer. No formulas until you ask for them (they
+        wait at the bottom).
+      </p>
+      <div class="stats">
+        <span><b>36</b> incidents in the worst observed week</span>
+        <span><b>156 min</b> mean fix time</span>
+        <span><b>2 → 3</b> the answer that moves</span>
+      </div>
+    </header>
+
+    <StaffingCalculator client:load />
+  </main>
+</BaseLayout>
+
+<style>
+  .calculator-page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 72px var(--gutter-mobile) 120px;
+  }
+  @media (max-width: 760px) {
+    .calculator-page { padding: 48px var(--gutter-mobile) 80px; }
+  }
+  .calculator-head { margin-bottom: var(--s-10); }
+
+  .crumbs {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-4);
+    margin-bottom: var(--s-8);
+  }
+  .crumbs .num {
+    font-family: var(--font-mono);
+    font-size: var(--t-eyebrow-size);
+    color: var(--ink-3);
+  }
+  .crumbs .domain {
+    font-family: var(--font-sans);
+    font-size: var(--t-eyebrow-size);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .crumbs .sep { flex: 1; border-top: 1px solid var(--rule-soft); transform: translateY(-0.35em); }
+  .crumbs .back {
+    font-family: var(--font-sans);
+    font-size: var(--t-caption-size);
+    color: var(--oxblood);
+    text-decoration: none;
+  }
+  .crumbs .back:hover { text-decoration: underline; }
+
+  .title {
+    font-family: var(--font-display);
+    font-size: 48px;
+    line-height: 54px;
+    letter-spacing: -0.012em;
+    font-weight: 400;
+    margin: 0 0 var(--s-5) 0;
+    max-width: 20ch;
+  }
+  .lede {
+    font-family: var(--font-serif);
+    font-size: var(--t-bodyL-size);
+    line-height: var(--t-bodyL-lh);
+    color: var(--ink);
+    max-width: var(--measure-wide);
+    margin: 0 0 var(--s-6) 0;
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-6);
+    font-family: var(--font-sans);
+    font-size: var(--t-caption-size);
+    color: var(--ink-3);
+  }
+  .stats b { font-family: var(--font-mono); font-size: 15px; color: var(--ink); font-weight: 500; }
+</style>

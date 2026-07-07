@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preámbulo · Cloud Infrastructure Support</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e5e0d8;
+      --text: #1a1814;
+      --muted: #6b6557;
+      --accent: #2b3a5e;
+      --cite: #3d5a80;
+      --warn: #9e2a2b;
+      --ok: #344e41;
+      --nb01: #1a4971;
+      --nb02: #9c3a00;
+      --nb03: #5c3d8f;
+      --nb04: #1e6b4a;
+      --nb05: #2d5a5a;
+      --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Menlo', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.7;
+      padding: 2.5rem 1.25rem 5rem;
+    }
+    .container { max-width: 860px; margin: 0 auto; }
+
+    .header {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .header h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+    }
+    .header .meta { color: var(--muted); font-size: 0.82rem; margin-top: 0.5rem; }
+
+    /* Reading-order box */
+    .reading-order {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.5rem;
+      display: grid;
+      gap: 0.75rem;
+    }
+    .reading-order .ro-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+    .ro-step { display: grid; grid-template-columns: 2rem 1fr; gap: 0.6rem; align-items: baseline; }
+    .ro-step .n {
+      font-family: var(--mono);
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 0.95rem;
+    }
+    .ro-step .what { font-size: 0.9rem; }
+    .ro-step .what strong { color: var(--accent); }
+    .ro-step .what .why { color: var(--muted); font-size: 0.83rem; display: block; }
+
+    /* Prose sections */
+    h2.prose-h {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 3rem 0 1rem;
+      letter-spacing: -0.01em;
+    }
+    p.prose { font-size: 0.95rem; margin-bottom: 1rem; }
+    p.prose strong { color: var(--accent); }
+
+    .analogy {
+      background: #fef9e8;
+      border-left: 4px solid #d4a017;
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .analogy::before {
+      content: 'Analogía';
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #a07800;
+      margin-bottom: 0.35rem;
+    }
+
+    /* Notebook sections */
+    .nb-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin: 2.5rem 0;
+      overflow: hidden;
+    }
+    .nb-header { padding: 1.5rem 1.75rem 1.25rem; color: #fff; }
+    .nb-header .nb-num {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      opacity: 0.75;
+      text-transform: uppercase;
+    }
+    .nb-header h3 { font-size: 1.2rem; font-weight: 700; margin-top: 0.3rem; line-height: 1.4; }
+    .nb-header .nb-plain {
+      margin-top: 0.65rem;
+      font-size: 0.9rem;
+      opacity: 0.92;
+      line-height: 1.65;
+    }
+    .nb-section.nb01 .nb-header { background: var(--nb01); }
+    .nb-section.nb02 .nb-header { background: var(--nb02); }
+    .nb-section.nb03 .nb-header { background: var(--nb03); }
+    .nb-section.nb04 .nb-header { background: var(--nb04); }
+    .nb-section.nb05 .nb-header { background: var(--nb05); }
+
+    .nb-body { padding: 1.5rem 1.75rem; }
+
+    /* Step blocks */
+    .step {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 1.1rem;
+      overflow: hidden;
+    }
+    .step-head {
+      display: flex;
+      align-items: baseline;
+      gap: 0.7rem;
+      padding: 0.75rem 1.1rem;
+      background: #f4f1ea;
+      border-bottom: 1px solid var(--border);
+    }
+    .step-head .step-n {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+    .step-head .step-title { font-size: 0.9rem; font-weight: 700; }
+    .step-body { padding: 0.9rem 1.1rem; display: grid; gap: 0.7rem; }
+    .step-row { font-size: 0.87rem; line-height: 1.65; }
+    .step-row .lbl {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.1rem 0.45rem;
+      border-radius: 3px;
+      margin-right: 0.45rem;
+      vertical-align: 1px;
+    }
+    .lbl.que { background: #eef4fb; color: #1a4971; }
+    .lbl.ver { background: #edf7f2; color: #1e6b4a; }
+    .lbl.leer { background: #f3eefc; color: #5c3d8f; }
+    .lbl.trampa { background: #fdf0f0; color: var(--warn); }
+    code.inline {
+      font-family: var(--mono);
+      font-size: 0.8em;
+      background: #f0ece4;
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+    }
+
+    .glos-ref {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 0.2rem;
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header class="header">
+    <h1>Preámbulo<br>Cómo leer las cinco notebooks sin saber nada de esto</h1>
+    <div class="meta">Documento 1 de 3 &middot; Léeme primero &middot; 2026-07-03 &middot; Cloud Infrastructure Support</div>
+  </header>
+
+  <div class="reading-order">
+    <div class="ro-title">Orden de lectura de los tres documentos</div>
+    <div class="ro-step">
+      <span class="n">1</span>
+      <span class="what"><strong>preambulo.html</strong> (este documento) — la historia completa en lenguaje llano, y qué hace cada notebook paso a paso.
+      <span class="why">Para: cualquier persona, cero conocimiento previo.</span></span>
+    </div>
+    <div class="ro-step">
+      <span class="n">2</span>
+      <span class="what"><strong>glossary.html</strong> — las definiciones formales de cada término (λ, ρ, MTTR, SLO…) y cómo se conectan entre sí.
+      <span class="why">Para: consultar cuando un término del preámbulo o de las notebooks no quede claro.</span></span>
+    </div>
+    <div class="ro-step">
+      <span class="n">3</span>
+      <span class="what"><strong>scientific_foundations.html</strong> — de dónde viene cada herramienta (los papers, los años, los autores), cuándo falla, y qué no investigar más.
+      <span class="why">Para: escribir el argumento del caso study con citas defendibles.</span></span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <h2 class="prose-h">La historia completa, en una página</h2>
+
+  <p class="prose">Imagina que diriges un equipo pequeño de soporte técnico. Tu equipo mantiene sistemas que dependen de servicios de otras empresas: GitHub para el código, Anthropic para la IA, Google Cloud para los servidores. Cuando algo se rompe — lo tuyo o lo de ellos — tu equipo responde.</p>
+
+  <p class="prose">Tienes que tomar cuatro decisiones muy concretas, y las cuatro son difíciles porque el futuro es incierto:</p>
+
+  <p class="prose"><strong>1. ¿Qué nivel de servicio prometo?</strong> Si le dices a tus usuarios "esto funcionará el 99.9% del tiempo", estás prometiendo un máximo de 43 minutos de falla al mes. Pero tu sistema depende de GitHub — y GitHub también falla. ¿Puedes prometer más confiabilidad de la que tus propios proveedores te dan a ti? (Spoiler: no, y la notebook 01 calcula exactamente cuánto puedes prometer.)</p>
+
+  <p class="prose"><strong>2. ¿Con qué número planifico?</strong> Cuando alguien te dice "los incidentes tardan en promedio una hora en resolverse", ese "promedio" esconde algo importante: la mayoría se resuelve en 40 minutos, pero de vez en cuando uno tarda 8 horas. ¿Planificas para el caso típico o para el caso que te arruina la semana? (Notebook 02.)</p>
+
+  <p class="prose"><strong>3. ¿Cuánta gente necesito de guardia?</strong> Contratar de más cuesta dinero; contratar de menos significa que los incidentes esperan en fila mientras tu única persona de guardia está ocupada con otro. Hay matemática de hace 100 años — inventada para centrales telefónicas — que responde esto. (Notebook 03.)</p>
+
+  <p class="prose"><strong>4. ¿Cuándo escalo, y qué hago cuando todo se rompe a la vez?</strong> Cuando un proveedor declara un incidente, ¿puedes saber desde el minuto cero si va a ser grave? ¿Y cuando tienes cinco incidentes al mismo tiempo y dos personas, a qué le entras primero? (Notebooks 04 y 05.)</p>
+
+  <div class="analogy">
+    Todo el análisis se sostiene sobre una sola idea, que viene de la física de las fábricas: <strong>el tiempo que algo espera en una fila depende de tres cosas multiplicadas entre sí</strong> — qué tan impredecible es el trabajo (variabilidad), qué tan ocupado está el equipo (utilización), y cuánto tarda cada tarea (tiempo de servicio). La multiplicación es la clave: si tu equipo está al 99% de ocupación, cualquier pequeña sorpresa se amplifica ×99. Por eso los equipos de soporte "eficientes" (siempre ocupados) son paradójicamente los que peor responden. Esta idea se llama ecuación VUT y es el pegamento entre las cinco notebooks.
+  </div>
+
+  <p class="prose">Una cosa más antes de entrar: los datos son <strong>reales</strong>. 787 incidentes publicados por 18 proveedores (GitHub, Anthropic, Cloudflare, Datadog, Discord, Vercel, npm, Zoom…) en sus páginas de estado públicas, y 700 ejecuciones reales de pipelines de integración continua. Nadie fabricó estos datos para que el análisis saliera bonito — lo que significa que los análisis <em>pueden fallar</em>, y cuando fallen, lo diremos. Esa es la diferencia entre analizar y simular que analizas.</p>
+
+  <!-- ═══════════════════════════════════════ -->
+  <h2 class="prose-h">Cómo está construida cada notebook</h2>
+
+  <p class="prose">Las cinco siguen la misma estructura de siete partes. Si sabes esto, puedes navegar cualquiera:</p>
+
+  <p class="prose">
+    <strong>(1) La pregunta</strong> — una sola oración, antes de tocar cualquier dato.
+    <strong>(2) Por qué importa</strong> — la decisión concreta que este análisis informa.
+    <strong>(3) Los datos y sus límites</strong> — qué tenemos y qué NO nos puede decir.
+    <strong>(4) El método y sus supuestos</strong> — con los supuestos verificados con tests, no solo mencionados.
+    <strong>(5) El resultado</strong> — siempre con su margen de incertidumbre.
+    <strong>(6) Qué haría distinto un decisor</strong> — la acción.
+    <strong>(7) Qué NO se puede concluir</strong> — la humildad, por escrito.
+  </p>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- NB01 -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="nb-section nb01">
+    <div class="nb-header">
+      <div class="nb-num">Notebook 01 · Descriptiva</div>
+      <h3>¿Qué nivel de servicio puedo prometer, si dependo de proveedores que también fallan?</h3>
+      <div class="nb-plain">En lenguaje llano: GitHub y Anthropic publican cada falla que tienen. Vamos a sumar cuánto tiempo estuvieron rotos en 9 semanas, y con eso calcular qué promesa de confiabilidad es matemáticamente posible para alguien que construye encima de ellos.</div>
+    </div>
+    <div class="nb-body">
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 1</span><span class="step-title">Cargar los incidentes y mirarlos de frente</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Lee el archivo <code class="inline">service_incidents.csv</code> — 787 filas, cada una un incidente real con su proveedor, su severidad declarada (<code class="inline">minor</code>/<code class="inline">major</code>/<code class="inline">critical</code>), cuándo empezó y cuándo se resolvió.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>Una tabla con los primeros incidentes y un conteo por los 18 proveedores (la mayoría con ~50 incidentes cada uno).</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>Los "~50" no significan que cada proveedor falle 50 veces por trimestre — significan que su API pública entrega los últimos ~50 incidentes. Consecuencia crítica: la <em>ventana de observación</em> de cada proveedor es distinta (los 50 de Twilio caben en 9 días; los 34 de Atlassian abarcan 7 años). Por eso ninguna tasa se compara entre proveedores sin normalizar por su propia ventana. Google Cloud se excluye de los análisis de duración (3 incidentes, ninguno con hora de resolución). Excluir datos insuficientes <em>y decirlo</em> es parte del método.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Creer que "más incidentes publicados = peor servicio". Un proveedor transparente publica más; uno opaco publica menos. La tasa que medimos es la de incidentes <em>declarados</em>, no la de fallas reales.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 2</span><span class="step-title">Calcular la disponibilidad observada</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Suma los minutos de incidente de cada proveedor y los divide entre el total de minutos de la ventana de observación. Disponibilidad = 1 − (tiempo roto / tiempo total).</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>Un número tipo "99.4%" por proveedor — y varias versiones de ese número, porque hay una decisión escondida: ¿un incidente <code class="inline">minor</code> de 6 horas cuenta igual que uno <code class="inline">critical</code> de 6 horas?</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>No hay una respuesta "correcta" a la ponderación — por eso la notebook muestra el resultado bajo varias ponderaciones. Lo que importa es cuánto <em>cambia</em> la conclusión según la decisión que tomes. Si cambia mucho, la ponderación es lo primero que hay que discutir con el equipo.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Reportar "disponibilidad: 99.42%" con dos decimales como si fuera un hecho físico. Es una estimación de 9 semanas, sensible a decisiones de ponderación, y la notebook lo dice.</div>
+          <div class="glos-ref">Términos del glosario: A (disponibilidad), MTTF, MTTR, MTBF.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 3</span><span class="step-title">El error budget: convertir un objetivo en un presupuesto</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Toma tres objetivos hipotéticos de confiabilidad (99.0%, 99.5%, 99.9%) y los convierte en "minutos de falla permitidos por mes". Luego resta lo que los proveedores realmente consumieron.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>Una gráfica de "consumo del presupuesto" semana a semana: cuánto del margen de error se gastó y a qué velocidad (el <em>burn rate</em>).</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>La idea del error budget viene de Google: en vez de perseguir la perfección, defines cuánta imperfección toleras, y la administras como un presupuesto de dinero. Si el presupuesto se agota antes de fin de mes, dejas de hacer cambios arriesgados hasta que se recupere. Ojo: los puntos de la gráfica comparten >95% de sus datos entre sí (ventanas rodantes solapadas) — la "tendencia" que parece dibujarse es más suave de lo que la incertidumbre real justifica.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Prometer 99.9% cuando tu proveedor entrega 99.5%. No puedes ser más confiable que aquello de lo que dependes, salvo que construyas redundancia (dos proveedores en paralelo). La notebook cierra con esa aritmética.</div>
+          <div class="glos-ref">Términos del glosario: SLI, SLO, SLA, Error Budget.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 4</span><span class="step-title">Los pipelines CI: la carga de trabajo interna</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Analiza las 700 ejecuciones reales de GitHub Actions: cuántas fallaron, en qué repos, cuánto duran.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>Una tasa de fallo por repositorio. Detalle importante: de 700 ejecuciones, solo 518 terminaron con veredicto (éxito o fallo) — las demás fueron saltadas o canceladas. La tasa real de fallo se calcula sobre 518, y da ~16%, no el 12% que saldría de dividir entre 700.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>Este paso existe porque el denominador correcto es la decisión estadística más importante y menos glamorosa que existe. Elegir mal el denominador produce números que suenan precisos y son falsos.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Comparar tasas de fallo entre repos sin preguntarse si los repos usan CI de la misma forma (uno corre tests en cada commit, otro solo en releases — sus tasas no son comparables directamente).</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- NB02 -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="nb-section nb02">
+    <div class="nb-header">
+      <div class="nb-num">Notebook 02 · Diagnóstica</div>
+      <h3>Cuando me dicen "los incidentes tardan una hora", ¿qué número uso de verdad para planificar?</h3>
+      <div class="nb-plain">En lenguaje llano: los tiempos de resolución no se agrupan simétricamente alrededor de un promedio — la mayoría son cortos y unos pocos son larguísimos. Esta notebook averigua qué forma tiene realmente esa distribución, porque de la forma depende qué número (promedio, mediana, percentil) es el correcto para cada decisión.</div>
+    </div>
+    <div class="nb-body">
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 1</span><span class="step-title">El histograma que lo motiva todo</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Dibuja la distribución de los tiempos de resolución (TTR) de los 721 incidentes con duración analizable.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>Una montaña recargada a la izquierda con una cola larguísima a la derecha: muchos incidentes de 30–90 minutos, y unos pocos de 10, 20, hasta 180 horas.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>Esa forma asimétrica no es un defecto de los datos — es la firma de un proceso real. Resolver un incidente es una cadena de pasos (diagnosticar → localizar → reparar → verificar) donde cada paso <em>multiplica</em> el tiempo del anterior. Los procesos multiplicativos siempre generan esta forma, igual que los ingresos de las personas o el tamaño de las ciudades.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Ver la cola larga y decir "quitemos los outliers para limpiar los datos". Los incidentes de 12 horas no son errores de captura — son los que definen tu peor semana. Quitarlos es quitarle al análisis justo lo que necesitas ver.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 2</span><span class="step-title">Media vs. mediana: dos números que cuentan historias distintas</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Calcula ambos por proveedor y para el conjunto. En el conjunto de 721 incidentes: mediana ≈ 95 minutos, media ≈ 505 minutos. <strong>Cinco veces más.</strong></div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>La brecha entre ambos números, y una explicación de cuándo usar cada uno.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>La mediana responde "¿cuánto tarda un incidente típico?" (la mitad tarda menos, la mitad más). La media responde "¿cuánto tiempo total de ingeniería me van a consumir N incidentes?" — porque la media × N = total. Para comunicar expectativas: mediana. Para presupuestar capacidad: media. Usar la mediana para presupuestar te deja corto sistemáticamente, porque ignora la cola.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Que alguien reporte "nuestro MTTR es 60 minutos" sin decir si es media o mediana. Bajo esta forma de distribución, la diferencia puede ser 2×.</div>
+          <div class="glos-ref">Términos del glosario: MTTR, Mediana TTR, μ_ln, σ_ln.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 3</span><span class="step-title">La competencia de distribuciones</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Ajusta cuatro formas matemáticas candidatas a los datos (log-normal, exponencial, Weibull, gamma) y las compara con un criterio llamado AIC, que premia el buen ajuste y castiga la complejidad.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>Una tabla con el "score" de cada distribución, y unos gráficos QQ donde los puntos alineados sobre la diagonal significan buen ajuste.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>La teoría (70 datasets militares desde 1984, un manual del Departamento de Defensa de EUA) predice que gana la log-normal. Pero la regla del juego se fijó ANTES de correr el test: si las distribuciones quedan a menos de 2 puntos de AIC, se declara empate — con 50 datos por proveedor no hay poder estadístico para distinguir formas parecidas. Y si gana Weibull, se reporta Weibull. La honestidad de esta notebook está en que el test <em>puede contradecir la teoría</em>.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Correr el test, ver que la teoría no ganó, y ajustar la regla de decisión hasta que gane. Por eso las reglas (ΔAIC &lt; 2 = empate, GESD con máximo 5 outliers) están escritas en el design doc con fecha anterior a la ejecución.</div>
+          <div class="glos-ref">Términos del glosario: LogNormal, GESD, i.i.d.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 4</span><span class="step-title">Los outliers examinados uno por uno</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Aplica un test formal (GESD) que responde: ¿cuáles de estos incidentes larguísimos son estadísticamente "otra cosa", incluso aceptando que la distribución tiene cola larga?</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>Una lista corta (0 a 5 incidentes) con sus nombres reales y qué tuvieron en común.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>El test no es para <em>eliminar</em> los outliers, sino para <em>identificarlos y leerlos</em>. Si los tres peores incidentes de GitHub son todos de la misma categoría de servicio, eso es información operativa que ninguna estadística agregada te da.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Aplicar el test sobre los datos crudos. Se aplica sobre el logaritmo de los tiempos, porque el test asume forma normal y los datos crudos no la tienen — el logaritmo sí (si la distribución es log-normal, que es justo lo que verificamos en el paso 3).</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 5</span><span class="step-title">El número que alimenta a la notebook 03: c²_s</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Calcula el "coeficiente de variación al cuadrado" del tiempo de servicio — una medida de cuán impredecible es cada resolución, normalizada para poder comparar.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>Un número. Si es 1, los tiempos son tan variables como una exponencial (el supuesto de los modelos de libro de texto). Si es mayor que 1 — que es lo esperable con estas colas — la realidad es más caótica que el modelo de libro.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>Este número es el puente entre las notebooks: aquí se mide, y en la notebook 03 se usa para corregir el cálculo de staffing. Es la "V" de la ecuación VUT del preámbulo.</div>
+          <div class="glos-ref">Términos del glosario: c²_s, V, ecuación VUT.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- NB03 -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="nb-section nb03">
+    <div class="nb-header">
+      <div class="nb-num">Notebook 03 · Predictiva (capacidad)</div>
+      <h3>¿Cuántos ingenieros de guardia necesito para la peor semana?</h3>
+      <div class="nb-plain">En lenguaje llano: existe una fórmula de 1917, inventada para saber cuántas operadoras telefónicas contratar, que responde exactamente esta pregunta. La usamos con los datos reales — y luego la corregimos, porque sus supuestos de hace un siglo no se cumplen del todo, y la corrección cambia la respuesta.</div>
+    </div>
+    <div class="nb-body">
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 1</span><span class="step-title">Medir el ritmo de llegada de incidentes (λ)</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Define primero una ventana común donde la captura de varios proveedores se solapa (4 semanas de junio 2026, 9 proveedores, 132 incidentes), cuenta incidentes por día y localiza la semana pico: 7–13 de junio, con 36 incidentes.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>Una serie de conteos diarios y la semana pico marcada.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>"La peor semana observada" es un concepto resbaloso: si solo viste 9 semanas, la peor de esas 9 probablemente NO es la peor posible — y a la vez, por puro azar, la peor observada tiende a exagerar (se llama regresión a la media). La notebook rodea el problema con intervalos de incertidumbre en vez de pretender que 20 incidentes/semana es un número exacto.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Dimensionar el equipo para el promedio ("1.5 incidentes/día") en vez de para los picos. Las colas se forman en los picos; el promedio es irrelevante para la experiencia de la peor semana.</div>
+          <div class="glos-ref">Términos del glosario: λ, a (carga ofrecida).</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 2</span><span class="step-title">Verificar si las llegadas son "Poisson" (spoiler: no)</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Un test simple: en un proceso de llegadas "bien portado" (Poisson), la varianza de los conteos diarios es igual a su media. En nuestros datos, varianza/media = 1.65 (p=0.018) — significativamente mayor.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>El número 1.65 y su interpretación: los incidentes llegan en rachas, no espaciados al azar.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>Tiene lógica física: un incidente grande de GitHub produce varios incidentes derivados; los deploys se concentran en días laborales. Las rachas son peores que el azar puro para las colas — cuando llueve, diluvia. Este test es el que justifica que el paso 4 no se quede con la fórmula clásica.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Saltarse esta verificación. La mayoría de las calculadoras de staffing que existen en internet asumen Poisson sin decirlo, y por eso subestiman el personal necesario.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 3</span><span class="step-title">Erlang C: el piso teórico</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Aplica la fórmula de Erlang (1917) con los datos reales: dado el ritmo de llegadas de la semana pico y el tiempo medio de resolución de la notebook 02, calcula cuántos ingenieros (c) hacen falta para que el 90% de los incidentes empiece a atenderse en menos de 30 minutos.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>Una tabla: con c=1, el % que espera de más; con c=2, c=3, c=4… hasta cruzar el objetivo.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>Lo contraintuitivo: el salto de c=1 a c=2 no reduce la espera a la mitad — la reduce muchísimo más. Las colas no son lineales. Y lo inverso: recortar "solo una persona" de un equipo pequeño puede multiplicar los tiempos de espera, no sumarles un poco.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Tratar el resultado como garantía. Erlang C asume llegadas Poisson (falso: paso 2) y tiempos exponenciales (falso: notebook 02). Es el <em>piso</em> — la realidad necesita al menos esto, probablemente más.</div>
+          <div class="glos-ref">Términos del glosario: ρ, μ, c, W_q, Erlang C en foundations.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 4</span><span class="step-title">La corrección por variabilidad real (Allen-Cunneen / Kingman)</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Recalcula la espera usando la variabilidad medida (el c²_s de la notebook 02 y la sobredispersión del paso 2) en vez de los supuestos de libro.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>Dos columnas juntas: "modelo de libro dice c=X" vs. "modelo corregido por variabilidad real dice c=Y". La brecha entre ambas ES el hallazgo de la notebook.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>Importante: ambas columnas usan los mismos datos y solo difieren en el modelo — son dos lecturas del mismo mundo, no dos evidencias independientes. Hay una tercera columna con el escenario sintético calibrado a la industria (DORA), visualmente separada, que sí es "otro mundo" y sirve solo de referencia externa.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Presentar "c=3" como si fuera exacto. El resultado honesto es un rango ("c=2–4") con la incertidumbre de haber observado solo 9 semanas propagada hasta la recomendación final.</div>
+          <div class="glos-ref">Términos del glosario: V, U, T, ecuación VUT completa.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- NB04 -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="nb-section nb04">
+    <div class="nb-header">
+      <div class="nb-num">Notebook 04 · Predictiva (severidad)</div>
+      <h3>En el minuto cero de un incidente, ¿puedo saber si va a ser de los largos?</h3>
+      <div class="nb-plain">En lenguaje llano: cuando GitHub declara un incidente, tu equipo debe decidir de inmediato si despierta al ingeniero senior. Esta notebook intenta predecir "será largo" con la información del momento cero — y esperamos honestamente que el resultado sea "casi no se puede". Un no bien medido también es una respuesta, y define la política correcta.</div>
+    </div>
+    <div class="nb-body">
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 1</span><span class="step-title">Definir "largo" antes de modelar</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Fija el objetivo: un incidente es "largo" si dura más que el percentil 75 (unas 3.5 horas, recomputado sobre los 774 incidentes con duración). Eso da 194 incidentes largos.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>La definición y el conteo, declarados antes de tocar ningún modelo — y una nota de historia: antes de expandir a 18 proveedores solo había 25 positivos, insuficientes para cualquier modelo. La expansión de datos fue lo que hizo viable esta notebook.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>Aun con 194 positivos, la disciplina se mantiene: modelo simple, pocas variables fijadas de antemano, regularización. La complejidad del modelo la dicta el dato, no la ambición.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Elegir el umbral de "largo" DESPUÉS de ver qué umbral da mejores resultados del modelo. Eso es hacer trampa sin darse cuenta. Aquí el umbral quedó fijado en el design doc, antes.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 2</span><span class="step-title">La confesión del dataset: el problema del impact "asentado"</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Declara una limitación descubierta en la revisión de diseño: la columna "severidad" (<code class="inline">impact</code>) se capturó DESPUÉS de que el incidente terminó. Las páginas de estado suben la severidad conforme el incidente empeora — así que la severidad final ya "sabe" en parte cómo terminó la historia.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>Dos modelos en vez de uno: (a) con la severidad final incluida — un techo optimista, contaminado y declarado como tal; (b) sin ella — la estimación honesta de qué se sabe de verdad en el minuto cero.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>Esto se llama <em>leakage</em> (fuga de información del futuro hacia el modelo) y es el error más común y más caro del machine learning aplicado. La solución no es esconder la variable, sino mostrar ambos modelos: la brecha entre ellos mide cuánta "predicción" era en realidad información filtrada.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>La versión de esta trampa en la vida real: "nuestro modelo predice cancelaciones de clientes con 95% de acierto" — y una de las variables era "el cliente llamó a cancelar".</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 3</span><span class="step-title">Un modelo deliberadamente pequeño</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Regresión logística — el modelo predictivo más simple e interpretable que existe — con solo 3 variables fijadas de antemano: proveedor, severidad (en el modelo techo), y si ocurrió en horario laboral. Con regularización, que penaliza al modelo por confiar demasiado en cualquier variable.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>Los coeficientes: cuánto empuja cada variable la probabilidad de "largo". Dato ya verificado: la proporción de incidentes largos va de 6% (Anthropic) a 60% (Twilio) — el proveedor mismo resultó ser la señal dominante, muy por encima de la severidad declarada.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>¿Por qué no una red neuronal? Porque con 25 positivos, los modelos complejos alucinan patrones. La regla general: la complejidad del modelo la dicta el dato que tienes, no la ambición que tienes.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Probar 50 combinaciones de variables y reportar la mejor. Cada intento extra es una oportunidad de encontrar un patrón falso por azar. Las 3 variables se eligieron por lógica operativa, antes de ver resultados.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 4</span><span class="step-title">La evaluación contra dos vallas</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Mide el desempeño (AUC: la probabilidad de que el modelo ordene bien un par largo/corto al azar; 0.5 = moneda al aire, 1.0 = perfecto) y lo compara contra dos referencias obligadas: predecir siempre "corto", y predecir usando solo la severidad.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>El AUC con su intervalo de incertidumbre (calculado remuestreando los datos mil veces), y la comparación contra las dos vallas.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>La expectativa declarada de antemano era AUC 0.5–0.7: poca señal. El resultado real: 0.636 para el modelo honesto — dentro de la banda esperada. Y el hallazgo más interesante: la brecha entre el modelo "contaminado" (con severidad final) y el honesto fue ≈ 0.006 — prácticamente cero. Conociendo al proveedor, la severidad declarada casi no añade información. La conclusión operativa: "no despiertes al senior por lo que diga el minuto cero; define la escalación por tiempo transcurrido (el timer de ~3.5 h), no por predicción".</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Confundir "el modelo acierta en estos datos" con "el modelo acertará el mes que viene". Con 9 semanas de datos, solo podemos medir lo primero — y la notebook lo dice explícitamente.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- NB05 -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="nb-section nb05">
+    <div class="nb-header">
+      <div class="nb-num">Notebook 05 · Prescriptiva</div>
+      <h3>Cuando todo se rompe a la vez y no puedo arreglar nada, ¿a qué le entro primero?</h3>
+      <div class="nb-plain">En lenguaje llano: la peor clase de sobrecarga es la de incidentes que dependen de un proveedor externo — tú no puedes arreglar GitHub, solo mitigar el daño y esperar. Esta notebook reconstruye la peor semana real observada y compara tres políticas de triaje sobre esa semana, incluyendo una regla de los años 50 que da una respuesta contraintuitiva.</div>
+    </div>
+    <div class="nb-body">
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 1</span><span class="step-title">Reconstruir la semana pico, hora por hora</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Toma los 28 incidentes reales de la semana pico de su ventana (5–12 de mayo 2026, 11 proveedores) y los pone en una línea de tiempo: cuándo empezó cada uno, cuándo terminó, cuántos estaban abiertos a la vez.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>Un gráfico de "incidentes abiertos simultáneos" a lo largo de la semana. Dato honesto por delante: máximo 3 abiertos a la vez y nunca más de 1 crítico simultáneo — no fue un apocalipsis, fue una semana pesada.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>La notebook separa dos cosas con etiquetas explícitas: (a) lo que pasó de verdad esa semana, y (b) un escenario de estrés hipotético más severo ("4 críticos simultáneos") que se declara como hipotético. Mezclarlos sería inflar el drama con datos que no existen.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 2</span><span class="step-title">Las tres políticas en competencia</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Define tres formas de decidir a qué incidente asignar a la gente: <strong>FIFO</strong> (el que llegó primero), <strong>por severidad</strong> (el más grave primero), y la <strong>regla cμ</strong> (prioridad = daño por minuto × velocidad a la que TÚ puedes reducirlo).</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>La formalización de cada política y el insight de la regla cμ: para un incidente bloqueado por el proveedor, tu velocidad de resolución es ≈ 0 — así que la regla dice NO asignar ingenieros a "esperar a GitHub", sino a mitigación y comunicación, donde tu velocidad sí es mayor que cero.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>Es la matemática dándole la razón a una intuición operativa: el ingeniero que "monitorea" un incidente externo no está produciendo reducción de daño; el que escribe el comunicado a usuarios, sí. La regla cμ viene de la investigación de operaciones de los años 50 y es óptima bajo condiciones que la notebook declara.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>"El más grave primero" suena incuestionable, pero si el más grave está bloqueado externamente, dedicarle a todo el equipo es teatro de urgencia — actividad visible sin efecto en el resultado.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 3</span><span class="step-title">El torneo: mil repeticiones perturbadas</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Simula la semana pico bajo cada política. Pero no una vez: mil veces, cada vez sorteando tiempos de resolución plausibles desde las distribuciones medidas en la notebook 02 (manteniendo fijos los momentos reales de llegada).</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>El marcador del torneo: la regla cμ ganó en 94.7% de las mil repeticiones (y no perdió en ninguna), midiendo el daño como el área bajo la curva de incidentes abiertos ponderados por severidad. FIFO y "el más grave primero" empataron entre sí. Y la descomposición revela de dónde viene TODA la ventaja: de la regla de soltar — no asignar gente a esperar pasivamente incidentes externos.</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>¿Por qué mil veces? Porque con ~20 eventos, el resultado de una sola pasada depende del orden exacto en que cayeron las cosas — es una anécdota. Si cμ gana en 78% de las repeticiones, eso es una regularidad; si gana en 52%, es un empate y se reporta como empate. La diferencia entre anécdota y evidencia es la repetición.</div>
+          <div class="step-row"><span class="lbl trampa">Trampa común</span>Reportar "la política cμ redujo el daño 23%" de una sola corrida. Ese 23% es una realización del azar, no una propiedad de la política.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">PASO 4</span><span class="step-title">El runbook: del análisis a las instrucciones de las 3 a.m.</span></div>
+        <div class="step-body">
+          <div class="step-row"><span class="lbl que">Qué hace</span>Traduce todo a un protocolo activable: cuándo se declara "modo sobrecarga" (usando el burn rate de la notebook 01 como gatillo), quién hace qué, y qué se deja explícitamente de hacer.</div>
+          <div class="step-row"><span class="lbl ver">Qué verás</span>Un protocolo corto, escrito para leerse en medio del caos: umbral de activación, roles, y la lista de "esto NO se hace" (ej. nadie "monitorea" pasivamente un incidente externo).</div>
+          <div class="step-row"><span class="lbl leer">Cómo leerlo</span>Este paso es el "prescriptivo" del título: las notebooks 01–04 miden y predicen; esta convierte. Nota el alcance declarado: el protocolo sale de UNA semana pico observada más un modelo — es una hipótesis operativa razonada, no una verdad estadística. Se mejora con cada semana pico nueva que se observe.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <h2 class="prose-h">Si solo te llevas cinco ideas</h2>
+
+  <p class="prose"><strong>1.</strong> No puedes prometer más confiabilidad que la que te dan tus proveedores — y la aritmética para saber cuánto puedes prometer cabe en una servilleta (NB01).</p>
+  <p class="prose"><strong>2.</strong> "El promedio" y "lo típico" son números distintos cuando hay cola larga — y elegir mal cuál usar te deja sin capacidad justo cuando más la necesitas (NB02).</p>
+  <p class="prose"><strong>3.</strong> Las colas no son lineales: un equipo al 95% de ocupación no está "casi bien", está a un empujón del colapso (NB03).</p>
+  <p class="prose"><strong>4.</strong> Un modelo que predice "demasiado bien" con pocos datos no es un éxito — es una fuga de información disfrazada, y encontrarla es el trabajo (NB04).</p>
+  <p class="prose"><strong>5.</strong> En sobrecarga, la pregunta correcta no es "¿qué es lo más grave?" sino "¿dónde reduce daño mi próxima hora de trabajo?" — y a veces la respuesta es: escribiendo el comunicado, no mirando el dashboard (NB05).</p>
+
+  <footer>
+    <p>Documento 1 de 3 &middot; Siguiente: <strong>glossary.html</strong> (definiciones formales), luego <strong>scientific_foundations.html</strong> (fuentes primarias y modos de falla).</p>
+    <p style="margin-top:0.35rem;">Portfolio Mario Casanova &middot; cloud_infrastructure_support &middot; 2026-07-03. Actualizado 2026-07-03 con los resultados reales de las notebooks construidas (dataset expandido: 787 incidentes / 18 proveedores). Si una notebook difiere del preámbulo, la notebook manda.</p>
+  </footer>
+
+</div>
+</body>
+</html>

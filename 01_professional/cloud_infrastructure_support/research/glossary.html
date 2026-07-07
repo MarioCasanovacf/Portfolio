@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glosario Conceptual · Cloud Infrastructure Support</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e5e0d8;
+      --text: #1a1814;
+      --muted: #6b6557;
+      --accent: #2b3a5e;
+
+      /* Cluster colors */
+      --c-queue: #1a4971;       /* queueing theory — deep blue */
+      --c-queue-bg: #eef4fb;
+      --c-vut: #5c3d8f;         /* VUT equation — purple */
+      --c-vut-bg: #f3eefc;
+      --c-sre: #1e6b4a;         /* SRE/reliability — green */
+      --c-sre-bg: #edf7f2;
+      --c-dist: #9c3a00;        /* distributions — rust */
+      --c-dist-bg: #fdf2eb;
+      --c-stat: #2d5a5a;        /* statistical monitoring — teal */
+      --c-stat-bg: #edf6f6;
+
+      --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Menlo', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.65;
+      padding: 2.5rem 1.25rem 5rem;
+    }
+    .container { max-width: 960px; margin: 0 auto; }
+
+    /* ── Header ── */
+    .header {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .header h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+    .header .meta { color: var(--muted); font-size: 0.8rem; margin-top: 0.4rem; }
+    .header .intro {
+      margin-top: 0.9rem;
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.7;
+      max-width: 700px;
+    }
+
+    /* ── Section headers ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 2.75rem 0 1.25rem;
+    }
+    .section-header h2 {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+    .section-header .line { flex: 1; height: 1px; background: var(--border); }
+
+    /* ── Relationship map ── */
+    .rel-map {
+      background: var(--accent);
+      color: #fff;
+      border-radius: 8px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 2.5rem;
+    }
+    .rel-map .map-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.65;
+      margin-bottom: 1.25rem;
+    }
+    .rel-chain {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .rel-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .rel-row .row-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.55;
+      width: 110px;
+      flex-shrink: 0;
+    }
+    .rel-node {
+      background: rgba(255,255,255,0.15);
+      border-radius: 4px;
+      padding: 0.25rem 0.55rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .rel-node.result {
+      background: rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    .rel-arr {
+      font-size: 0.85rem;
+      opacity: 0.55;
+    }
+    .rel-note {
+      font-size: 0.75rem;
+      opacity: 0.65;
+      font-style: italic;
+      white-space: nowrap;
+    }
+    .rel-divider { height: 1px; background: rgba(255,255,255,0.15); margin: 0.4rem 0; }
+
+    /* ── Term cards ── */
+    .term-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .term-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .term-card-header {
+      padding: 0.8rem 1rem 0.6rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .term-sym {
+      font-family: var(--mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .term-name {
+      font-size: 0.78rem;
+      font-weight: 600;
+      opacity: 0.7;
+    }
+    .term-body { padding: 0 1rem 0.9rem; display: grid; gap: 0.55rem; }
+    .term-def { font-size: 0.86rem; color: var(--text); line-height: 1.6; }
+    .term-formula {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      background: #f0ece4;
+      padding: 0.4rem 0.6rem;
+      border-radius: 4px;
+      line-height: 1.5;
+    }
+    .term-relations {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .term-relations strong { color: var(--text); }
+    .term-link {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      text-decoration: none;
+      margin: 0 1px;
+      white-space: nowrap;
+    }
+
+    /* Cluster-specific color theming */
+    .cluster-queue .term-card-header { background: var(--c-queue-bg); border-bottom: 1px solid #cde0f5; }
+    .cluster-queue .term-sym { color: var(--c-queue); }
+    .cluster-queue .term-link { background: var(--c-queue-bg); color: var(--c-queue); border: 1px solid #cde0f5; }
+    .section-header.queue h2 { color: var(--c-queue); }
+
+    .cluster-vut .term-card-header { background: var(--c-vut-bg); border-bottom: 1px solid #d8c8f5; }
+    .cluster-vut .term-sym { color: var(--c-vut); }
+    .cluster-vut .term-link { background: var(--c-vut-bg); color: var(--c-vut); border: 1px solid #d8c8f5; }
+    .section-header.vut h2 { color: var(--c-vut); }
+
+    .cluster-sre .term-card-header { background: var(--c-sre-bg); border-bottom: 1px solid #c0e5d5; }
+    .cluster-sre .term-sym { color: var(--c-sre); }
+    .cluster-sre .term-link { background: var(--c-sre-bg); color: var(--c-sre); border: 1px solid #c0e5d5; }
+    .section-header.sre h2 { color: var(--c-sre); }
+
+    .cluster-dist .term-card-header { background: var(--c-dist-bg); border-bottom: 1px solid #f5d5b5; }
+    .cluster-dist .term-sym { color: var(--c-dist); }
+    .cluster-dist .term-link { background: var(--c-dist-bg); color: var(--c-dist); border: 1px solid #f5d5b5; }
+    .section-header.dist h2 { color: var(--c-dist); }
+
+    .cluster-stat .term-card-header { background: var(--c-stat-bg); border-bottom: 1px solid #b8dede; }
+    .cluster-stat .term-sym { color: var(--c-stat); }
+    .cluster-stat .term-link { background: var(--c-stat-bg); color: var(--c-stat); border: 1px solid #b8dede; }
+    .section-header.stat h2 { color: var(--c-stat); }
+
+    /* Key distinction box */
+    .distinction-box {
+      background: #fef9e8;
+      border: 1px solid #e8d48a;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+      font-size: 0.87rem;
+      line-height: 1.7;
+    }
+    .distinction-box strong { color: #6b4f00; }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 580px) {
+      .term-grid { grid-template-columns: 1fr; }
+      .rel-row .row-label { width: 80px; font-size: 0.62rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header class="header">
+    <h1>Glosario Conceptual<br>Cloud Infrastructure Support</h1>
+    <div class="meta">Companion para scientific_foundations.html &middot; 2026-06-28</div>
+    <div class="intro">
+      Cada término del análisis pertenece a uno de cinco grupos conceptuales. Los grupos no son independientes: todos convergen en la ecuación VUT, que es el hilo conector.
+      Las tarjetas muestran la definición, la fórmula (si aplica) y los vínculos con otros términos del mismo glosario.
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!--  MAPA DE RELACIONES                                -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="rel-map">
+    <div class="map-label">Cómo se conectan todos los términos</div>
+    <div class="rel-chain">
+
+      <div class="rel-row">
+        <div class="row-label">Predicción</div>
+        <span class="rel-node">SARIMA</span>
+        <span class="rel-arr">→ predice</span>
+        <span class="rel-node">λ(t)</span>
+        <span class="rel-note">(tasa de llegada futura)</span>
+      </div>
+
+      <div class="rel-divider"></div>
+
+      <div class="rel-row">
+        <div class="row-label">Cadena de cola</div>
+        <span class="rel-node">λ</span>
+        <span class="rel-arr">÷ cμ →</span>
+        <span class="rel-node">ρ = λ/cμ</span>
+        <span class="rel-arr">→</span>
+        <span class="rel-node">U = ρ/(1−ρ)</span>
+        <span class="rel-arr">→ ×V×T →</span>
+        <span class="rel-node result">W_q ≈ V·U·T</span>
+      </div>
+
+      <div class="rel-row">
+        <div class="row-label">Variabilidad</div>
+        <span class="rel-node">TTR log-normal</span>
+        <span class="rel-arr">→ determina</span>
+        <span class="rel-node">c²_s</span>
+        <span class="rel-arr">→</span>
+        <span class="rel-node">V = (c²_a + c²_s)/2</span>
+        <span class="rel-arr">↗ alimenta W_q</span>
+      </div>
+
+      <div class="rel-row">
+        <div class="row-label">Monitoreo</div>
+        <span class="rel-node">SPC / GESD</span>
+        <span class="rel-arr">→ detecta si</span>
+        <span class="rel-node">c²_s</span>
+        <span class="rel-arr">está estable o con causa especial</span>
+      </div>
+
+      <div class="rel-divider"></div>
+
+      <div class="rel-row">
+        <div class="row-label">Política</div>
+        <span class="rel-node">SLI → SLO</span>
+        <span class="rel-arr">→</span>
+        <span class="rel-node">Budget = 1−SLO</span>
+        <span class="rel-arr">→ mantiene</span>
+        <span class="rel-node">ρ &lt; 1</span>
+        <span class="rel-note">(impide que U explote)</span>
+      </div>
+
+      <div class="rel-divider"></div>
+
+      <div class="rel-row">
+        <div class="row-label">Ley global</div>
+        <span class="rel-node">L = λW</span>
+        <span class="rel-note">(Little's Law — conecta todas las métricas del sistema)</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!--  CLUSTER 1: QUEUEING THEORY                        -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="section-header queue">
+    <h2>Teoría de colas — los ingredientes del sistema</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="term-grid cluster-queue">
+
+    <div class="term-card" id="lambda">
+      <div class="term-card-header">
+        <span class="term-sym">&lambda;</span>
+        <span class="term-name">Tasa de llegada</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Número promedio de solicitudes (incidentes, tickets) que llegan al sistema por unidad de tiempo. Ejemplo: &lambda;&nbsp;=&nbsp;3 incidentes/hora.</div>
+        <div class="term-formula">&lambda; = # llegadas / unidad de tiempo</div>
+        <div class="term-relations"><strong>Determina:</strong> <a href="#rho" class="term-link">&rho;</a> y <a href="#a" class="term-link">a</a> &middot; <strong>Predecida por:</strong> SARIMA &middot; <strong>Mide:</strong> <a href="#L" class="term-link">L</a> vía Little's Law</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="mu">
+      <div class="term-card-header">
+        <span class="term-sym">&mu;</span>
+        <span class="term-name">Tasa de servicio por servidor</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Incidentes que <em>puede</em> resolver un ingeniero por hora, en promedio. El recíproco es el tiempo de servicio medio T&nbsp;=&nbsp;1/&mu;.</div>
+        <div class="term-formula">&mu; = 1/T &nbsp; (T = MTTR)</div>
+        <div class="term-relations"><strong>Recíproco de:</strong> <a href="#T" class="term-link">T (MTTR)</a> &middot; <strong>Determina:</strong> <a href="#a" class="term-link">a</a> y <a href="#rho" class="term-link">&rho;</a></div>
+      </div>
+    </div>
+
+    <div class="term-card" id="c">
+      <div class="term-card-header">
+        <span class="term-sym">c</span>
+        <span class="term-name">Número de servidores</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Ingenieros (o canales de atención) disponibles en paralelo. Lo que Erlang C optimiza: ¿qué c mínimo garantiza un nivel de servicio?</div>
+        <div class="term-relations"><strong>Determina:</strong> <a href="#rho" class="term-link">&rho;</a> = &lambda;/c&mu; &middot; <strong>Usado en:</strong> fórmula de Erlang C</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="a">
+      <div class="term-card-header">
+        <span class="term-sym">a</span>
+        <span class="term-name">Carga ofrecida (Erlangs)</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Trabajo total que el sistema recibe por unidad de tiempo, medido en Erlangs. Un Erlang equivale a un servidor completamente ocupado de forma continua.</div>
+        <div class="term-formula">a = &lambda; / &mu;</div>
+        <div class="term-relations"><strong>Componentes:</strong> <a href="#lambda" class="term-link">&lambda;</a> y <a href="#mu" class="term-link">&mu;</a> &middot; <strong>Determina:</strong> <a href="#rho" class="term-link">&rho;</a> = a/c</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="rho">
+      <div class="term-card-header">
+        <span class="term-sym">&rho;</span>
+        <span class="term-name">Utilización del servidor</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Fracción del tiempo que cada servidor está ocupado, en promedio. Para que el sistema sea estable, &rho;&nbsp;&lt;&nbsp;1. Al acercarse a 1, las colas explotan (ver <a href="#U" class="term-link">U</a>).</div>
+        <div class="term-formula">&rho; = a/c = &lambda;/(c&mu;) &nbsp;&lt;&nbsp;1</div>
+        <div class="term-relations"><strong>Produce:</strong> <a href="#U" class="term-link">U</a> = &rho;/(1&minus;&rho;) &middot; <strong>Controlado por:</strong> <a href="#error-budget" class="term-link">Error Budget</a></div>
+      </div>
+    </div>
+
+    <div class="term-card" id="Wq">
+      <div class="term-card-header">
+        <span class="term-sym">W<sub>q</sub></span>
+        <span class="term-name">Tiempo de espera en cola</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Tiempo promedio que un trabajo espera antes de que un servidor esté disponible. No incluye el tiempo de servicio. Es el resultado que Erlang C calcula y Kingman aproxima.</div>
+        <div class="term-formula">W_q &asymp; V &times; U &times; T &nbsp;(Kingman)</div>
+        <div class="term-relations"><strong>Depende de:</strong> <a href="#V" class="term-link">V</a>, <a href="#U" class="term-link">U</a>, <a href="#T" class="term-link">T</a> &middot; <strong>Conectado a:</strong> <a href="#L" class="term-link">L</a> vía Little's Law</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="L">
+      <div class="term-card-header">
+        <span class="term-sym">L</span>
+        <span class="term-name">Número promedio en el sistema</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Trabajos promedio en el sistema en cualquier momento (en cola + en servicio). Little's Law (1961) dice que L, &lambda; y W son inseparables: conociendo dos, sabes el tercero.</div>
+        <div class="term-formula">L = &lambda; &times; W &nbsp;(Little's Law)</div>
+        <div class="term-relations"><strong>Ley de conservación:</strong> aplica a cualquier sistema estable sin importar la distribución &middot; <strong>W:</strong> W_q + 1/&mu;</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!--  CLUSTER 2: VUT EQUATION                           -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="section-header vut">
+    <h2>Ecuación VUT — el mecanismo que conecta todo</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="distinction-box">
+    <strong>La ecuación VUT (Kingman 1961 / Factory Physics 1996):</strong> W_q &asymp; V &times; U &times; T.<br>
+    No son tres métricas independientes que se suman — son tres factores que se <em>multiplican</em>. Si U = 99 (utilización al 99%), incluso una variabilidad V = 0.1 produce W_q = 9.9 &times; T. El efecto del denominador (1&minus;&rho;) hace que el sistema sea extremadamente sensible a variabilidad cerca de la capacidad máxima.
+  </div>
+
+  <div class="term-grid cluster-vut">
+
+    <div class="term-card" id="c2a">
+      <div class="term-card-header">
+        <span class="term-sym">c²<sub>a</sub></span>
+        <span class="term-name">CV² de tiempos de llegada</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Coeficiente de variación al cuadrado de los tiempos entre llegadas. Para llegadas Poisson (el supuesto de Erlang C): c²_a&nbsp;=&nbsp;1. Si los incidentes llegan en ráfagas: c²_a&nbsp;&gt;&nbsp;1.</div>
+        <div class="term-formula">c²_a = (Var[inter-arrival]) / (E[inter-arrival])²</div>
+        <div class="term-relations"><strong>Componente de:</strong> <a href="#V" class="term-link">V</a> &middot; <strong>Reducible con:</strong> mejor planificación de mantenimiento, ventanas de cambio fijas</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="c2s">
+      <div class="term-card-header">
+        <span class="term-sym">c²<sub>s</sub></span>
+        <span class="term-name">CV² de tiempos de servicio</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Coeficiente de variación al cuadrado de los tiempos de resolución (TTR). Para distribución exponencial: c²_s&nbsp;=&nbsp;1. Para log-normal con &sigma;_ln &gt; 0: c²_s&nbsp;=&nbsp;exp(&sigma;²_ln)&minus;1&nbsp;&gt;&nbsp;1. Es la medida de cuán impredecible es cada resolución.</div>
+        <div class="term-formula">c²_s = exp(&sigma;²<sub>ln</sub>) &minus; 1 &nbsp;(bajo log-normal)</div>
+        <div class="term-relations"><strong>Monitorado por:</strong> <a href="#spc-term" class="term-link">SPC</a> y <a href="#gesd-term" class="term-link">GESD</a> &middot; <strong>Componente de:</strong> <a href="#V" class="term-link">V</a> &middot; <strong>Caracterizado por:</strong> distribución <a href="#lognormal" class="term-link">log-normal</a></div>
+      </div>
+    </div>
+
+    <div class="term-card" id="V">
+      <div class="term-card-header">
+        <span class="term-sym">V</span>
+        <span class="term-name">Factor de variabilidad</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Promedio de la variabilidad de llegadas y de servicio. Es el factor que SPC y la confiabilidad del servicio intentan reducir. Reducir V a la mitad reduce W_q a la mitad, sin importar la utilización.</div>
+        <div class="term-formula">V = (c²<sub>a</sub> + c²<sub>s</sub>) / 2</div>
+        <div class="term-relations"><strong>Componentes:</strong> <a href="#c2a" class="term-link">c²_a</a> y <a href="#c2s" class="term-link">c²_s</a> &middot; <strong>Multiplicado por:</strong> <a href="#U" class="term-link">U</a> y <a href="#T" class="term-link">T</a> en VUT</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="U">
+      <div class="term-card-header">
+        <span class="term-sym">U</span>
+        <span class="term-name">Factor de utilización (no lineal)</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">El amplificador de variabilidad. No lineal: pequeños incrementos de &rho; cerca del 100% producen aumentos enormes de W_q. Es la razón por la que los SLOs tienen margen — no porque la disponibilidad perfecta sea realista, sino porque el costo de la variabilidad cerca del límite es insoportable.</div>
+        <div class="term-formula">
+          U = &rho; / (1 &minus; &rho;)<br>
+          &rho;=0.80 → U=4 &nbsp; &rho;=0.95 → U=19 &nbsp; &rho;=0.99 → U=99
+        </div>
+        <div class="term-relations"><strong>Depende de:</strong> <a href="#rho" class="term-link">&rho;</a> &middot; <strong>Controlado por:</strong> <a href="#error-budget" class="term-link">Error Budget</a> &middot; <strong>Multiplica:</strong> <a href="#V" class="term-link">V</a> y <a href="#T" class="term-link">T</a></div>
+      </div>
+    </div>
+
+    <div class="term-card" id="T">
+      <div class="term-card-header">
+        <span class="term-sym">T</span>
+        <span class="term-name">Tiempo de servicio medio</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Tiempo promedio que toma resolver un incidente, medido en las mismas unidades que W_q. En queueing theory T&nbsp;=&nbsp;1/&mu;. En el análisis concreto: T corresponde al MTTR (no a la mediana de TTR).</div>
+        <div class="term-formula">T = 1/&mu; = MTTR = exp(&mu;<sub>ln</sub> + &sigma;²<sub>ln</sub>/2)</div>
+        <div class="term-relations"><strong>Igual a:</strong> <a href="#MTTR" class="term-link">MTTR</a> &middot; <strong>Recíproco de:</strong> <a href="#mu" class="term-link">&mu;</a> &middot; <strong>Tercer factor en VUT:</strong> W_q = V&middot;U&middot;T</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!--  CLUSTER 3: SRE / RELIABILITY                      -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="section-header sre">
+    <h2>SRE &amp; confiabilidad — la capa de política</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="distinction-box">
+    <strong>SLI → SLO → SLA: la jerarquía de compromisos.</strong><br>
+    El SLI es lo que <em>mides</em>. El SLO es el <em>objetivo interno</em>. El SLA es el <em>contrato externo</em> (generalmente más laxo que el SLO, para tener margen). El Error Budget es lo que sobra entre la realidad y el SLO. Esta distinción es crítica: si confundes SLO con SLA, el error budget se vuelve confuso.
+  </div>
+
+  <div class="term-grid cluster-sre">
+
+    <div class="term-card" id="SLI">
+      <div class="term-card-header">
+        <span class="term-sym">SLI</span>
+        <span class="term-name">Service Level Indicator</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">La métrica concreta que mides. Ejemplos: latencia P99, tasa de errores, disponibilidad. Debe ser cuantificable y observable en tiempo real.</div>
+        <div class="term-relations"><strong>Base de:</strong> <a href="#SLO" class="term-link">SLO</a> &middot; Ejemplos: latencia P99, % de requests exitosas, MTTR observado</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="SLO">
+      <div class="term-card-header">
+        <span class="term-sym">SLO</span>
+        <span class="term-name">Service Level Objective</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">El objetivo interno: "el SLI debe estar por encima/debajo de X durante Y% del tiempo en una ventana de Z días." Ejemplo: P99 latencia &lt; 200ms para el 99.9% de las requests en 30 días.</div>
+        <div class="term-formula">SLO = 0.999 → Error Budget = 0.001</div>
+        <div class="term-relations"><strong>Determina:</strong> <a href="#error-budget" class="term-link">Error Budget</a> = 1 &minus; SLO &middot; <strong>Medido por:</strong> <a href="#SLI" class="term-link">SLI</a> &middot; <strong>Publicado en:</strong> <a href="#SLA" class="term-link">SLA</a></div>
+      </div>
+    </div>
+
+    <div class="term-card" id="SLA">
+      <div class="term-card-header">
+        <span class="term-sym">SLA</span>
+        <span class="term-name">Service Level Agreement</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">El contrato externo con el cliente. Típicamente más conservador que el SLO interno para mantener margen operacional. Incumplir un SLA tiene consecuencias contractuales; incumplir un SLO es una señal interna de alarma.</div>
+        <div class="term-relations"><strong>Derivado de:</strong> <a href="#SLO" class="term-link">SLO</a> (generalmente SLA &lt; SLO para dar margen) &middot; Consecuencia de incumplimiento: créditos de servicio, penalizaciones contractuales</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="error-budget">
+      <div class="term-card-header">
+        <span class="term-sym">Error Budget</span>
+        <span class="term-name">Presupuesto de error</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Margen de error permitido antes de violar el SLO. No es una métrica técnica — es un mecanismo de decisión: cuando el budget se agota, se detiene el despliegue de nuevas features hasta que el servicio se recupere.</div>
+        <div class="term-formula">Budget = 1 &minus; SLO<br>SLO 99.9% / 30 días &rarr; 43.2 min de inactividad</div>
+        <div class="term-relations"><strong>Derivado de:</strong> <a href="#SLO" class="term-link">SLO</a> &middot; <strong>Controla:</strong> <a href="#rho" class="term-link">&rho;</a> al reducir el ritmo de cambio (c²_s) &middot; <strong>Fuente:</strong> Google SRE Book, Cap. 3</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="MTTF">
+      <div class="term-card-header">
+        <span class="term-sym">MTTF</span>
+        <span class="term-name">Mean Time to Failure</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Tiempo esperado que un sistema opera correctamente antes de fallar. Se mide en las mismas unidades que el MTTR (horas, días). El MTTF no cuenta el tiempo de reparación.</div>
+        <div class="term-relations"><strong>Componente de:</strong> <a href="#MTBF" class="term-link">MTBF</a> y <a href="#availability" class="term-link">A (disponibilidad)</a></div>
+      </div>
+    </div>
+
+    <div class="term-card" id="MTTR">
+      <div class="term-card-header">
+        <span class="term-sym">MTTR</span>
+        <span class="term-name">Mean Time to Repair</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Tiempo <em>medio</em> (promedio aritmético) de resolución de incidentes. Bajo distribución log-normal, la media es <em>siempre mayor que la mediana</em> — la cola derecha la jala hacia arriba. Para staffing y SLOs, se usa la media; para "tiempo típico", se usa la mediana.</div>
+        <div class="term-formula">MTTR = exp(&mu;<sub>ln</sub> + &sigma;²<sub>ln</sub>/2)<br>Mediana TTR = exp(&mu;<sub>ln</sub>)</div>
+        <div class="term-relations"><strong>Igual a T en VUT:</strong> <a href="#T" class="term-link">T</a> &middot; <strong>Parameterizado por:</strong> <a href="#mu-ln" class="term-link">&mu;<sub>ln</sub></a> y <a href="#sigma-ln" class="term-link">&sigma;<sub>ln</sub></a> &middot; <strong>Componente de:</strong> <a href="#availability" class="term-link">A</a></div>
+      </div>
+    </div>
+
+    <div class="term-card" id="MTBF">
+      <div class="term-card-header">
+        <span class="term-sym">MTBF</span>
+        <span class="term-name">Mean Time Between Failures</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Tiempo promedio entre el fin de una reparación y el inicio de la siguiente falla. Incluye tanto el tiempo operacional como el de reparación del ciclo anterior.</div>
+        <div class="term-formula">MTBF = MTTF + MTTR</div>
+        <div class="term-relations"><strong>Componentes:</strong> <a href="#MTTF" class="term-link">MTTF</a> + <a href="#MTTR" class="term-link">MTTR</a> &middot; <strong>Determina:</strong> <a href="#availability" class="term-link">disponibilidad A</a></div>
+      </div>
+    </div>
+
+    <div class="term-card" id="availability">
+      <div class="term-card-header">
+        <span class="term-sym">A</span>
+        <span class="term-name">Disponibilidad (Availability)</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Fracción del tiempo que el sistema está operacional. Es el límite asintótico del proceso de renovación alternante operación/reparación. No depende de la forma de las distribuciones — solo de sus medias.</div>
+        <div class="term-formula">A = MTTF / (MTTF + MTTR) = MTTF / MTBF</div>
+        <div class="term-relations"><strong>Conectado a:</strong> <a href="#SLO" class="term-link">SLO</a> de disponibilidad &middot; <strong>Componentes:</strong> <a href="#MTTF" class="term-link">MTTF</a> y <a href="#MTTR" class="term-link">MTTR</a></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!--  CLUSTER 4: LOG-NORMAL DISTRIBUTION                -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="section-header dist">
+    <h2>Distribución log-normal — por qué el TTR tiene cola derecha</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="distinction-box">
+    <strong>La confusión más común: &mu;<sub>ln</sub> y &sigma;<sub>ln</sub> NO son la media y la desviación estándar del TTR en minutos.</strong><br>
+    Son los parámetros de la distribución normal <em>subyacente</em>, que existe en la escala logarítmica. Para obtener media y mediana del TTR real (en minutos), hay que transformarlos. La fórmula MTTR = exp(&mu;<sub>ln</sub> + &sigma;²<sub>ln</sub>/2) hace esa transformación.
+  </div>
+
+  <div class="term-grid cluster-dist">
+
+    <div class="term-card" id="lognormal">
+      <div class="term-card-header">
+        <span class="term-sym">LogNormal</span>
+        <span class="term-name">Distribución log-normal</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Distribución de una variable X tal que ln(X) sigue una distribución normal. Surge naturalmente de procesos multiplicativos (TTR = diagnóstico &times; localización &times; reparación &times; verificación) por el Teorema del Límite Central aplicado al logaritmo del producto.</div>
+        <div class="term-formula">X ~ LogNormal(&mu;<sub>ln</sub>, &sigma;<sub>ln</sub>) &harr; ln(X) ~ N(&mu;<sub>ln</sub>, &sigma;<sub>ln</sub>)</div>
+        <div class="term-relations"><strong>Parámetros:</strong> <a href="#mu-ln" class="term-link">&mu;<sub>ln</sub></a> y <a href="#sigma-ln" class="term-link">&sigma;<sub>ln</sub></a> &middot; <strong>Determina:</strong> <a href="#c2s" class="term-link">c²_s</a> = exp(&sigma;²_ln) &minus; 1</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="mu-ln">
+      <div class="term-card-header">
+        <span class="term-sym">&mu;<sub>ln</sub></span>
+        <span class="term-name">Parámetro de ubicación (escala log)</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Media de los valores ln(TTR). En la escala original, es la <strong>mediana</strong> de TTR — el tiempo de resolución que divide los casos al 50%. No es el promedio de los TTRs en minutos.</div>
+        <div class="term-formula">Mediana TTR = exp(&mu;<sub>ln</sub>)</div>
+        <div class="term-relations"><strong>Junto con:</strong> <a href="#sigma-ln" class="term-link">&sigma;<sub>ln</sub></a> &middot; <strong>Determina:</strong> <a href="#MTTR" class="term-link">MTTR</a> = exp(&mu;<sub>ln</sub> + &sigma;²<sub>ln</sub>/2)</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="sigma-ln">
+      <div class="term-card-header">
+        <span class="term-sym">&sigma;<sub>ln</sub></span>
+        <span class="term-name">Parámetro de dispersión (escala log)</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Desviación estándar de los valores ln(TTR). Controla qué tan ancha es la distribución. &sigma;<sub>ln</sub> grande → cola derecha larga → MTTR mucho mayor que la mediana → incidentes complejos "tiran" la media hacia arriba.</div>
+        <div class="term-formula">Cuanto mayor &sigma;<sub>ln</sub>, mayor la brecha MTTR / Mediana:<br>MTTR / Mediana = exp(&sigma;²<sub>ln</sub>/2)</div>
+        <div class="term-relations"><strong>Determina:</strong> <a href="#c2s" class="term-link">c²_s</a> = exp(&sigma;²<sub>ln</sub>) &minus; 1 &middot; También: brecha MTTR vs. Mediana TTR</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="median-ttr">
+      <div class="term-card-header">
+        <span class="term-sym">Mediana TTR</span>
+        <span class="term-name">Tiempo de resolución típico</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">El tiempo de resolución que la mitad de los incidentes no supera. Bajo log-normal, siempre es <strong>menor</strong> que el MTTR. Es la métrica correcta para comunicar "cuánto tarda típicamente una reparación." El MTTR lo jala hacia arriba por los casos raros y severos.</div>
+        <div class="term-formula">Mediana TTR = exp(&mu;<sub>ln</sub>)</div>
+        <div class="term-relations"><strong>Siempre menor que:</strong> <a href="#MTTR" class="term-link">MTTR</a> &middot; Usar para: comunicar experiencia típica &middot; Usar MTTR para: dimensionar staffing</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!--  CLUSTER 5: STATISTICAL MONITORING                 -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="section-header stat">
+    <h2>Monitoreo estadístico — detectar señal vs. ruido</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="distinction-box">
+    <strong>La distinción fundamental de Shewhart (1924): causa común vs. causa especial.</strong><br>
+    Todo proceso tiene variabilidad. La pregunta es si esa variabilidad es inherente al proceso (común) o si hay un evento externo asignable (especial). Actuar sobre variabilidad de causa común como si fuera especial empeora el proceso (Deming: "tampering"). No actuar sobre variabilidad de causa especial como si fuera común deja incidentes sin resolver.
+  </div>
+
+  <div class="term-grid cluster-stat">
+
+    <div class="term-card" id="common-cause">
+      <div class="term-card-header">
+        <span class="term-sym">Causa común</span>
+        <span class="term-name">Common cause variation</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Variabilidad inherente al proceso bajo condiciones normales. Está "dentro" de los límites de control. No tiene un evento asignable. Solo se reduce rediseñando el proceso (no investigando caso por caso).</div>
+        <div class="term-relations"><strong>Dentro de:</strong> <a href="#control-limits" class="term-link">límites de control</a> &middot; Respuesta correcta: mejorar el proceso sistemáticamente &middot; Contrasta con: <a href="#special-cause" class="term-link">causa especial</a></div>
+      </div>
+    </div>
+
+    <div class="term-card" id="special-cause">
+      <div class="term-card-header">
+        <span class="term-sym">Causa especial</span>
+        <span class="term-name">Special cause variation</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Variabilidad asignable a un evento concreto: un deploy defectuoso, un aumento de tráfico, un componente fallando. Aparece como puntos fuera de los límites de control o como patrones no aleatorios dentro de ellos.</div>
+        <div class="term-relations"><strong>Detectado por:</strong> <a href="#spc-term" class="term-link">gráfico de control</a> y <a href="#gesd-term" class="term-link">GESD</a> &middot; Respuesta correcta: investigar y eliminar la causa &middot; Contrasta con: <a href="#common-cause" class="term-link">causa común</a></div>
+      </div>
+    </div>
+
+    <div class="term-card" id="control-limits">
+      <div class="term-card-header">
+        <span class="term-sym">&plusmn;3&sigma;</span>
+        <span class="term-name">Límites de control</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Los umbrales estadísticos que separan variabilidad de causa común (dentro) de causa especial (fuera). No son el percentil 99.73% de una normal — están justificados por la desigualdad de Chebyshev: P(|X&minus;&mu;|&nbsp;&gt;&nbsp;3&sigma;) ≤ 1/9 para cualquier distribución.</div>
+        <div class="term-formula">UCL = &mu; + 3&sigma; &nbsp;&nbsp; LCL = &mu; &minus; 3&sigma;</div>
+        <div class="term-relations"><strong>No asumen:</strong> normalidad (Chebyshev es distribución-libre) &middot; <strong>Fallan con:</strong> <a href="#autocorrelation" class="term-link">autocorrelación</a></div>
+      </div>
+    </div>
+
+    <div class="term-card" id="spc-term">
+      <div class="term-card-header">
+        <span class="term-sym">SPC</span>
+        <span class="term-name">Control estadístico de procesos</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">El uso sistemático de gráficos de control para monitorear un proceso en tiempo real. Un proceso "en control estadístico" tiene solo variabilidad de causa común — su c²_s es estable.</div>
+        <div class="term-relations"><strong>Monitorea:</strong> <a href="#c2s" class="term-link">c²_s</a> &middot; <strong>Detecta:</strong> <a href="#special-cause" class="term-link">causas especiales</a> &middot; <strong>Falla con:</strong> <a href="#autocorrelation" class="term-link">autocorrelación</a> (Alwan &amp; Roberts 1988)</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="gesd-term">
+      <div class="term-card-header">
+        <span class="term-sym">GESD</span>
+        <span class="term-name">Generalized ESD test</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Prueba formal de outliers que detecta hasta k valores extremos simultáneamente, sin el "masking problem" del ESD simple. Los valores críticos usan la distribución t con corrección Bonferroni.</div>
+        <div class="term-relations"><strong>Complementa:</strong> <a href="#spc-term" class="term-link">SPC</a> (ambos detectan causas especiales, con matemáticas distintas) &middot; <strong>Supuesto crítico:</strong> normalidad de los datos excluidos outliers &middot; <strong>Extensión:</strong> S-H-ESD (Twitter) para telemetría con autocorrelación</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="autocorrelation">
+      <div class="term-card-header">
+        <span class="term-sym">Autocorrelación</span>
+        <span class="term-name">Dependencia temporal</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">Correlación de una serie temporal consigo misma con un rezago (lag). Si hay autocorrelación positiva, los valores altos siguen a valores altos. Viola el supuesto i.i.d. de SPC y GESD — produce límites de control artificialmente estrechos y avalanchas de falsas alarmas.</div>
+        <div class="term-relations"><strong>Viola el supuesto de:</strong> <a href="#spc-term" class="term-link">SPC</a> y <a href="#gesd-term" class="term-link">GESD</a> &middot; <strong>Corrección:</strong> aplicar SPC sobre <a href="#residuals" class="term-link">residuos ARIMA</a>, no sobre los valores crudos</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="residuals">
+      <div class="term-card-header">
+        <span class="term-sym">Residuos</span>
+        <span class="term-name">Residuals de un modelo de series</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">La diferencia entre el valor observado y el valor predicho por el modelo (ARIMA u otro). Si el modelo es correcto, los residuos deben ser ruido blanco — sin autocorrelación, sin tendencia, aproximadamente normales. Si los residuos pasan el test de Ljung-Box, el modelo capturó la estructura temporal.</div>
+        <div class="term-formula">e_t = y_t &minus; ŷ_t &nbsp; &middot; &nbsp; Ljung-Box: H_0: e_t son i.i.d.</div>
+        <div class="term-relations"><strong>Usados en:</strong> aplicar <a href="#spc-term" class="term-link">SPC</a> sobre residuos en lugar de valores crudos &middot; <strong>Diagnóstico de:</strong> SARIMA (si los residuos no son ruido blanco, el modelo está mal especificado)</div>
+      </div>
+    </div>
+
+    <div class="term-card" id="iid">
+      <div class="term-card-header">
+        <span class="term-sym">i.i.d.</span>
+        <span class="term-name">Independiente e idénticamente distribuido</span>
+      </div>
+      <div class="term-body">
+        <div class="term-def">El supuesto de que cada observación es (1) independiente de las demás y (2) proviene de la misma distribución. Es el supuesto base de SPC, GESD, regresión y casi todos los tests estadísticos clásicos. Los datos de telemetría de series temporales casi siempre lo violan.</div>
+        <div class="term-relations"><strong>Violado por:</strong> <a href="#autocorrelation" class="term-link">autocorrelación</a> (violación de independencia) &middot; <strong>Requerido por:</strong> <a href="#spc-term" class="term-link">SPC</a>, <a href="#gesd-term" class="term-link">GESD</a> &middot; <strong>Verificado con:</strong> Ljung-Box, Durbin-Watson</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Companion de <strong>scientific_foundations.html</strong> &middot; Portfolio Mario Casanova &middot; 2026-06-28</p>
+    <p style="margin-top:0.35rem;">Los vínculos entre tarjetas son internos a este documento. Para las fuentes primarias de cada término, ver scientific_foundations.html.</p>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,479 @@
+---
+layout: ../../layouts/CaseStudyLayout.astro
+slug: agent-harness
+domain: Agent orchestration
+n: "07"
+total: "12"
+date: 2026-07-06
+title: "The harness that built this portfolio, turned to face itself"
+lede: >-
+  Several of the case studies next to this one were assembled by a crowd of AI
+  agents working the same repository at once. This page is about the thing that
+  kept them from colliding — a few hundred lines of file-based coordination —
+  and it asks the harder question a demo usually skips: not whether the work got
+  done, but whether the mechanism is what did it, and where it cost me something
+  or could not help at all.
+methods:
+  - Shared blackboard (task DAG)
+  - TTL write-locks
+  - Producer ≠ approver
+  - Evidence replay
+stack:
+  - Python 3.9+ (stdlib only)
+  - git
+  - JSON on disk
+reference: >-
+  Lee D. Erman, Frederick Hayes-Roth, Victor R. Lesser, D. Raj Reddy, *The
+  Hearsay-II Speech-Understanding System: Integrating Knowledge to Resolve
+  Uncertainty*, Computing Surveys, 1980.
+---
+
+import { Section, Prose, Figure, CodeBlock, Equation, Quote, Callout } from "~/components/case-study";
+
+<Prose>
+
+A coordination layer for AI agents earns its keep only if it prevents a failure a
+careful operator would otherwise hit, and prevents it mechanically, so that being
+careful stops being the only thing standing between the operator and the mess. That is
+the test I want to hold this one to. It coordinated a good part of the portfolio you are
+reading, and it would be easy to let "it built the site" stand in for "it worked." Those
+are different claims, and only the second one is interesting.
+
+So I want to be exact about what this is. It is not an agent framework: it hands you no
+agents, no prompts, no memory, no runtime. It is a substrate that sits under agents you
+already have (here, several Claude Code sessions and sub-agents) and gives the group of
+them one shared task board, file locks, and a hand-off protocol. No database, no external
+API, nine small Python CLIs that depend on nothing but the standard library. The whole of
+it is a set of rules, and the point of the design is that each rule is a command that
+refuses rather than a request an agent has agreed to honour.
+
+The real question this page tries to answer, in the register this portfolio prefers, is
+whether that substrate actually prevents the two failures it was built against, what it
+demonstrably coordinated on this repository, and — the part a pitch would bury — where the
+mechanism added friction, where a task failed, and what the board in front of me simply
+cannot tell you.
+
+</Prose>
+
+<Section n="01" slug="two-ways-to-run-a-crowd" title="Two ways to run a crowd of agents, both bad.">
+
+<Prose>
+
+Run more than one coding agent against one repository and two failure modes show up
+almost immediately. The first is unmanaged parallelism: no shared index of what needs
+doing, no ownership of who is doing it, no gate on what depends on what. The agents
+duplicate each other, overwrite each other's edits, and nobody actually delegates — they
+just collide in the same files and call it collaboration.
+
+The tempting fix is worse in a quieter way. You chain the agents into one long line, A
+hands to B hands to C, all the way to N. That trades chaos for fragility. Every hop loses
+context, and one stalled link freezes the whole pipeline behind it — the serial-stagnation
+problem, where a pipeline is only ever as live as its slowest agent. Neither the free-for-all
+nor the assembly line is what you want, and the interesting design sits between them.
+
+</Prose>
+
+<Figure n="1" width="wide" caption="The two failure modes and the resolution. Unmanaged parallelism (left): independent agents write the same file with no gate, so edits collide. The giant cascade (centre): one long chain where a single stalled link halts everything downstream. The dependency-DAG (right): parallel wherever no artifact is shared, a cascade edge only where one task literally consumes another's output.">
+
+<svg viewBox="0 0 720 300" role="img" aria-label="Three panels contrasting unmanaged parallelism, a giant serial cascade, and a dependency DAG.">
+  <g font-family="IBM Plex Sans" font-size="10.5">
+    <line x1="240" y1="40" x2="240" y2="270" stroke="#1A1814" stroke-width="0.5" opacity="0.18"/>
+    <line x1="480" y1="40" x2="480" y2="270" stroke="#1A1814" stroke-width="0.5" opacity="0.18"/>
+
+    <text x="120" y="30" fill="#1A1814" font-size="11" text-anchor="middle" font-weight="600">unmanaged parallelism</text>
+    <g fill="#6B655C">
+      <circle cx="60" cy="80" r="14" fill="#EEE9E1" stroke="#6B655C" stroke-width="1"/>
+      <circle cx="120" cy="70" r="14" fill="#EEE9E1" stroke="#6B655C" stroke-width="1"/>
+      <circle cx="180" cy="80" r="14" fill="#EEE9E1" stroke="#6B655C" stroke-width="1"/>
+    </g>
+    <rect x="92" y="180" width="56" height="34" fill="#EEE9E1" stroke="#1A1814" stroke-width="1"/>
+    <text x="120" y="201" fill="#1A1814" font-size="9.5" text-anchor="middle">one file</text>
+    <g stroke="#6E1F1F" stroke-width="1.2" fill="none">
+      <path d="M60 94 L112 180"/>
+      <path d="M120 84 L120 180"/>
+      <path d="M180 94 L128 180"/>
+    </g>
+    <text x="120" y="150" fill="#6E1F1F" font-size="14" text-anchor="middle" font-weight="700">✳</text>
+    <text x="120" y="240" fill="#6E1F1F" font-size="9.5" text-anchor="middle">colliding writes</text>
+
+    <text x="360" y="30" fill="#1A1814" font-size="11" text-anchor="middle" font-weight="600">the giant cascade</text>
+    <g>
+      <rect x="300" y="66" width="34" height="24" fill="#2E4A3F"/>
+      <rect x="300" y="110" width="34" height="24" fill="#2E4A3F"/>
+      <rect x="300" y="154" width="34" height="24" fill="#EEE9E1" stroke="#6E1F1F" stroke-width="1.4"/>
+      <rect x="300" y="198" width="34" height="24" fill="#EEE9E1" stroke="#6B655C" stroke-width="1" opacity="0.6"/>
+      <rect x="300" y="242" width="34" height="24" fill="#EEE9E1" stroke="#6B655C" stroke-width="1" opacity="0.6"/>
+    </g>
+    <g fill="#F4EFE7" font-size="10" text-anchor="middle">
+      <text x="317" y="82">A</text>
+      <text x="317" y="126">B</text>
+    </g>
+    <g fill="#1A1814" font-size="10" text-anchor="middle" opacity="0.7">
+      <text x="317" y="170">C</text>
+      <text x="317" y="214">D</text>
+      <text x="317" y="258">N</text>
+    </g>
+    <g stroke="#1A1814" stroke-width="1" opacity="0.55">
+      <line x1="317" y1="90" x2="317" y2="110"/>
+      <line x1="317" y1="134" x2="317" y2="154"/>
+      <line x1="317" y1="178" x2="317" y2="198" stroke-dasharray="2 2"/>
+      <line x1="317" y1="222" x2="317" y2="242" stroke-dasharray="2 2"/>
+    </g>
+    <text x="360" y="168" fill="#6E1F1F" font-size="9.5">C stalls</text>
+    <text x="360" y="228" fill="#6B655C" font-size="9.5" opacity="0.8">D…N wait</text>
+
+    <text x="600" y="30" fill="#1A1814" font-size="11" text-anchor="middle" font-weight="600">the dependency-DAG</text>
+    <g>
+      <rect x="520" y="70" width="34" height="24" fill="#2E4A3F"/>
+      <rect x="520" y="108" width="34" height="24" fill="#2E4A3F"/>
+      <rect x="520" y="146" width="34" height="24" fill="#2E4A3F"/>
+      <rect x="646" y="108" width="34" height="24" fill="#EEE9E1" stroke="#1A1814" stroke-width="1"/>
+    </g>
+    <g fill="#F4EFE7" font-size="9.5" text-anchor="middle">
+      <text x="537" y="86">1</text>
+      <text x="537" y="124">2</text>
+      <text x="537" y="162">3</text>
+    </g>
+    <text x="663" y="123" fill="#1A1814" font-size="9.5" text-anchor="middle">join</text>
+    <g stroke="#1A1814" stroke-width="1" opacity="0.55" fill="none">
+      <path d="M554 82 L646 116"/>
+      <path d="M554 120 L646 120"/>
+      <path d="M554 158 L646 124"/>
+    </g>
+    <text x="537" y="200" fill="#6B655C" font-size="9.5" text-anchor="middle">parallel frontier</text>
+    <text x="663" y="200" fill="#6B655C" font-size="9.5" text-anchor="middle">real cascade edge</text>
+  </g>
+</svg>
+
+</Figure>
+
+<Prose>
+
+The resolution the harness proposes is a single idea, and stating it plainly is most of
+the work: delegation is a property of the task graph, not of an org chart drawn in
+advance. Work is a set of tasks with dependency edges, and an edge exists only where one
+task literally consumes another's output. A cascade is then not a management style you
+impose everywhere; it is a fact about two specific tasks, and it lives exactly there and
+nowhere else. Everything not joined by such an edge runs in parallel. That is the whole
+philosophy, and the rest of this page is about whether the mechanism holds it up.
+
+</Prose>
+
+</Section>
+
+<Section n="02" slug="the-board-that-built-the-portfolio" title="The board that built the portfolio.">
+
+<Prose>
+
+None of that is worth much as a diagram, so here is the actual board this substrate ran
+while building the repository around it. Twenty-two tasks, grouped into eight epics, each
+task carrying its dependency edges, its claimant, and an append-only hand-off record. The
+board relocated the site into the monorepo, diagnosed and repaired the legislative-data
+pipeline, executed and adversarially re-checked the five cloud notebooks, assessed the
+Heston pricer, revived the real-estate study, and drafted the Heston case-study page that
+sits two entries down from this one. The graph below is not an illustration of a DAG; it
+is this repository's DAG, read back out of the board file.
+
+</Prose>
+
+<Figure n="2" width="full" caption="The live board, one lane per epic, read from .harness/blackboard.json on 2026-07-06. Nodes are tasks; arrows are real depends_on edges (a task cannot be claimed until every arrow into it points at a done task). Nine tasks have no incoming edge — the frontier that could all start at once. The launch join on the bottom lane gates on eight upstream tasks spanning every epic; T-118 additionally waits on T-112, the one cross-epic edge, noted rather than drawn. Green = done (18), oxblood = failed (2), hollow = open (2).">
+
+<svg viewBox="0 0 900 500" role="img" aria-label="The portfolio's task dependency graph, eight epic lanes, colour-coded by task status.">
+  <g font-family="IBM Plex Sans">
+    <g font-size="9" fill="#6B655C" text-anchor="middle">
+      <text x="205" y="40">no deps · plan</text>
+      <text x="390" y="40">implement</text>
+      <text x="560" y="40">verify</text>
+      <text x="745" y="40">join / launch</text>
+    </g>
+    <g stroke="#1A1814" stroke-width="0.5" opacity="0.12" stroke-dasharray="3 3">
+      <line x1="205" y1="52" x2="205" y2="470"/>
+      <line x1="390" y1="52" x2="390" y2="470"/>
+      <line x1="560" y1="52" x2="560" y2="470"/>
+      <line x1="745" y1="52" x2="745" y2="470"/>
+    </g>
+
+    <g font-size="9.5" fill="#1A1814" font-weight="600">
+      <text x="14" y="95">infra</text>
+      <text x="14" y="143">monorepo</text>
+      <text x="14" y="191">legislative</text>
+      <text x="14" y="239">cloud nbs</text>
+      <text x="14" y="287">heston</text>
+      <text x="14" y="335">heston page</text>
+      <text x="14" y="383">real estate</text>
+      <text x="14" y="431">launch</text>
+    </g>
+
+    <g stroke="#1A1814" stroke-width="1.1" opacity="0.5" fill="none">
+      <path d="M228 143 L537 140" marker-end="url(#ah)"/>
+      <path d="M296 148 L537 143" marker-end="url(#ah)"/>
+      <path d="M228 191 L367 191" marker-end="url(#ah)"/>
+      <path d="M413 191 L537 191" marker-end="url(#ah)"/>
+      <path d="M228 239 L537 239" marker-end="url(#ah)"/>
+      <path d="M228 287 L537 287" marker-end="url(#ah)"/>
+      <path d="M413 335 L537 335" marker-end="url(#ah)"/>
+      <path d="M228 383 L367 383" marker-end="url(#ah)"/>
+      <path d="M413 383 L537 383" marker-end="url(#ah)"/>
+      <path d="M413 431 L537 431" marker-end="url(#ah)"/>
+      <path d="M745 431 L788 431" marker-end="url(#ah)"/>
+    </g>
+    <path d="M660 415 C 705 405, 715 420, 723 428" stroke="#6B655C" stroke-width="0.9" fill="none" opacity="0.5" stroke-dasharray="3 2" marker-end="url(#ah)"/>
+    <text x="648" y="405" fill="#6B655C" font-size="8" text-anchor="end" opacity="0.85">gates on 8 upstream</text>
+
+    <defs>
+      <marker id="ah" markerWidth="7" markerHeight="7" refX="5.5" refY="2.6" orient="auto">
+        <path d="M0 0 L6 2.6 L0 5.2 z" fill="#1A1814" opacity="0.6"/>
+      </marker>
+    </defs>
+
+    <g font-size="9.5" text-anchor="middle">
+      <g fill="#2E4A3F"><rect x="182" y="83" width="46" height="22"/><rect x="240" y="83" width="46" height="22"/></g>
+      <g fill="#F4EFE7"><text x="205" y="98">101</text><text x="263" y="98">102</text></g>
+
+      <g fill="#2E4A3F"><rect x="182" y="131" width="46" height="22"/><rect x="250" y="131" width="46" height="22"/><rect x="514" y="131" width="46" height="22"/><rect x="318" y="131" width="46" height="22"/></g>
+      <g fill="#F4EFE7"><text x="205" y="146">103</text><text x="273" y="146">104</text><text x="537" y="146">105</text><text x="341" y="146">122</text></g>
+
+      <g fill="#2E4A3F"><rect x="182" y="179" width="46" height="22"/><rect x="367" y="179" width="46" height="22"/><rect x="514" y="179" width="46" height="22"/></g>
+      <g fill="#F4EFE7"><text x="205" y="194">106</text><text x="390" y="194">107</text><text x="537" y="194">108</text></g>
+
+      <g fill="#2E4A3F"><rect x="182" y="227" width="46" height="22"/><rect x="514" y="227" width="46" height="22"/></g>
+      <g fill="#F4EFE7"><text x="205" y="242">109</text><text x="537" y="242">110</text></g>
+
+      <g fill="#2E4A3F"><rect x="182" y="275" width="46" height="22"/><rect x="514" y="275" width="46" height="22"/></g>
+      <g fill="#F4EFE7"><text x="205" y="290">111</text><text x="537" y="290">112</text></g>
+
+      <g fill="#2E4A3F"><rect x="367" y="323" width="46" height="22"/><rect x="514" y="323" width="46" height="22"/></g>
+      <g fill="#F4EFE7"><text x="390" y="338">118</text><text x="537" y="338">119</text></g>
+
+      <g fill="#2E4A3F"><rect x="182" y="371" width="46" height="22"/><rect x="367" y="371" width="46" height="22"/><rect x="514" y="371" width="46" height="22"/></g>
+      <g fill="#F4EFE7"><text x="205" y="386">115</text><text x="390" y="386">116</text><text x="537" y="386">117</text></g>
+      <text x="390" y="366" fill="#6B655C" font-size="7.5" text-anchor="middle">↩ reopened once</text>
+
+      <g fill="#6E1F1F"><rect x="367" y="419" width="46" height="22"/><rect x="514" y="419" width="46" height="22"/></g>
+      <g fill="#F4EFE7"><text x="390" y="434">113</text><text x="537" y="434">114</text></g>
+      <g fill="#EEE9E1" stroke="#1A1814" stroke-width="1"><rect x="722" y="419" width="46" height="22"/><rect x="788" y="419" width="46" height="22"/></g>
+      <g fill="#1A1814"><text x="745" y="434">120</text><text x="811" y="434">121</text></g>
+    </g>
+
+    <g font-size="9">
+      <rect x="600" y="60" width="12" height="12" fill="#2E4A3F"/><text x="618" y="70" fill="#6B655C">done · 18</text>
+      <rect x="690" y="60" width="12" height="12" fill="#6E1F1F"/><text x="708" y="70" fill="#6B655C">failed · 2</text>
+      <rect x="778" y="60" width="12" height="12" fill="#EEE9E1" stroke="#1A1814" stroke-width="1"/><text x="796" y="70" fill="#6B655C">open · 2</text>
+    </g>
+  </g>
+</svg>
+
+</Figure>
+
+<Prose>
+
+Two things in that picture are the argument. First, nine tasks carry no incoming edge:
+the two hosting-and-domain research tasks, the two site-move tasks, the notebook-path fix,
+the legislative diagnosis, the notebook execution, the Heston assessment, and the
+real-estate audit. Nothing joins them, so nothing forces them to wait, and they formed the
+frontier a set of agents could claim at once. Second, the cascades that do exist are all
+real: the legislative fix cannot be verified before it is implemented, which cannot happen
+before it is diagnosed; the launch join on the bottom lane genuinely consumes the output of
+eight upstream tasks and refuses to be claimable until every one of them is done. The graph
+has exactly the edges the work has, and no more.
+
+</Prose>
+
+</Section>
+
+<Section n="03" slug="rules-a-command-refuses-to-break" title="Rules a command refuses to break.">
+
+<Prose>
+
+The distinction I care about is between a rule an agent has agreed to follow and a rule the
+tooling will not let it break. An agreement degrades the moment the agent is confused,
+adversarial, or simply mid-hallucination; a refusal does not. Three rules matter here, and
+each is backed by a command that returns an error rather than by a line of documentation.
+
+The cascade gate is the simplest. Asking to claim a task whose dependencies are not all
+done is refused, because the claim command reads the graph and checks. There is no polite
+version where an eager agent starts early on a task whose inputs do not yet exist; the
+command declines and points it at an unblocked task instead.
+
+The producer-does-not-approve-its-own-work rule is the one I most wanted to be mechanical,
+because it is the one an agent under pressure most wants to skip. A worker cannot mark its
+own task done. It can only hand off; a different agent has to render the verdict. In the
+harness this is not an honour code — the command that sets a task to `done` reads the
+hand-off record and refuses if the acting agent is the same one that produced the work:
+
+</Prose>
+
+<CodeBlock lang="python" file="blackboard.py (producer ≠ approver guard)" width="wide">
+
+```python
+# --status done is refused unless (a) a handoff record exists — the task was
+# actually reviewed by someone — AND (b) the acting agent differs from the
+# handoff's producer of record. Authorship governs, not current status.
+handoff = task.get("handoff")
+handoff_producer = handoff.get("from") if handoff else None
+
+if handoff_producer == acting_agent and not override_producer_check:
+    sys.exit(
+        "refused: {} produced this task; a different agent must verdict it. "
+        "Producer != approver is mechanical, not cultural.".format(acting_agent)
+    )
+```
+
+</CodeBlock>
+
+<Prose>
+
+The escape hatch exists (a flag, which the command logs and which requires a written
+reason) because a rule with no audited override tends to get worked around in ways that
+leave no trace, which is worse. The third rule is the one that keeps a crashed agent from
+freezing the board: claims carry a lease and file locks carry a time-to-live, so an agent
+that grabs a task or a file and then dies or loops has its hold expire and its work returned
+to the pool. Nothing an agent holds is held forever, which is the mechanical answer to the
+serial-stagnation problem from §01.
+
+</Prose>
+
+<Figure n="3" width="wide" caption="The task lifecycle. A worker moves a task open → claimed → in_progress → review by handing off; only then can a verifier render a verdict, and the done transition is refused for the producer. A rejected verdict, or an expired lease, returns the task to open. On this board that reject edge fired once — the real-estate implementation (T-116) was sent back through a fix loop before it was accepted.">
+
+<svg viewBox="0 0 720 240" role="img" aria-label="State machine of the task lifecycle from open to done, with a reject edge back to open.">
+  <g font-family="IBM Plex Sans" font-size="10">
+    <g text-anchor="middle">
+      <rect x="24" y="96" width="88" height="34" fill="#EEE9E1" stroke="#1A1814" stroke-width="1"/>
+      <text x="68" y="117" fill="#1A1814">open</text>
+      <rect x="150" y="96" width="96" height="34" fill="#EEE9E1" stroke="#1A1814" stroke-width="1"/>
+      <text x="198" y="117" fill="#1A1814">in_progress</text>
+      <rect x="284" y="96" width="88" height="34" fill="#EEE9E1" stroke="#1A1814" stroke-width="1"/>
+      <text x="328" y="117" fill="#1A1814">review</text>
+      <rect x="454" y="96" width="88" height="34" fill="#2E4A3F"/>
+      <text x="498" y="117" fill="#F4EFE7">done</text>
+    </g>
+    <g stroke="#1A1814" stroke-width="1.1" fill="none" opacity="0.65">
+      <path d="M112 113 L150 113" marker-end="url(#ah3)"/>
+      <path d="M246 113 L284 113" marker-end="url(#ah3)"/>
+      <path d="M372 113 L454 113" marker-end="url(#ah3)"/>
+    </g>
+    <g fill="#6B655C" font-size="8.5" text-anchor="middle">
+      <text x="131" y="107">claim</text>
+      <text x="265" y="107">handoff</text>
+    </g>
+    <text x="413" y="107" fill="#2E4A3F" font-size="8.5" text-anchor="middle" font-weight="600">verdict</text>
+    <text x="413" y="140" fill="#6B655C" font-size="8" text-anchor="middle">actor ≠ producer</text>
+
+    <path d="M328 130 C 328 200, 68 200, 68 130" stroke="#6E1F1F" stroke-width="1.1" fill="none" marker-end="url(#ah3r)"/>
+    <text x="198" y="214" fill="#6E1F1F" font-size="9" text-anchor="middle">REJECTED · or lease expiry</text>
+    <text x="198" y="70" fill="#6B655C" font-size="8.5" text-anchor="middle" opacity="0.9">fired once here — T-116 sent back through a fix loop</text>
+
+    <defs>
+      <marker id="ah3" markerWidth="7" markerHeight="7" refX="5.5" refY="2.6" orient="auto"><path d="M0 0 L6 2.6 L0 5.2 z" fill="#1A1814" opacity="0.65"/></marker>
+      <marker id="ah3r" markerWidth="7" markerHeight="7" refX="5.5" refY="2.6" orient="auto"><path d="M0 0 L6 2.6 L0 5.2 z" fill="#6E1F1F"/></marker>
+    </defs>
+  </g>
+</svg>
+
+</Figure>
+
+</Section>
+
+<Section n="04" slug="what-it-coordinated" title="What it coordinated, and the one time it sent work back.">
+
+<Prose>
+
+Here is the part a reader can check against the board file rather than take on my word. Of
+the twenty-two tasks, eighteen reached done, two failed (§05 is about those), and two remain
+open behind the launch gate that waits on a domain purchase only I can make. Every one of the
+twelve producer tasks — the thinking and the implementation work — was verdicted by a
+different agent than the one that produced it, which is the producer-does-not-approve rule
+doing exactly what it is for. The six verification tasks were themselves closed by an agent
+other than the one that created them. Across the whole board, no agent graded its own homework,
+and that is not a claim about diligence: it is what the command would have refused to allow.
+
+The most useful single event on the board is the one where the review actually bit. The
+real-estate implementation was handed off, reviewed, and rejected — the load-bearing number in
+that study, a cross-validation score that collapses when neighbourhoods are held out of the
+training fold, had been reported from a single split with no uncertainty band. The task went
+back to open, the worker re-ran the comparison across six seeds and thirty folds, and only then
+did a different agent accept it. A harness where the producer signs off on its own work does not
+catch that, because the incentive at sign-off is to be finished, not to be doubted. The value of
+the rule is precisely the cases where it turns a green checkmark back into open work, and on this
+board it did so once, visibly, with the reopening recorded in the task's own history.
+
+</Prose>
+
+<Callout kind="note">
+
+The wider provenance the substrate ships with — two standalone tools it built end to end
+(a Markdown table-of-contents generator and a cron-expression explainer), two method
+tournaments that promoted a byte-identical winner, and four generations of audited
+self-modification — lives in the source repository's logs, not on this portfolio board,
+which was migrated in at generation 4 and started a fresh evolution loop. I mention it so
+the record is complete, and I keep the numbers on this page to what the board in this repo
+can be made to confess.
+
+</Callout>
+
+</Section>
+
+<Section n="05" slug="where-it-cost-me-something" title="Where it cost me something, and what the board cannot tell you.">
+
+<Prose>
+
+The two failed tasks on the bottom lane are the most honest thing on the board, so I would
+rather lead the limits with them than tuck them away. They are the first two launch-configuration
+tasks, and they did not fail because the work was wrong. They failed because I tightened the
+launch gate after they were created — the full-quality version needed to wait on more upstream
+work — and the coordination CLI has no command to edit a task's dependency edges once the task
+exists, and it refuses to reuse a task id. The only lifecycle-legal move left was to abandon the
+two tasks as failed and recreate them, with the correct edges, under new ids. So the board carries
+two red nodes that mean "superseded by a stricter version of themselves," not "broke." That is
+real friction the mechanism imposed: the same rigidity that makes the dependency graph trustworthy
+is what left me unable to amend it in place, and the honest residue is two failures that a casual
+reader would misread. I would fix that with a dependency-editing command before I would defend the
+red nodes as elegant.
+
+There is a larger thing the board cannot show, and it is the one I most want to be plain about.
+The rule that agents cannot collide in the same file is enforced by write-locks, and the locks were
+genuinely exercised — the notebook-execution task locked all five notebooks before rewriting them
+in place, the reorg task locked a config file before editing it. But this board was decomposed
+cleanly enough that two agents rarely reached for the same file at the same instant, so I cannot
+point to a moment on it where the lock refused a real second writer and prevented a real collision.
+The mechanism was present and correct; the adversarial event that would prove it bites lives in the
+substrate's own concurrency smoke test, not here. Reporting the lock as load-bearing on the strength
+of this board alone would be claiming more than the board earns.
+
+</Prose>
+
+<Callout kind="limits">
+
+- Two tasks (T-113, T-114) are marked failed. They were not defective work; they were
+  retired and recreated as T-120/T-121 because the CLI cannot edit a task's dependency edges
+  or reuse an id. The status is a mechanism artifact, not a quality signal.
+- The file-lock rule was exercised (locks acquired and released) but never observed refusing
+  a genuine concurrent second writer on this board, because the decomposition kept writers off
+  each other's files. The claim that locking prevents collisions rests on the substrate's
+  concurrency test, not on this repository's history.
+- Nothing here measures whether coordinating a crowd beat one careful agent on wall-clock or
+  cost. The board proves the work was coordinated cleanly under enforced rules; it does not
+  prove that was the cheapest way to get it done, and I did not run the single-agent control.
+- The tournaments, the four self-audited generations, and the accepted mutations are the
+  substrate's biography from its origin repository. This board began at generation 4 with an
+  empty local evolution log, so those numbers are provenance I am reporting, not results I am
+  demonstrating in front of you.
+
+</Callout>
+
+<Prose>
+
+What survives all of that is narrower than a pitch and, I think, more worth having. On one real
+repository, a file-based board with a mechanically enforced hand-off kept a crowd of agents from
+grading their own work, gated the one launch task on the eight things it genuinely depended on, let
+nine independent tasks run without waiting on each other, and turned one over-confident result back
+into open work before it could ship. That is the mechanism doing the specific job it claims, on
+evidence you can re-read in the board file. Whether it was worth the friction of the retired tasks,
+and whether the locks earn their place on a board busy enough to make two agents fight over one file,
+are the next two questions — and if I were to keep only one instrument for answering them, it would be
+the same append-only log that made this page checkable in the first place, pointed this time at a run
+built deliberately dense enough to make the agents collide.
+
+</Prose>
+
+</Section>

@@ -1,0 +1,24 @@
+---
+// Equation wrapper. The actual KaTeX rendering happens via remark-math +
+// rehype-katex on $$...$$ blocks in MDX. This component just adds the
+// numbered wrapper. Pass the LaTeX as a slot so MDX renders it through the
+// math pipeline:
+//
+//   <Equation n="2.1" width="wide">
+//     $$ p_{n+1} = p_n + \Delta t \cdot F(q_n) $$
+//   </Equation>
+
+interface Props {
+  n?: number | string;
+  width?: 'inline' | 'wide';
+}
+
+const { n, width = 'inline' } = Astro.props;
+---
+
+<div class={`cs-equation cs-equation--${width}`}>
+  <div class="cs-equation__body">
+    <slot />
+  </div>
+  {n != null && <div class="cs-equation__num">({n})</div>}
+</div>

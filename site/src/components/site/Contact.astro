@@ -1,0 +1,133 @@
+---
+const channels = [
+  { label: 'Email',    href: 'mailto:hello@casanova.cf', display: 'hello@casanova.cf' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mario-casanova/', display: 'mario-casanova' },
+  { label: 'GitHub',   href: 'https://github.com/MarioCasanovacf', display: 'MarioCasanovacf' },
+];
+---
+
+<section id="contact" class="contact">
+  <div class="contact-eyebrow">Contact</div>
+  <h2 class="contact-title">
+    A problem without<br /><em>a clear method?</em>
+  </h2>
+  <p class="contact-lede">
+    Retainers, project engagements, and short consultations. Replies typically within 48 hours. Indicative budget ranges in the email help me triage quickly.
+  </p>
+  <div class="contact-grid">
+    {channels.map((c, i) => (
+      <div class:list={['contact-cell', { 'is-not-last': i < channels.length - 1 }]}>
+        <div class="contact-channel">{c.label}</div>
+        <a class="contact-handle" href={c.href}>{c.display}</a>
+      </div>
+    ))}
+  </div>
+  <a class="contact-cta" href="mailto:hello@casanova.cf?subject=Brief">
+    Compose a brief →
+  </a>
+</section>
+
+<style>
+  .contact {
+    padding: 96px var(--gutter-desktop);
+    background: var(--ink);
+    color: var(--paper);
+  }
+  @media (max-width: 760px) {
+    .contact { padding: 64px var(--gutter-mobile); }
+  }
+
+  .contact-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--paper-deep);
+    margin-bottom: 12px;
+  }
+
+  .contact-title {
+    font-family: var(--font-display);
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0 0 32px 0;
+    color: var(--paper);
+    max-width: 20ch;
+    font-weight: 400;
+  }
+  @media (max-width: 760px) {
+    .contact-title { font-size: 36px; }
+  }
+  .contact-title em { font-style: italic; }
+
+  .contact-lede {
+    font-family: var(--font-serif);
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--paper-deep);
+    max-width: 38rem;
+    margin-bottom: 48px;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--paper-deep);
+    border-bottom: 1px solid var(--paper-deep);
+  }
+  @media (max-width: 760px) {
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+  .contact-cell {
+    padding: 20px 24px;
+  }
+  .contact-cell.is-not-last {
+    border-right: 1px solid var(--paper-deep);
+  }
+  @media (max-width: 760px) {
+    .contact-cell { border-right: 0; border-bottom: 1px solid var(--paper-deep); padding: 16px 0; }
+    .contact-cell:last-child { border-bottom: 0; }
+  }
+
+  .contact-channel {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--paper-deep);
+  }
+  .contact-handle {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--paper);
+    text-decoration: none;
+    display: block;
+    margin-top: 6px;
+  }
+  .contact-handle:hover { color: var(--paper-hi); }
+
+  .contact-cta {
+    display: inline-block;
+    margin-top: 40px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 22px;
+    border: 1px solid var(--paper);
+    background: transparent;
+    color: var(--paper);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    border-radius: 2px;
+  }
+  .contact-cta:hover {
+    background: var(--paper);
+    color: var(--ink);
+  }
+</style>

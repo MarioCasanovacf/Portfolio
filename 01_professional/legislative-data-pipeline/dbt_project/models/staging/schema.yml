@@ -1,0 +1,72 @@
+version: 2
+
+models:
+  - name: stg_votes
+    description: >
+      Individual vote records from the dipMex roll-call matrix (unpivoted).
+      One row per legislator per vote event, keyed natively by legislator_id.
+      Codes 0 (not in seat) and 4 (quorum marker) are excluded.
+    columns:
+      - name: vote_sk
+        description: "Surrogate key: MD5 of (legislature, vote_seq, legislator_id)"
+        tests:
+          - unique
+          - not_null
+      - name: legislature
+        tests:
+          - not_null
+      - name: legislator_id
+        tests:
+          - not_null
+      - name: vote_cast
+        description: "Standardized vote: FOR, AGAINST, ABSTAIN, ABSENT"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["FOR", "AGAINST", "ABSTAIN", "ABSENT"]
+
+  - name: stg_deputies
+    description: >
+      Cleaned legislator roster from dipMex (dipdat). One row per legislator per
+      legislature, with the real seat-occupancy intervals (in/out dates) kept as
+      descriptive attributes on the dated legislator dimension (ADR 003).
+    columns:
+      - name: deputy_sk
+        tests:
+          - unique
+          - not_null
+      - name: legislator_id
+        tests:
+          - not_null
+      - name: full_name
+        tests:
+          - not_null
+
+  - name: stg_vote_summaries
+    description: >
+      One row per vote event (the roll-call header): date, title, tallies, and
+      the vote_seq that joins back to the matrix.
+    columns:
+      - name: vote_summary_sk
+        tests:
+          - unique
+          - not_null
+      - name: vote_id
+        tests:
+          - not_null
+      - name: approval_rate
+        description: "Computed: votes_for / total_present. Between 0.0 and 1.0."
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: raw_dipmex_roster
+      - name: raw_dipmex_vote_events
+      - name: raw_dipmex_rollcall
+      - name: raw_dipmex_roster_recent
+      # SITL recent-legislature capture (legs 64-66): per-deputy votes + per-vote
+      # metadata (date/title) + official per-party tallies. See scripts/ingest_sitl.py.
+      - name: raw_sitl_votes
+      - name: raw_sitl_vote_meta
+      - name: raw_sitl_tallies

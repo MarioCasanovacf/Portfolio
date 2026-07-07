@@ -1,0 +1,321 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+// Frontmatter shape produced by the MDX delivery pipeline. Most fields are
+// optional so older smoke-test pages keep rendering.
+interface Frontmatter {
+  number?: number | string;
+  n?: number | string;
+  total?: number | string;
+  domain?: string;
+  date?: string;
+  title?: string;
+  titleHtml?: string;
+  lede?: string;
+  methods?: string | string[];
+  stack?: string | string[];
+  notebook?: string;
+  notebookUrl?: string;
+  reference?: string;
+}
+
+interface Props extends Frontmatter {
+  frontmatter?: Frontmatter;
+}
+
+// MDX with `layout:` frontmatter passes everything via `frontmatter`.
+// Direct usage (<CaseStudyLayout n=... title=...>) passes via Astro.props.
+const fm: Frontmatter = { ...(Astro.props.frontmatter ?? {}), ...Astro.props };
+
+const numberRaw = fm.number ?? fm.n;
+const number = numberRaw != null ? Number(numberRaw) : undefined;
+const total = fm.total != null ? Number(fm.total) : undefined;
+
+const join = (v: string | string[] | undefined) =>
+  Array.isArray(v) ? v.join(' · ') : v;
+
+const methods = join(fm.methods);
+const stack = join(fm.stack);
+
+const notebookUrl =
+  fm.notebookUrl ??
+  (fm.notebook
+    ? fm.notebook.startsWith('http')
+      ? fm.notebook
+      : `https://github.com/MarioCasanovacf/Portfolio/blob/main/${fm.notebook}`
+    : undefined);
+
+const crumb =
+  number != null && total != null
+    ? `${String(number).padStart(2, '0')} ⁄ ${String(total).padStart(2, '0')}`
+    : null;
+
+const renderInlineMd = (s: string) =>
+  s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+---
+
+<BaseLayout title={`${fm.title ?? 'Case study'} — Mario Casanova`}>
+  <main class="page">
+    <nav class="cs-rail" aria-label="On this page"></nav>
+    <div class="cs-flow">
+    <header class="cs-col">
+      {(crumb || fm.domain || fm.date) && (
+        <div class="crumbs">
+          {crumb && <span class="num">{crumb}</span>}
+          {fm.domain && <span class="domain">{fm.domain}</span>}
+          <span class="sep"></span>
+          {fm.date && <span class="date">{fm.date}</span>}
+        </div>
+      )}
+      {fm.title && (
+        <h1 class="title">
+          {fm.titleHtml ? (
+            <Fragment set:html={fm.titleHtml} />
+          ) : (
+            <Fragment set:html={renderInlineMd(fm.title)} />
+          )}
+        </h1>
+      )}
+      {fm.lede && <p class="lede">{fm.lede}</p>}
+    </header>
+
+    <slot />
+
+    {(notebookUrl || methods || stack || fm.reference) && (
+      <footer class="cs-col doc-footer">
+        <div class="top-rule"></div>
+        <dl class="meta">
+          <div>
+            {notebookUrl && (
+              <>
+                <dt>Notebook</dt>
+                <dd>
+                  <a href={notebookUrl}>
+                    {notebookUrl.replace('https://github.com/', '')} ↗
+                  </a>
+                </dd>
+              </>
+            )}
+            {fm.reference && (
+              <>
+                <dt>Reference</dt>
+                <dd set:html={renderInlineMd(fm.reference)} />
+              </>
+            )}
+          </div>
+          <div>
+            {methods && (
+              <>
+                <dt>Methods</dt>
+                <dd>{methods}</dd>
+              </>
+            )}
+            {stack && (
+              <>
+                <dt>Stack</dt>
+                <dd>{stack}</dd>
+              </>
+            )}
+          </div>
+        </dl>
+      </footer>
+    )}
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  /* Centered editorial content track (unchanged width), with the section rail
+     floating in the left margin. The content sits in its own grid track so the
+     rail can never overlap it. */
+  .page {
+    display: grid;
+    grid-template-columns:
+      [full-start] 1fr
+      [content-start] minmax(0, 768px) [content-end]
+      1fr [full-end];
+    margin: 0 auto;
+    padding: 96px var(--gutter-mobile) 96px;
+  }
+  .cs-flow { grid-column: content; min-width: 0; }
+  .cs-rail {
+    grid-column: full-start / content-start;
+    justify-self: end;
+    align-self: start;
+    position: sticky;
+    top: 112px;
+    width: 168px;
+    margin-right: 40px;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+  }
+  .cs-rail:empty { display: none; }
+
+  /* Not enough side margin for the rail — hide it; content stays centered. */
+  @media (max-width: 1199px) {
+    .cs-rail { display: none; }
+  }
+  @media (max-width: 760px) {
+    .page { padding: 56px var(--gutter-mobile) 64px; }
+  }
+
+  .crumbs {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-4);
+    margin-bottom: var(--s-12);
+  }
+  .crumbs .num {
+    font-family: var(--font-mono);
+    font-size: var(--t-eyebrow-size);
+    color: var(--ink-3);
+  }
+  .crumbs .domain {
+    font-family: var(--font-sans);
+    font-size: var(--t-eyebrow-size);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .crumbs .sep {
+    flex: 1;
+    border-top: 1px solid var(--rule);
+    transform: translateY(-0.35em);
+  }
+  .crumbs .date {
+    font-family: var(--font-mono);
+    font-size: var(--t-eyebrow-size);
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+
+  .title {
+    font-family: var(--font-display);
+    font-size: 64px;
+    line-height: 70px;
+    letter-spacing: -0.012em;
+    margin: 0 0 var(--s-10) 0;
+    max-width: 22ch;
+    font-weight: 400;
+  }
+  .title :global(em) {
+    font-style: italic;
+    color: var(--ink-2);
+  }
+
+  .lede {
+    font-family: var(--font-serif);
+    font-size: var(--t-bodyL-size);
+    line-height: var(--t-bodyL-lh);
+    color: var(--ink);
+    margin: 0 0 var(--s-12) 0;
+    max-width: var(--measure-body);
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  .doc-footer {
+    margin-top: var(--s-24);
+    padding-top: var(--s-6);
+  }
+  .doc-footer .top-rule {
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    height: 4px;
+    margin-bottom: var(--s-6);
+  }
+  .doc-footer .meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-12);
+    font-family: var(--font-sans);
+    font-size: var(--t-caption-size);
+    line-height: var(--t-caption-lh);
+    color: var(--ink-2);
+    max-width: var(--measure-wide);
+  }
+  .doc-footer .meta dt {
+    font-family: var(--font-sans);
+    font-size: var(--t-eyebrow-size);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: var(--s-1);
+  }
+  .doc-footer .meta dd {
+    margin: 0 0 var(--s-3) 0;
+  }
+  .doc-footer .meta dd :global(em) {
+    font-style: italic;
+  }
+  .doc-footer .meta a {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--oxblood);
+    word-break: break-all;
+  }
+</style>
+
+<script>
+  // Build the section rail from the rendered <Section> elements and light up
+  // the one in view (scroll-spy). Progressive enhancement: if it can't run, the
+  // empty <nav> collapses (`.cs-rail:empty { display:none }`).
+  function initRail() {
+    const rail = document.querySelector('.cs-rail');
+    if (!rail || rail.childElementCount) return;
+    const sections = Array.from(document.querySelectorAll('section.cs-section[id]'));
+    if (!sections.length) return;
+
+    const label = document.createElement('div');
+    label.className = 'cs-rail__label';
+    label.textContent = 'On this page';
+    rail.appendChild(label);
+
+    const list = document.createElement('ul');
+    list.className = 'cs-rail__list';
+    const links = new Map();
+
+    for (const sec of sections) {
+      const titleEl = sec.querySelector('.cs-section__title');
+      if (!titleEl) continue;
+      const num = sec.getAttribute('data-section-n') || '';
+      const numSpan = titleEl.querySelector('.cs-section__num');
+      let title = (titleEl.textContent || '').trim();
+      if (numSpan && numSpan.textContent) title = title.slice(numSpan.textContent.length).trim();
+
+      const a = document.createElement('a');
+      a.href = '#' + sec.id;
+      a.className = 'cs-rail__link';
+      const ns = document.createElement('span'); ns.className = 'cs-rail__n'; ns.textContent = num;
+      const ts = document.createElement('span'); ts.className = 'cs-rail__t'; ts.textContent = title;
+      a.append(ns, ts);
+      a.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', '#' + sec.id);
+      });
+
+      const li = document.createElement('li');
+      li.appendChild(a);
+      list.appendChild(li);
+      links.set(sec.id, a);
+    }
+    rail.appendChild(list);
+
+    const obs = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        for (const a of links.values()) a.classList.remove('is-active');
+        const a = links.get(e.target.id);
+        if (a) a.classList.add('is-active');
+      }
+    }, { rootMargin: '-28% 0px -62% 0px', threshold: 0 });
+    sections.forEach((s) => obs.observe(s));
+  }
+
+  if (document.readyState !== 'loading') initRail();
+  else document.addEventListener('DOMContentLoaded', initRail);
+</script>

@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fundamentos Científicos · Cloud Infrastructure Support</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e5e0d8;
+      --text: #1a1814;
+      --muted: #6b6557;
+      --accent: #2b3a5e;
+      --cite: #3d5a80;
+      --warn: #9e2a2b;
+      --ok: #344e41;
+      --gray-border: #adb5bd;
+      --stop-border: #d4a017;
+      --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Menlo', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.65;
+      padding: 2.5rem 1.25rem 5rem;
+    }
+    .container { max-width: 920px; margin: 0 auto; }
+
+    /* ── Header ── */
+    .brief-header {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .brief-header h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+    }
+    .brief-header .meta {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ── Section headers ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 3rem 0 1.5rem;
+    }
+    .section-header h2 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+    .section-header .line { flex: 1; height: 1px; background: var(--border); }
+
+    /* ── Framework block ── */
+    .framework-box {
+      background: var(--accent);
+      color: #fff;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .framework-box .label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+    .framework-box .formula {
+      font-family: var(--mono);
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin: 0.5rem 0 1.25rem;
+    }
+    .framework-box .variables {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .framework-box .var-item {
+      background: rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 0.65rem 0.85rem;
+    }
+    .framework-box .var-item .sym {
+      font-family: var(--mono);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .framework-box .var-item .def {
+      font-size: 0.78rem;
+      opacity: 0.82;
+      margin-top: 0.2rem;
+      line-height: 1.4;
+    }
+    .framework-box p { font-size: 0.9rem; opacity: 0.88; line-height: 1.7; }
+    .framework-box .framework-cite {
+      margin-top: 1.25rem;
+      font-size: 0.78rem;
+      opacity: 0.65;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ── Tool cards ── */
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 1.75rem;
+      overflow: hidden;
+    }
+    .tool-card-header {
+      padding: 1.25rem 1.5rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .tool-name { font-size: 1rem; font-weight: 700; color: var(--accent); }
+    .tool-origin { font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem; line-height: 1.5; }
+    .tool-formula {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      background: #f0ece4;
+      padding: 0.45rem 0.7rem;
+      border-radius: 4px;
+      color: var(--text);
+      white-space: nowrap;
+      flex-shrink: 0;
+      align-self: flex-start;
+    }
+    .tool-body { padding: 1.25rem 1.5rem; display: grid; gap: 1.1rem; }
+    .tool-row {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 0.75rem;
+      align-items: start;
+    }
+    .tool-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      padding-top: 0.15rem;
+    }
+    .tool-content { font-size: 0.88rem; color: var(--text); line-height: 1.65; }
+    .tool-content.must-know {
+      color: var(--ok);
+      font-weight: 500;
+      background: #f0f7f4;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      border-left: 3px solid var(--ok);
+    }
+    .tool-content.why {
+      background: #f0f4fa;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      border-left: 3px solid var(--cite);
+      color: #1a2a3a;
+    }
+
+    /* Failure badges */
+    .fail-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; }
+    .fail-badge {
+      background: #fff0f0;
+      border: 1px solid #f0c0c0;
+      color: var(--warn);
+      font-size: 0.73rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+      line-height: 1.5;
+    }
+    .fail-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+      font-style: italic;
+      margin-top: 0.4rem;
+    }
+
+    /* Citations */
+    .cite-list { display: grid; gap: 0.45rem; }
+    .cite-item {
+      font-size: 0.8rem;
+      color: var(--cite);
+      line-height: 1.55;
+      padding-left: 1em;
+      position: relative;
+    }
+    .cite-item::before { content: '▸'; position: absolute; left: 0; opacity: 0.45; }
+    .cite-item.primary { font-weight: 600; }
+
+    /* Evidence table */
+    .evidence-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    .evidence-table th {
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .evidence-table td {
+      padding: 0.5rem 0.75rem;
+      vertical-align: top;
+      border-bottom: 1px solid #f0ece4;
+      line-height: 1.5;
+    }
+    .evidence-table td:first-child { color: var(--muted); font-style: italic; }
+    .evidence-table td:last-child { color: var(--cite); font-weight: 500; }
+
+    /* Gray zone cards */
+    .gray-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gray-border);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .gray-card h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.45rem;
+    }
+    .gray-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+
+    /* Stop cards */
+    .stop-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--stop-border);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+      display: grid;
+      gap: 0.4rem;
+    }
+    .stop-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+    .stop-card .stop-body { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+    .stop-card .stop-reason {
+      font-size: 0.78rem;
+      color: #a07800;
+      font-style: italic;
+      padding: 0.45rem 0.7rem;
+      background: #fdf8e4;
+      border-radius: 4px;
+    }
+    .stop-card .stop-reason::before { content: 'Por qué parar: '; font-weight: 600; }
+
+    /* Reading recommendations */
+    .reading-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+    .reading-box h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .reading-item {
+      display: grid;
+      grid-template-columns: 1.5rem 1fr;
+      gap: 0.5rem;
+      margin-bottom: 0.9rem;
+      align-items: start;
+    }
+    .reading-item .num {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      opacity: 0.6;
+      padding-top: 0.1rem;
+    }
+    .reading-item .reading-title { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+    .reading-item .reading-why { font-size: 0.82rem; color: var(--muted); line-height: 1.55; margin-top: 0.2rem; }
+
+    /* Footer */
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      .tool-row { grid-template-columns: 1fr; gap: 0.4rem; }
+      .framework-box .variables { grid-template-columns: 1fr; }
+      .tool-card-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header class="brief-header">
+    <h1>Fundamentos Científicos<br>Cloud Infrastructure Support</h1>
+    <div class="meta">Research Brief &middot; 2026-06-28 &middot; Argumento para <strong>hci-support.mdx</strong> &middot; 7 herramientas &middot; Sesión cc51360f</div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  MARCO UNIFICADOR                                   -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="section-header">
+    <h2>Marco unificador</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="framework-box">
+    <div class="label">Kingman's VUT Equation &middot; Hopp &amp; Spearman, Factory Physics (1996/2008)</div>
+    <div class="formula">W<sub style="font-size:0.75em">q</sub> &asymp; V &times; U &times; T</div>
+    <div class="variables">
+      <div class="var-item">
+        <div class="sym">V</div>
+        <div class="def">Variabilidad: (c²<sub>a</sub> + c²<sub>s</sub>)/2<br>SPC y log-normal TTR lo reducen</div>
+      </div>
+      <div class="var-item">
+        <div class="sym">U = &rho;/(1&minus;&rho;)</div>
+        <div class="def">Utilización: no lineal.<br>&rho;=0.95 &rarr; U=19 &nbsp;&nbsp; &rho;=0.99 &rarr; U=99</div>
+      </div>
+      <div class="var-item">
+        <div class="sym">T</div>
+        <div class="def">Tiempo de servicio medio.<br>Erlang C lo usa para calcular staffing</div>
+      </div>
+    </div>
+    <p>
+      El tiempo de espera en cualquier sistema de servicio es el producto de variabilidad, utilización y tiempo de servicio.
+      Al 99% de utilización, cualquier variabilidad se multiplica por 99.
+      Los SLOs existen para impedir que &rho; se aproxime a 1.
+      Las 7 herramientas de este análisis atacan el mismo sistema desde ángulos complementarios:
+      <strong>SPC reduce V</strong>;
+      <strong>log-normal TTR caracteriza c²<sub>s</sub></strong>;
+      <strong>Erlang C cuantifica cómo V y U producen espera</strong>;
+      <strong>SARIMA predice &lambda;(t) &rarr; &rho;</strong>;
+      <strong>error budget mantiene &rho; &lt; 1 por política</strong>;
+      <strong>DORA calibra benchmarks</strong>.
+      Little's Law (L = &lambda;W) conecta todas las métricas como ley de conservación de flujo.
+    </p>
+    <div class="framework-cite">
+      Kingman, J.F.C. (1961). The single server queue in heavy traffic.
+      <em>Math. Proc. Cambridge Philosophical Society</em>, 57(4), 902&ndash;904. &nbsp;&middot;&nbsp;
+      Hopp &amp; Spearman (2008). <em>Factory Physics</em>, 3ª ed. Waveland Press. Caps.&nbsp;7&ndash;9. &nbsp;&middot;&nbsp;
+      Little, J.D.C. (1961). A proof for the queuing formula L&nbsp;=&nbsp;&lambda;W.
+      <em>Operations Research</em>, 9(3), 383&ndash;387.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  LAS HERRAMIENTAS                                   -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="section-header">
+    <h2>Las herramientas &mdash; findings, citas, qué debes saber y por qué</h2>
+    <div class="line"></div>
+  </div>
+
+  <!-- ── SPC ── -->
+  <div class="tool-card">
+    <div class="tool-card-header">
+      <div>
+        <div class="tool-name">Statistical Process Control (SPC)</div>
+        <div class="tool-origin">Walter A. Shewhart &middot; Bell Telephone Laboratories &middot; 1924&ndash;1931</div>
+      </div>
+      <div class="tool-formula">x&#772; &plusmn; 3&sigma;</div>
+    </div>
+    <div class="tool-body">
+      <div class="tool-row">
+        <div class="tool-label">Finding</div>
+        <div class="tool-content">
+          El límite &plusmn;3&sigma; tiene tres justificaciones independientes:
+          (1) <strong>Chebyshev</strong>: P(|X&minus;&mu;|&nbsp;&gt;&nbsp;3&sigma;) &le; 1/9&nbsp;=&nbsp;11.1% — distribución libre, sin asumir normalidad;
+          (2) <strong>Vysochanskii-Petunin</strong>: &le;&nbsp;5.5% para distribuciones unimodales;
+          (3) <strong>Shewhart</strong>: decisión económica (costo de falsas alarmas vs. costo de incidentes no detectados), no umbral estadístico formal.
+          Distingue variación de causa común (ruido inherente) de variación de causa especial (señal).
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Debes saber</div>
+        <div class="tool-content must-know">
+          Puedes usar &plusmn;3&sigma; sin asumir normalidad. La cota de Chebyshev es universal.
+          Shewhart lo eligió por economía, no por probabilidad exacta.
+          En términos VUT: una métrica "en control estadístico" tiene c²<sub>s</sub> estabilizado — la variabilidad de servicio no está siendo amplificada por causas externas.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Por qué</div>
+        <div class="tool-content why">
+          En el análisis de operaciones cloud debes justificar por qué usas &plusmn;3&sigma; sin caer en "porque así lo dicen los libros."
+          La respuesta es: es una cota distribution-free con justificación económica, no una prueba de normalidad.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Modos de falla</div>
+        <div class="tool-content">
+          <div class="fail-list">
+            <span class="fail-badge">Autocorrelación &rarr; límites artificialmente estrechos</span>
+            <span class="fail-badge">No-estacionariedad &rarr; falsas alarmas masivas</span>
+            <span class="fail-badge">X-chart sensible a no-normalidad (gráfico de individuos)</span>
+          </div>
+          <div class="fail-note">Alwan &amp; Roberts (1988): con autocorrelación positiva en telemetría, SPC genera avalanchas de falsas alarmas. Corrección: aplicar SPC sobre residuos de un modelo ARIMA, no sobre los valores crudos.</div>
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Citas</div>
+        <div class="tool-content">
+          <div class="cite-list">
+            <div class="cite-item primary">Shewhart, W.A. (1931). <em>Economic Control of Quality of Manufactured Product</em>. D. Van Nostrand.</div>
+            <div class="cite-item">Alwan, L.C. &amp; Roberts, H.V. (1988). Time-series modeling for statistical process control. <em>Journal of Business and Economic Statistics</em>, 6(1), 87&ndash;95.</div>
+            <div class="cite-item">Montgomery, D.C. (2009). <em>Introduction to Statistical Quality Control</em>, 6ª ed. Wiley. (§6.4)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GESD ── -->
+  <div class="tool-card">
+    <div class="tool-card-header">
+      <div>
+        <div class="tool-name">GESD — Generalized Extreme Studentized Deviate</div>
+        <div class="tool-origin">Bernard Rosner &middot; Harvard School of Public Health &middot; <em>Technometrics</em> 1983</div>
+      </div>
+      <div class="tool-formula">R<sub>i</sub> = max|x<sub>j</sub>&minus;x&#772;&#8317;&#8518;&#8318;| / s&#8317;&#8518;&#8318;</div>
+    </div>
+    <div class="tool-body">
+      <div class="tool-row">
+        <div class="tool-label">Finding</div>
+        <div class="tool-content">
+          Detecta hasta k outliers simultáneamente sin la masking flaw del ESD simple (que falla cuando hay varios outliers).
+          Los valores críticos &lambda;<sub>i</sub> se derivan de la distribución t vía corrección de Bonferroni — control exacto de error Tipo&nbsp;I familiar.
+          Estandarizado como ASTM D7915-22.
+          Twitter (S-H-ESD, 2017): descomposición STL + MAD en lugar de &sigma; antes de GESD &rarr; maneja autocorrelación y estacionalidad en telemetría.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Debes saber</div>
+        <div class="tool-content must-know">
+          GESD responde: "¿es este pico un outlier estadístico o ruido del proceso?" formalmente.
+          S-H-ESD resuelve el mismo problema de autocorrelación que afecta a SPC.
+          El parámetro k (máximo de outliers esperados) debe especificarse de antemano — si es demasiado bajo, outliers reales quedan enmascarados.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Por qué</div>
+        <div class="tool-content why">
+          Cuando justifiques la detección de anomalías en latencia o IOPS, GESD te da la respuesta formal.
+          La versión S-H-ESD de Twitter es la referencia de la industria para telemetría de operaciones — es citable y replicable.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Modos de falla</div>
+        <div class="tool-content">
+          <div class="fail-list">
+            <span class="fail-badge">Supone normalidad en los no-outliers</span>
+            <span class="fail-badge">k prespecificado — masking si k muy bajo</span>
+            <span class="fail-badge">Autocorrelación &rarr; falsos positivos</span>
+            <span class="fail-badge">Colas pesadas &rarr; outliers reales perdidos</span>
+          </div>
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Citas</div>
+        <div class="tool-content">
+          <div class="cite-list">
+            <div class="cite-item primary">Rosner, B. (1983). Percentage points for a generalized ESD many-outlier procedure. <em>Technometrics</em>, 25(2), 165&ndash;172. doi:10.1080/00401706.1983.10487848</div>
+            <div class="cite-item">Hochenbaum, J., Vallis, O.S. &amp; Kejariwal, A. (2017). Automatic Anomaly Detection in the Cloud Via Statistical Learning. arXiv:1704.07706.</div>
+            <div class="cite-item">ASTM D7915-22. Standard Practice for Application of Generalized Extreme Studentized Deviate (GESD) Technique.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Log-normal TTR ── -->
+  <div class="tool-card">
+    <div class="tool-card-header">
+      <div>
+        <div class="tool-name">Distribución Log-Normal del TTR</div>
+        <div class="tool-origin">Galton / McAlister (1879) &rarr; Gibrat (1931) &rarr; Aitchison &amp; Brown (1957) &rarr; Kline (1984)</div>
+      </div>
+      <div class="tool-formula">MTTR = exp(&mu; + &sigma;²/2)</div>
+    </div>
+    <div class="tool-body">
+      <div class="tool-row">
+        <div class="tool-label">Finding (cadena de evidencia)</div>
+        <div class="tool-content">
+          <table class="evidence-table">
+            <thead>
+              <tr><th>Contribución</th><th>Fuente</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Observación del proceso multiplicativo</td><td>Galton (1879); McAlister (1879, <em>Proc. Royal Society</em> 29:365)</td></tr>
+              <tr><td>Ley del efecto proporcional &rarr; CLT &rarr; log-normal</td><td>Gibrat (1931). <em>Les In&eacute;galit&eacute;s &Eacute;conomiques</em></td></tr>
+              <tr><td>Monografía matemática canónica</td><td>Aitchison &amp; Brown (1957). <em>The Lognormal Distribution</em>. Cambridge UP</td></tr>
+              <tr><td>Validación empírica hardware (70 datasets)</td><td>Kline (1984). <em>Reliability Engineering</em> 9:65&ndash;80</td></tr>
+              <tr><td>Validación en software/IT</td><td>Grottke &amp; Trivedi (2009). <em>IEEE Computer</em> 40(2):107&ndash;109</td></tr>
+              <tr><td>Estándar DoD</td><td>MIL-HDBK-338B §5.6.2.1 (1998) <em>(texto no verificado directamente)</em></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Debes saber</div>
+        <div class="tool-content must-know">
+          TTR = diagnóstico &times; localización &times; reparación &times; verificación.
+          Cada factor escala proporcionalmente al anterior (proceso multiplicativo).
+          Por CLT: ln(TTR) = &Sigma;ln(X<sub>i</sub>) &rarr; Normal &rarr; TTR ~ LogNormal.
+          Esto <strong>no es un supuesto conveniente</strong> — es consecuencia derivable del proceso.
+          La cola derecha no es artefacto del dato; es el costo de los incidentes complejos.
+          Mediana = exp(&mu;) = "tiempo típico."
+          Media = exp(&mu;&nbsp;+&nbsp;&sigma;²/2) = capacidad de throughput para staffing.
+          Son <strong>números muy distintos</strong> cuando &sigma; es grande.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Por qué</div>
+        <div class="tool-content why">
+          Porque es el argumento que distingue el análisis del TTR de un histograma cualquiera.
+          No estás "ajustando una distribución porque se ve bien" — estás aplicando la distribución que la física del proceso de reparación predice.
+          Puedes citar 100 años de evidencia empírica que incluye un estándar del Departamento de Defensa de EUA.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Modos de falla</div>
+        <div class="tool-content">
+          <div class="fail-list">
+            <span class="fail-badge">Pasos aditivos (no multiplicativos) &rarr; Weibull o gamma</span>
+            <span class="fail-badge">Con censura (TTR no observado) &rarr; análisis de supervivencia</span>
+            <span class="fail-badge">Mezcla de tipos de incidente &rarr; distribuciones mixtas</span>
+          </div>
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Citas</div>
+        <div class="tool-content">
+          <div class="cite-list">
+            <div class="cite-item primary">Aitchison, J. &amp; Brown, J.A.C. (1957). <em>The Lognormal Distribution</em>. Cambridge University Press. [monografía canónica]</div>
+            <div class="cite-item primary">Kline, M.B. (1984). Suitability of the lognormal distribution for corrective maintenance repair times. <em>Reliability Engineering</em>, 9(2), 65&ndash;80. doi:10.1016/0143-8174(84)90041-6</div>
+            <div class="cite-item">Gibrat, R. (1931). <em>Les In&eacute;galit&eacute;s &Eacute;conomiques</em>. Recueil Sirey. [ley del efecto proporcional]</div>
+            <div class="cite-item">Grottke, M. &amp; Trivedi, K.S. (2009). Fighting bugs: Remove, retry, replicate, and rejuvenate. <em>IEEE Computer</em>, 40(2), 107&ndash;109.</div>
+            <div class="cite-item">MIL-HDBK-338B (1998). Electronic Reliability Design Handbook. §5.6.2.1. U.S. Dept. of Defense.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Erlang C ── -->
+  <div class="tool-card">
+    <div class="tool-card-header">
+      <div>
+        <div class="tool-name">Erlang C &mdash; Cola M/M/c</div>
+        <div class="tool-origin">Agner Krarup Erlang &middot; Copenhagen Telephone Company &middot; 1909&ndash;1917</div>
+      </div>
+      <div class="tool-formula">P(espera &gt; t) = C(c,a) &middot; e<sup>&minus;(c&mu;&minus;&lambda;)t</sup></div>
+    </div>
+    <div class="tool-body">
+      <div class="tool-row">
+        <div class="tool-label">Finding</div>
+        <div class="tool-content">
+          <strong>Fórmula Erlang C:</strong><br>
+          <code style="font-family: var(--mono); font-size: 0.82rem; background: #f0ece4; padding: 0.4rem 0.6rem; display: inline-block; border-radius: 4px; margin: 0.4rem 0;">
+            C(c, a) = [a&#7580;/c! &middot; 1/(1&minus;&rho;)] / [&Sigma;<sub>k=0</sub><sup>c&minus;1</sup> a&#7580;/k! + a&#7580;/c! &middot; 1/(1&minus;&rho;)]
+          </code><br>
+          donde a = &lambda;/&mu; (carga en Erlangs), &rho; = a/c &lt; 1 para estabilidad.
+          Responde: con &lambda; incidentes/hora, MTTR de &mu; minutos, y c ingenieros disponibles, ¿qué % de incidentes esperan más de t minutos?
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Debes saber</div>
+        <div class="tool-content must-know">
+          El resultado es <strong>escenario hipotético, no garantía operacional</strong> — los supuestos de Poisson + exponencial casi nunca se cumplen en NOC.
+          Su valor es dar el piso teórico y permitir comparación de escenarios de staffing.
+          A &rho; cercano a 1, el resultado es extremadamente sensible a la tasa de abandono: con solo 5% de abandonment, Erlang C sobreestima la espera por un factor de 55.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Por qué</div>
+        <div class="tool-content why">
+          Porque da una respuesta numérica a la pregunta de staffing que ninguna otra herramienta del stack responde directamente.
+          El hecho de que sus supuestos fallen <em>es parte del argumento</em> — te da el piso teórico para luego comparar con lo que la simulación o el dato real muestra.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Modos de falla</div>
+        <div class="tool-content">
+          <div class="fail-list">
+            <span class="fail-badge">Llegadas bursty (no Poisson) &rarr; sobrestima capacidad</span>
+            <span class="fail-badge">TTR log-normal (no exponencial) &rarr; c²<sub>s</sub>&gt;1 amplifica espera</span>
+            <span class="fail-badge">Con abandono: error hasta 55&times; (Robbins 2010)</span>
+            <span class="fail-badge">Arrivals no estacionarias &rarr; SIPP understaffs en transiciones</span>
+          </div>
+          <div class="fail-note">Robbins et al. (2010): con 5% de abandono, Erlang C predijo 1,100s espera; simulación con Erlang A (que incluye abandono) = 18s. Error de 60&times;. Corrección: usar Erlang A (M/M/n+M) cuando existe cualquier mecanismo de escalación o timeout.</div>
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Citas</div>
+        <div class="tool-content">
+          <div class="cite-list">
+            <div class="cite-item primary">Erlang, A.K. (1917). Solution of some problems in the theory of probabilities of significance in automatic telephone exchanges. <em>Post Office Electrical Engineers' Journal</em>, 10, 189&ndash;197.</div>
+            <div class="cite-item">Robbins, T.R., Medeiros, D.J. &amp; Harrison, T.P. (2010). A simulation study of Erlang-C and Erlang-A for call center workforce scheduling. <em>Proc. Winter Simulation Conference</em>.</div>
+            <div class="cite-item">Brown, L. et al. (2005). Statistical analysis of a telephone call center. <em>Journal of the American Statistical Association</em>, 100(469), 36&ndash;50.</div>
+            <div class="cite-item">Green, L.V., Kolesar, P.J. &amp; Soares, J. (2001). Improving the SIPP approach for staffing service systems that have cyclic demands. <em>Management Science</em>, 47(10), 1329&ndash;1341.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SARIMA ── -->
+  <div class="tool-card">
+    <div class="tool-card-header">
+      <div>
+        <div class="tool-name">SARIMA &mdash; Seasonal ARIMA</div>
+        <div class="tool-origin">Box &amp; Jenkins (1970) &middot; sintetiza Yule AR (1926), Slutsky MA (1937), Wold (1938)</div>
+      </div>
+      <div class="tool-formula">SARIMA(p,d,q)(P,D,Q)<sub>s</sub></div>
+    </div>
+    <div class="tool-body">
+      <div class="tool-row">
+        <div class="tool-label">Finding</div>
+        <div class="tool-content">
+          Modela series temporales lineales con estacionalidad explícita. Diferenciación d veces + diferenciación estacional D veces &rarr; estacionaridad &rarr; AR + MA + componentes estacionales.
+          En el contexto de ops: predice &lambda;(t) — el volumen de tickets/incidentes por período — para dimensionar staffing antes de que llegue la demanda.
+          M4 Competition (2018): ARIMA ranked 20th de 61 métodos; métodos de ensamble ganaron con margen considerable.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Debes saber</div>
+        <div class="tool-content must-know">
+          Sin predicción de &lambda;(t), Erlang C solo responde preguntas retroactivas.
+          SARIMA cierra el ciclo: predice demanda &rarr; Erlang C calcula staffing &rarr; SPC verifica resultados.
+          Los intervalos de predicción al 95% logran empíricamente solo 71&ndash;87% de cobertura real (Hyndman 2002) porque ignoran la incertidumbre del modelo y los parámetros.
+          Es el <em>baseline</em> honesto para series con estacionalidad, no el ceiling.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Por qué</div>
+        <div class="tool-content why">
+          Porque el stakeholder que lee el análisis necesita ver una proyección de demanda futura, no solo una descripción del pasado.
+          SARIMA es el método de referencia que todo analista de operaciones reconoce como punto de partida riguroso.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Modos de falla</div>
+        <div class="tool-content">
+          <div class="fail-list">
+            <span class="fail-badge">Roturas estructurales (migrations, outages) &rarr; inútil post-evento</span>
+            <span class="fail-badge">Datos de conteo con ceros &rarr; INGARCH más apropiado</span>
+            <span class="fail-badge">Múltiples estacionalidades &rarr; TBATS o Prophet</span>
+            <span class="fail-badge">Cobertura 71&ndash;87% (no 95%) en intervalos de predicción</span>
+          </div>
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Citas</div>
+        <div class="tool-content">
+          <div class="cite-list">
+            <div class="cite-item primary">Box, G.E.P. &amp; Jenkins, G.M. (1970). <em>Time Series Analysis: Forecasting and Control</em>. Holden-Day.</div>
+            <div class="cite-item">Hyndman, R.J. (2002). It's time to move from "what" to "why." <em>International Journal of Forecasting</em>, 18(4), 567&ndash;570.</div>
+            <div class="cite-item">Makridakis, S. et al. (2018). The M4 Competition: Results, findings, conclusion and way forward. <em>International Journal of Forecasting</em>, 34(4), 802&ndash;808.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Error Budget ── -->
+  <div class="tool-card">
+    <div class="tool-card-header">
+      <div>
+        <div class="tool-name">Error Budget (SLO Framework)</div>
+        <div class="tool-origin">Google SRE Book, Cap. 3 &middot; Beyer, Jones, Petoff &amp; Murphy (Eds.) &middot; O'Reilly &middot; 2016</div>
+      </div>
+      <div class="tool-formula">Budget = 1 &minus; SLO</div>
+    </div>
+    <div class="tool-body">
+      <div class="tool-row">
+        <div class="tool-label">Finding</div>
+        <div class="tool-content">
+          Error Budget = 1 &minus; SLO. Un 99.9% SLO en ventana de 30 días = 43.2 minutos de inactividad permitida.
+          Cuando el presupuesto se agota &rarr; se frena velocity de features.
+          Base formal subyacente (no citada en el libro pero derivable): proceso de renovación alternante &rarr; lim A(t) = E[uptime]/(E[uptime]+E[downtime]). La disponibilidad asintótica depende solo de las medias, no de las distribuciones completas.
+          Frenar deploys reduce el ritmo de cambio, que es la fuente #1 de c²<sub>s</sub> en software &rarr; reduce V en VUT.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Debes saber</div>
+        <div class="tool-content must-know">
+          Es <strong>política operacional bien diseñada, no estadística inferencial</strong>.
+          Su poder no es matemático sino organizacional: da al SRE autoridad para decir "no" a nuevos deploys sin argumento técnico caso a caso.
+          Conecta el análisis descriptivo y predictivo a una consecuencia operacional concreta.
+          Sin error budget, el análisis de VUT es académico. Con él, tiene poder de decisión real.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Por qué</div>
+        <div class="tool-content why">
+          Porque es el mecanismo que mantiene &rho; &lt; 1 con margen de forma sistemática, no caso a caso.
+          En el argumento del caso study: es el resultado prescriptivo al que apunta todo el análisis anterior.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Modos de falla</div>
+        <div class="tool-content">
+          <div class="fail-list">
+            <span class="fail-badge">SLO mal calibrado &rarr; budget siempre lleno o siempre vacío</span>
+            <span class="fail-badge">Sin enforcement organizacional &rarr; métrica decorativa</span>
+            <span class="fail-badge">No distingue error types &rarr; gasta budget en ruido menor</span>
+          </div>
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Citas</div>
+        <div class="tool-content">
+          <div class="cite-list">
+            <div class="cite-item primary">Beyer, B., Jones, C., Petoff, J. &amp; Murphy, N.R. (Eds.) (2016). <em>Site Reliability Engineering</em>. O'Reilly. Cap. 3: "Embracing Risk." [sre.google/sre-book/embracing-risk/]</div>
+            <div class="cite-item">Trivedi, K.S. (2001). <em>Probability and Statistics with Reliability, Queuing and Computer Science Applications</em>, 2ª ed. Wiley. [proceso de renovación alternante]</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DORA ── -->
+  <div class="tool-card">
+    <div class="tool-card-header">
+      <div>
+        <div class="tool-name">Métricas DORA</div>
+        <div class="tool-origin">Forsgren, Humble &amp; Kim &middot; <em>Accelerate</em> &middot; IT Revolution Press &middot; 2018</div>
+      </div>
+      <div class="tool-formula">PLS-SEM + EFA &middot; n &asymp; 23,000</div>
+    </div>
+    <div class="tool-body">
+      <div class="tool-row">
+        <div class="tool-label">Finding</div>
+        <div class="tool-content">
+          Cuatro métricas operacionales: Deployment Frequency, Lead Time for Changes, Change Failure Rate, MTTR.
+          Cuatro grupos de desempeño (elite/high/medium/low) via clustering jerárquico (Ward) sobre 23,000+ respuestas de encuesta (2014&ndash;2017).
+          Método: PLS-SEM (Partial Least Squares SEM) + análisis factorial exploratorio.
+          Keunwoo Lee (2018): "inferential predictive" no está en la taxonomía de Leek que los autores citan; umbral p&lt;0.10 vs. convencional 0.05; halo effects en self-report; constructo no validado independientemente. Kunze et al.: correlación fuerte en solo 29% de sistemas instrumentados.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Debes saber</div>
+        <div class="tool-content must-know">
+          Las afirmaciones son <strong>correlacionales</strong>. El lenguaje causal en las figuras no está respaldado por el diseño cross-sectional survey.
+          <strong>Uso correcto:</strong> benchmarks de calibración (¿en qué rango cae nuestro MTTR vs. la industria?), no prueba de causalidad.
+          "Nuestro MTTR está en el cuartil elite según DORA" = afirmación legítima.
+          "DF alto causa buen desempeño" = afirmación no respaldada por el diseño del estudio.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Por qué</div>
+        <div class="tool-content why">
+          Porque son los benchmarks de facto que todo stakeholder en DevOps/SRE conoce.
+          Usarlos como referencia es legítimo y da contexto inmediato al lector.
+          Presentarlos con honestidad epistemológica ("correlacionado con" en lugar de "causa") es lo que distingue el análisis riguroso.
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Modos de falla</div>
+        <div class="tool-content">
+          <div class="fail-list">
+            <span class="fail-badge">Self-report bias &rarr; halo effect</span>
+            <span class="fail-badge">PLS-SEM no distingue correlación de causalidad</span>
+            <span class="fail-badge">Dato no público &rarr; no directamente replicable</span>
+            <span class="fail-badge">Fuerte correlación solo en 29% de sistemas instrumentados (Kunze et al.)</span>
+          </div>
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-label">Citas</div>
+        <div class="tool-content">
+          <div class="cite-list">
+            <div class="cite-item primary">Forsgren, N., Humble, J. &amp; Kim, G. (2018). <em>Accelerate: The Science of Lean Software and DevOps</em>. IT Revolution Press.</div>
+            <div class="cite-item">Lee, K. (2018). Reviewing Accelerate's statistical claims. keunwoo.com/blog/2018/accelerate-review</div>
+            <div class="cite-item">Leek, J.T. &amp; Peng, R.D. (2015). What is the question? <em>Science</em>, 347(6228), 1314&ndash;1315.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  ZONA GRIS                                          -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="section-header">
+    <h2>Zona gris &mdash; interesante pero no puedo comprometer</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="gray-card">
+    <h4>1. Kingman (1961) "exacto" vs. VUT "pedagógico" de Hopp &amp; Spearman</h4>
+    <p>El paper original de Kingman prueba el resultado para colas G/G/1 en heavy traffic con coeficientes de variación, no exactamente en la forma W<sub>q</sub>&nbsp;=&nbsp;V&middot;U&middot;T. La forma que aparece en Factory Physics es la adaptación pedagógica de Hopp &amp; Spearman. El resultado matemático es el mismo; la presentación es distinta. Para el argumento del caso study, la versión Hopp &amp; Spearman es suficiente y correcta. La distinción importa solo si alguien busca la fórmula literal en el paper original de 1961.</p>
+  </div>
+
+  <div class="gray-card">
+    <h4>2. Erlang A como alternativa correcta a Erlang C en contexto NOC/SRE</h4>
+    <p>Erlang A (M/M/n+M, con abandono) es formalmente superior a Erlang C cuando existe cualquier mecanismo de timeout, escalación automática, o abandonment en el sistema. La literatura (Robbins et al. 2010; Whitt 2018) es clara sobre esto. Pero no existe, hasta donde encontré, un paper que aplique Erlang A explícitamente a un contexto NOC o SRE. La transferencia es directa pero no es citable con un caso NOC como referencia primaria.</p>
+  </div>
+
+  <div class="gray-card">
+    <h4>3. MIL-HDBK-338B §5.6.2.1 &mdash; texto exacto no verificado</h4>
+    <p>La cita sobre log-normal en mantenimiento correctivo proviene del §5.6.2.1 del MIL-HDBK-338B. Encontré múltiples fuentes secundarias que la citan (Kline 1984; Grottke &amp; Trivedi 2009). No pude acceder al texto completo del manual DoD para verificar el wording exacto. <strong>Kline (1984) es la fuente primaria verificable</strong>; MIL-HDBK-338B es contexto adicional de autoridad, no evidencia independiente.</p>
+  </div>
+
+  <div class="gray-card">
+    <h4>4. ¿Ha respondido el equipo DORA a la crítica de Keunwoo Lee?</h4>
+    <p>La crítica de Lee (2018) es sólida metodológicamente. No encontré una respuesta pública formal de Forsgren, Humble o Kim a esos puntos específicos. El <em>State of DevOps Report</em> continúa publicándose anualmente con metodología similar. Esto no invalida el uso de los benchmarks, pero desconozco si los autores han reconocido las limitaciones formalmente.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  ALTO AQUI                                          -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="section-header">
+    <h2>Alto aquí &mdash; no investigues más, y por qué</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="stop-card">
+    <h4>1. La demostración formal de Little's Law</h4>
+    <div class="stop-body">L&nbsp;=&nbsp;&lambda;W es un resultado de conservación de flujo, análogo a la ley de Kirchhoff. La prueba formal (Little 1961; Stidham 1974) es matemáticamente sofisticada pero no añade nada al argumento operacional. La ley no tiene supuestos restrictivos — aplica a cualquier distribución de tiempos de llegada y servicio en estado estable.</div>
+    <div class="stop-reason">la intuición es completa y la ley es universal. Más investigación no tiene upside operacional ni argumental.</div>
+  </div>
+
+  <div class="stop-card">
+    <h4>2. Derivación completa de la fórmula Erlang C vía cadenas de Markov</h4>
+    <div class="stop-body">La derivación requiere cadenas de Markov de tiempo continuo (CTMC) y condiciones de balance detallado — nivel PhD de queueing theory. La fórmula es estándar y verificable en cualquier libro de queueing.</div>
+    <div class="stop-reason">lo que importa para el argumento es cuándo falla (Robbins et al. 2010), no cómo se deriva. El público objetivo (senior engineers, hiring managers) acepta la fórmula como establecida.</div>
+  </div>
+
+  <div class="stop-card">
+    <h4>3. Si DORA tiene razón o Keunwoo Lee tiene razón</h4>
+    <div class="stop-body">El debate metodológico sobre Accelerate no cambia cómo usas los números. Si presentas los benchmarks con honestidad epistemológica ("correlacionado con" en lugar de "causa"), ya estás en terreno sólido independientemente de qué lado tenga razón en el debate académico.</div>
+    <div class="stop-reason">irrelevante para el uso como calibración de benchmarks. El debate importa a quienes derivan política de los coeficientes de path — tú no lo haces.</div>
+  </div>
+
+  <div class="stop-card">
+    <h4>4. Network calculus / geometría estocástica para sistemas distribuidos</h4>
+    <div class="stop-body">Existe literatura avanzada (Cruz 1991; Chang 2000) sobre modelado de latencia en redes distribuidas via arrival curves y service curves — formalmente más rigurosa que Erlang C para cloud ops. Pero requiere caracterización de tráfico con granularidad de red que ningún dataset de incidents + CI runs puede proporcionar.</div>
+    <div class="stop-reason">los datos disponibles no tienen la granularidad necesaria. Esta literatura sería relevante con distributed tracing instrumentado en producción real. No es el caso de este portfolio.</div>
+  </div>
+
+  <div class="stop-card">
+    <h4>5. Stack Bayesiano para reliability (PyMC / Stan)</h4>
+    <div class="stop-body">Reliability bayesiana (Martz &amp; Waller 1982; Hamada et al. 2008) permite incorporar priors sobre MTTR y produce distribuciones posteriores sobre disponibilidad más honestas sobre la incertidumbre que las estimaciones puntuales — especialmente válido con n=103 incidentes. Es metodológicamente más riguroso.</div>
+    <div class="stop-reason">reescribir los notebooks con un stack Bayesiano es un proyecto diferente de naturaleza. La ganancia en rigor no justifica el costo para este portfolio. Si el análisis llega a ese nivel de escrutinio, es un notebook separado.</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  LECTURAS RECOMENDADAS                              -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="section-header">
+    <h2>Lecturas prioritarias antes del MDX</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="reading-box">
+    <h4>Dos fuentes que hacen el argumento más eficientemente que cualquier otra</h4>
+    <div class="reading-item">
+      <div class="num">01</div>
+      <div>
+        <div class="reading-title">Hopp &amp; Spearman, <em>Factory Physics</em> (3ª ed., Waveland Press, 2008) &mdash; Caps. 7&ndash;9</div>
+        <div class="reading-why">VUT, Law of Variability, Buffering Law. Hace explícita la conexión SPC &harr; queueing &harr; reliability que los demás libros tratan por separado. Es el marco que convierte tu lista de herramientas en una narrativa coherente.</div>
+      </div>
+    </div>
+    <div class="reading-item">
+      <div class="num">02</div>
+      <div>
+        <div class="reading-title">Koole &amp; Mandelbaum (2002). "Queueing Models of Call Centers." <em>Annals of Operations Research</em> 113:41&ndash;59.</div>
+        <div class="reading-why">La encuesta más clara sobre por qué M/M/c falla en operaciones reales y qué hacer al respecto. Directamente transferible al NOC. PDF libre disponible en math.vu.nl/~koole/publications/2002aor/aor.pdf</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Generado para el argumento de <strong>cloud_infrastructure_support</strong> (hci-support.mdx) &middot; Portfolio Mario Casanova &middot; 2026-06-28</p>
+    <p style="margin-top:0.35rem;">Todas las fuentes primarias verificadas excepto donde se indica explícitamente en "Zona gris." Código sesión: cc51360f-3c2e-4484-ace9-3e17c8128216.</p>
+  </footer>
+
+</div>
+</body>
+</html>

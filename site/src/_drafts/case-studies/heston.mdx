@@ -1,0 +1,329 @@
+---
+layout: ../../layouts/CaseStudyLayout.astro
+slug: heston
+domain: Quantitative finance
+n: "06"
+total: "12"
+date: 2026-07-05
+title: "Exotic options under stochastic volatility, and what antithetic variates actually buy"
+lede: >-
+  A discretely-monitored Asian call under Heston stochastic volatility has no
+  closed form, so Monte Carlo is the only real option — and antithetic
+  variates promise a cheaper Monte Carlo. I don't assert that discount; I
+  measure it, against plain Monte Carlo at the same path budget, and I try to
+  be honest about how far a single seed can carry that measurement.
+methods:
+  - Heston model
+  - Euler–Maruyama simulation
+  - Antithetic variates
+  - Monte Carlo pricing
+stack:
+  - Python 3.11
+  - NumPy
+  - Matplotlib
+notebook: quantitative_finance/notebooks/02_Exotic_Options_Heston.ipynb
+reference: >-
+  Steven L. Heston, *A Closed-Form Solution for Options with Stochastic
+  Volatility with Applications to Bond and Currency Options*, Review of
+  Financial Studies, 1993.
+---
+
+import { Section, Prose, Figure, CodeBlock, Equation, Quote, Callout } from "~/components/case-study";
+
+<Prose>
+
+Most option-pricing case studies open with a market and close with a price. This one
+opens with a simulation method and closes with a measurement of how much a specific
+trick — antithetic variates — buys when that method is the only one available. The
+option is a discretely-monitored arithmetic Asian call: the payoff depends on the
+average of the underlying over the whole path, not just its terminal value, and that
+path-dependence is exactly what kills any hope of a closed form once volatility itself
+is allowed to move randomly. Simulate it or don't price it; those are the choices.
+
+I want to say up front what this notebook is not, because the temptation with a model
+this well-dressed (correlated Brownian motions, a mean-reverting variance process, a
+Nobel-adjacent name attached to it) is to read the resulting price as a market opinion.
+It isn't one. The parameters below are illustrative, chosen to produce a Heston surface
+with a visible leverage effect, not calibrated to any option chain or index I can point
+to. Treat the dollar figures in this page as the output of a declared benchmark, and
+treat the *method* — how much variance the antithetic trick removes, and why — as the
+part actually worth trusting.
+
+</Prose>
+
+<Section n="01" slug="the-average-that-has-no-closed-form" title="The average that has no closed form.">
+
+<Prose>
+
+Under Heston, the spot and its instantaneous variance both diffuse, and the two
+Brownian drivers are correlated through a single parameter, ρ, that carries almost all
+of the model's personality:
+
+</Prose>
+
+<Equation n="1.1" width="inline">
+
+$$
+dS_t \;=\; r\,S_t\,dt \;+\; \sqrt{v_t}\,S_t\,dW_t^{S}
+$$
+
+</Equation>
+
+<Equation n="1.2" width="inline">
+
+$$
+dv_t \;=\; \kappa(\theta - v_t)\,dt \;+\; \xi\sqrt{v_t}\,dW_t^{v}, \qquad \operatorname{corr}(dW_t^S, dW_t^v) = \rho
+$$
+
+</Equation>
+
+<Prose>
+
+Variance follows a CIR process — it mean-reverts to a long-run level θ at speed κ,
+with its own vol-of-vol ξ — and ρ is what makes this a *stochastic-volatility* model
+rather than two independent noises glued together. A negative ρ is the leverage
+effect: when the asset falls, variance tends to rise in the same instant, which is
+close to what equity markets actually do and is why ρ = −0.7 was chosen below rather
+than 0. Neither the CIR variance process nor the terminal average of a path that
+follows it admits a closed-form density, so pricing anything path-dependent under this
+model means simulating paths and averaging payoffs — Monte Carlo, full stop.
+
+I discretize with Euler–Maruyama over M = 252 steps (one Heston SDE step per trading
+day) and use full truncation, `max(0, ...)`, wherever the variance update would
+otherwise go negative — a real edge case here, since v is a square-root process that
+can hit zero at these parameters. The benchmark parameters, printed in the notebook and
+reproduced here so the label sits next to the numbers rather than only in the prose
+above them, are:
+
+</Prose>
+
+<CodeBlock lang="python" file="heston_params.py" width="wide">
+
+```python
+# Illustrative benchmark, NOT calibrated to any traded market or option chain.
+S0    = 100.0   # spot
+v0    = 0.04    # initial variance (20% instantaneous vol)
+kappa = 2.0      # variance mean-reversion speed
+theta = 0.04    # long-run variance level
+xi    = 0.3      # vol-of-vol
+rho   = -0.7    # leverage effect: corr(dW^S, dW^v)
+r     = 0.03    # risk-free rate
+T     = 1.0      # maturity, years
+M     = 252      # Euler-Maruyama steps (trading days)
+N     = 50000    # simulated paths
+np.random.seed(42)   # strict reproducibility
+```
+
+</CodeBlock>
+
+<Callout kind="aside">
+
+Every number that follows on this page comes from exactly these parameters and this
+seed, run once, end to end, with `jupyter nbconvert --execute`. That buys strict
+reproducibility — the same command reproduces the same digits — but reproducibility is
+not the same claim as robustness, and I keep that distinction alive through the rest of
+this page rather than letting the two blur into each other.
+
+</Callout>
+
+</Section>
+
+<Section n="02" slug="the-trick-that-should-halve-the-noise" title="The trick that should halve the noise, and why here specifically.">
+
+<Prose>
+
+Antithetic variates is the cheapest variance-reduction technique in the Monte Carlo
+toolbox: for every Brownian increment Z you also simulate its mirror, −Z, and price the
+option on both. If a path and its mirror tend to land on opposite sides of the payoff's
+average, pairing them before computing the sample variance cancels part of the noise at
+no extra cost in random draws — half the paths do double duty. The catch is the "if". A
+symmetric payoff on a symmetric diffusion gets a clean, provable variance halving;
+a path-dependent payoff under a *correlated*, non-Gaussian variance process gets no
+such guarantee, which is exactly why this is worth measuring rather than assuming.
+
+There is a specific reason to expect the trick to work unusually well at these
+parameters, though, and it is worth stating mechanically rather than just gesturing at
+it: ρ = −0.7 means a path's own volatility shocks are correlated with its price shocks,
+so flipping the sign of the driving noise doesn't just flip the price path — it flips
+the *volatility* path along with it, in the direction that reinforces the price
+reversal rather than fighting it. A base path that runs low with elevated variance
+tends to pair with a mirror that runs high with correspondingly elevated variance of
+its own, and averaging a high-variance high outcome with a high-variance low outcome
+removes exactly the kind of noise the leverage effect adds. Weaken ρ toward zero and
+this coupling weakens with it; the notebook does not test that sweep, and I say so
+plainly in §04.
+
+The estimator itself is three lines once N/2 base paths and their N/2 mirrors exist:
+average each base path's discounted payoff with its mirror's *before* taking a sample
+variance across the N/2 pairs, rather than pooling all N payoffs as if they were
+independent draws.
+
+</Prose>
+
+<Equation n="2.1" width="wide">
+
+$$
+\hat{C}_{\text{anti}} \;=\; \frac{1}{N/2}\sum_{i=1}^{N/2} \tfrac{1}{2}\Big(f(S^{(i)}) + f(S^{(i),-})\Big), \qquad f(S) = e^{-rT}\max\!\Big(\overline{S} - K, 0\Big)
+$$
+
+</Equation>
+
+<CodeBlock lang="python" file="antithetic_estimator.py" width="wide">
+
+```python
+half = N // 2
+paired = 0.5 * (discounted_payoffs[:half] + discounted_payoffs[half:])
+mc_price = paired.mean()
+mc_std_error = paired.std(ddof=1) / np.sqrt(half)
+```
+
+</CodeBlock>
+
+<Prose>
+
+That is the whole method. The paired average is the i.i.d. unit the standard error is
+computed from — N/2 pairs, not N paths — which is the detail that a naive
+implementation gets wrong most often: pool all N discounted payoffs into one sample
+variance and the pairing structure that does the variance-cancelling work never gets
+the chance to cancel anything.
+
+</Prose>
+
+</Section>
+
+<Section n="03" slug="measuring-not-asserting" title="Measuring the reduction, not asserting it.">
+
+<Prose>
+
+Both estimators price the same instrument — a K = 100 arithmetic-average Asian call,
+struck at the money on S0 = 100 — from the same 50,000-path budget, so the comparison
+is like for like: the antithetic estimator against a plain Monte Carlo re-run with
+`antithetic=False` and the same seed, which is what removes "we just got a better draw
+this time" as an explanation for whatever separates them.
+
+</Prose>
+
+<Figure n="1" width="wide" caption="Standard error of the two estimators at the same 50,000-path budget: naive Monte Carlo (SE ±$0.0294) against the antithetic estimator (SE ±$0.0186), a ratio of 1.58x measured from one seed. The correlation between a path's payoff and its mirror's, −0.598, is the mechanism behind the gap. Source: 02_Exotic_Options_Heston.ipynb, cells 3–4, seed=42.">
+
+<svg viewBox="0 0 700 380" role="img" aria-label="Bar chart comparing standard error of naive Monte Carlo (0.0294) against antithetic Monte Carlo (0.0186) at the same path budget, with the 1.58x ratio and the negative pairwise correlation annotated.">
+  <g font-family="IBM Plex Sans">
+    <g stroke="#1A1814" stroke-width="0.5" opacity="0.15">
+      <line x1="70" y1="233.3" x2="670" y2="233.3"/>
+      <line x1="70" y1="146.7" x2="670" y2="146.7"/>
+      <line x1="70" y1="60" x2="670" y2="60"/>
+    </g>
+    <line x1="70" y1="40" x2="70" y2="320" stroke="#1A1814" stroke-width="0.5" opacity="0.5"/>
+    <line x1="70" y1="320" x2="670" y2="320" stroke="#1A1814" stroke-width="1"/>
+    <g fill="#6B655C" font-size="10" text-anchor="end">
+      <text x="64" y="323">0.00</text>
+      <text x="64" y="236.3">0.01</text>
+      <text x="64" y="149.7">0.02</text>
+      <text x="64" y="63">0.03</text>
+    </g>
+    <text x="70" y="26" fill="#6B655C" font-size="9.5">standard error on the Asian-call price, same 50,000-path budget</text>
+
+    <rect x="200" y="65.2" width="90" height="254.8" fill="#6E1F1F"/>
+    <rect x="410" y="158.8" width="90" height="161.2" fill="#2E4A3F"/>
+
+    <text x="245" y="55" fill="#6E1F1F" font-size="11" text-anchor="middle" font-weight="600">SE ±$0.0294</text>
+    <text x="455" y="148.8" fill="#2E4A3F" font-size="11" text-anchor="middle" font-weight="600">SE ±$0.0186</text>
+
+    <line x1="245" y1="45" x2="245" y2="52" stroke="#1A1814" stroke-width="1"/>
+    <line x1="245" y1="45" x2="455" y2="45" stroke="#1A1814" stroke-width="1"/>
+    <line x1="455" y1="45" x2="455" y2="52" stroke="#1A1814" stroke-width="1"/>
+    <text x="350" y="38" fill="#1A1814" font-size="11" text-anchor="middle" font-weight="600">SE ratio = 1.58×</text>
+    <text x="350" y="20" fill="#6B655C" font-size="9">one seed — not a swept or averaged estimate</text>
+
+    <g fill="#1A1814" font-size="10.5" text-anchor="middle">
+      <text x="245" y="340">naive Monte Carlo</text>
+      <text x="245" y="354" fill="#6B655C" font-size="9.5">price $5.2516</text>
+      <text x="455" y="340">antithetic (paired)</text>
+      <text x="455" y="354" fill="#6B655C" font-size="9.5">price $5.2019</text>
+    </g>
+    <text x="350" y="374" fill="#6B655C" font-size="9.5" text-anchor="middle">corr(payoff, mirror payoff) = −0.598</text>
+  </g>
+</svg>
+
+</Figure>
+
+<Prose>
+
+The antithetic estimator prices the call at $5.2019, standard error ±$0.0186. Plain
+Monte Carlo, same 50,000 paths, same seed, prices it at $5.2516, standard error
+±$0.0294. Divide one standard error by the other and the ratio is 1.58 — the antithetic
+estimator hits the same precision plain Monte Carlo would need roughly 2.5 times more
+paths to reach, for free, since generating the mirror paths costs nothing beyond a sign
+flip on already-drawn noise. That gain has a name and a mechanism, not just a number:
+the correlation between a path's discounted payoff and its mirror's comes out at
+−0.598, and it is that negative correlation — the leverage effect making a path and its
+sign-flipped twin move opposite in payoff — that does the variance-cancelling. I would
+trust that mechanism, measured directly rather than assumed, well before I would trust
+the price itself, and §04 is about exactly where that trust should stop.
+
+</Prose>
+
+</Section>
+
+<Section n="04" slug="what-one-seed-does-not-tell-me" title="What one seed does not tell me, and what I would trust anyway.">
+
+<Prose>
+
+The 1.58× ratio deserves less confidence than the two decimal places suggest, and I would
+rather say that plainly than let a clean-looking number imply a precision it does not
+have. It comes from a single run at a single seed; the notebook fixes `seed=42` for
+strict reproducibility (the same command always regenerates the same digits, which is a
+real and useful property) but never re-runs the comparison across a handful of other
+seeds to see how much 1.58 itself wobbles. Variance-reduction ratios are themselves
+statistics with sampling variability, and reporting one from n = 1 is a smaller version
+of exactly the mistake this page is otherwise careful about — I would rather call it
+"roughly 1.6×, from one seed" than "1.58×" if I had to defend the number to someone
+about to make a compute-budget decision on it. I'll also flag something a careful reader
+would eventually find anyway: the parameter cell carries a comment reading "strict
+reproducibility for sensitivity analysis," and there is no sensitivity sweep anywhere in
+the notebook — across ρ, across seeds, or otherwise. Either it's a leftover from an
+earlier draft or a promise that was never built. I'd rather name the gap than quietly
+drop the comment.
+
+</Prose>
+
+<Callout kind="limits">
+
+- The Heston parameters are illustrative, chosen to produce a visible leverage effect,
+  not calibrated to any option chain, index, or market I could point to — this is a
+  simulation-method demonstration, not a production pricer, and the dollar figures on
+  this page should be read accordingly.
+- The 1.58× variance-reduction ratio is a single-seed point estimate with no cross-seed
+  uncertainty band. I would treat "about 1.6×" as the honest claim and the second
+  decimal place as an artifact of `seed=42` specifically, not of the method in general.
+- Euler–Maruyama with M = 252 steps carries its own discretization bias on top of Monte
+  Carlo error, acknowledged here but not measured — comparing against a finer grid
+  (M = 1000) or Andersen's QE scheme would isolate it, and neither is in this notebook.
+- Two extensions are named in the notebook's own synthesis and left undone: a control
+  variate built on the closed-form geometric-average Asian price, and Greeks by finite
+  differences under common random numbers so a delta or vega bump doesn't inherit fresh
+  Monte Carlo noise of its own.
+
+</Callout>
+
+<Prose>
+
+None of that undoes the central result, and I don't think it should be read as a
+retraction dressed up as a limits section. The direction of the effect — antithetic
+variates reducing variance when the underlying diffusion has a real leverage effect
+to exploit — is a known result of the technique, not a discovery this notebook is
+claiming credit for; what the notebook adds is that it measured the size of the effect
+here, on this specific path-dependent payoff, instead of citing the textbook and moving
+on. If I were advising someone deciding whether antithetic variates are worth the extra
+few lines of bookkeeping on a similar pricing problem, I would say: almost always yes,
+because the implementation cost is close to zero and the downside is close to zero, but
+size the expected gain from the actual correlation structure of your payoff rather than
+from a number measured on someone else's parameters and someone else's seed — which is
+the same caveat I am applying to my own 1.58 above. Where I would go next, if I had
+another afternoon with this notebook, is the multi-seed sweep it doesn't have: rerun the
+same comparison across a dozen seeds and a few values of ρ, and report the ratio as a
+distribution rather than a point. That is a small change to the code and a much more
+defensible sentence to put in front of a reader who has to size a compute budget on it.
+
+</Prose>
+
+</Section>
