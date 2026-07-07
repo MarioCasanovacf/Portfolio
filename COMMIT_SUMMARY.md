@@ -81,7 +81,7 @@ directories). The main groups:
   `revival_plan.md`, `src/spatial_diagnostics.py`, `tests/unit/test_pipeline.py` — this
   is T-115/T-116 work, **still in_progress**, will keep changing before it's final.
 - **`01_professional/review_sentiment_ml/`** — new project directory (`app_ratings/` +
-  `product_reviews/`), 1.6 MB. Grepped case-insensitively for `arlo` across the whole
+  `product_reviews/`), 1.6 MB. Grepped case-insensitively for the target brand across the whole
   directory: **zero hits**. Data files present are `synthetic_sample.csv` — consistent
   with Mario's memory note that this is the *scrubbed* migration target, not the leaky
   public repo. Flagged in section 4 for Mario's own confirmation regardless, since the
@@ -92,7 +92,7 @@ directories). The main groups:
 ## 4. Flags for Mario before committing
 
 1. **`review_sentiment_ml/` — confirm scrubbed, not the leaky copy.** This verifier's
-   grep for "arlo" across the new directory found nothing, and the only data files are
+   grep for the target brand across the new directory found nothing, and the only data files are
    `synthetic_sample.csv`, which is consistent with a clean migration. But the memory
    note (`project_sentiment_ml_portfolio.md`) marks the underlying vendor-identifying
    leak as unresolved and urgent, and this verifier cannot fully audit model

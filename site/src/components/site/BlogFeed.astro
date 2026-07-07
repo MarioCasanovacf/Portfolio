@@ -42,25 +42,22 @@ function decodeEntities(s: string): string {
 let posts: Post[] = [];
 let feedOk = false;
 try {
-  const res = await fetch(FEED_URL, {
-    headers: {
-      'User-Agent':
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36',
-    },
-  });
+  const rss2jsonUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(FEED_URL)}`;
+  const res = await fetch(rss2jsonUrl);
   if (res.ok) {
-    const xml = await res.text();
-    const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((m) => m[1]);
-    posts = items
-      .slice(0, MAX)
-      .map((it) => ({
-        title: decodeEntities(pick(it, 'title')),
-        link: pick(it, 'link'),
-        date: fmtDate(pick(it, 'pubDate')),
-        dek: decodeEntities(pick(it, 'description').replace(/<[^>]*>/g, ' ')).replace(/\s+/g, ' ').trim().slice(0, 180),
-      }))
-      .filter((p) => p.title && p.link);
-    feedOk = posts.length > 0;
+    const data = await res.json();
+    if (data.status === 'ok' && Array.isArray(data.items)) {
+      posts = data.items
+        .slice(0, MAX)
+        .map((it: any) => ({
+          title: decodeEntities(it.title),
+          link: it.link,
+          date: fmtDate(it.pubDate),
+          dek: decodeEntities(it.description.replace(/<[^>]*>/g, ' ')).replace(/\s+/g, ' ').trim().slice(0, 180),
+        }))
+        .filter((p: any) => p.title && p.link);
+      feedOk = posts.length > 0;
+    }
   }
 } catch {
   // Network unavailable at build — fall through to the CTA below.
@@ -71,8 +68,8 @@ try {
   <div class="bf-eyebrow">Blog · Substack</div>
   <h2 class="bf-title">Moneda 391</h2>
   <p class="bf-lede">
-    Mi cuaderno público — dinero, poder, filosofía y lo que se cruce. Los textos viven en Substack;
-    aquí están los últimos. <a href={SUBSTACK_URL} target="_blank" rel="noopener">Leer y suscribirse →</a>
+    My public notebook — money, power, philosophy, and whatever crosses my path. The articles live on Substack;
+    here are the latest. <a href={SUBSTACK_URL} target="_blank" rel="noopener">Read and subscribe →</a>
   </p>
 
   {feedOk ? (
@@ -90,7 +87,7 @@ try {
     </div>
   ) : (
     <p class="bf-fallback">
-      <a href={SUBSTACK_URL} target="_blank" rel="noopener">Leer Moneda 391 en Substack →</a>
+      <a href={SUBSTACK_URL} target="_blank" rel="noopener">Read Moneda 391 on Substack →</a>
     </p>
   )}
 </section>

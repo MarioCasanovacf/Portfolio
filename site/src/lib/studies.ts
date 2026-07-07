@@ -127,6 +127,7 @@ export const studies: Study[] = [
     title: 'Five hypotheses about a one-party chamber',
     dek: 'Exploratory tests on the LXVI roll-call: the two blocs actually agree 57% of the time, absence is used to skip routine votes (not dodge contentious ones), floor leaders track their caucus to ≥99.6%, and the only deputies who cross the aisle are all from MC — including, at the same rate, MC’s own floor coordinator.',
     methods: ['DuckDB + pandas', 'Roll-call analysis', 'Jupyter'],
+    published: true,
   },
   {
     slug: 'symplectic-integration',
