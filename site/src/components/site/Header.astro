@@ -22,7 +22,7 @@ const items = [
 const activeId = (() => {
   const normB = b.endsWith('/') && b !== '/' ? b.slice(0, -1) : b;
   const path = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
-  
+
   if (path === normB || path === '/' || path === '') return 'overview';
   if (path.startsWith(`${normB}/case-studies`) || path.startsWith('/case-studies')) return 'case-studies';
   if (path.startsWith(`${normB}/experiments`) || path.startsWith('/experiments')) return 'experiments';
@@ -38,7 +38,18 @@ const activeId = (() => {
   <a href={b} class="logo">
     Mario<span class="logo-dot">·</span>Casanova
   </a>
-  <nav class="site-nav">
+  <button
+    class="nav-toggle"
+    type="button"
+    aria-label="Menu"
+    aria-controls="site-nav"
+    aria-expanded="false"
+  >
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <nav class="site-nav" id="site-nav">
     {items.map(it => (
       <a
         href={it.href}
@@ -87,9 +98,6 @@ const activeId = (() => {
     gap: 28px;
     align-items: center;
   }
-  @media (max-width: 760px) {
-    .site-nav { gap: 14px; }
-  }
 
   .nav-link {
     font-family: var(--font-sans);
@@ -115,4 +123,114 @@ const activeId = (() => {
     color: var(--ink-3);
     margin-right: 4px;
   }
+
+  /* ── Toggle (hidden on desktop; hairline bars echo the header rules) ── */
+  .nav-toggle {
+    display: none;
+    margin-left: auto;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  .nav-toggle .bar {
+    width: 22px;
+    height: 1px;
+    background: var(--ink);
+    transition:
+      transform var(--dur-base) var(--ease),
+      opacity var(--dur-fast) var(--ease);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nav-toggle .bar { transition: none; }
+  }
+
+  /* ── Mobile: collapse the row; nav becomes a dropdown panel ── */
+  @media (max-width: 760px) {
+    .nav-toggle { display: flex; }
+
+    .site-nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: var(--paper);
+      border-bottom: 1px solid var(--ink);
+      /* closed state */
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition:
+        opacity var(--dur-base) var(--ease),
+        transform var(--dur-base) var(--ease),
+        visibility 0s linear var(--dur-base);
+    }
+    .site-header.nav-open .site-nav {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      pointer-events: auto;
+      transition:
+        opacity var(--dur-base) var(--ease),
+        transform var(--dur-base) var(--ease);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .site-nav { transition: visibility 0s linear var(--dur-base); transform: none; }
+      .site-header.nav-open .site-nav { transition: none; }
+    }
+
+    .nav-link {
+      padding: 15px var(--gutter-mobile);
+      font-size: 15px;
+      border-top: 1px solid var(--rule-soft);
+    }
+    .nav-num { font-size: 12px; margin-right: 8px; }
+
+    /* Bars morph to an X when open. */
+    .site-header.nav-open .bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .site-header.nav-open .bar:nth-child(2) { opacity: 0; }
+    .site-header.nav-open .bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  }
 </style>
+
+<script>
+  // Mobile nav toggle: open/close the dropdown, keep aria in sync, and close on
+  // link click, Escape, or resize back to the desktop layout.
+  const header = document.querySelector<HTMLElement>('.site-header');
+  const toggle = header?.querySelector<HTMLButtonElement>('.nav-toggle');
+  const nav = header?.querySelector<HTMLElement>('.site-nav');
+
+  if (header && toggle && nav) {
+    const setOpen = (open: boolean) => {
+      header.classList.toggle('nav-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(!header.classList.contains('nav-open'));
+    });
+
+    nav.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+
+    const desktop = window.matchMedia('(min-width: 761px)');
+    desktop.addEventListener('change', (e) => {
+      if (e.matches) setOpen(false);
+    });
+  }
+</script>
