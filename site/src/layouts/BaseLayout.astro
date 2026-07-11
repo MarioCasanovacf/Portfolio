@@ -9,11 +9,29 @@ import Footer from '../components/site/Footer.astro';
 
 interface Props {
   title: string;
+  description?: string;
+  /** Filename in /public used as the social preview; defaults to the site card. */
+  image?: string;
   showHeader?: boolean;
   showFooter?: boolean;
 }
 
-const { title, showHeader = true, showFooter = true } = Astro.props;
+const DEFAULT_DESCRIPTION =
+  'Data engineering, applied machine learning, and quantitative analysis. Case studies that answer a real question, with their limits stated.';
+
+const {
+  title,
+  description = DEFAULT_DESCRIPTION,
+  image = 'og-image.png',
+  showHeader = true,
+  showFooter = true,
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const b = base.endsWith('/') ? base : base + '/';
+// Absolute URLs (crawlers require them). Astro.site is set in astro.config.
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(`${b}${image}`, Astro.site);
 ---
 
 <!doctype html>
@@ -22,6 +40,27 @@ const { title, showHeader = true, showFooter = true } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Favicons (base-path aware; site is served under /Portfolio) -->
+    <link rel="icon" href={`${b}favicon.ico`} sizes="any" />
+    <link rel="icon" type="image/svg+xml" href={`${b}favicon.svg`} />
+    <link rel="apple-touch-icon" href={`${b}apple-touch-icon.png`} />
+
+    <!-- Open Graph / Twitter preview cards -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Mario Casanova" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <!-- Pre-paint: activa el estado oculto del reveal ANTES del primer
          paint, solo si el usuario no pidió motion reducido. Debe ser
          is:inline (sin defer) para evitar flash visible→oculto→reveal. -->

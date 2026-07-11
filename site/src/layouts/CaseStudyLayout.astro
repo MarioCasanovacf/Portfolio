@@ -72,6 +72,14 @@ const crumb =
     ? `${String(number).padStart(2, '0')} ⁄ ${String(total).padStart(2, '0')}`
     : null;
 
+// Social-card description: the study's dek, trimmed to a card-friendly length.
+const rawDek: string | undefined = catalogued?.dek ?? fm.dek;
+const metaDescription = rawDek
+  ? rawDek.length > 200
+    ? rawDek.slice(0, 197).replace(/\s+\S*$/, '') + '…'
+    : rawDek
+  : undefined;
+
 const renderInlineMd = (s: string) =>
   s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
 
@@ -86,7 +94,7 @@ const formatDate = (d: any) => {
 };
 ---
 
-<BaseLayout title={`${fm.title ?? 'Case study'} — Mario Casanova`}>
+<BaseLayout title={`${fm.title ?? 'Case study'} — Mario Casanova`} description={metaDescription}>
   {gated ? (
   <main class="page">
     <div class="cs-gated">

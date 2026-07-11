@@ -59,9 +59,10 @@ cheaper, faster tier (Sonnet/Gemini 3.5 Flash).
 
 This division is codified in the bench registry (located in `.harness/state.json`). Workers lock,
 edit, and test files using cheaper tokens, while high-stakes decisions (goal decomposition and
-verification verdicts) override to the frontier model only per-dispatch. Analysis of subagent-heavy
-sessions shows that ninety-five percent of token usage is successfully shifted to the cheaper
-workers. The expensive model is reserved for the synthesis of the task DAG.
+verification verdicts) override to the frontier model only per-dispatch. The routing rule is a
+design choice: routine work is meant to run on the cheaper workers, with the expensive model
+reserved for the synthesis of the task DAG. How much usage that actually shifts, and under what
+conditions the rule holds, is still being measured — the honest figure is not yet in.
 
 </Prose>
 
