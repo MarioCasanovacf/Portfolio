@@ -1,0 +1,43 @@
+{
+  "model_name": "distilbert-base-multilingual-cased",
+  "train_limit_per_lang": 2000,
+  "test_limit_per_lang": 500,
+  "training_time_sec": 516.5680680274963,
+  "overall_accuracy": 0.6863333333333334,
+  "overall_macro_f1": 0.609421349954539,
+  "mps_throughput_reviews_per_sec": 237.96809268667667,
+  "cpu_throughput_reviews_per_sec": 113.9130278677502,
+  "deterministic": true,
+  "per_language": {
+    "en": {
+      "accuracy": 0.694,
+      "macro_f1": 0.6202308729356252,
+      "count": 500
+    },
+    "de": {
+      "accuracy": 0.68,
+      "macro_f1": 0.6105569278164505,
+      "count": 500
+    },
+    "es": {
+      "accuracy": 0.702,
+      "macro_f1": 0.6132456806614109,
+      "count": 500
+    },
+    "fr": {
+      "accuracy": 0.724,
+      "macro_f1": 0.6622699733459227,
+      "count": 500
+    },
+    "ja": {
+      "accuracy": 0.65,
+      "macro_f1": 0.5748396002302864,
+      "count": 500
+    },
+    "zh": {
+      "accuracy": 0.668,
+      "macro_f1": 0.5696953129788951,
+      "count": 500
+    }
+  }
+}

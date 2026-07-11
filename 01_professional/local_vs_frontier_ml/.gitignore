@@ -1,0 +1,16 @@
+# Review data — NOT committed. The Amazon MARC corpus license restricts
+# redistribution of the review text, so neither the full set nor the sample
+# ships in the repo. Regenerate both locally with scripts/download_data.py.
+data/full/
+data/sample/
+
+# Model checkpoints and outputs
+models/
+*.pt
+*.bin
+*.safetensors
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

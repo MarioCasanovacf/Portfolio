@@ -78,9 +78,9 @@ export const studies: Study[] = [
     title: 'The model you keep',
     dek: 'A comparative benchmark of a locally fine-tuned DistilBERT classifier against frontier APIs like Claude 4.8 and GPT-5.5. Measures a throughput of 237 reviews/second on MPS local GPU, and maps the economic break-even point against DeepSeek\'s $0.14/1M commodity pricing.',
     methods: ['Transformers', 'Inference Throughput', 'MPS Acceleration', 'Inference Cost Modeling'],
-    // DEV-only until the notebook folder can be pushed without its licensed
-    // review data — the notebookUrl 404s on the public repo until then.
-    published: import.meta.env.DEV,
+    // The notebook folder is public (Amazon MARC corpus, redistributable; full
+    // data + model weights gitignored as regenerable, code + sample committed).
+    published: true,
   },
   {
     slug: 'legislative-pipeline',
