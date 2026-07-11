@@ -20,9 +20,15 @@ const b = base.endsWith('/') ? base : base + '/';
   </div>
   
   <div class="method-content">
-    <p class="method-intro">
-      I work where problems live between disciplines. I translate messy business realities into clear, verifiable technical specifications, build the data infrastructure that supports them, and deliver systems that yield auditable results.
-    </p>
+    <div class="method-left">
+      <p class="method-intro">
+        I work where problems live between disciplines. I translate messy business realities into clear, verifiable technical specifications, build the data infrastructure that supports them, and deliver systems that yield auditable results.
+      </p>
+
+      <blockquote class="method-quote" data-reveal>
+        The common denominator: everything I build has a purpose. Nothing goes to production without real business application.
+      </blockquote>
+    </div>
 
     <div class="process-flow" data-reveal>
       <div class="process-step">
@@ -61,10 +67,6 @@ const b = base.endsWith('/') ? base : base + '/';
         </div>
       </div>
     </div>
-
-    <blockquote class="method-quote" data-reveal>
-      The common denominator: everything I build has a purpose. Nothing goes to production without real business application.
-    </blockquote>
   </div>
 </section>
 
@@ -217,10 +219,18 @@ const b = base.endsWith('/') ? base : base + '/';
 </section>
 
 <style>
-  /* Hero Section */
+  /* Hero Section — two-column editorial: title left, lede right, so the
+     text occupies the full measure like the grid sections below it. */
   .overview-hero {
     padding: 120px var(--gutter-desktop) 80px;
     border-bottom: 1px solid var(--rule-soft);
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 64px;
+    align-items: end;
+  }
+  @media (max-width: 900px) {
+    .overview-hero { grid-template-columns: 1fr; align-items: start; }
   }
   @media (max-width: 760px) {
     .overview-hero { padding: 64px var(--gutter-mobile) 48px; }
@@ -241,7 +251,7 @@ const b = base.endsWith('/') ? base : base + '/';
     font-size: 84px;
     line-height: 0.98;
     letter-spacing: -0.02em;
-    margin: 0 0 32px 0;
+    margin: 0;
     color: var(--ink);
     max-width: 18ch;
     font-weight: 400;
@@ -255,13 +265,17 @@ const b = base.endsWith('/') ? base : base + '/';
 
   .overview-lede {
     font-family: var(--font-serif);
-    font-size: 22px;
-    line-height: 1.55;
+    font-size: 20px;
+    line-height: 1.6;
     color: var(--ink-2);
-    max-width: 38rem;
+    max-width: 26rem;
     margin: 0;
+    justify-self: end;
     text-align: justify;
     hyphens: auto;
+  }
+  @media (max-width: 900px) {
+    .overview-lede { justify-self: start; }
   }
   @media (max-width: 760px) {
     .overview-lede { font-size: 18px; }
@@ -291,9 +305,18 @@ const b = base.endsWith('/') ? base : base + '/';
     .section-title { font-size: 32px; }
   }
 
-  /* Method Section */
+  /* Method Section — two columns: argument left, flow map right. */
   .method-content {
-    max-width: 38rem;
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 96px;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .method-content { grid-template-columns: 1fr; gap: 48px; }
+  }
+  .method-left {
+    max-width: 26rem;
   }
   .method-intro {
     font-family: var(--font-serif);
@@ -307,23 +330,40 @@ const b = base.endsWith('/') ? base : base + '/';
     .method-intro { font-size: 17px; }
   }
 
+  /* Flow map: numbered nodes on a connecting vertical line. */
   .process-flow {
     display: flex;
     flex-direction: column;
-    gap: 32px;
-    margin-bottom: 56px;
+    gap: 36px;
+    position: relative;
+  }
+  .process-flow::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 14px;
+    bottom: 14px;
+    width: 1px;
+    background: var(--rule-soft);
   }
   .process-step {
     display: grid;
     grid-template-columns: 48px 1fr;
     gap: 16px;
-    align-items: baseline;
+    align-items: start;
+    position: relative;
   }
   .step-num {
     font-family: var(--font-mono);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--oxblood);
+    width: 31px;
+    text-align: center;
+    padding: 4px 0;
+    background: var(--paper-deep);
+    border: 1px solid var(--rule-soft);
+    border-radius: 2px;
   }
   .process-step h3 {
     font-family: var(--font-sans);

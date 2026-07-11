@@ -22,12 +22,27 @@ const b = base.endsWith('/') ? base : base + '/';
   .hero {
     padding: 120px var(--gutter-desktop) 80px;
     border-bottom: 1px solid var(--rule-soft);
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-areas:
+      'eyebrow eyebrow'
+      'title lede';
+    gap: 0 64px;
+    align-items: end;
+  }
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      grid-template-areas: 'eyebrow' 'title' 'lede';
+      align-items: start;
+    }
   }
   @media (max-width: 760px) {
     .hero { padding: 64px var(--gutter-mobile) 48px; }
   }
 
   .eyebrow {
+    grid-area: eyebrow;
     font-family: var(--font-sans);
     font-size: 11px;
     font-weight: 600;
@@ -38,6 +53,7 @@ const b = base.endsWith('/') ? base : base + '/';
   }
 
   .hero-title {
+    grid-area: title;
     font-family: var(--font-display);
     font-size: 84px;
     line-height: 0.98;
@@ -55,15 +71,19 @@ const b = base.endsWith('/') ? base : base + '/';
   }
 
   .hero-lede {
+    grid-area: lede;
     font-family: var(--font-serif);
-    font-size: 21px;
-    line-height: 1.55;
+    font-size: 19px;
+    line-height: 1.6;
     color: var(--ink-2);
-    max-width: 38rem;
-    margin-top: 40px;
-    margin-bottom: 0;
+    max-width: 26rem;
+    justify-self: end;
+    margin: 0;
     text-align: justify;
     hyphens: auto;
+  }
+  @media (max-width: 900px) {
+    .hero-lede { justify-self: start; margin-top: 40px; }
   }
   @media (max-width: 760px) {
     .hero-lede { font-size: 17px; margin-top: 24px; }
