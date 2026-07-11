@@ -1,9 +1,8 @@
 ---
 const stack = [
-  ['Stack', 'Python · SQL · Power BI · Tableau · C#'],
   ['Languages', 'Spanish · English'],
   ['Based in', 'Mexico City'],
-  ['Sectors', 'Finance · Startups · Research'],
+  ['Sectors', 'Finance · Banking · SaaS · GovTech · Consulting · Startups'],
 ];
 ---
 
@@ -16,10 +15,10 @@ const stack = [
   </div>
   <div class="about-body">
     <p class="about-lead">
-      I solve problems. My career has been defined by receiving hard problems, business indications or vague ideas and finding optimal solutions, not by staying inside a single toolkit or title. I am technically autonomous but deeply collaborative, that's why I break through bureaucratic and generational barriers to align teams around clear outcomes.
+      Most of what lands on my desk arrives as somebody else's unfinished sentence — a vague ask, a half-built dataset, a problem nobody has named correctly yet. Job titles are bad predictors of what that kind of problem needs, and I've built a career on the mismatch: moving between data engineering, applied ML, and quantitative modeling because the question demanded it, not because I collect skills. I work autonomously by default, but autonomy that doesn't end in a team agreeing on the outcome isn't autonomy — it's just noise with good intentions.
     </p>
     <p class="about-paragraph">
-      What drives me is building things that matter for businesses — tools, models, and systems that contribute real value as applied technology, not just to a dry code, but to how we understand and act on the world.
+      What I actually want is for the thing to get used. A model, a pipeline, an analysis — the point isn't that it's elegant, it's that it changes what someone does on Monday, and, if I'm honest, a little of how we understand the world too. That's the only rent I trust.
     </p>
     <dl class="about-stack">
       {stack.map(([k, v]) => (
@@ -38,6 +37,8 @@ const stack = [
     display: grid;
     grid-template-columns: 180px 1fr;
     gap: 48px;
+    max-width: 64rem;
+    margin: 0 auto;
   }
   @media (max-width: 760px) {
     .about {
@@ -45,6 +46,10 @@ const stack = [
       padding: 64px var(--gutter-mobile);
       gap: 32px;
     }
+  }
+
+  .about-mark {
+    text-align: center;
   }
 
   .about-eyebrow {
@@ -71,7 +76,7 @@ const stack = [
   }
 
   .about-body {
-    max-width: 36rem;
+    max-width: 40rem;
   }
 
   .about-lead {
@@ -80,6 +85,7 @@ const stack = [
     line-height: 1.55;
     color: var(--ink);
     margin: 0;
+    max-width: none; /* fill .about-body — must match the stack rule width */
     text-align: justify;
     hyphens: auto;
   }
@@ -90,6 +96,7 @@ const stack = [
     line-height: 1.6;
     color: var(--ink-2);
     margin-top: 24px;
+    max-width: none; /* fill .about-body — must match the stack rule width */
     text-align: justify;
     hyphens: auto;
   }
@@ -99,8 +106,13 @@ const stack = [
     padding-top: 20px;
     border-top: 1px solid var(--ink);
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    grid-template-columns: auto auto 1fr;
+    gap: 24px 40px;
+  }
+  @media (max-width: 760px) {
+    .about-stack {
+      grid-template-columns: 1fr;
+    }
   }
   .about-stack dt {
     font-family: var(--font-sans);

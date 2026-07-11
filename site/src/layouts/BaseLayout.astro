@@ -1,6 +1,7 @@
 ---
 import '../styles/colors_and_type.css';
 import '../styles/case-study.css';
+import '../styles/motion.css';
 import 'katex/dist/katex.min.css';
 
 import Header from '../components/site/Header.astro';
@@ -21,6 +22,14 @@ const { title, showHeader = true, showFooter = true } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <!-- Pre-paint: activa el estado oculto del reveal ANTES del primer
+         paint, solo si el usuario no pidió motion reducido. Debe ser
+         is:inline (sin defer) para evitar flash visible→oculto→reveal. -->
+    <script is:inline>
+      if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+        document.documentElement.classList.add('js-reveal');
+      }
+    </script>
   </head>
   <body>
     {showHeader && <Header />}
@@ -28,6 +37,48 @@ const { title, showHeader = true, showFooter = true } = Astro.props;
     {showFooter && <Footer />}
   </body>
 </html>
+
+<script>
+  // Reveal on scroll — una sola vez por elemento, sin JS de fondo.
+  // Requisitos: html.js-reveal presente (pre-paint) y targets [data-reveal].
+  const root = document.documentElement;
+  const els = Array.from(document.querySelectorAll('[data-reveal]'));
+
+  if (root.classList.contains('js-reveal') && els.length > 0) {
+    let pending = 0;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add('is-revealed');
+          io.unobserve(entry.target);
+          pending -= 1;
+          if (pending === 0) io.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    const vh = window.innerHeight;
+    for (const el of els) {
+      const r = el.getBoundingClientRect();
+      const inInitialViewport = r.top < vh && r.bottom > 0;
+      if (inInitialViewport) {
+        // Above-the-fold: revelado inmediato, sin transición.
+        (el as HTMLElement).style.transition = 'none';
+        el.classList.add('is-revealed');
+        requestAnimationFrame(() => {
+          (el as HTMLElement).style.transition = '';
+        });
+      } else {
+        pending += 1;
+        io.observe(el);
+      }
+    }
+    if (pending === 0) io.disconnect();
+  }
+</script>
 
 <style is:global>
   body {

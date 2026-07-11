@@ -34,7 +34,7 @@ import { Section, Prose, Figure, CodeBlock, Equation, Quote, Callout } from "~/c
 
 Most option-pricing case studies open with a market and close with a price. This one
 opens with a simulation method and closes with a measurement of how much a specific
-trick — antithetic variates — buys when that method is the only one available. The
+trick (antithetic variates) buys when that method is the only one available. The
 option is a discretely-monitored arithmetic Asian call: the payoff depends on the
 average of the underlying over the whole path, not just its terminal value, and that
 path-dependence is exactly what kills any hope of a closed form once volatility itself
@@ -79,8 +79,8 @@ $$
 
 <Prose>
 
-Variance follows a CIR process — it mean-reverts to a long-run level θ at speed κ,
-with its own vol-of-vol ξ — and ρ is what makes this a *stochastic-volatility* model
+Variance follows a CIR process (it mean-reverts to a long-run level θ at speed κ,
+with its own vol-of-vol ξ), and ρ is what makes this a *stochastic-volatility* model
 rather than two independent noises glued together. A negative ρ is the leverage
 effect: when the asset falls, variance tends to rise in the same instant, which is
 close to what equity markets actually do and is why ρ = −0.7 was chosen below rather
@@ -195,15 +195,15 @@ the chance to cancel anything.
 
 <Prose>
 
-Both estimators price the same instrument — a K = 100 arithmetic-average Asian call,
-struck at the money on S0 = 100 — from the same 50,000-path budget, so the comparison
+Both estimators price the same instrument (a K = 100 arithmetic-average Asian call,
+struck at the money on S0 = 100) from the same 50,000-path budget, so the comparison
 is like for like: the antithetic estimator against a plain Monte Carlo re-run with
 `antithetic=False` and the same seed, which is what removes "we just got a better draw
 this time" as an explanation for whatever separates them.
 
 </Prose>
 
-<Figure n="1" width="wide" caption="Standard error of the two estimators at the same 50,000-path budget: naive Monte Carlo (SE ±$0.0294) against the antithetic estimator (SE ±$0.0186), a ratio of 1.58x measured from one seed. The correlation between a path's payoff and its mirror's, −0.598, is the mechanism behind the gap. Source: 02_Exotic_Options_Heston.ipynb, cells 3–4, seed=42.">
+<Figure n="1" width="wide" caption="Standard error of the two estimators at the same 50,000-path budget: naive Monte Carlo (SE ±\$0.0294) against the antithetic estimator (SE ±\$0.0186), a ratio of 1.58x measured from one seed. The correlation between a path's payoff and its mirror's, −0.598, is the mechanism behind the gap. Source: 02_Exotic_Options_Heston.ipynb, cells 3–4, seed=42.">
 
 <svg viewBox="0 0 700 380" role="img" aria-label="Bar chart comparing standard error of naive Monte Carlo (0.0294) against antithetic Monte Carlo (0.0186) at the same path budget, with the 1.58x ratio and the negative pairwise correlation annotated.">
   <g font-family="IBM Plex Sans">
@@ -225,8 +225,8 @@ this time" as an explanation for whatever separates them.
     <rect x="200" y="65.2" width="90" height="254.8" fill="#6E1F1F"/>
     <rect x="410" y="158.8" width="90" height="161.2" fill="#2E4A3F"/>
 
-    <text x="245" y="55" fill="#6E1F1F" font-size="11" text-anchor="middle" font-weight="600">SE ±$0.0294</text>
-    <text x="455" y="148.8" fill="#2E4A3F" font-size="11" text-anchor="middle" font-weight="600">SE ±$0.0186</text>
+    <text x="245" y="55" fill="#6E1F1F" font-size="11" text-anchor="middle" font-weight="600">SE ±\$0.0294</text>
+    <text x="455" y="148.8" fill="#2E4A3F" font-size="11" text-anchor="middle" font-weight="600">SE ±\$0.0186</text>
 
     <line x1="245" y1="45" x2="245" y2="52" stroke="#1A1814" stroke-width="1"/>
     <line x1="245" y1="45" x2="455" y2="45" stroke="#1A1814" stroke-width="1"/>
@@ -236,9 +236,9 @@ this time" as an explanation for whatever separates them.
 
     <g fill="#1A1814" font-size="10.5" text-anchor="middle">
       <text x="245" y="340">naive Monte Carlo</text>
-      <text x="245" y="354" fill="#6B655C" font-size="9.5">price $5.2516</text>
+      <text x="245" y="354" fill="#6B655C" font-size="9.5">price \$5.2516</text>
       <text x="455" y="340">antithetic (paired)</text>
-      <text x="455" y="354" fill="#6B655C" font-size="9.5">price $5.2019</text>
+      <text x="455" y="354" fill="#6B655C" font-size="9.5">price \$5.2019</text>
     </g>
     <text x="350" y="374" fill="#6B655C" font-size="9.5" text-anchor="middle">corr(payoff, mirror payoff) = −0.598</text>
   </g>
@@ -248,9 +248,9 @@ this time" as an explanation for whatever separates them.
 
 <Prose>
 
-The antithetic estimator prices the call at $5.2019, standard error ±$0.0186. Plain
-Monte Carlo, same 50,000 paths, same seed, prices it at $5.2516, standard error
-±$0.0294. Divide one standard error by the other and the ratio is 1.58 — the antithetic
+The antithetic estimator prices the call at \$5.2019, standard error ±\$0.0186. Plain
+Monte Carlo, same 50,000 paths, same seed, prices it at \$5.2516, standard error
+±\$0.0294. Divide one standard error by the other and the ratio is 1.58 — the antithetic
 estimator hits the same precision plain Monte Carlo would need roughly 2.5 times more
 paths to reach, for free, since generating the mirror paths costs nothing beyond a sign
 flip on already-drawn noise. That gain has a name and a mechanism, not just a number:
@@ -277,12 +277,11 @@ seeds to see how much 1.58 itself wobbles. Variance-reduction ratios are themsel
 statistics with sampling variability, and reporting one from n = 1 is a smaller version
 of exactly the mistake this page is otherwise careful about — I would rather call it
 "roughly 1.6×, from one seed" than "1.58×" if I had to defend the number to someone
-about to make a compute-budget decision on it. I'll also flag something a careful reader
-would eventually find anyway: the parameter cell carries a comment reading "strict
-reproducibility for sensitivity analysis," and there is no sensitivity sweep anywhere in
-the notebook — across ρ, across seeds, or otherwise. Either it's a leftover from an
-earlier draft or a promise that was never built. I'd rather name the gap than quietly
-drop the comment.
+about to make a compute-budget decision on it. I'll also name a gap a careful reader
+would eventually find anyway: there is no sensitivity sweep anywhere in the notebook —
+across ρ, across seeds, or otherwise. The single-seed measurement is the entire
+evidence base, and I'd rather say so than imply a robustness check that was never
+built.
 
 </Prose>
 
@@ -308,9 +307,9 @@ drop the comment.
 <Prose>
 
 None of that undoes the central result, and I don't think it should be read as a
-retraction dressed up as a limits section. The direction of the effect — antithetic
+retraction dressed up as a limits section. The direction of the effect (antithetic
 variates reducing variance when the underlying diffusion has a real leverage effect
-to exploit — is a known result of the technique, not a discovery this notebook is
+to exploit) is a known result of the technique, not a discovery this notebook is
 claiming credit for; what the notebook adds is that it measured the size of the effect
 here, on this specific path-dependent payoff, instead of citing the textbook and moving
 on. If I were advising someone deciding whether antithetic variates are worth the extra

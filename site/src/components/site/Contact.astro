@@ -4,6 +4,18 @@ const channels = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mario-casanova/', display: 'mario-casanova' },
   { label: 'GitHub',   href: 'https://github.com/MarioCasanovacf', display: 'MarioCasanovacf' },
 ];
+
+const briefTemplate = [
+  ['What is failing or blocked', 'the decision, report, or process that isn’t working'],
+  ['Who feels it', 'the team, client, or leader living with the problem'],
+  ['Systems involved', 'as far as you know; partial is fine'],
+  ['What has been tried', 'including the things that half-worked'],
+  ['Timing and budget', 'an indicative range helps if you have one; not required'],
+];
+
+const briefBody = encodeURIComponent(
+  'What is failing or blocked:\n\nWho feels it:\n\nSystems involved (as far as you know):\n\nWhat has been tried:\n\nTiming / indicative budget (optional):\n'
+);
 ---
 
 <section id="contact" class="contact">
@@ -12,7 +24,7 @@ const channels = [
     A problem without<br /><em>a clear method?</em>
   </h2>
   <p class="contact-lede">
-    Retainers, project engagements, and short consultations. Replies typically within 48 hours. Indicative budget ranges in the email help me triage quickly.
+    Retainers, project engagements, and short consultations. You don't need a finished brief; the messy version is enough to start. Replies typically within 48 hours.
   </p>
   <div class="contact-grid">
     {channels.map((c, i) => (
@@ -22,7 +34,16 @@ const channels = [
       </div>
     ))}
   </div>
-  <a class="contact-cta" href="mailto:mcasanovajeronimo@gmail.com?subject=Brief">
+  <div class="brief">
+    <div class="brief-label">A useful first note covers</div>
+    <ol class="brief-list">
+      {briefTemplate.map(([item, hint]) => (
+        <li><strong>{item}</strong> · {hint}</li>
+      ))}
+    </ol>
+  </div>
+
+  <a class="contact-cta" href={`mailto:mcasanovajeronimo@gmail.com?subject=Project brief&body=${briefBody}`}>
     Compose a brief →
   </a>
 </section>
@@ -111,6 +132,35 @@ const channels = [
     margin-top: 6px;
   }
   .contact-handle:hover { color: var(--paper-hi); }
+
+  .brief {
+    margin-top: 48px;
+    max-width: 38rem;
+  }
+  .brief-label {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--paper-deep);
+    margin-bottom: 14px;
+  }
+  .brief-list {
+    margin: 0;
+    padding-left: 20px;
+    font-family: var(--font-serif);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--paper-deep);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .brief-list strong {
+    color: var(--paper);
+    font-weight: 500;
+  }
 
   .contact-cta {
     display: inline-block;

@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/site/Hero.astro';
+import CaseStudyIndex from '../components/site/CaseStudyIndex.astro';
+---
+
+<BaseLayout title="Case Studies — Mario Casanova">
+  <Hero />
+  <CaseStudyIndex
+    track="industry"
+    eyebrow="Case Studies"
+    title="Built to work, and built to think."
+    lede="Each piece below started as a problem I had not seen before. The method is always the same: read the structure, choose the tools, build something that works. What the work is <em>for</em> differs on purpose."
+  />
+</BaseLayout>

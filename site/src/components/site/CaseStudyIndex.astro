@@ -43,7 +43,7 @@ const base = import.meta.env.BASE_URL;
             <h3 class="cs-row__title">{s.title}</h3>
             {s.published
               ? <p class="cs-row__dek">{s.dek}</p>
-              : <div class="cs-row__draft-tag">Under construction</div>}
+              : <div class="cs-row__draft-tag">Coming soon</div>}
           </div>
           <div class="cs-row__methods">
             {s.published && s.methods.map((m, j) => (
@@ -172,7 +172,7 @@ const base = import.meta.env.BASE_URL;
   }
   .cs-row__method.is-last { border-bottom: 0; }
 
-  /* Under construction — title only; domain, dek and methods withheld. */
+  /* Coming soon — title only; domain, dek and methods withheld. */
   .cs-row--draft {
     cursor: default;
     opacity: 0.5;

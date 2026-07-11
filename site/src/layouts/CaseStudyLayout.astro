@@ -1,9 +1,11 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { studies } from '../lib/studies';
 
 // Frontmatter shape produced by the MDX delivery pipeline. Most fields are
 // optional so older smoke-test pages keep rendering.
 interface Frontmatter {
+  slug?: string;
   number?: number | string;
   n?: number | string;
   total?: number | string;
@@ -16,6 +18,8 @@ interface Frontmatter {
   stack?: string | string[];
   notebook?: string;
   notebookUrl?: string;
+  repo?: string;
+  repoUrl?: string;
   reference?: string;
 }
 
@@ -26,6 +30,16 @@ interface Props extends Frontmatter {
 // MDX with `layout:` frontmatter passes everything via `frontmatter`.
 // Direct usage (<CaseStudyLayout n=... title=...>) passes via Astro.props.
 const fm: Frontmatter = { ...(Astro.props.frontmatter ?? {}), ...Astro.props };
+
+// Route gate: a study whose catalogue entry is unpublished (e.g. pending
+// Mario's approval, `published: import.meta.env.DEV`) must not expose its
+// content by direct URL in a built/published site. The route renders a
+// minimal "coming soon" note instead of the MDX body. Pages without a slug
+// or without a catalogue entry are unaffected.
+const catalogued = fm.slug ? studies.find((s) => s.slug === fm.slug) : undefined;
+const gated = Boolean(catalogued && !catalogued.published);
+const baseUrl = import.meta.env.BASE_URL;
+const indexHref = `${baseUrl.endsWith('/') ? baseUrl : baseUrl + '/'}case-studies`;
 
 const numberRaw = fm.number ?? fm.n;
 const number = numberRaw != null ? Number(numberRaw) : undefined;
@@ -45,6 +59,14 @@ const notebookUrl =
       : `https://github.com/MarioCasanovacf/Portfolio/blob/main/${fm.notebook}`
     : undefined);
 
+const repoUrl =
+  fm.repoUrl ??
+  (fm.repo
+    ? fm.repo.startsWith('http')
+      ? fm.repo
+      : `https://github.com/${fm.repo}`
+    : undefined);
+
 const crumb =
   number != null && total != null
     ? `${String(number).padStart(2, '0')} ⁄ ${String(total).padStart(2, '0')}`
@@ -52,9 +74,29 @@ const crumb =
 
 const renderInlineMd = (s: string) =>
   s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+
+const formatDate = (d: any) => {
+  if (!d) return undefined;
+  const dateObj = d instanceof Date ? d : new Date(d);
+  if (isNaN(dateObj.getTime())) return String(d);
+  const year = dateObj.getUTCFullYear();
+  const month = String(dateObj.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(dateObj.getUTCDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
 ---
 
 <BaseLayout title={`${fm.title ?? 'Case study'} — Mario Casanova`}>
+  {gated ? (
+  <main class="page">
+    <div class="cs-gated">
+      <p class="cs-gated__eyebrow">Case study</p>
+      <h1 class="cs-gated__title">{fm.title}</h1>
+      <p class="cs-gated__note">This study is being finalized and isn't published yet.</p>
+      <a href={indexHref}>Back to case studies →</a>
+    </div>
+  </main>
+  ) : (
   <main class="page">
     <nav class="cs-rail" aria-label="On this page"></nav>
     <div class="cs-flow">
@@ -64,7 +106,7 @@ const renderInlineMd = (s: string) =>
           {crumb && <span class="num">{crumb}</span>}
           {fm.domain && <span class="domain">{fm.domain}</span>}
           <span class="sep"></span>
-          {fm.date && <span class="date">{fm.date}</span>}
+          {fm.date && <span class="date">{formatDate(fm.date)}</span>}
         </div>
       )}
       {fm.title && (
@@ -81,7 +123,7 @@ const renderInlineMd = (s: string) =>
 
     <slot />
 
-    {(notebookUrl || methods || stack || fm.reference) && (
+    {(notebookUrl || repoUrl || methods || stack || fm.reference) && (
       <footer class="cs-col doc-footer">
         <div class="top-rule"></div>
         <dl class="meta">
@@ -92,6 +134,16 @@ const renderInlineMd = (s: string) =>
                 <dd>
                   <a href={notebookUrl}>
                     {notebookUrl.replace('https://github.com/', '')} ↗
+                  </a>
+                </dd>
+              </>
+            )}
+            {repoUrl && (
+              <>
+                <dt>Repository</dt>
+                <dd>
+                  <a href={repoUrl}>
+                    {repoUrl.replace('https://github.com/', '')} ↗
                   </a>
                 </dd>
               </>
@@ -122,7 +174,37 @@ const renderInlineMd = (s: string) =>
     )}
     </div>
   </main>
+  )}
 </BaseLayout>
+
+<style>
+  .cs-gated {
+    padding: 120px var(--gutter-desktop);
+    max-width: 44rem;
+  }
+  .cs-gated__eyebrow {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 16px 0;
+  }
+  .cs-gated__title {
+    font-family: var(--font-display);
+    font-size: 32px;
+    line-height: 1.25;
+    font-weight: 400;
+    margin: 0 0 16px 0;
+  }
+  .cs-gated__note {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    color: var(--ink-2);
+    margin: 0 0 24px 0;
+  }
+</style>
 
 <style>
   /* Centered editorial content track (unchanged width), with the section rail

@@ -9,20 +9,27 @@ const base = import.meta.env.BASE_URL; // '/Portfolio/' on the project page, '/'
 // Astro's BASE_URL may or may not have a trailing slash — normalise once.
 const b = base.endsWith('/') ? base : base + '/';
 const items = [
-  { id: 'case-studies', href: b,                  label: 'Case Studies', n: '01' },
-  { id: 'experiments',  href: `${b}experiments`,  label: 'Experiments',  n: '02' },
-  { id: 'code',         href: `${b}code`,         label: 'Code',         n: '03' },
-  { id: 'blog',         href: `${b}blog`,         label: 'Blog',         n: '04' },
-  { id: 'about',        href: `${b}about`,        label: 'About',        n: '05' },
+  { id: 'overview',     href: b,                    label: 'Overview',     n: '01' },
+  { id: 'case-studies', href: `${b}case-studies`,   label: 'Case Studies', n: '02' },
+  { id: 'experiments',  href: `${b}experiments`,    label: 'Experiments',  n: '03' },
+  { id: 'code',         href: `${b}code`,           label: 'Code',         n: '04' },
+  { id: 'blog',         href: `${b}blog`,           label: 'Blog',         n: '05' },
+  { id: 'about',        href: `${b}about`,          label: 'About',        n: '06' },
+  { id: 'contact',      href: `${b}contact`,        label: 'Contact',      n: '07' },
 ];
 
-// "Case Studies" is active on / and on any /case-studies/* page.
+// Determine active page
 const activeId = (() => {
-  if (pathname === '/' || pathname.startsWith('/case-studies')) return 'case-studies';
-  if (pathname.startsWith('/experiments')) return 'experiments';
-  if (pathname.startsWith('/code')) return 'code';
-  if (pathname.startsWith('/blog')) return 'blog';
-  if (pathname.startsWith('/about') || pathname.startsWith('/contact')) return 'about';
+  const normB = b.endsWith('/') && b !== '/' ? b.slice(0, -1) : b;
+  const path = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
+  
+  if (path === normB || path === '/' || path === '') return 'overview';
+  if (path.startsWith(`${normB}/case-studies`) || path.startsWith('/case-studies')) return 'case-studies';
+  if (path.startsWith(`${normB}/experiments`) || path.startsWith('/experiments')) return 'experiments';
+  if (path.startsWith(`${normB}/code`) || path.startsWith('/code')) return 'code';
+  if (path.startsWith(`${normB}/blog`) || path.startsWith('/blog')) return 'blog';
+  if (path.startsWith(`${normB}/contact`) || path.startsWith('/contact')) return 'contact';
+  if (path.startsWith(`${normB}/about`) || path.startsWith('/about')) return 'about';
   return null;
 })();
 ---
@@ -93,6 +100,14 @@ const activeId = (() => {
   }
   .nav-link--active { color: var(--oxblood); }
   .nav-link:hover { color: var(--oxblood); }
+
+  /* Motion spec §0 — el hover del nav deja de ser un snap.
+     --dur-fast: el nav se cruza rápido y repetidamente. */
+  @media (prefers-reduced-motion: no-preference) {
+    .nav-link {
+      transition: color var(--dur-fast) var(--ease);
+    }
+  }
 
   .nav-num {
     font-family: var(--font-mono);

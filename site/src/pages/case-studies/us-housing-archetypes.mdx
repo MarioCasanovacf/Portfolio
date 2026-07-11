@@ -1,0 +1,183 @@
+---
+layout: ../../layouts/CaseStudyLayout.astro
+slug: us-housing-archetypes
+domain: Real estate analytics
+n: "07"
+total: "12"
+date: 2026-07-08
+title: "US housing market archetypes: systematic classification of affordability and volatility through three cycles"
+lede: >-
+  Are structural affordability and cyclical price volatility decoupled dimensions? 
+  I classify 30 major U.S. metropolitan markets and trace their behavior through three major 
+  shocks to find that local income shields and flexible supply, rather than general 
+  stability, determine homeownership dynamics.
+methods:
+  - Systematic Ranking (NAR HAI)
+  - Augmented Dickey-Fuller & Ljung-Box
+  - Block Bootstrap
+  - Target Encoding Baseline
+stack:
+  - Python 3.12
+  - NumPy & pandas
+  - statsmodels & SciPy
+  - Matplotlib & seaborn
+notebook: real_estate/notebooks/us_housing_archetypes.ipynb
+reference: >-
+  National Association of Realtors, *Methodology for the Housing Affordability Index*, 2023.
+---
+
+import { Section, Prose, Figure, CodeBlock, Equation, Quote, Callout } from "~/components/case-study";
+
+<Prose>
+
+Most regional real estate studies treat homeownership as a purely local market question. This one opens with a systematic classification of 30 major metropolitan statistical areas (MSAs) and closes with a question: does local affordability buy cyclical stability? 
+
+I want to state up front what this case study is not: it is not a set of price predictions. Regional housing markets are driven by local labor cycles, zoning constraints, and credit regimes. Instead of predicting the next peak or trough, I analyze the historical covariance of price-to-income metrics and realized volatility over a quarter-century (2000–2026). The dollar values, volatility percentages, and confidence bands on this page are point estimates of realized history, and the method — how we classify and verify these dynamics — is the part worth trusting.
+
+</Prose>
+
+<Section n="01" slug="systematic-classification" title="Systematic classification of 30 metros.">
+
+<Prose>
+
+To classify regional housing dynamics, I first compute the housing affordability index (HAI) developed by the National Association of Realtors (NAR). An HAI score of 100 means a family earning the median household income has exactly the qualifying income required to purchase a median-priced home under typical mortgage terms (20% down payment, 30-year fixed rate). 
+
+Using Zillow's smoothed and seasonally adjusted median sales price index, Census SAIPE median incomes, and historical 30-year fixed mortgage rates from FRED, I calculate the monthly HAI series for 30 major metros. 
+
+</Prose>
+
+<Equation n="1.1" width="inline">
+$$
+\text{HAI}_t \;=\; \frac{\text{Median Household Income}_t}{\text{Qualifying Income}_t} \times 100
+$$
+</Equation>
+
+<Prose>
+
+Plotted against their historical standard deviation of year-over-year price returns, these 30 metros reveal three data-driven housing archetypes:
+
+- **Archetype A — Expensive, volatile, and structurally unaffordable.** Represented by San Francisco (average HAI since 2015: 60.6, full-sample volatility: 9.80%) and Seattle (average HAI since 2015: 92.8, full-sample volatility: 8.82%). These tech-heavy coastal hubs were chosen as representative superstars, with Seattle selected in part due to the local availability of micro-level transaction data.
+- **Archetype B — Affordable and stable.** Represented by Houston (average HAI since 2015: 131.0, full-sample volatility: 5.13%). Flexible supply boundaries and lower entry costs keep the median household comfortably above the qualification threshold, with volatility half that of the coastal superstars.
+- **Archetype C — The threshold/near-median case.** Represented by Washington, DC (average HAI since 2015: 96.8, full-sample volatility: 8.20%). DC tracks near the qualifying line, representing the boundary where homeownership is precarious but not yet structurally closed.
+
+</Prose>
+
+<Figure n="1" width="wide" caption="Regional Housing Archetypes. Full-period YoY price return volatility plotted against average post-2015 Housing Affordability Index (HAI) for 30 major U.S. metros. Archetypes A, B, and C occupy distinct quadrants. Source: us_housing_archetypes.ipynb.">
+  <img src={import.meta.env.BASE_URL + "/figures/us-housing-archetypes/volatility_vs_affordability.svg"} alt="Volatility vs. Affordability" />
+</Figure>
+
+</Section>
+
+<Section n="02" slug="temporal-dynamics" title="Temporal dynamics: three shocks, one metro, two income stories.">
+
+<Prose>
+
+Stretching these archetypes across a quarter-century shows how their structural profiles react to macroeconomic shocks: the GFC (2008), the COVID-19 demand shift (2020), and the post-2022 rate shock.
+
+In Washington, DC (Archetype C), the aggregate MSA-level HAI suggests a threshold market. However, this hides a stark division in local income shields. When matching the same DC-MSA home price series against the District of Columbia proper's median income versus the wealthier Fairfax County commuter belt, two different stories emerge:
+
+</Prose>
+
+<Figure n="2" width="wide" caption="Intra-metro income shielding in Washington DC. Housing Affordability Index (HAI) computed using the DC MSA home price series against District of Columbia proper incomes (lower line) and Fairfax County commuter incomes (upper line). Source: archetype_c_median_dynamics.ipynb.">
+  <img src={import.meta.env.BASE_URL + "/figures/us-housing-archetypes/fairfax_vs_dc_shielding.svg"} alt="DC vs Fairfax Income Shielding" />
+</Figure>
+
+<Prose>
+
+By construction, this static comparison yields a higher HAI for the wealthier county since both calculations share the exact same price and interest rate series. The legitimate empirical finding is the temporal convergence of their ratio: the Fairfax-to-DC income ratio narrowed from 2.043x in 2000 to 1.382x in 2026. 
+
+To quantify the significance of this narrowing trend, I run a block bootstrap on the annual slope coefficient. Because the underlying SAIPE income observations are annual, monthly interpolation introduces artificial autocorrelation. To account for this, I resample 12-month blocks (1 year) with replacement over 2,000 iterations:
+
+</Prose>
+
+<CodeBlock lang="python" file="annual_block_bootstrap.py" width="wide">
+```python
+# Pinned seed for reproducibility
+rng = np.random.default_rng(20240401)
+n_boot = 2000
+boot_slopes = np.empty(n_boot)
+n = len(panel)
+block_size = 12
+n_blocks = int(np.ceil(n / block_size))
+n_blocks_total = n // block_size
+
+for i in range(n_boot):
+    sampled_blocks = rng.integers(0, n_blocks_total, n_blocks)
+    idx_list = []
+    for b in sampled_blocks:
+        start = b * block_size
+        end = min(start + block_size, n)
+        idx_list.extend(range(start, end))
+    idx = np.array(idx_list[:n])
+    s, _ = np.polyfit(years_num.values[idx], panel['Gap_ratio'].values[idx], 1)
+    boot_slopes[i] = s
+
+ci_low, ci_high = np.percentile(boot_slopes, [2.5, 97.5])
+# Resulting 95% Confidence Interval: [-0.0320, -0.0269]
+```
+</CodeBlock>
+
+<Prose>
+
+The resulting 95% confidence interval is `[-0.0320, -0.0269]`. Since the interval is entirely negative and excludes zero, the narrowing trend is statistically significant and represents a genuine structural shift rather than noise.
+
+</Prose>
+
+</Section>
+
+<Section n="03" slug="synthesis" title="Synthesis: does affordability buy stability?">
+
+<Prose>
+
+Placing all four representative metros side by side across three cycles reveals that regional affordability and cyclical price stability are decoupled dimensions:
+
+</Prose>
+
+<Figure n="3" width="wide" caption="Cross-Archetype Comparative Affordability. Housing Affordability Index (HAI) through three cycles for San Francisco, Seattle, Houston, and Washington DC against the qualifying threshold line (HAI = 100). Source: cross_archetype_dynamics.ipynb.">
+  <img src={import.meta.env.BASE_URL + "/figures/us-housing-archetypes/cross_hai_all_metros.svg"} alt="Cross-Archetype Affordability" />
+</Figure>
+
+<Prose>
+
+Houston (Archetype B) sailed through the 2008 GFC price collapse with a maximum drawdown of only -9.76% (recovering in 22 months), compared to San Francisco's GFC drawdown of -35.2% which took 109 months to recover. However, the post-2022 rate shock — which raised mortgage rates from ~3% to ~7% — compressed Houston's HAI from 152.0 to 97.3, dropping it below the qualifying line for the first time in modern history. 
+
+This indicates that while flexible supply boundaries shield affordable metros from speculative price bubbles, they offer no protection against systemic mortgage rate shocks.
+
+To verify the volatility rankings, I calculate a 24-month block bootstrap on the YoY returns of all four metros:
+
+</Prose>
+
+<Figure n="4" width="wide" caption="Volatility regimes. Rolling 24-month volatility of YoY price returns for the four representative metros. Volatility and affordability are decoupled dimensions. Source: cross_archetype_dynamics.ipynb.">
+  <img src={import.meta.env.BASE_URL + "/figures/us-housing-archetypes/cross_volatility_regime.svg"} alt="Rolling Volatility Regimes" />
+</Figure>
+
+<Prose>
+
+The 24-month block size is chosen heuristically based on the autocorrelation decay signature. The resulting standard errors show that while San Francisco (9.80% point estimate, 95% CI `[7.40%, 11.39%]`) and Seattle (8.82% point estimate, 95% CI `[6.33%, 10.69%]`) are structurally more volatile than Houston (5.13% point estimate, 95% CI `[3.33%, 6.66%]`), the difference between the threshold and superstar cases is descriptive rather than a clean, non-overlapping statistical boundary.
+
+</Prose>
+
+</Section>
+
+<Section n="04" slug="micro-integration" title="Micro-integration: spatial signal vs. target-encoding memory.">
+
+<Prose>
+
+In the micro-level analysis of King County housing transactions (`house_sales_king_county.ipynb`), the spatial coordinates (latitude and longitude) carry almost all of the pricing signal. When fitting models to predict transaction prices, target encoding is a common method to represent neighborhood price levels.
+
+However, a naive target encoding can easily memorize the target variable, leaking information and overstating out-of-sample performance. To test the durability of the spatial signal, I evaluate a spatial Gaussian Process regression against a target-encoded baseline:
+
+- **Target-Encoding Baseline:** Naive mean encoding results in extreme overfitting, inflating $R^2$ in-sample while collapsing out-of-sample.
+- **Spatial Signal:** Modeling coordinate interactions directly using a spatial covariance kernel preserves a robust out-of-sample $R^2 = 0.74$, demonstrating that geographic proximity is a durable economic signal rather than statistical memory.
+
+</Prose>
+
+<Callout kind="limits">
+
+- **Illustrative MSAs:** The four representative metros (SF, Seattle, Houston, DC) are illustrative exemplars selected based on quadrant judgment, not an exhaustive national study.
+- **P&I-only HAI:** The NAR Housing Affordability Index isolates principal and interest. It omits property taxes, insurance, and maintenance, which distort comparisons in high-tax states (Texas) or high-insurance states (Florida).
+- **Nominal Income Series:** Census SAIPE incomes are nominal and annual, meaning intra-year dynamics are linearly interpolated.
+
+</Callout>
+
+</Section>

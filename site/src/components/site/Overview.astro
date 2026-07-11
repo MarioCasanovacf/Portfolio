@@ -1,0 +1,611 @@
+---
+const base = import.meta.env.BASE_URL;
+const b = base.endsWith('/') ? base : base + '/';
+---
+
+<section class="overview-hero">
+  <h1 class="overview-title">
+    Technology must<br />
+    pay its own <em>rent</em>.
+  </h1>
+  <p class="overview-lede">
+    If a model, a pipeline, or a dashboard does not make a business more profitable, more efficient, or closer to its customers, it shouldn't be used. Applied AI feels like god-tier magic, but it's a tool that earns its keep only when built with statistical and operational discipline.
+  </p>
+</section>
+
+<section class="overview-section overview-method bg-paper-deep">
+  <div class="section-header">
+    <div class="overview-eyebrow">Method</div>
+    <h2 class="section-title">From chaos to evidence</h2>
+  </div>
+  
+  <div class="method-content">
+    <p class="method-intro">
+      I work where problems live between disciplines. I translate messy business realities into clear, verifiable technical specifications, build the data infrastructure that supports them, and deliver systems that yield auditable results.
+    </p>
+
+    <div class="process-flow" data-reveal>
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h3>Listen first</h3>
+          <p>I start with your business context, in your own language, no matter how unorganized or informal the initial brief is.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h3>Design the architecture</h3>
+          <p>I document data dictionaries, source-to-target maps, and clean data flows (Bronze-Silver-Gold) before writing any code.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h3>Build clean systems</h3>
+          <p>Develop the pipelines, language models, analytical tools, or real-time solvers tailored directly to the requirement.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h3>Verify with proof</h3>
+          <p>Audit system behavior against real-world scenarios and verify statistical performance under strict standards.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">05</div>
+        <div class="step-body">
+          <h3>Deliver value</h3>
+          <p>Deploy stable, self-contained systems that justify their existence through clear operational or economic returns.</p>
+        </div>
+      </div>
+    </div>
+
+    <blockquote class="method-quote" data-reveal>
+      The common denominator: everything I build has a purpose. Nothing goes to production without real business application.
+    </blockquote>
+  </div>
+</section>
+
+<section class="overview-section overview-deliverables">
+  <div class="section-header">
+    <div class="overview-eyebrow">Capabilities</div>
+    <h2 class="section-title">What I build (in plain terms)</h2>
+  </div>
+
+  <div class="deliverables-grid">
+    <div class="deliverable-card" data-reveal>
+      <h3 class="deliverable-title">I. Data Architecture, Engineering, Analytics & BI</h3>
+      <p class="deliverable-desc">
+        I design data architectures and build the engineering pipelines to clean and structure scattered databases, then build the semantic layers that fuel clear data analytics and BI dashboards. You stop arguing over whose numbers are correct and start using them.
+      </p>
+      <div class="deliverable-outcomes">
+        <h4>Measured Impact:</h4>
+        <ul>
+          <li><strong class="impact-lead">Restored trust in subscription revenue reporting across 13M accounts.</strong> Billing and device data were being joined on a key that meant different things in each table, and every report downstream inherited the mismatch. Correcting it lifted match accuracy to 97.6% — the business stopped running on a number it couldn't trust. <span class="prov">Anonymized client work</span></li>
+          <li><strong class="impact-lead">Caught a production query that was silently multiplying subscription records.</strong> It inflated conversion counts in a way no dashboard would ever flag, because the numbers looked plausible. Rebuilt the logic and proved the corrected counts against the quarterly business reference before anything shipped — the kind of error that quietly distorts a revenue narrative for quarters until someone goes looking. <span class="prov">Anonymized client work</span></li>
+          <li><strong class="impact-lead">Built news-intelligence pipelines that stay duplicate-free no matter how many times they re-run.</strong> Restarts and backfills included — the feeds decision-makers read never show the same event twice, because identifiers are hash-derived: duplicate prevention doesn't depend on anyone following procedure. <span class="prov">Anonymized client work</span></li>
+          <li><strong class="impact-lead">Designed multi-tenant AI document search where each client's workspace is sealed off before any query executes.</strong> Isolation is enforced before retrieval: a query can only ever see its own tenant's documents. Security that concurrent institutional clients can be shown, not promised. <span class="prov">Anonymized client work</span></li>
+        </ul>
+      </div>
+      <div class="deliverable-meta">
+        <span class="meta-label">Stack:</span> Python · SQL · dbt · Databricks · Snowflake · Oracle · Azure · GCP · Power BI · Tableau
+      </div>
+    </div>
+
+    <div class="deliverable-card" data-reveal>
+      <h3 class="deliverable-title">II. Applied Machine Learning & MLOps</h3>
+      <p class="deliverable-desc">
+        I design and deploy custom language models, text classifiers, and agent networks to automate complex manual flows. I focus on specific, auditable tasks that reduce headcount strain and keep API costs controlled.
+      </p>
+      <div class="deliverable-outcomes">
+        <h4>Measured Impact:</h4>
+        <ul>
+          <li><strong class="impact-lead">Made ML label quality auditable instead of taken on faith.</strong> A blind second rater and statistical acceptance gates decide what enters training, so the metrics reported are metrics that hold. The resulting classifier serves 26,000+ daily customer reviews in 20+ languages at 0.896 production accuracy (Kappa 0.806). <span class="prov">Anonymized client work</span></li>
+          <li><strong class="impact-lead">Cut vendor-file onboarding from 4–6 hours to a 5–10 minute review-and-confirm conversation.</strong> A team of 8 specialized AI agents does the heavy field-by-field matching against an institutional platform's integration format — the human keeps the final decision, and every mapping stays traceable for audit. <span class="prov">Anonymized client work</span></li>
+          <li><strong class="impact-lead">Applied agentic and loop engineering.</strong> A coordination harness where parallel AI agents claim work from a dependency graph, never approve their own output, and release stale locks automatically, with a professional —agile or cascade, depending on the agents' work— observability loop that audits agent reasoning against real outcomes and evolves the harness itself. This governance layer helps turn experimental AI into something an enterprise can trust unsupervised, until the output needs to be revisited. <span class="prov">Internal tooling · independent build</span></li>
+          <li><strong class="impact-lead">Solved minority-class data scarcity with synthetic augmentation that can't flatter itself.</strong> Every generated sample is screened against a frozen validation set before training, so the reported accuracy was measured on data the model had never seen, and it held in production. <span class="prov">Anonymized client work</span></li>
+        </ul>
+      </div>
+      <div class="deliverable-meta">
+        <span class="meta-label">Stack:</span> Python · PyTorch · Hugging Face · Databricks · REST APIs · Claude, Codex & Gemini SDKs · MCP · Copilot Studio · Power Automate · Pydantic
+      </div>
+    </div>
+
+    <div class="deliverable-card" data-reveal>
+      <h3 class="deliverable-title">III. Predictive Modeling, Forecasting & Quantitative Analysis</h3>
+      <p class="deliverable-desc">
+        I implement statistical models, time-series forecasting, and mathematical simulations to analyze operational trends, predict user behavior, and optimize resource allocation.
+      </p>
+      <div class="deliverable-outcomes">
+        <h4>Measured Impact:</h4>
+        <ul>
+          <li><strong class="impact-lead">Gave marketing an empirically timed upsell window across 13M accounts.</strong> 80.7% of organic customers still hold a single product family, and those who expand follow a predictable clock — the companion accessory within weeks, the premium device at 9–13 months. Sending the offer a month early means burning it. <span class="prov">Anonymized client work</span></li>
+          <li><strong class="impact-lead">Delivered the cross-sell number a product review can trust (Lift 5.3, Confidence 85%).</strong> Computed by first excluding what inflates raw affinity metrics: hardware that ships together by technical necessity, and ~4M accounts where the customer never chose the product mix. <span class="prov">Anonymized client work</span></li>
+          <li><strong class="impact-lead">Tuned upsell timing to the typical customer instead of a misleading average.</strong> Purchase-interval analysis built on medians, because the slow-buyer tail makes any mean-based cadence arrive late for most of the base. <span class="prov">Anonymized client work</span></li>
+          <li><strong class="impact-lead">Priced exotic options where standard Black–Scholes assumptions break down.</strong> Heston stochastic volatility Monte Carlo compiled to native speeds, plus Level-2 order books rebuilt deterministically from raw asynchronous market feeds — the quantitative depth behind the institutional-finance context. <span class="prov">Independent build · portfolio code</span></li>
+          <li><strong class="impact-lead">Building AI agents with memory.</strong> Every human-confirmed mapping becomes a worked example the system learns from, so the next vendor file starts from institutional experience and each onboarding predicts better than the last. Continuous learning inside a production workflow: AI that learns about your work, instead of a static chatbot. <span class="prov">Anonymized client work · in progress</span></li>
+        </ul>
+      </div>
+      <div class="deliverable-meta">
+        <span class="meta-label">Stack:</span> Python · pandas · NumPy · SciPy · Numba · statsmodels · scikit-learn · pytest
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="overview-section overview-showcase bg-paper-deep">
+  <div class="section-header">
+    <div class="overview-eyebrow">Showcases</div>
+    <h2 class="section-title">Selected cases</h2>
+  </div>
+
+  <div class="showcase-list">
+    <div class="showcase-item" data-reveal>
+      <div class="showcase-meta">
+        <span class="showcase-n">01</span>
+        <span class="showcase-tag">Applied ML</span>
+      </div>
+      <div class="showcase-body">
+        <h3 class="showcase-title">Multilingual Customer Feedback Classification</h3>
+        
+        <div class="showcase-question">
+          <span class="question-label">The Question:</span>
+          "How do we categorize thousands of daily customer reviews in 20+ languages when our team can't agree on what a 'good' or 'bad' review actually means?"
+        </div>
+
+        <p class="showcase-desc">
+          I established a strict, audited labeling standard and built a cascaded language model pipeline that automatically processes reviews.
+        </p>
+        <div class="showcase-results">
+          <strong>Result:</strong> 26,000 daily reviews processed in 20+ languages, achieving a Macro-F1 of 0.793 and 89.6% accuracy.
+        </div>
+        <div class="showcase-prov">Anonymized client work · production system; the public case study masks entities and sources</div>
+        <a href={`${b}case-studies/sentiment-cascade`} class="showcase-link">Read technical case study →</a>
+      </div>
+    </div>
+
+    <div class="showcase-item" data-reveal>
+      <div class="showcase-meta">
+        <span class="showcase-n">02</span>
+        <span class="showcase-tag">Agent Orchestration</span>
+      </div>
+      <div class="showcase-body">
+        <h3 class="showcase-title">Cost-Efficient AI Agent Infrastructure</h3>
+
+        <div class="showcase-question">
+          <span class="question-label">The Question:</span>
+          "How do we build and run AI agents for complex coding tasks without letting API costs run our budget into the ground?"
+        </div>
+
+        <p class="showcase-desc">
+          I built a local, file-based coordination substrate that delegates simple reasoning tasks to cheaper models, reserving expensive frontier models only for high-level coordination and quality control.
+        </p>
+        <div class="showcase-results">
+          <strong>Result:</strong> Shifted the vast majority of AI query costs to cheaper model tiers while maintaining output quality.
+        </div>
+        <div class="showcase-prov">Internal tooling · independent build</div>
+        <a href={`${b}case-studies/agent-harness`} class="showcase-link">Read technical case study →</a>
+      </div>
+    </div>
+
+    <div class="showcase-item" data-reveal>
+      <div class="showcase-meta">
+        <span class="showcase-n">03</span>
+        <span class="showcase-tag">Cloud Ops</span>
+      </div>
+      <div class="showcase-body">
+        <h3 class="showcase-title">Infrastructure Support Staffing & Incident Analysis</h3>
+
+        <div class="showcase-question">
+          <span class="question-label">The Question:</span>
+          "How many engineers do we actually need on call during our worst operational weeks, and what service-level agreement (SLA) can we honestly promise our clients?"
+        </div>
+
+        <p class="showcase-desc">
+          I modeled capacity and incident patterns across multiple cloud providers using queueing theory models.
+        </p>
+        <div class="showcase-results">
+          <strong>Result:</strong> Established the defensible SLO the provider can actually promise, and the defensible minimum on-call headcount via queueing theory (Erlang C).
+        </div>
+        <div class="showcase-prov">Independent study · real public data (787 incidents, 18 providers)</div>
+        <a href={`${b}case-studies/cloud-ops`} class="showcase-link">Read technical case study →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Hero Section */
+  .overview-hero {
+    padding: 120px var(--gutter-desktop) 80px;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  @media (max-width: 760px) {
+    .overview-hero { padding: 64px var(--gutter-mobile) 48px; }
+  }
+
+  .overview-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 24px;
+  }
+
+  .overview-title {
+    font-family: var(--font-display);
+    font-size: 84px;
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin: 0 0 32px 0;
+    color: var(--ink);
+    max-width: 18ch;
+    font-weight: 400;
+  }
+  @media (max-width: 760px) {
+    .overview-title { font-size: 44px; line-height: 1.05; }
+  }
+  .overview-title em {
+    font-style: italic;
+  }
+
+  .overview-lede {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 38rem;
+    margin: 0;
+    text-align: justify;
+    hyphens: auto;
+  }
+  @media (max-width: 760px) {
+    .overview-lede { font-size: 18px; }
+  }
+
+  /* Section Layouts */
+  .overview-section {
+    padding: 96px var(--gutter-desktop);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  @media (max-width: 760px) {
+    .overview-section { padding: 64px var(--gutter-mobile); }
+  }
+
+  .section-header {
+    margin-bottom: 56px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 48px;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  @media (max-width: 760px) {
+    .section-title { font-size: 32px; }
+  }
+
+  /* Method Section */
+  .method-content {
+    max-width: 38rem;
+  }
+  .method-intro {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 48px;
+    text-align: justify;
+  }
+  @media (max-width: 760px) {
+    .method-intro { font-size: 17px; }
+  }
+
+  .process-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 56px;
+  }
+  .process-step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+    align-items: baseline;
+  }
+  .step-num {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--oxblood);
+  }
+  .process-step h3 {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .process-step p {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+    text-align: justify;
+  }
+
+  .method-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 26px;
+    line-height: 1.35;
+    color: var(--ink);
+    margin: 48px 0 0 0;
+    padding-left: 24px;
+    border-left: 2px solid var(--oxblood);
+  }
+  @media (max-width: 760px) {
+    .method-quote { font-size: 20px; }
+  }
+
+  /* Deliverables Grid */
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+  }
+  @media (max-width: 900px) {
+    .deliverables-grid { grid-template-columns: 1fr; gap: 48px; }
+  }
+
+  .deliverable-card {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--ink);
+    padding-top: 24px;
+  }
+  .deliverable-title {
+    font-family: var(--font-sans);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0 0 16px 0;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+  .deliverable-desc {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin-bottom: 24px;
+  }
+  .deliverable-outcomes {
+    margin-bottom: auto;
+  }
+  .deliverable-outcomes h4 {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 10px 0;
+  }
+  .deliverable-outcomes ul {
+    margin: 0 0 32px 0;
+    padding-left: 18px;
+    font-family: var(--font-serif);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .deliverable-outcomes li strong.impact-lead {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .deliverable-meta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-3);
+    border-top: 1px solid var(--rule-soft);
+    padding-top: 16px;
+    margin-top: 16px;
+    line-height: 1.4;
+  }
+  .meta-label {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--oxblood);
+    margin-right: 4px;
+  }
+
+  /* Showcase Section */
+  .showcase-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--ink);
+  }
+  .showcase-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 32px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .showcase-item:last-child {
+    border-bottom: 0;
+  }
+  @media (max-width: 760px) {
+    .showcase-item {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding: 32px 0;
+    }
+  }
+
+  /* Motion spec §2 — hover del item: un paso de papel (deep→shade).
+     Sin translate, sin sombra. Los bordes del highlight coinciden
+     con las hairlines existentes; el layout no se mueve. */
+  @media (prefers-reduced-motion: no-preference) {
+    .showcase-item {
+      transition: background-color var(--dur-base) var(--ease);
+    }
+  }
+  .showcase-item:hover {
+    background-color: var(--paper-shade);
+  }
+
+  .showcase-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .showcase-n {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-3);
+  }
+  .showcase-tag {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--oxblood);
+  }
+
+  .showcase-title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    line-height: 1.2;
+    color: var(--ink);
+    margin: 0 0 16px 0;
+    font-weight: 400;
+  }
+  @media (max-width: 760px) {
+    .showcase-title { font-size: 22px; }
+  }
+
+  .showcase-question {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--paper-deep);
+    padding: 16px 20px;
+    border-left: 2px solid var(--oxblood);
+    margin-bottom: 16px;
+  }
+  .question-label {
+    font-family: var(--font-sans);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--oxblood);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .showcase-desc {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+
+  .showcase-results {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 12px 16px;
+    border-left: 2px solid var(--ochre);
+    margin-bottom: 20px;
+  }
+  .showcase-results strong {
+    font-weight: 600;
+    color: var(--ochre);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    display: inline-block;
+    margin-right: 6px;
+  }
+
+  /* Motion spec §1 — el underline ya no popea: siempre presente,
+     transparente en reposo; transiciona color + thickness, mismo
+     idioma que el `a` global. La flecha no se mueve. */
+  .prov {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-top: 6px;
+  }
+
+  .showcase-prov {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-bottom: 16px;
+  }
+
+  .showcase-link {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--oxblood);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    letter-spacing: 0.02em;
+    display: inline-block;
+  }
+  .showcase-link:hover {
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 2px;
+    color: var(--oxblood-2);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .showcase-link {
+      transition: text-decoration-color var(--dur-base) var(--ease),
+                  text-decoration-thickness var(--dur-base) var(--ease),
+                  color var(--dur-base) var(--ease);
+    }
+  }
+</style>

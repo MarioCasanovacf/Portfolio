@@ -1,0 +1,45 @@
+/* =============================================================
+   motion.css — capa de micro-craft de motion
+   Importar DESPUÉS de case-study.css (el override del rail
+   depende del orden de cascada).
+   ============================================================= */
+
+/* ---------- 3. Focus consistente ----------
+   Accesibilidad, no motion: vive FUERA del media query
+   y sin transición (el focus debe ser instantáneo). */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* ---------- 4. Reveal on scroll ----------
+     El estado oculto solo existe si el script inline pre-paint
+     añadió `js-reveal` a <html>. Sin JS o con reduced-motion,
+     todo es visible por defecto.
+     La transición vive solo en .is-revealed: los elementos
+     marcados como "ya en viewport" se revelan sin animación
+     (el script les pone transition:none inline un frame). */
+  html.js-reveal [data-reveal] {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  html.js-reveal [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+    transition: opacity var(--dur-slow) var(--ease),
+                transform var(--dur-slow) var(--ease);
+  }
+
+  /* ---------- 5. Rail de case studies ----------
+     Reemplaza el 0.15s ease hard-coded por tokens.
+     --dur-base: es un indicador de posición, no expresivo. */
+  .cs-rail__link {
+    transition: color var(--dur-base) var(--ease),
+                border-color var(--dur-base) var(--ease);
+  }
+}

@@ -7,8 +7,13 @@
 //
 // `published: true`  → the MDX page exists and the row is a live link.
 // `published` unset  → the study is not yet reviewed by Mario; the row renders as
-//                      "Under construction" with its domain, dek and methods hidden.
+//                      "Coming soon" with its domain, dek and methods hidden.
 //                      Flip to true (and create the MDX) once it has been edited.
+// `published: import.meta.env.DEV`
+//                    → pending Mario's approval: visible and readable on the
+//                      local dev server (`npm run dev`), hidden in any built /
+//                      published output. CaseStudyLayout also gates the route
+//                      itself, so the page is unreachable by direct URL in prod.
 
 export type Track = 'industry' | 'intellectual';
 
@@ -20,7 +25,7 @@ export interface Study {
   dek: string;
   methods: string[];
   /** Whether the reviewed MDX page exists. Unpublished rows render as
-   *  "Under construction" and are not clickable. */
+   *  "Coming soon" and are not clickable. */
   published?: boolean;
   /** A companion tool (e.g. an interactive island), not a standalone case study.
    *  Listed in the index but not counted or numbered as one of the case studies. */
@@ -29,6 +34,15 @@ export interface Study {
 
 export const studies: Study[] = [
   // ── Industry · applied → "Case Studies" ─────────────────────────────────────
+  {
+    slug: 'agent-harness',
+    track: 'industry',
+    domain: 'Agent orchestration',
+    title: 'A multi-agent, multi-layer and auto-evolving harness for the era after Fable 5: Building a functional society of agents to enhance AI workflows.',
+    dek: 'A file-based coordination substrate designed to orchestrate a society of cheaper models (Sonnet) under a single frontier coordinator (Opus), shifting 95% of token usage to cheaper tiers. Running on a 22-task board (18 done, 2 failed, 2 open), it enforces a mechanical producer≠approver gate and TTL write-locks. The harness evolved across four generations of self-audits, generating 25 accepted mutations. The honest limits—the lack of a wall-clock control run, and reporting the evolution history as provenance—are the load-bearing core.',
+    methods: ['Shared blackboard (task DAG)', 'TTL write-locks', 'Producer ≠ approver', 'Evidence replay'],
+    published: true,
+  },
   {
     slug: 'sentiment-cascade',
     track: 'industry',
@@ -58,13 +72,15 @@ export const studies: Study[] = [
     companion: true,
   },
   {
-    // Placeholder — a second applied-ML study is being chosen. Reserved slot.
-    slug: 'ml-second',
+    slug: 'local-vs-frontier',
     track: 'industry',
     domain: 'Applied machine learning',
-    title: 'A second applied machine-learning study',
-    dek: '',
-    methods: [],
+    title: 'The model you keep',
+    dek: 'A comparative benchmark of a locally fine-tuned DistilBERT classifier against frontier APIs like Claude 4.8 and GPT-5.5. Measures a throughput of 237 reviews/second on MPS local GPU, and maps the economic break-even point against DeepSeek\'s $0.14/1M commodity pricing.',
+    methods: ['Transformers', 'Inference Throughput', 'MPS Acceleration', 'Inference Cost Modeling'],
+    // DEV-only until the notebook folder can be pushed without its licensed
+    // review data — the notebookUrl 404s on the public repo until then.
+    published: import.meta.env.DEV,
   },
   {
     slug: 'legislative-pipeline',
@@ -86,15 +102,6 @@ export const studies: Study[] = [
     companion: true,
   },
   {
-    slug: 'agent-harness',
-    track: 'industry',
-    domain: 'Agent orchestration',
-    title: 'The harness that built this portfolio, turned to face itself',
-    dek: 'The file-based coordinator that assembled much of this portfolio, examined as its own subject: a shared task-DAG, TTL file-locks, and a producer≠approver rule the CLI enforces by refusing the command rather than asking nicely. On the board that relocated the site, revived the legislative pipeline and drafted the neighbouring studies — 18 of 22 tasks reached done, every producer task was verdicted by a different agent than wrote it, and one over-confident result got sent back through a fix loop before it could ship. The two that failed did so because the tool could not edit a dependency edge, so they were retired and rebuilt; the honest gaps — a file collision never actually blocked on this board, no cost comparison against one careful agent — are the load-bearing part.',
-    methods: ['Shared blackboard (task DAG)', 'TTL write-locks', 'Producer ≠ approver', 'Evidence replay'],
-    published: true,
-  },
-  {
     slug: 'hierarchical-risk-parity',
     track: 'industry',
     domain: 'Quantitative finance',
@@ -109,6 +116,16 @@ export const studies: Study[] = [
     title: 'Exotic options under stochastic volatility, and what antithetic variates actually buy',
     dek: 'A path-dependent Asian call under Heston stochastic volatility has no closed form, so 50,000-path Monte Carlo is the only real option — and antithetic variates promise a cheaper one. Measured rather than assumed: paired against plain Monte Carlo at the same path budget, the antithetic estimator lands at $5.2019 (±$0.0186) against $5.2516 (±$0.0294), roughly a 1.6× tighter standard error from one seed, driven by a −0.598 correlation between each path and its mirror. Inputs are illustrative, not calibrated to any market.',
     methods: ['Heston model', 'Euler–Maruyama', 'Antithetic variates', 'Monte Carlo'],
+    published: import.meta.env.DEV,
+  },
+  {
+    slug: 'us-housing-archetypes',
+    track: 'industry',
+    domain: 'Real estate analytics',
+    title: 'US housing market archetypes: systematic classification of affordability and volatility through three cycles',
+    dek: 'A systematic classification of 30 metropolitan housing markets on affordability and price volatility from 2000 to 2026. Identifies three data-driven archetypes (A = SF/Seattle, B = Houston, C = DC) and tests homeownership accessibility across local county-level income boundaries. Explores temporal dynamics under GFC, COVID, and post-2022 rate shocks, revealing that affordability and cyclical stability are decoupled dimensions. Validates spatial-signal persistence on King County housing sales vs. memoized target-encoding baseline.',
+    methods: ['Systematic Ranking (NAR HAI)', 'Augmented Dickey-Fuller & Ljung-Box', 'Block Bootstrap', 'Target Encoding Baseline'],
+    published: import.meta.env.DEV,
   },
 
   // ── Intellectual · play → "Experiments" ─────────────────────────────────────
