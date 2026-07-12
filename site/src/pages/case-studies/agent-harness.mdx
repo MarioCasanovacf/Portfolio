@@ -61,8 +61,9 @@ This division is codified in the bench registry (located in `.harness/state.json
 edit, and test files using cheaper tokens, while high-stakes decisions (goal decomposition and
 verification verdicts) override to the frontier model only per-dispatch. The routing rule is a
 design choice: routine work is meant to run on the cheaper workers, with the expensive model
-reserved for the synthesis of the task DAG. How much usage that actually shifts, and under what
-conditions the rule holds, is still being measured — the honest figure is not yet in.
+reserved for the synthesis of the task DAG. How much that routing actually saves is the subject
+of §05, where the same anchor task is set against a modeled frontier-only counterfactual,
+measured on one side and declared as a model on the other.
 
 </Prose>
 
@@ -461,7 +462,123 @@ and prevents the need to retire tasks mid-run.
 
 </Section>
 
-<Section n="05" slug="operational-recommendations" title="Recommendations for Operational Usage">
+<Section n="05" slug="same-task-with-and-without" title="The Same Task, With and Without the Harness">
+
+<Prose>
+
+The anchor is a real task from this very window: review, correct, and publish roughly 2,150
+lines of code produced by an external engine I did not trust. The with-harness side is what
+happened. The frontier-only side is a counterfactual, modeled from measured averages, and every
+cell below states which of the two it is. There is no twin run and no A/B, because the same task
+cannot be run twice under identical conditions. So the comparison keeps its seams visible: one
+side occurred, the other is a model.
+
+</Prose>
+
+<Figure n="4" width="wide" caption="Frontier consumption for the anchor task, with sensitivity to the steps assumption. 163 steps is the measured floor of the work; the central and pessimistic scenarios add scope discovery and rework. Against the harness, frontier tokens land 6.6× to 13× lower.">
+
+<svg viewBox="0 0 720 300" role="img" aria-label="Bar chart: raw frontier-tier tokens for the same task. The harness run uses about 7.5 million; the frontier-only counterfactual ranges from 49 to 100 million.">
+  <g font-family="IBM Plex Sans">
+    <text x="0" y="18" fill="#1A1814" font-size="12" font-weight="600">Raw frontier-tier tokens for the same task</text>
+    <text x="0" y="36" fill="#6B655C" font-size="10.5">Fable at 302k raw tokens/message, measured average</text>
+
+    <rect x="40" y="60" width="36" height="24" fill="#6E1F1F"/>
+    <text x="84" y="77" font-size="11.5" fill="#1A1814"><tspan font-weight="600">~7.5M</tspan> · with harness (coordination)</text>
+
+    <rect x="40" y="108" width="235" height="24" fill="none" stroke="#6B655C" stroke-width="1" stroke-dasharray="5 3"/>
+    <text x="283" y="125" font-size="11.5" fill="#3C3833"><tspan font-weight="600">~49M</tspan> · floor: the same 163 steps</text>
+
+    <rect x="40" y="156" width="317" height="24" fill="none" stroke="#6B655C" stroke-width="1" stroke-dasharray="5 3"/>
+    <text x="365" y="173" font-size="11.5" fill="#3C3833"><tspan font-weight="600">~66M</tspan> · central: +35% discovery</text>
+
+    <rect x="40" y="204" width="480" height="24" fill="none" stroke="#6B655C" stroke-width="1" stroke-dasharray="5 3"/>
+    <text x="528" y="221" font-size="11.5" fill="#3C3833"><tspan font-weight="600">~100M</tspan> · pessimistic: 2× steps</text>
+
+    <line x1="0" y1="250" x2="700" y2="250" stroke="#1A1814" stroke-width="0.5" opacity="0.18"/>
+    <text x="0" y="270" fill="#6B655C" font-size="9.5">Solid: the harness run. Dashed: modeled frontier-only counterfactual.</text>
+    <text x="0" y="285" fill="#6B655C" font-size="9.5">All three are floors, since Fable's cost per message grows with session length. 302k is its average; a poorly managed context window runs far higher.</text>
+  </g>
+</svg>
+
+</Figure>
+
+<Prose>
+
+The bar chart is only the token row. The full ledger sets six dimensions side by side, and the
+provenance tag on each cell says whether the number was measured on the run that happened or
+modeled for the run that did not.
+
+</Prose>
+
+<div class="cs-compare-wrap">
+  <table class="cs-compare">
+    <thead>
+      <tr>
+        <th class="dim">Dimension</th>
+        <th>Frontier only</th>
+        <th>With harness (P-030)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Raw frontier tokens (Fable)</th>
+        <td class="col-model">49–100M <span class="tag tag--modeled">modeled</span><br/>sensitivity: 163–330 steps</td>
+        <td class="col-real">~7.5M <span class="tag tag--measured">measured</span><br/>coordination only</td>
+      </tr>
+      <tr>
+        <th>Cheap-tier tokens</th>
+        <td class="col-model">0</td>
+        <td class="col-real">401k <span class="tag tag--measured">measured</span><br/>4 subagents</td>
+      </tr>
+      <tr>
+        <th>Expected errors that slip through</th>
+        <td class="col-model">~5–8%<br/>self-review only (v ≈ 0–0.3)</td>
+        <td class="col-real">0.6%<br/>2 independent verifiers</td>
+      </tr>
+      <tr>
+        <th>Evidence from this task</th>
+        <td class="col-model">the producer's 31 green tests caught none of the 4 blockers</td>
+        <td class="col-real">4 / 4 blockers caught <span class="tag tag--measured">measured</span></td>
+      </tr>
+      <tr>
+        <th>Wall-clock to the push</th>
+        <td class="col-model">3–6 h <span class="tag tag--modeled">modeled</span><br/>serial, 163–330 steps × 30–60s + rate limits</td>
+        <td class="col-real">~40 min <span class="tag tag--measured">measured</span><br/>parallel reviewers 4:00 / 4:46 / 8:25, worker 7:01, plus replay and commits</td>
+      </tr>
+      <tr>
+        <th>Engineer attention</th>
+        <td class="col-model">3–6 h tied to the session<br/>serial supervision</td>
+        <td class="col-real">~10–15 min<br/>read 4 syntheses, make 2 decisions</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<Prose>
+
+These numbers are not from two twin runs. The counterfactual pays, in Fable's
+frontier tokens at 302k raw per message, for the same steps the subagents executed under precise
+briefs. The floor of 163 steps is generous to the frontier: it assumes zero scope discovery and
+zero rework. The central scenario adds 35% for both, and the pessimistic one doubles them. The
+evidence from this very task argues that inline rework is not hypothetical, since the producer
+shipped 31 green tests and none of them saw the four blockers the independent verifiers caught.
+And while the left column is extrapolated from the common usage of frontier models in three main
+scenarios, the right one is the one that we know happened.
+
+Two of the rows lean on outside numbers rather than my own. Pure human review runs at
+300–500 lines per hour before any fixes, so 2,150 new lines is four to seven hours of reading
+alone.<sup id="fnref1"><a href="#fn1">1</a></sup> And supervising an AI session serially is a
+cost that is easy to undercount: a controlled trial found experienced developers 19% slower
+under supervised AI assistance while they believed they were 20% faster.<sup id="fnref2"><a href="#fn2">2</a></sup>
+These numbers, however, do not account for the usual practice of developers who simply read the
+reports the agents produce rather than the code. On that consideration, the expected errors that
+slip through become the most important data point to weigh.
+
+</Prose>
+
+</Section>
+
+<Section n="06" slug="operational-recommendations" title="Recommendations for Operational Usage">
 
 <Prose>
 
@@ -507,3 +624,18 @@ workflow in verified context from minute zero.
 </Prose>
 
 </Section>
+
+<Callout kind="footnotes">
+
+<span id="fn1"><sup>1</sup></span> Human review rate: the SmartBear/Cisco study (2,500 reviews
+over 3.2M lines of code) found defect detection falls off above roughly 300–500 LOC/h and in
+sessions longer than 200–400 lines, which puts 2,150 new lines at 4.3–7+ hours of pure review
+before a single fix (smartbear.com; the Cisco case study).
+
+<span id="fn2"><sup>2</sup></span> Supervising AI sessions: the METR randomized trial (16
+experienced developers, 246 tasks) measured that working with AI assistance in a supervised
+mode made them 19% slower even as they believed they were going 20% faster — the engineer's
+attention, tied to a serial session, is a real and systematically underestimated cost
+(metr.org; arXiv:2507.09089).
+
+</Callout>

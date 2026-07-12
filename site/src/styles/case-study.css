@@ -103,6 +103,63 @@
   color: var(--ink-2);
 }
 
+/* ---------- Comparison table (measured run vs. modeled counterfactual) ---------- */
+.cs-compare-wrap {
+  max-width: var(--cs-w-full);
+  margin: var(--s-12) auto;
+  overflow-x: auto;
+}
+.cs-compare {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: var(--t-caption-size);
+  line-height: 1.5;
+}
+.cs-compare thead th {
+  text-align: left;
+  vertical-align: bottom;
+  padding: 0 var(--s-4) var(--s-3) 0;
+  border-bottom: 1px solid var(--ink);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+}
+.cs-compare thead th.dim { color: var(--ink-3); font-weight: 500; }
+.cs-compare tbody th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--ink);
+  padding: var(--s-3) var(--s-4) var(--s-3) 0;
+  vertical-align: top;
+  border-top: 1px solid var(--rule-soft);
+}
+.cs-compare tbody td {
+  padding: var(--s-3) var(--s-4) var(--s-3) 0;
+  vertical-align: top;
+  border-top: 1px solid var(--rule-soft);
+  font-variant-numeric: tabular-nums;
+}
+.cs-compare td.col-model { color: var(--ink-3); }   /* the modeled column, quieter */
+.cs-compare td.col-real  { color: var(--ink-2); }   /* what actually happened */
+.cs-compare .tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 2px;
+  margin-left: 5px;
+  white-space: nowrap;
+}
+.cs-compare .tag--measured { color: var(--series-4); background: rgba(46, 74, 63, 0.12); }
+.cs-compare .tag--modeled  { color: var(--ink-3);   background: rgba(26, 24, 20, 0.06); }
+@media (max-width: 640px) {
+  .cs-compare { font-size: 12px; }
+  .cs-compare .tag { display: none; }   /* keep dense cells legible on phones */
+}
+
 /* ---------- Code ---------- */
 .cs-code {
   margin: var(--s-12) auto;

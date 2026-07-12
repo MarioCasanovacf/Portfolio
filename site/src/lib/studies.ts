@@ -39,7 +39,7 @@ export const studies: Study[] = [
     track: 'industry',
     domain: 'Agent orchestration',
     title: 'A multi-agent, multi-layer and auto-evolving harness for the era after Fable 5: Building a functional society of agents to enhance AI workflows.',
-    dek: 'A file-based coordination substrate designed to orchestrate a society of cheaper models (Sonnet) under a single frontier coordinator (Opus), routing routine work to cheaper tiers while reserving the coordinator for high-stakes decisions. Running on a 22-task board (18 done, 2 failed, 2 open), it enforces a mechanical producer≠approver gate and TTL write-locks. The harness evolved across four generations of self-audits, generating 25 accepted mutations. The honest limits—the lack of a wall-clock control run, the unmeasured token-shift, and reporting the evolution history as provenance—are the load-bearing core.',
+    dek: 'A file-based coordination substrate designed to orchestrate a society of cheaper models (Sonnet) under a single frontier coordinator (Opus), routing routine work to cheaper tiers while reserving the coordinator for high-stakes decisions. Running on a 22-task board (18 done, 2 failed, 2 open), it enforces a mechanical producer≠approver gate and TTL write-locks. The harness evolved across four generations of self-audits, generating 25 accepted mutations. Its honest limits carry the argument: there is no twin control run, so the frontier-only comparison is modeled from measured averages, and the evolution history is reported as provenance from the source repository.',
     methods: ['Shared blackboard (task DAG)', 'TTL write-locks', 'Producer ≠ approver', 'Evidence replay'],
     published: true,
   },
