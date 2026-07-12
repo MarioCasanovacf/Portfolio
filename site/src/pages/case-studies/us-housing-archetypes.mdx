@@ -12,10 +12,10 @@ lede: >-
   shocks to find that local income shields and flexible supply, rather than general 
   stability, determine homeownership dynamics.
 methods:
-  - Systematic Ranking (NAR HAI)
+  - Price-to-income & NAR HAI
   - Augmented Dickey-Fuller & Ljung-Box
   - Block Bootstrap
-  - Target Encoding Baseline
+  - Long-run series reconstruction
 stack:
   - Python 3.12
   - NumPy & pandas
@@ -32,17 +32,21 @@ import { Section, Prose, Figure, CodeBlock, Equation, Quote, Callout } from "~/c
 
 Most regional real estate studies treat homeownership as a purely local market question. This one opens with a systematic classification of 30 major metropolitan statistical areas (MSAs) and closes with a question: does local affordability buy cyclical stability? 
 
-I want to state up front what this case study is not: it is not a set of price predictions. Regional housing markets are driven by local labor cycles, zoning constraints, and credit regimes. Instead of predicting the next peak or trough, I analyze the historical covariance of price-to-income metrics and realized volatility over a quarter-century (2000–2026). The dollar values, volatility percentages, and confidence bands on this page are point estimates of realized history, and the method — how we classify and verify these dynamics — is the part worth trusting.
+I want to state up front what this case study is not: it is not a set of price predictions. Regional housing markets are driven by local labor cycles, zoning constraints, and credit regimes. Instead of predicting the next peak or trough, I analyze the historical covariance of price-to-income metrics and realized volatility over a quarter-century (2000–2026). The dollar values, volatility percentages, and confidence bands on this page are point estimates of realized history, and the method, how we classify and verify these dynamics, is the part worth trusting.
+
+One warning about the main instrument, because the page eventually turns on it. I open with the affordability gauge the industry relies on, the NAR Housing Affordability Index, and I use it exactly as everyone else does. But the HAI measures whether a family can meet the monthly mortgage payment, which turns out to be a statement about interest rates far more than a statement about whether housing itself is expensive. I keep it in the foreground through the first three sections because it is the standard, then show in the fourth why it quietly misleads, and what to read instead.
 
 </Prose>
 
-<Section n="01" slug="systematic-classification" title="Systematic classification of 30 metros.">
+<Section n="01" slug="systematic-classification" title="Systematic classification of 30 metro areas.">
 
 <Prose>
 
-To classify regional housing dynamics, I first compute the housing affordability index (HAI) developed by the National Association of Realtors (NAR). An HAI score of 100 means a family earning the median household income has exactly the qualifying income required to purchase a median-priced home under typical mortgage terms (20% down payment, 30-year fixed rate). 
+To classify regional housing dynamics, I first compute the housing affordability index (HAI) developed by the National Association of Realtors (NAR). The index answers one question: can a median-income family qualify for a median-priced home under standard mortgage terms (20% down payment, 30-year fixed rate)?
 
-Using Zillow's smoothed and seasonally adjusted median sales price index, Census SAIPE median incomes, and historical 30-year fixed mortgage rates from FRED, I calculate the monthly HAI series for 30 major metros. 
+A score of 100 is the break-even line. In Houston, a metro that has hovered around 130 for most of the past decade, a median household earns roughly 30% more than the bank requires — homeownership is within reach. In San Francisco, where the index has spent years below 65, that same family would need to earn more than 50% above their actual income just to qualify. A score above 100 means the market is accessible; below 100, it is structurally closed to the median household.
+
+Using Zillow's smoothed and seasonally adjusted median sales price index, Census SAIPE median incomes, and historical 30-year fixed mortgage rates from FRED, I calculate the monthly HAI series for 30 major metro areas. 
 
 </Prose>
 
@@ -54,7 +58,7 @@ $$
 
 <Prose>
 
-Plotted against their historical standard deviation of year-over-year price returns, these 30 metros reveal three data-driven housing archetypes:
+Plotted against their historical standard deviation of year-over-year price returns, these 30 metro areas reveal three data-driven housing archetypes:
 
 - **Archetype A — Expensive, volatile, and structurally unaffordable.** Represented by San Francisco (average HAI since 2015: 60.6, full-sample volatility: 9.80%) and Seattle (average HAI since 2015: 92.8, full-sample volatility: 8.82%). These tech-heavy coastal hubs were chosen as representative superstars, with Seattle selected in part due to the local availability of micro-level transaction data.
 - **Archetype B — Affordable and stable.** Represented by Houston (average HAI since 2015: 131.0, full-sample volatility: 5.13%). Flexible supply boundaries and lower entry costs keep the median household comfortably above the qualification threshold, with volatility half that of the coastal superstars.
@@ -62,7 +66,7 @@ Plotted against their historical standard deviation of year-over-year price retu
 
 </Prose>
 
-<Figure n="1" width="wide" caption="Regional Housing Archetypes. Full-period YoY price return volatility plotted against average post-2015 Housing Affordability Index (HAI) for 30 major U.S. metros. Archetypes A, B, and C occupy distinct quadrants. Source: us_housing_archetypes.ipynb.">
+<Figure n="1" width="wide" caption="Regional Housing Archetypes. Full-period YoY price return volatility plotted against average post-2015 Housing Affordability Index (HAI) for 30 major U.S. metro areas. Archetypes A, B, and C occupy distinct quadrants. Source: us_housing_archetypes.ipynb.">
   <img src={import.meta.env.BASE_URL + "/figures/us-housing-archetypes/volatility_vs_affordability.svg"} alt="Volatility vs. Affordability" />
 </Figure>
 
@@ -125,11 +129,19 @@ The resulting 95% confidence interval is `[-0.0320, -0.0269]`. Since the interva
 
 </Section>
 
-<Section n="03" slug="synthesis" title="Synthesis: does affordability buy stability?">
+<Section n="03" slug="synthesis" title="Synthesis: does being affordable protect you from price crashes?">
 
 <Prose>
 
-Placing all four representative metros side by side across three cycles reveals that regional affordability and cyclical price stability are decoupled dimensions:
+The intuitive assumption is that expensive, overheated markets are volatile while affordable markets are stable. The data tells a more complicated story.
+
+Houston is the clearest test case. It has one of the most permissive land use regimes in the country: no single-family zoning, no enforced minimum lot sizes, and a development culture that says yes to new construction almost everywhere. That supply flexibility kept prices from running far ahead of incomes. When the 2008 financial crisis hit and demand collapsed, Houston had little speculative excess to unwind: its maximum price drawdown was a modest -9.76%, and it recovered fully in 22 months. San Francisco, by contrast, fell -35.2% and took 109 months, nearly a decade, to get back to its 2006 peak. Being structurally affordable did, in this case, buy structural stability.
+
+But it is worth being precise about whom that stability serves. An affordability index and a price index measure the market from the incumbent's side of the transaction. A price recovery is good news for someone who already owns; the height of the price level is a barrier to someone trying to enter. San Francisco's story reads differently depending on which side you stand on. The -35.2% drawdown was genuine structural instability for existing owners. But the persistently high price level that followed, an HAI that has sat below 65 for most of the past decade, functions as a de facto veto on new entrants: young people, and the very engineering and research talent the city depends on. This is the sharpest irony in the dataset. The most important technology capital in the United States, whose entire economic model rests on attracting the next generation of workers, has priced out the generation it needs, converting housing stability into a mechanism that protects tenure and blocks arrival.
+
+But then came 2022.
+
+The Federal Reserve raised rates from near-zero to above 5% in roughly eighteen months. The 30-year mortgage rate went from a historic low of ~2.65% in early 2021 to ~7.5% by late 2023. Because the HAI is calculated on qualifying income, which is directly tied to the mortgage payment, that rate move roughly doubled the income a family needs to qualify. No supply flexibility protects against that. Houston's HAI fell from 152 to 97.3, dropping below the affordability line for the first time in modern history. San Francisco and Los Angeles were already so deep in unaffordable territory that the shock barely registered as a further deterioration in their rankings.
 
 </Prose>
 
@@ -139,44 +151,114 @@ Placing all four representative metros side by side across three cycles reveals 
 
 <Prose>
 
-Houston (Archetype B) sailed through the 2008 GFC price collapse with a maximum drawdown of only -9.76% (recovering in 22 months), compared to San Francisco's GFC drawdown of -35.2% which took 109 months to recover. However, the post-2022 rate shock — which raised mortgage rates from ~3% to ~7% — compressed Houston's HAI from 152.0 to 97.3, dropping it below the qualifying line for the first time in modern history. 
+The two mechanisms are different in kind, not in degree. Speculative price bubbles are a local supply-demand imbalance: build more, and the pressure releases. Rate shocks are a macro policy event that hit every market simultaneously regardless of how much housing stock exists. A city can vote to upzone every block and still watch its affordability index fall by 40 points the next time the Fed tightens.
 
-This indicates that while flexible supply boundaries shield affordable metros from speculative price bubbles, they offer no protection against systemic mortgage rate shocks.
-
-To verify the volatility rankings, I calculate a 24-month block bootstrap on the YoY returns of all four metros:
+That distinction matters for policy. Densification and liberalized zoning are the right tools for the structural problem, the chronic mismatch between where jobs are and where housing is allowed. What they cannot do is hedge against the next interest rate cycle.
 
 </Prose>
 
-<Figure n="4" width="wide" caption="Volatility regimes. Rolling 24-month volatility of YoY price returns for the four representative metros. Volatility and affordability are decoupled dimensions. Source: cross_archetype_dynamics.ipynb.">
+<Callout kind="aside">
+
+A tempting counterfactual: if Houston had entered 2022 from a much higher affordability base, say an HAI near 180 or 190 rather than 152, the same rate shock might have left it comfortably above the qualifying line instead of dipping below it. That would suggest supply policy buys a buffer even against rate shocks, just not immunity. I leave this as an aside rather than a claim, because it rests on a counterfactual starting point the data does not contain, and testing it properly would mean modeling how supply elasticity itself behaves under a shifting rate environment, a simulation this study does not run.
+
+</Callout>
+
+<Prose>
+
+To verify that the volatility rankings are structurally stable and not artifacts of any single period, I calculate a 24-month block bootstrap on the year-over-year price returns of all four metro areas:
+
+</Prose>
+
+<Figure n="4" width="wide" caption="Volatility regimes. Rolling 24-month volatility of YoY price returns for the four representative metro areas. Volatility and affordability are decoupled dimensions. Source: cross_archetype_dynamics.ipynb.">
   <img src={import.meta.env.BASE_URL + "/figures/us-housing-archetypes/cross_volatility_regime.svg"} alt="Rolling Volatility Regimes" />
 </Figure>
 
 <Prose>
 
-The 24-month block size is chosen heuristically based on the autocorrelation decay signature. The resulting standard errors show that while San Francisco (9.80% point estimate, 95% CI `[7.40%, 11.39%]`) and Seattle (8.82% point estimate, 95% CI `[6.33%, 10.69%]`) are structurally more volatile than Houston (5.13% point estimate, 95% CI `[3.33%, 6.66%]`), the difference between the threshold and superstar cases is descriptive rather than a clean, non-overlapping statistical boundary.
+San Francisco (9.80%, 95% CI: 7.40%–11.39%) and Seattle (8.82%, 6.33%–10.69%) are structurally more volatile than Houston (5.13%, 3.33%–6.66%). The ranking holds across the bootstrap draws. What it cannot tell us is whether that gap narrows if high-cost metro areas were to liberalize supply — that counterfactual has not been run at scale.
 
 </Prose>
 
 </Section>
 
-<Section n="04" slug="micro-integration" title="Micro-integration: spatial signal vs. target-encoding memory.">
+<Section n="04" slug="the-longer-view" title="The longer view: the payment lied, the price did not.">
 
 <Prose>
 
-In the micro-level analysis of King County housing transactions (`house_sales_king_county.ipynb`), the spatial coordinates (latitude and longitude) carry almost all of the pricing signal. When fitting models to predict transaction prices, target encoding is a common method to represent neighborhood price levels.
+Every affordability index in wide use, including the one this study has leaned on so far, measures the wrong thing for a structural question. The HAI measures whether you can make the monthly *payment*, and the monthly payment is dominated by the interest rate: a variance decomposition of 1971–2025 payment changes attributes roughly three-quarters of the movement to the mortgage rate and only a quarter to the price. That makes the HAI a good gauge of financing conditions and a poor gauge of whether housing itself has become expensive. To see the second thing, you have to strip the financing out.
 
-However, a naive target encoding can easily memorize the target variable, leaking information and overstating out-of-sample performance. To test the durability of the spatial signal, I evaluate a spatial Gaussian Process regression against a target-encoded baseline:
+The national HAI back to 1971 shows exactly how much the financing was doing. On this payment basis the country looks *more* affordable after 2008 than before, with the index sitting higher on average in the 2008–2026 stretch than in 1990–2007, because the Federal Reserve drove mortgage rates toward zero and a cheaper rate shrinks the payment even as the price climbs. The two deepest troughs in the entire 55-year series are both pure rate events: 1981, when Volcker pushed mortgages toward 18%, and 2023, when the index fell from a record 163 in 2021 to 91 as the rate snapped from ~3% to ~7% while prices barely moved.
 
-- **Target-Encoding Baseline:** Naive mean encoding results in extreme overfitting, inflating $R^2$ in-sample while collapsing out-of-sample.
-- **Spatial Signal:** Modeling coordinate interactions directly using a spatial covariance kernel preserves a robust out-of-sample $R^2 = 0.74$, demonstrating that geographic proximity is a durable economic signal rather than statistical memory.
+</Prose>
+
+<Figure n="5" width="wide" caption="The anesthetic. NAR-basis Housing Affordability Index (a monthly-payment measure) computed on national median family income and median sales price, 1971–2026. The two deepest troughs — 1981 and 2023 — are interest-rate events, not price events. Source: cross_archetype_dynamics.ipynb.">
+  <img src={import.meta.env.BASE_URL + "/figures/us-housing-archetypes/national_hai_long_arc.svg"} alt="National HAI 1971-2026" />
+</Figure>
+
+<Prose>
+
+The measure that actually answers the question — *how many years of income does the house itself cost?* — is the price-to-income ratio, and it removes rates and mortgage terms entirely. Reconstructing it nationally back to 1963 tells the opposite story from the payment index. On the household-income basis in the chart below, the ratio sat near **4** through the 1980s and 1990s, ran up to **5.1** at the 2005 bubble peak, gave back only to **4.5** by 2011 (a far shallower retreat than prices themselves took), then re-inflated past the bubble to a record **5.8 in 2022**. The Harvard Joint Center for Housing Studies, using existing-home sale prices rather than the new-home series here, records the same secular climb to an all-time high (its series ran ~3.3 in the 1990s to a record ~5.6 in 2022, with a deeper 2011 trough because existing homes crashed harder than new construction). Either way, the price base did not recover after 2008. It quietly climbed to the worst level in the history of the series, and the low-rate anesthetic is the only reason the payment index never screamed.
+
+</Prose>
+
+<Figure n="6" width="wide" caption="The patient. National median home price as a multiple of median income, 1963–2026, on two denominators (median family income for the long series; median household income for the JCHS-comparable series from 1984). Rates and mortgage term are removed entirely. Source: cross_archetype_dynamics.ipynb.">
+  <img src={import.meta.env.BASE_URL + "/figures/us-housing-archetypes/national_price_to_income.svg"} alt="National price-to-income ratio 1963-2026" />
+</Figure>
+
+<Prose>
+
+When the rate snapped back in 2022, the payment index collapsed from 148 to a record-low 98. Homes had not suddenly gotten more expensive that year; the anesthetic had simply worn off, revealing a price base that had been detaching from incomes the whole time. The Dallas Fed states the mechanism plainly: low rates do not make housing affordable, they get capitalized into the price. A payment gauge tracks the anesthetic. Price-to-income tracks the patient.
+
+</Prose>
+
+<Callout kind="aside">
+
+It is tempting to blame this on the financing itself — to think that at some point the standard mortgage was stretched from a 20-year to a 30-year term, halving the payment and letting prices float up. The mechanism is real: a lower payment, whether from a longer term, a lower rate, or a smaller down payment, does capitalize into a higher price where supply is inelastic and buyers shop by the month. But the term-stretching never happened on that timeline. The 30-year fixed became the standard American mortgage in the *early 1960s*, enabled by the 1948 and 1954 extensions of the FHA maximum term and scaled by the Fannie Mae and Freddie Mac secondary market. FHFA's own data show the average U.S. mortgage term sitting in the high-20s continuously ever since, with no break in the 1990s. The 20-year term was only ever the FHA's original 1934 ceiling, a brief way-station between the pre-Depression five-year balloon and the eventual 30-year. The genuine payment-stretching innovations (interest-only loans, option ARMs, 40-year amortization, subprime) belong to the 2003–2006 boom, not to any single earlier moment. Blame the base price, then. The financing structure is a stable, decades-old fixture, and it is not what came loose.
+
+</Callout>
+
+<Prose>
+
+The national ratio, though, is muted, because the nation is an average and the average hides the only number that matters for policy. Computing price-to-income directly for each metro area shows how much dispersion the national figure conceals: the same measure runs from **2.9 in Pittsburgh** to **10.7 in Los Angeles**, with **San Francisco at 8.4 and Boston at 7.8** near the top and **Houston at 4.1** near the bottom. (On the JCHS existing-home basis the coastal figures are even more extreme: San Jose above 12, San Francisco and Los Angeles above 10.) The crisis is savage where it lands and almost invisible a few states over, concentrated in the supply-constrained coastal metro areas and nearly absent from the flexible-supply ones. A national average is the wrong lens for a problem this uneven.
+
+</Prose>
+
+<Figure n="7" width="wide" caption="Dispersion is the story. Price-to-income for 30 metro areas (latest Zillow home value over the metro's median household income). The supply-constrained coastal markets (oxblood) sit at two to three times the ratio of the most flexible-supply metro areas; Houston (green) sits near the bottom. Source: cross_archetype_dynamics.ipynb.">
+  <img src={import.meta.env.BASE_URL + "/figures/us-housing-archetypes/metro_price_to_income_dispersion.svg"} alt="Price-to-income by metro area" />
+</Figure>
+
+<Prose>
+
+Edward Glaeser (Harvard) and Joseph Gyourko (Wharton) are the two economists whose work on housing supply established this pattern: across US cities, the differences in home prices are driven overwhelmingly by the price of land, and the price of land is driven by how much regulation restricts building on it. Figure 7 is their result stated in a single cross-section. Where land use law prevents building, demand capitalizes into land prices and the ratio explodes; where it does not, the same demand becomes houses.
+
+The construction side of that base is concrete. The building industry lost roughly 1.5 million workers between 2006 and 2011 and never fully rebuilt its capacity, while zoning codes that had been restrictive for decades became the binding constraint in high-demand metro areas. San Francisco permitted fewer than 2,000 new housing units per year for most of the 2010s, while its tech sector was adding tens of thousands of jobs annually. Price signals could not close that gap, because price signals do not override land use law.
+
+Houston escaped that trajectory not by accident but by policy design. Texas state law limits the authority municipalities can exercise over private land, and Houston has never adopted conventional zoning. A developer who wants to build a four-unit building where a single-family house stands today can, in most of the city, simply build it. That mechanism, what urban economists and housing advocates call "yes in my backyard" (YIMBY) policy, is why Houston's price-to-income ratio has stayed near 4 while the coastal superstars pushed past 10.
+
+The implication is not that Houston is a model to be copied identically, but that the mechanism is exportable, and where it has been tried the supply responds. Accessory dwelling units, by-right multifamily permitting, and eliminated parking minimums are the same lever applied at smaller scale. California's 2016–2019 ADU liberalization took statewide permits from **1,269 in 2016 to roughly 23,000 by 2022**, and ADUs now account for about one in five new homes in the state. And where supply rose, prices behaved: after the Minneapolis 2040 plan, the city's housing stock grew **12%** against **4%** for the rest of Minnesota, while its rents rose just **1%** against the state's **14%**. None of these places suffered the construction collapse or neighborhood ruin that opponents predicted.
+
+</Prose>
+
+<Figure n="8" width="wide" caption="Supply liberalization works where it is tried. Left: California ADU permits after the 2016–2019 reforms (Terner Center / CA HCD; Sightline). Right: Minneapolis vs. the rest of Minnesota, 2017–2022 — more homes, flatter rents (Pew Charitable Trusts). External published estimates, shown as a declared benchmark. Source: cross_archetype_dynamics.ipynb.">
+  <img src={import.meta.env.BASE_URL + "/figures/us-housing-archetypes/upzoning_outcomes.svg"} alt="Upzoning outcomes: California ADUs and Minneapolis" />
+</Figure>
+
+<Prose>
+
+The 2022 rate shock showed the ceiling on what supply policy can do: it cannot neutralize the Federal Reserve, and it cannot lower the payment for a buyer facing a 7% rate. But rates are cyclical and the price base is structural. When rates eventually normalize, the payment index will recover on its own, and it will once again hide whatever the price-to-income ratio has done underneath. The cities that spent the intervening years permitting housing will have a structurally lower price base waiting when the anesthetic returns. In the cities that did not, the record price-to-income ratio will still be there, six years of income for a median home, but a low rate laid back over it will shrink the monthly payment, and the HAI will climb back above 100 and report the market as affordable. Nothing about the house will have changed. The buyer will still owe six years of income; the index will simply have stopped counting that and started counting the payment again. The distance between what the index reports and what the price actually is: that is the lie, and it is the reason a payment gauge should never have been the number we watched.
+
+This is the quiet verdict of the whole page. The affordability the country felt for a decade after 2008 was never real. It was the product of a temporary loosening of the *least* fundamental input to housing, the interest rate, laid over a price base that kept detaching from incomes. What that arrangement protects is the person who already owns: their payment is fixed, their equity compounds, and every year the ladder is pulled up a rung behind them. What it punishes is the person trying to buy in, and above all the young, who inherit record prices, a cyclical rate they do not control, and a housing stock that was never allowed to grow to meet them. Price-to-income is the honest measure precisely because it refuses to let a cheap decade of borrowing pass for a solved problem.
 
 </Prose>
 
 <Callout kind="limits">
 
-- **Illustrative MSAs:** The four representative metros (SF, Seattle, Houston, DC) are illustrative exemplars selected based on quadrant judgment, not an exhaustive national study.
+- **Illustrative MSAs:** The four representative metro areas (SF, Seattle, Houston, DC) are illustrative exemplars selected based on quadrant judgment, not an exhaustive national study.
 - **P&I-only HAI:** The NAR Housing Affordability Index isolates principal and interest. It omits property taxes, insurance, and maintenance, which distort comparisons in high-tax states (Texas) or high-insurance states (Florida).
 - **Nominal Income Series:** Census SAIPE incomes are nominal and annual, meaning intra-year dynamics are linearly interpolated.
+- **National vs. metro basis:** The long-arc national series (Figures 5 and 6) use national income and price series, which carry the weight of regional dispersion inside a single average. That averaging is precisely why they are context for the shocks and not a substitute for the metro-level panel. The panel is the object a policymaker actually has to act on, because the crisis lives in the dispersion, not the mean.
+- **Which income, which price:** Figure 6 plots two denominators because the level of a price-to-income ratio depends entirely on the series chosen. Median *family* income (used for the pre-1984 long reach) runs higher than median *household* income, so the family-basis ratio sits roughly a point lower. The price series (Census/HUD MSPUS) is a *new-home* median, which runs slightly above the existing-home median the Harvard JCHS uses — so my reconstructed household-basis ratio (≈4 in the 1990s → 5.8 in 2022) sits a touch above JCHS's published existing-home figures (≈3.3 → 5.6) while tracing the same climb. The metro dispersion in Figure 7 uses Zillow's all-homes value index over metro household income; it ranks markets consistently with JCHS but at somewhat different levels for the same reason.
+- **Upzoning outcomes are external estimates:** Figure 8 hand-enters published figures (Terner Center, Sightline, Pew), not values recomputed from raw permits. The Minneapolis comparison is a difference-in-differences-flavored result, not a controlled experiment, and the city added supply through several channels beyond the triplex provision; treat it as suggestive evidence for the mechanism, not proof of it.
 
 </Callout>
 

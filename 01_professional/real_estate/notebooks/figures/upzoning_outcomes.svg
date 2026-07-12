@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="782.03pt" height="357.474594pt" viewBox="0 0 782.03 357.474594" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-11T19:41:05.136023</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 357.474594 
+L 782.03 357.474594 
+L 782.03 0 
+L 0 0 
+L 0 357.474594 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 53.03 326.88 
+L 359.753044 326.88 
+L 359.753044 21.96 
+L 53.03 21.96 
+L 53.03 326.88 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 66.971957 326.88 
+L 131.319448 326.88 
+L 131.319448 311.997558 
+L 66.971957 311.997558 
+z
+" clip-path="url(#p70227b6862)" style="fill: #2e4a3f"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 174.217776 326.88 
+L 238.565268 326.88 
+L 238.565268 154.459468 
+L 174.217776 154.459468 
+z
+" clip-path="url(#p70227b6862)" style="fill: #2e4a3f"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 281.463596 326.88 
+L 345.811088 326.88 
+L 345.811088 57.143077 
+L 281.463596 57.143077 
+z
+" clip-path="url(#p70227b6862)" style="fill: #2e4a3f"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m3d5f4fae46" d="M 0 0 
+L 0 4 
+" style="stroke: #1a1814; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m3d5f4fae46" x="99.145702" y="326.88" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="99.145702" y="341.04" transform="rotate(-0 99.145702 341.04)">2016</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m3d5f4fae46" x="206.391522" y="326.88" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="206.391522" y="341.04" transform="rotate(-0 206.391522 341.04)">2019</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m3d5f4fae46" x="313.637342" y="326.88" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="313.637342" y="341.04" transform="rotate(-0 313.637342 341.04)">2022</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_4">
+      <defs>
+       <path id="mb479fe910a" d="M 0 0 
+L -4 0 
+" style="stroke: #1a1814; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mb479fe910a" x="53.03" y="326.88" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="45.53" y="330.21" transform="rotate(-0 45.53 330.21)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#mb479fe910a" x="53.03" y="268.241538" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="45.53" y="271.571538" transform="rotate(-0 45.53 271.571538)">5000</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#mb479fe910a" x="53.03" y="209.603077" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="45.53" y="212.933077" transform="rotate(-0 45.53 212.933077)">10000</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#mb479fe910a" x="53.03" y="150.964615" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="45.53" y="154.294615" transform="rotate(-0 45.53 154.294615)">15000</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#mb479fe910a" x="53.03" y="92.326154" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="45.53" y="95.656154" transform="rotate(-0 45.53 95.656154)">20000</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#mb479fe910a" x="53.03" y="33.687692" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="45.53" y="37.017692" transform="rotate(-0 45.53 37.017692)">25000</text>
+     </g>
+    </g>
+    <g id="text_10">
+     <text style="font-size: 9.5px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1814" x="10.63" y="174.42" transform="rotate(-90 10.63 174.42)">Statewide ADU permits per year</text>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 53.03 326.88 
+L 53.03 21.96 
+" style="fill: none; stroke: #1a1814; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 53.03 326.88 
+L 359.753044 326.88 
+" style="fill: none; stroke: #1a1814; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 9px; font-family: 'IBM Plex Mono'; text-anchor: middle; fill: #3c3833" x="99.145702" y="307.306482" transform="rotate(-0 99.145702 307.306482)">1,269</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 9px; font-family: 'IBM Plex Mono'; text-anchor: middle; fill: #3c3833" x="206.391522" y="149.768391" transform="rotate(-0 206.391522 149.768391)">14,702</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 9px; font-family: 'IBM Plex Mono'; text-anchor: middle; fill: #3c3833" x="313.637342" y="52.452" transform="rotate(-0 313.637342 52.452)">23,000</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 8.5px; font-family: 'IBM Plex Mono'; text-anchor: start; fill: #6b655c" x="59.164461" y="40.2552" transform="rotate(-0 59.164461 40.2552)">ADUs = ~1 in 5 new California homes by 2023</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 600; font-size: 11px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1814" x="206.391522" y="11.96" transform="rotate(-0 206.391522 11.96)">California ADU permits after 2016-19 legalization</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_8">
+    <path d="M 425.698499 326.88 
+L 778.43 326.88 
+L 778.43 21.96 
+L 425.698499 21.96 
+L 425.698499 326.88 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 441.731749 326.88 
+L 510.966238 326.88 
+L 510.966238 98.19 
+L 441.731749 98.19 
+z
+" clip-path="url(#p34b25d9d17)" style="fill: #2e4a3f"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 623.927772 326.88 
+L 693.162261 326.88 
+L 693.162261 307.8225 
+L 623.927772 307.8225 
+z
+" clip-path="url(#p34b25d9d17)" style="fill: #2e4a3f"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 510.966238 326.88 
+L 580.200727 326.88 
+L 580.200727 250.65 
+L 510.966238 250.65 
+z
+" clip-path="url(#p34b25d9d17)" style="fill: #948d82"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 693.162261 326.88 
+L 762.39675 326.88 
+L 762.39675 60.075 
+L 693.162261 60.075 
+z
+" clip-path="url(#p34b25d9d17)" style="fill: #948d82"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_4">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m3d5f4fae46" x="510.966238" y="326.88" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 9.5px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; fill: #6b655c" transform="translate(480.889832 341.41)">Housing stock</text>
+      <text style="font-size: 9.5px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; fill: #6b655c" transform="translate(496.042332 351.860297)">growth</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m3d5f4fae46" x="693.162261" y="326.88" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 9.5px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; fill: #6b655c" transform="translate(683.14941 341.41)">Rent</text>
+      <text style="font-size: 9.5px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; fill: #6b655c" transform="translate(678.238355 351.746)">growth</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_7">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#mb479fe910a" x="425.698499" y="326.88" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="418.198499" y="330.21" transform="rotate(-0 418.198499 330.21)">0</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#mb479fe910a" x="425.698499" y="288.765" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="418.198499" y="292.095" transform="rotate(-0 418.198499 292.095)">2</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#mb479fe910a" x="425.698499" y="250.65" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="418.198499" y="253.98" transform="rotate(-0 418.198499 253.98)">4</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#mb479fe910a" x="425.698499" y="212.535" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="418.198499" y="215.865" transform="rotate(-0 418.198499 215.865)">6</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#mb479fe910a" x="425.698499" y="174.42" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="418.198499" y="177.75" transform="rotate(-0 418.198499 177.75)">8</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#mb479fe910a" x="425.698499" y="136.305" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="418.198499" y="139.635" transform="rotate(-0 418.198499 139.635)">10</text>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#mb479fe910a" x="425.698499" y="98.19" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="418.198499" y="101.52" transform="rotate(-0 418.198499 101.52)">12</text>
+     </g>
+    </g>
+    <g id="ytick_14">
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#mb479fe910a" x="425.698499" y="60.075" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="418.198499" y="63.405" transform="rotate(-0 418.198499 63.405)">14</text>
+     </g>
+    </g>
+    <g id="ytick_15">
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#mb479fe910a" x="425.698499" y="21.96" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_26">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="418.198499" y="25.29" transform="rotate(-0 418.198499 25.29)">16</text>
+     </g>
+    </g>
+    <g id="text_27">
+     <text style="font-size: 9.5px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1814" x="399.384202" y="174.42" transform="rotate(-90 399.384202 174.42)">Percent change</text>
+    </g>
+   </g>
+   <g id="patch_13">
+    <path d="M 425.698499 326.88 
+L 425.698499 21.96 
+" style="fill: none; stroke: #1a1814; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 425.698499 326.88 
+L 778.43 326.88 
+" style="fill: none; stroke: #1a1814; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_28">
+    <text style="font-size: 9px; font-family: 'IBM Plex Mono'; text-anchor: middle" x="476.348993" y="92.47275" transform="rotate(-0 476.348993 92.47275)">+12%</text>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 9px; font-family: 'IBM Plex Mono'; text-anchor: middle" x="545.583482" y="244.93275" transform="rotate(-0 545.583482 244.93275)">+4%</text>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 9px; font-family: 'IBM Plex Mono'; text-anchor: middle" x="658.545017" y="302.10525" transform="rotate(-0 658.545017 302.10525)">+1%</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 9px; font-family: 'IBM Plex Mono'; text-anchor: middle" x="727.779506" y="54.35775" transform="rotate(-0 727.779506 54.35775)">+14%</text>
+   </g>
+   <g id="text_32">
+    <text style="font-weight: 600; font-size: 11px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1814" x="602.064249" y="11.96" transform="rotate(-0 602.064249 11.96)">Minneapolis 2040 plan: more homes, flatter rents (2017-2022)</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_15">
+     <path d="M 553.185109 36.72 
+L 571.185109 36.72 
+L 571.185109 30.42 
+L 553.185109 30.42 
+z
+" style="fill: #2e4a3f"/>
+    </g>
+    <g id="text_33">
+     <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3c3833" x="578.385109" y="36.72" transform="rotate(-0 578.385109 36.72)">Minneapolis</text>
+    </g>
+    <g id="patch_16">
+     <path d="M 553.185109 49.68 
+L 571.185109 49.68 
+L 571.185109 43.38 
+L 553.185109 43.38 
+z
+" style="fill: #948d82"/>
+    </g>
+    <g id="text_34">
+     <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3c3833" x="578.385109" y="49.68" transform="rotate(-0 578.385109 49.68)">Rest of Minnesota</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p70227b6862">
+   <rect x="53.03" y="21.96" width="306.723044" height="304.92"/>
+  </clipPath>
+  <clipPath id="p34b25d9d17">
+   <rect x="425.698499" y="21.96" width="352.731501" height="304.92"/>
+  </clipPath>
+ </defs>
+</svg>

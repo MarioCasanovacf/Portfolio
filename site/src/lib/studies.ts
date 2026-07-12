@@ -123,9 +123,9 @@ export const studies: Study[] = [
     track: 'industry',
     domain: 'Real estate analytics',
     title: 'US housing market archetypes: systematic classification of affordability and volatility through three cycles',
-    dek: 'A systematic classification of 30 metropolitan housing markets on affordability and price volatility from 2000 to 2026. Identifies three data-driven archetypes (A = SF/Seattle, B = Houston, C = DC) and tests homeownership accessibility across local county-level income boundaries. Explores temporal dynamics under GFC, COVID, and post-2022 rate shocks, revealing that affordability and cyclical stability are decoupled dimensions. Validates spatial-signal persistence on King County housing sales vs. memoized target-encoding baseline.',
-    methods: ['Systematic Ranking (NAR HAI)', 'Augmented Dickey-Fuller & Ljung-Box', 'Block Bootstrap', 'Target Encoding Baseline'],
-    published: import.meta.env.DEV,
+    dek: 'A systematic classification of 30 US metro housing markets on affordability and price volatility (2000–2026), identifying three data-driven archetypes (A = SF/Seattle, B = Houston, C = DC) and showing that affordability and cyclical stability are decoupled dimensions. Extends to a 1971–2026 national reconstruction arguing that payment-based affordability indices (like the NAR HAI) mask a deteriorating price-to-income base, and that supply liberalization is the lever that acts on it.',
+    methods: ['Price-to-income & NAR HAI', 'Augmented Dickey-Fuller & Ljung-Box', 'Block Bootstrap', 'Long-run series reconstruction'],
+    published: true,
   },
 
   // ── Intellectual · play → "Experiments" ─────────────────────────────────────

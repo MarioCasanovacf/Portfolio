@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="713.148281pt" height="395.15125pt" viewBox="0 0 713.148281 395.15125" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-11T19:41:04.931503</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 395.15125 
+L 713.148281 395.15125 
+L 713.148281 0 
+L 0 0 
+L 0 395.15125 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 39.948281 360.19125 
+L 709.548281 360.19125 
+L 709.548281 27.55125 
+L 39.948281 27.55125 
+L 39.948281 360.19125 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 39.948281 345.07125 
+L 709.548281 345.07125 
+L 709.548281 244.35811 
+L 39.948281 244.35811 
+z
+" clip-path="url(#p1052a42f6f)" style="fill: #2e4a3f; opacity: 0.06; stroke: #2e4a3f; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="mb5e52e9052" d="M 0 0 
+L 0 4 
+" style="stroke: #1a1814; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mb5e52e9052" x="40.447238" y="360.19125" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="40.447238" y="374.35125" transform="rotate(-0 40.447238 374.35125)">1960</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#mb5e52e9052" x="140.238594" y="360.19125" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="140.238594" y="374.35125" transform="rotate(-0 140.238594 374.35125)">1970</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#mb5e52e9052" x="240.02995" y="360.19125" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="240.02995" y="374.35125" transform="rotate(-0 240.02995 374.35125)">1980</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#mb5e52e9052" x="339.821307" y="360.19125" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="339.821307" y="374.35125" transform="rotate(-0 339.821307 374.35125)">1990</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#mb5e52e9052" x="439.612663" y="360.19125" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="439.612663" y="374.35125" transform="rotate(-0 439.612663 374.35125)">2000</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#mb5e52e9052" x="539.404019" y="360.19125" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="539.404019" y="374.35125" transform="rotate(-0 539.404019 374.35125)">2010</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#mb5e52e9052" x="639.195375" y="360.19125" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="639.195375" y="374.35125" transform="rotate(-0 639.195375 374.35125)">2020</text>
+     </g>
+    </g>
+    <g id="text_8">
+     <text style="font-size: 10px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1814" x="374.748281" y="389.55125" transform="rotate(-0 374.748281 389.55125)">Year</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_8">
+      <defs>
+       <path id="mc8ae38aa7f" d="M 0 0 
+L -4 0 
+" style="stroke: #1a1814; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mc8ae38aa7f" x="39.948281" y="334.403729" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="32.448281" y="337.733729" transform="rotate(-0 32.448281 337.733729)">2.5</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#mc8ae38aa7f" x="39.948281" y="290.271055" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="32.448281" y="293.601055" transform="rotate(-0 32.448281 293.601055)">3.0</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#mc8ae38aa7f" x="39.948281" y="246.138381" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="32.448281" y="249.468381" transform="rotate(-0 32.448281 249.468381)">3.5</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#mc8ae38aa7f" x="39.948281" y="202.005707" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="32.448281" y="205.335707" transform="rotate(-0 32.448281 205.335707)">4.0</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#mc8ae38aa7f" x="39.948281" y="157.873033" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="32.448281" y="161.203033" transform="rotate(-0 32.448281 161.203033)">4.5</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#mc8ae38aa7f" x="39.948281" y="113.740359" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="32.448281" y="117.070359" transform="rotate(-0 32.448281 117.070359)">5.0</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#mc8ae38aa7f" x="39.948281" y="69.607685" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="32.448281" y="72.937685" transform="rotate(-0 32.448281 72.937685)">5.5</text>
+     </g>
+    </g>
+    <g id="text_16">
+     <text style="font-size: 10px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1814" x="11.2" y="193.87125" transform="rotate(-90 11.2 193.87125)">Price / Income (years of income per home)</text>
+    </g>
+   </g>
+   <g id="line2d_15">
+    <path d="M 70.384645 300.115982 
+L 80.363781 300.778515 
+L 90.342916 299.73576 
+L 100.322052 303.114765 
+L 110.301187 301.942598 
+L 120.280323 301.478055 
+L 130.259459 315.525818 
+L 140.238594 345.07125 
+L 150.21773 338.692619 
+L 160.196865 336.58655 
+L 170.176001 316.274539 
+L 180.155137 308.403084 
+L 190.134272 302.397891 
+L 200.113408 294.135614 
+L 210.092544 285.474625 
+L 220.071679 275.610201 
+L 230.050815 272.338636 
+L 240.02995 283.174555 
+L 250.009086 283.25398 
+L 259.988222 294.283116 
+L 269.967357 284.399865 
+L 279.946493 288.066926 
+L 289.925628 286.914172 
+L 299.904764 279.350241 
+L 309.8839 256.669232 
+L 319.863035 247.344866 
+L 329.842171 244.35811 
+L 339.821307 249.696461 
+L 349.800442 260.419489 
+L 359.779578 262.116412 
+L 369.758713 252.968438 
+L 379.737849 258.212844 
+L 389.716985 264.960787 
+L 399.69612 262.414261 
+L 409.675256 267.912613 
+L 419.654392 268.16695 
+L 429.633527 265.624362 
+L 439.612663 263.546124 
+L 449.591798 257.873329 
+L 459.570934 237.351129 
+L 469.55007 233.161632 
+L 479.529205 198.887194 
+L 489.508341 183.485535 
+L 499.487476 186.72814 
+L 509.466612 202.710564 
+L 519.445748 225.721998 
+L 529.424883 238.301875 
+L 539.404019 228.760774 
+L 549.383155 229.482766 
+L 559.36229 208.472449 
+L 569.341426 196.147865 
+L 579.320561 176.498439 
+L 589.299697 187.83581 
+L 599.278833 184.664619 
+L 609.257968 181.295693 
+L 619.237104 190.025636 
+L 629.21624 226.419527 
+L 639.195375 211.685072 
+L 649.174511 173.470663 
+L 659.153646 143.051116 
+L 669.132782 181.581211 
+L 679.111918 205.530481 
+" clip-path="url(#p1052a42f6f)" style="fill: none; stroke: #1a1814; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_16">
+    <path d="M 279.946493 240.311766 
+L 289.925628 240.140672 
+L 299.904764 228.857515 
+L 309.8839 200.447685 
+L 319.863035 191.292634 
+L 329.842171 187.396586 
+L 339.821307 194.517598 
+L 349.800442 203.602276 
+L 359.779578 205.419364 
+L 369.758713 197.654598 
+L 379.737849 198.216262 
+L 389.716985 209.374103 
+L 399.69612 206.25856 
+L 409.675256 209.255819 
+L 419.654392 210.25576 
+L 429.633527 207.806931 
+L 439.612663 202.86755 
+L 449.591798 193.269047 
+L 459.570934 167.904605 
+L 469.55007 163.608651 
+L 479.529205 120.7092 
+L 489.508341 104.405151 
+L 499.487476 108.704473 
+L 509.466612 124.635146 
+L 519.445748 152.257743 
+L 529.424883 172.696221 
+L 539.404019 156.1894 
+L 549.383155 158.446185 
+L 559.36229 132.251516 
+L 569.341426 116.581518 
+L 579.320561 84.995727 
+L 589.299697 95.70312 
+L 599.278833 98.902392 
+L 609.257968 89.595152 
+L 619.237104 100.643055 
+L 629.21624 143.61182 
+L 639.195375 129.184524 
+L 649.174511 77.451554 
+L 659.153646 42.67125 
+L 669.132782 88.035992 
+L 679.111918 113.397755 
+" clip-path="url(#p1052a42f6f)" style="fill: none; stroke: #6e1f1f; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_17">
+    <path d="M 489.508341 360.19125 
+L 489.508341 27.55125 
+" clip-path="url(#p1052a42f6f)" style="fill: none; stroke-dasharray: 0.7,1.155; stroke-dashoffset: 0; stroke: #948d82; stroke-opacity: 0.6; stroke-width: 0.7"/>
+   </g>
+   <g id="line2d_18">
+    <path d="M 549.383155 360.19125 
+L 549.383155 27.55125 
+" clip-path="url(#p1052a42f6f)" style="fill: none; stroke-dasharray: 0.7,1.155; stroke-dashoffset: 0; stroke: #948d82; stroke-opacity: 0.6; stroke-width: 0.7"/>
+   </g>
+   <g id="line2d_19">
+    <path d="M 659.153646 360.19125 
+L 659.153646 27.55125 
+" clip-path="url(#p1052a42f6f)" style="fill: none; stroke-dasharray: 0.7,1.155; stroke-dashoffset: 0; stroke: #948d82; stroke-opacity: 0.6; stroke-width: 0.7"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 39.948281 360.19125 
+L 39.948281 27.55125 
+" style="fill: none; stroke: #1a1814; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 39.948281 360.19125 
+L 709.548281 360.19125 
+" style="fill: none; stroke: #1a1814; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 9px; font-family: 'IBM Plex Mono'; text-anchor: start; fill: #6b655c" x="80.363781" y="237.296882" transform="rotate(-0 80.363781 237.296882)">1963-1999 norm (family basis): 2.4x-3.5x</text>
+   </g>
+   <g id="text_18">
+    <text style="font-weight: 600; font-size: 12px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1814" x="374.748281" y="12.55125" transform="rotate(-0 374.748281 12.55125)">National Median Home Price as a Multiple of Median Income, 1963-2026</text>
+   </g>
+   <g id="legend_1">
+    <g id="line2d_20">
+     <path d="M 48.048281 39.34125 
+L 57.048281 39.34125 
+L 66.048281 39.34125 
+" style="fill: none; stroke: #1a1814; stroke-width: 1.6; stroke-linecap: round"/>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3c3833" x="73.248281" y="42.49125" transform="rotate(-0 73.248281 42.49125)">÷ median family income (long series, from 1963)</text>
+    </g>
+    <g id="line2d_21">
+     <path d="M 48.048281 52.409531 
+L 57.048281 52.409531 
+L 66.048281 52.409531 
+" style="fill: none; stroke: #6e1f1f; stroke-width: 1.6; stroke-linecap: round"/>
+    </g>
+    <g id="text_20">
+     <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3c3833" x="73.248281" y="55.559531" transform="rotate(-0 73.248281 55.559531)">÷ median household income (JCHS basis, from 1984)</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p1052a42f6f">
+   <rect x="39.948281" y="27.55125" width="669.6" height="332.64"/>
+  </clipPath>
+ </defs>
+</svg>

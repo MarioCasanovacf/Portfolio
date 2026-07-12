@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="555.355156pt" height="324.48pt" viewBox="0 0 555.355156 324.48" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-08T15:36:05.611502</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 324.48 
+L 555.355156 324.48 
+L 555.355156 0 
+L 0 0 
+L 0 324.48 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 49.555156 304.92 
+L 551.755156 304.92 
+L 551.755156 27.72 
+L 49.555156 27.72 
+L 49.555156 304.92 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 72.382429 50.387106 
+L 131.564247 50.387106 
+L 131.564247 264.265105 
+L 72.382429 264.265105 
+z
+" clip-path="url(#pde691ac4a0)" style="fill: #6e1f1f"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 241.473338 50.387106 
+L 300.655156 50.387106 
+L 300.655156 41.893362 
+L 241.473338 41.893362 
+z
+" clip-path="url(#pde691ac4a0)" style="fill: #6e1f1f"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 410.564247 50.387106 
+L 469.746065 50.387106 
+L 469.746065 129.106344 
+L 410.564247 129.106344 
+z
+" clip-path="url(#pde691ac4a0)" style="fill: #6e1f1f"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 131.564247 50.387106 
+L 190.746065 50.387106 
+L 190.746065 292.32 
+L 131.564247 292.32 
+z
+" clip-path="url(#pde691ac4a0)" style="fill: #2e4a3f"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 300.655156 50.387106 
+L 359.836974 50.387106 
+L 359.836974 40.32 
+L 300.655156 40.32 
+z
+" clip-path="url(#pde691ac4a0)" style="fill: #2e4a3f"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 469.746065 50.387106 
+L 528.927884 50.387106 
+L 528.927884 112.837739 
+L 469.746065 112.837739 
+z
+" clip-path="url(#pde691ac4a0)" style="fill: #2e4a3f"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m65c66363f7" d="M 0 0 
+L 0 4 
+" style="stroke: #1a1814; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m65c66363f7" x="131.564247" y="304.92" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="131.564247" y="319.08" transform="rotate(-0 131.564247 319.08)">2008 GFC</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m65c66363f7" x="300.655156" y="304.92" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="300.655156" y="319.08" transform="rotate(-0 300.655156 319.08)">2020 COVID</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m65c66363f7" x="469.746065" y="304.92" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="469.746065" y="319.08" transform="rotate(-0 469.746065 319.08)">2022+ rate shock</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_4">
+      <defs>
+       <path id="m1f011cb0be" d="M 0 0 
+L -4 0 
+" style="stroke: #1a1814; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m1f011cb0be" x="49.555156" y="274.475482" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="42.055156" y="277.805482" transform="rotate(-0 42.055156 277.805482)">-35%</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m1f011cb0be" x="49.555156" y="242.462857" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="42.055156" y="245.792857" transform="rotate(-0 42.055156 245.792857)">-30%</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m1f011cb0be" x="49.555156" y="210.450232" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="42.055156" y="213.780232" transform="rotate(-0 42.055156 213.780232)">-25%</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#m1f011cb0be" x="49.555156" y="178.437606" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="42.055156" y="181.767606" transform="rotate(-0 42.055156 181.767606)">-20%</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m1f011cb0be" x="49.555156" y="146.424981" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="42.055156" y="149.754981" transform="rotate(-0 42.055156 149.754981)">-15%</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m1f011cb0be" x="49.555156" y="114.412356" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="42.055156" y="117.742356" transform="rotate(-0 42.055156 117.742356)">-10%</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m1f011cb0be" x="49.555156" y="82.399731" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="42.055156" y="85.729731" transform="rotate(-0 42.055156 85.729731)">-5%</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m1f011cb0be" x="49.555156" y="50.387106" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="42.055156" y="53.717106" transform="rotate(-0 42.055156 53.717106)">0%</text>
+     </g>
+    </g>
+    <g id="text_12">
+     <text style="font-size: 10px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1814" x="11.2" y="166.32" transform="rotate(-90 11.2 166.32)">Drawdown (peak to trough)</text>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 49.555156 304.92 
+L 49.555156 27.72 
+" style="fill: none; stroke: #1a1814; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 49.555156 304.92 
+L 551.755156 304.92 
+" style="fill: none; stroke: #1a1814; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 600; font-size: 12px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1814" x="300.655156" y="12.72" transform="rotate(-0 300.655156 12.72)">Archetype A: Peak-to-Trough Drawdown by Cycle (Zillow ZHVI, nominal)</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_11">
+     <path d="M 452.255156 279.52 
+L 472.255156 279.52 
+L 472.255156 272.52 
+L 452.255156 272.52 
+z
+" style="fill: #6e1f1f"/>
+    </g>
+    <g id="text_14">
+     <text style="font-size: 10px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3c3833" x="480.255156" y="279.52" transform="rotate(-0 480.255156 279.52)">San Francisco</text>
+    </g>
+    <g id="patch_12">
+     <path d="M 452.255156 293.92 
+L 472.255156 293.92 
+L 472.255156 286.92 
+L 452.255156 286.92 
+z
+" style="fill: #2e4a3f"/>
+    </g>
+    <g id="text_15">
+     <text style="font-size: 10px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3c3833" x="480.255156" y="293.92" transform="rotate(-0 480.255156 293.92)">Seattle</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pde691ac4a0">
+   <rect x="49.555156" y="27.72" width="502.2" height="277.2"/>
+  </clipPath>
+ </defs>
+</svg>

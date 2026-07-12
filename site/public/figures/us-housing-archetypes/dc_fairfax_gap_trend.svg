@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="601.348281pt" height="311.99125pt" viewBox="0 0 601.348281 311.99125" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-08T15:36:15.390030</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 311.99125 
+L 601.348281 311.99125 
+L 601.348281 0 
+L 0 0 
+L 0 311.99125 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 39.748281 277.03125 
+L 597.748281 277.03125 
+L 597.748281 27.55125 
+L 39.748281 27.55125 
+L 39.748281 277.03125 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m1913840107" d="M 0 0 
+L 0 4 
+" style="stroke: #1a1814; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m1913840107" x="63.529493" y="277.03125" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="63.529493" y="291.19125" transform="rotate(-0 63.529493 291.19125)">2000</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m1913840107" x="140.593593" y="277.03125" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="140.593593" y="291.19125" transform="rotate(-0 140.593593 291.19125)">2004</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m1913840107" x="217.657694" y="277.03125" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="217.657694" y="291.19125" transform="rotate(-0 217.657694 291.19125)">2008</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m1913840107" x="294.721794" y="277.03125" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="294.721794" y="291.19125" transform="rotate(-0 294.721794 291.19125)">2012</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m1913840107" x="371.785895" y="277.03125" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="371.785895" y="291.19125" transform="rotate(-0 371.785895 291.19125)">2016</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m1913840107" x="448.849995" y="277.03125" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="448.849995" y="291.19125" transform="rotate(-0 448.849995 291.19125)">2020</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#m1913840107" x="525.914096" y="277.03125" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b655c" x="525.914096" y="291.19125" transform="rotate(-0 525.914096 291.19125)">2024</text>
+     </g>
+    </g>
+    <g id="text_8">
+     <text style="font-size: 10px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1814" x="318.748281" y="306.39125" transform="rotate(-0 318.748281 306.39125)">Year</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_8">
+      <defs>
+       <path id="m70fb739a6a" d="M 0 0 
+L -4 0 
+" style="stroke: #1a1814; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m70fb739a6a" x="39.748281" y="265.69125" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="32.248281" y="269.02125" transform="rotate(-0 32.248281 269.02125)">1.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m70fb739a6a" x="39.748281" y="223.254364" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="32.248281" y="226.584364" transform="rotate(-0 32.248281 226.584364)">1.2</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m70fb739a6a" x="39.748281" y="180.817478" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="32.248281" y="184.147478" transform="rotate(-0 32.248281 184.147478)">1.4</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m70fb739a6a" x="39.748281" y="138.380592" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="32.248281" y="141.710592" transform="rotate(-0 32.248281 141.710592)">1.6</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m70fb739a6a" x="39.748281" y="95.943706" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="32.248281" y="99.273706" transform="rotate(-0 32.248281 99.273706)">1.8</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#m70fb739a6a" x="39.748281" y="53.50682" style="fill: #1a1814; stroke: #1a1814; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 9px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #6b655c" x="32.248281" y="56.83682" transform="rotate(-0 32.248281 56.83682)">2.0</text>
+     </g>
+    </g>
+    <g id="text_15">
+     <text style="font-size: 10px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1814" x="11" y="152.29125" transform="rotate(-90 11 152.29125)">Income ratio (Fairfax / DC core)</text>
+    </g>
+   </g>
+   <g id="line2d_14">
+    <path d="M 65.111918 50.233404 
+L 68.276768 48.094063 
+L 74.711963 43.920324 
+L 82.782331 38.89125 
+L 102.035169 49.574038 
+L 118.07041 45.893459 
+L 121.288007 45.148372 
+L 122.92318 47.523244 
+L 124.40011 49.873065 
+L 132.470478 61.259931 
+L 140.540846 72.076334 
+L 150.140891 82.724711 
+L 158.211259 91.06813 
+L 159.846431 92.682721 
+L 161.481604 90.053785 
+L 162.958534 87.442433 
+L 174.246499 69.640837 
+L 179.09927 62.258468 
+L 191.916913 66.244606 
+L 198.352108 68.096396 
+L 215.969773 71.202307 
+L 217.604946 71.468868 
+L 227.204991 80.966422 
+L 238.545704 91.485711 
+L 240.022634 93.112618 
+L 256.16337 109.292314 
+L 275.416208 118.955597 
+L 294.669047 117.636845 
+L 307.539437 126.577765 
+L 313.974632 130.832758 
+L 333.227471 123.868132 
+L 346.045114 136.759718 
+L 350.845136 141.360935 
+L 352.480309 142.867896 
+L 370.097975 149.792516 
+L 371.733147 150.395138 
+L 391.038733 147.06007 
+L 400.586031 156.657952 
+L 408.656399 164.098355 
+L 410.291571 165.530182 
+L 429.544409 164.135395 
+L 439.091707 171.205325 
+L 447.162075 176.62379 
+L 448.797248 177.660356 
+L 469.738006 171.617795 
+L 474.432534 170.1054 
+L 487.355672 166.036421 
+L 500.173315 169.221035 
+L 506.60851 170.672676 
+L 521.008578 186.286037 
+L 525.861348 191.254447 
+L 540.314164 182.041006 
+L 545.166934 179.100417 
+L 561.202174 182.661999 
+L 572.384645 185.13255 
+L 572.384645 185.13255 
+" clip-path="url(#p763843c51e)" style="fill: none; stroke: #6e1f1f; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_15">
+    <path d="M 39.748281 265.69125 
+L 597.748281 265.69125 
+" clip-path="url(#p763843c51e)" style="fill: none; stroke-dasharray: 2.96,1.28; stroke-dashoffset: 0; stroke: #948d82; stroke-opacity: 0.6; stroke-width: 0.8"/>
+   </g>
+   <g id="line2d_16">
+    <path d="M 65.111918 41.157935 
+L 572.384645 202.53455 
+L 572.384645 202.53455 
+" clip-path="url(#p763843c51e)" style="fill: none; stroke-dasharray: 1.2,1.98; stroke-dashoffset: 0; stroke: #6b655c; stroke-width: 1.2"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 39.748281 277.03125 
+L 39.748281 27.55125 
+" style="fill: none; stroke: #1a1814; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 39.748281 277.03125 
+L 597.748281 277.03125 
+" style="fill: none; stroke: #1a1814; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 600; font-size: 12px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1814" x="318.748281" y="12.55125" transform="rotate(-0 318.748281 12.55125)">Fairfax County / DC Core Median Income Ratio, 2000-2026</text>
+   </g>
+   <g id="legend_1">
+    <g id="line2d_17">
+     <path d="M 508.837344 40.45125 
+L 518.837344 40.45125 
+L 528.837344 40.45125 
+" style="fill: none; stroke-dasharray: 1.2,1.98; stroke-dashoffset: 0; stroke: #6b655c; stroke-width: 1.2"/>
+    </g>
+    <g id="text_17">
+     <text style="font-size: 10px; font-family: 'IBM Plex Sans', 'Helvetica Neue', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3c3833" x="536.837344" y="43.95125" transform="rotate(-0 536.837344 43.95125)">linear trend</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p763843c51e">
+   <rect x="39.748281" y="27.55125" width="558" height="249.48"/>
+  </clipPath>
+ </defs>
+</svg>
