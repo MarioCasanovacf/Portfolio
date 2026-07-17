@@ -30,6 +30,10 @@ export interface Study {
   /** A companion tool (e.g. an interactive island), not a standalone case study.
    *  Listed in the index but not counted or numbered as one of the case studies. */
   companion?: boolean;
+  /** Override the row's link target. A path relative to the site base (e.g.
+   *  'experiments/odyssey/'), used when the entry is a self-contained bundle in
+   *  public/ rather than an MDX page under case-studies/. */
+  href?: string;
 }
 
 export const studies: Study[] = [
@@ -129,6 +133,16 @@ export const studies: Study[] = [
   },
 
   // ── Intellectual · play → "Experiments" ─────────────────────────────────────
+  {
+    slug: 'odyssey',
+    track: 'intellectual',
+    domain: 'Narrative epidemiology',
+    title: 'Twelve ships left Troy; one man came home',
+    dek: 'A Kaplan-Meier survival analysis of Odysseus’s crew across the Odyssey’s nine narrative episodes: 599 of 600 sailors die, and the Laestrygonian ambush alone accounts for 80.8% of the mortality. Disobedience killed at the beginning and at the end — the Cicones (72) and the Cattle of Helios (30), 17% of deaths between them — but the difference isn’t how many it killed: the first transgression was attrition the fleet absorbed, the last was the termination event that closed the cohort. And obeying didn’t save anyone from a mis-sized catastrophic risk. No confidence intervals: mass-casualty episodes are correlated catastrophes, not independent deaths, and the README says so instead of drawing them.',
+    methods: ['Kaplan-Meier (lifelines)', 'Hand-built cohort', 'D3.js', 'Emily Wilson (2017)'],
+    published: true,
+    href: 'experiments/odyssey/',
+  },
   {
     slug: 'legislative-experiments',
     track: 'intellectual',

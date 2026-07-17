@@ -61,9 +61,9 @@ const ogImage = new URL(`${b}${image}`, Astro.site);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <!-- Pre-paint: activa el estado oculto del reveal ANTES del primer
-         paint, solo si el usuario no pidió motion reducido. Debe ser
-         is:inline (sin defer) para evitar flash visible→oculto→reveal. -->
+    <!-- Pre-paint: enables the reveal's hidden state BEFORE the first
+         paint, only if the user has not requested reduced motion. Must be
+         is:inline (no defer) to avoid a visible→hidden→reveal flash. -->
     <script is:inline>
       if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
         document.documentElement.classList.add('js-reveal');

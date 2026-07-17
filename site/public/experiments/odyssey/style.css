@@ -1,0 +1,421 @@
+/* ============================================================
+   Odysseus' Crew — stylesheet
+   Aesthetic: Swiss lithography / print editorial, not a "dashboard".
+   Palette restricted to fixed variables (see briefing).
+   System typography (no external fonts) to work
+   offline on GitHub Pages.
+   ============================================================ */
+
+:root {
+  --tinta: #3B2A1A;
+  --acento: #C8922A;
+  --fondo: #FAF6F0;
+
+  /* Sepia/ochre derivatives for the 4 threat categories */
+  --cat-humanos: #3B2A1A;
+  --cat-dios: #C8922A;
+  --cat-monstruo: #A0522D;
+  --cat-accidente: #8C8071;
+
+  --tinta-suave: rgba(59, 42, 26, 0.55);
+  --tinta-linea: rgba(59, 42, 26, 0.18);
+  --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  --max-width: 1040px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--fondo);
+  color: var(--tinta);
+}
+
+body {
+  font-family: var(--sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 28px 20px 56px;
+}
+
+/* ---------- Header ---------- */
+
+.page__header {
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--tinta);
+  padding-bottom: 18px;
+}
+
+.page__title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.65rem;
+  line-height: 1.25;
+  margin: 0 0 8px;
+  color: var(--tinta);
+  letter-spacing: -0.01em;
+}
+
+.page__dek {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  margin: 0;
+  color: var(--tinta-suave);
+}
+
+/* ---------- Category controls ---------- */
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  margin: 18px 0 22px;
+  padding: 12px 14px;
+  border: 1px solid var(--tinta-linea);
+}
+
+.controls__label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--tinta-suave);
+  flex: 0 0 100%;
+}
+
+.controls__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  flex: 1 1 auto;
+}
+
+.controls__option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  user-select: none;
+  padding: 3px 6px;
+  border-radius: 3px;
+  transition: background-color 0.15s ease;
+}
+
+.controls__option:hover {
+  background-color: rgba(59, 42, 26, 0.06);
+}
+
+.controls__option.is-active {
+  background-color: rgba(200, 146, 42, 0.14);
+  font-weight: 600;
+}
+
+.controls__option input[type="checkbox"] {
+  accent-color: var(--tinta);
+  width: 14px;
+  height: 14px;
+  margin: 0;
+}
+
+.controls__swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.controls__swatch--humanos_hostiles { background: var(--cat-humanos); }
+.controls__swatch--monstruo         { background: var(--cat-monstruo); }
+.controls__swatch--dios             { background: var(--cat-dios); }
+.controls__swatch--accidente        { background: var(--cat-accidente); }
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  padding: 7px 14px;
+  border-radius: 3px;
+  cursor: pointer;
+  border: 1px solid var(--tinta);
+  background: transparent;
+  color: var(--tinta);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn:hover {
+  background-color: var(--tinta);
+  color: var(--fondo);
+}
+
+.btn--primary {
+  background: var(--tinta);
+  color: var(--fondo);
+}
+
+.btn--primary:hover {
+  background: var(--acento);
+  border-color: var(--acento);
+  color: var(--tinta);
+}
+
+.btn--primary:disabled {
+  opacity: 0.4;
+  cursor: progress;
+}
+
+.btn--ghost {
+  border-color: var(--tinta-linea);
+  color: var(--tinta-suave);
+  font-size: 0.78rem;
+  margin-left: auto;
+}
+
+.btn--ghost:hover {
+  background-color: rgba(59, 42, 26, 0.06);
+  color: var(--tinta);
+}
+
+/* ---------- Main layout: mobile-first ---------- */
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.chart-section {
+  min-width: 0; /* avoids flex overflow */
+}
+
+#chart {
+  width: 100%;
+}
+
+#chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.fetch-error {
+  border: 1px solid var(--cat-accidente);
+  background: rgba(140, 128, 113, 0.08);
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.fetch-error code {
+  background: rgba(59, 42, 26, 0.08);
+  padding: 1px 5px;
+  border-radius: 2px;
+  font-size: 0.8em;
+}
+
+.chart-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.chart-actions__hint {
+  font-size: 0.78rem;
+  color: var(--tinta-suave);
+}
+
+/* ---------- Hazards panel (footer on mobile, aside on desktop) ---------- */
+
+.hazard-panel {
+  border-top: 1px solid var(--tinta-linea);
+  padding-top: 16px;
+}
+
+.hazard-panel__title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.05rem;
+  margin: 0 0 12px;
+}
+
+.hazard-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hazard-bar {
+  display: grid;
+  grid-template-columns: 96px 1fr 64px;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+}
+
+.hazard-bar__label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hazard-bar__track {
+  height: 10px;
+  background: rgba(59, 42, 26, 0.08);
+  position: relative;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.hazard-bar__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+.hazard-bar__value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--tinta-suave);
+}
+
+.hazard-panel__note {
+  margin-top: 12px;
+  font-size: 0.72rem;
+  color: var(--tinta-suave);
+  line-height: 1.4;
+}
+
+/* ---------- Framing note ---------- */
+
+.framing-note {
+  margin: 32px 0;
+  padding: 18px 20px;
+  border-left: 3px solid var(--acento);
+  background: rgba(200, 146, 42, 0.06);
+}
+
+.framing-note__title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.05rem;
+  margin: 0 0 8px;
+}
+
+.framing-note p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ---------- Footer ---------- */
+
+.page__footer {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--tinta-linea);
+  font-size: 0.75rem;
+  color: var(--tinta-suave);
+  line-height: 1.6;
+}
+
+.page__footer p {
+  margin: 0 0 6px;
+}
+
+/* ---------- Tooltip ---------- */
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  max-width: 240px;
+  background: var(--tinta);
+  color: var(--fondo);
+  padding: 10px 12px;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  border-radius: 3px;
+  pointer-events: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  transform: translate(-50%, calc(-100% - 12px));
+}
+
+.tooltip__title {
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 2px;
+  color: var(--acento);
+}
+
+.tooltip__meta {
+  opacity: 0.85;
+}
+
+.tooltip__note {
+  margin-top: 6px;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.tooltip[hidden] {
+  display: none;
+}
+
+/* ---------- Desktop: side panel, more breathing room ---------- */
+
+@media (min-width: 860px) {
+  .page {
+    padding: 44px 32px 64px;
+  }
+
+  .page__title {
+    font-size: 2.05rem;
+  }
+
+  .layout {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .chart-section {
+    flex: 1 1 68%;
+  }
+
+  .hazard-panel {
+    flex: 0 0 28%;
+    border-top: none;
+    border-left: 1px solid var(--tinta-linea);
+    padding-top: 0;
+    padding-left: 24px;
+  }
+
+  .hazard-bar {
+    grid-template-columns: 110px 1fr 56px;
+  }
+}
+
+/* ---------- Accessibility: respects reduced motion in any CSS transition ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .hazard-bar__fill,
+  .btn,
+  .controls__option {
+    transition: none !important;
+  }
+}

@@ -30,7 +30,7 @@ const base = import.meta.env.BASE_URL;
     {items.map(({ s, n }) => {
       const Tag = s.published ? 'a' : 'div';
       const b = base.endsWith('/') ? base : base + '/';
-      const props = s.published ? { href: `${b}case-studies/${s.slug}` } : {};
+      const props = s.published ? { href: `${b}${s.href ?? `case-studies/${s.slug}`}` } : {};
       return (
         <Tag class:list={['cs-row', { 'cs-row--draft': !s.published, 'cs-row--companion': s.companion }]} {...props}>
           <div class="cs-row__meta">

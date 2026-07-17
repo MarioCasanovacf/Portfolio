@@ -1,0 +1,191 @@
+{
+  "metadata": {
+    "cohort_size": 600,
+    "assumptions": "~50 men per ship; scholarly convention. Homer does not give the exact number.",
+    "primary_source": "Homer. The Odyssey. Translated by Emily Wilson. Norton, 2017.",
+    "x_axis": "episode_order (1-9, narrative sequence, not chronological time)",
+    "censored_count": 1,
+    "censored_subject": "Odysseus (sole survivor)",
+    "study_period_note": "The study period ends when the last sailor dies (E009). The ~7 years with Calypso are excluded: no crew at risk."
+  },
+  "km_curve": [
+    {
+      "episode": 0,
+      "survival_prob": 1.0,
+      "at_risk": 600
+    },
+    {
+      "episode": 1,
+      "survival_prob": 0.88,
+      "at_risk": 600
+    },
+    {
+      "episode": 3,
+      "survival_prob": 0.87,
+      "at_risk": 528
+    },
+    {
+      "episode": 5,
+      "survival_prob": 0.063333,
+      "at_risk": 522
+    },
+    {
+      "episode": 7,
+      "survival_prob": 0.061667,
+      "at_risk": 38
+    },
+    {
+      "episode": 8,
+      "survival_prob": 0.051667,
+      "at_risk": 37
+    },
+    {
+      "episode": 9,
+      "survival_prob": 0.001667,
+      "at_risk": 31
+    }
+  ],
+  "events": [
+    {
+      "event_id": "E001",
+      "book": "9",
+      "location": "Ismarus, land of the Cicones",
+      "threat_name": "Cicones",
+      "threat_category": "humanos_hostiles",
+      "ships_lost": 0,
+      "men_lost": 72,
+      "episode_order": 1,
+      "disobedience_flag": true,
+      "source_note": "6 men per ship × 12 ships; the 72 casualties follow disobeying Odysseus's order to retreat (Wilson Od.9.43-61); see SOURCES.md §E001"
+    },
+    {
+      "event_id": "E002",
+      "book": "9",
+      "location": "Land of the Lotus-eaters",
+      "threat_name": "Lotus-eaters",
+      "threat_category": "humanos_hostiles",
+      "ships_lost": 0,
+      "men_lost": 0,
+      "episode_order": 2,
+      "disobedience_flag": false,
+      "source_note": "0 deaths; included as a risk episode; Wilson Od.9.84-97"
+    },
+    {
+      "event_id": "E003",
+      "book": "9",
+      "location": "Polyphemus's cave, island of the Cyclopes",
+      "threat_name": "Polyphemus",
+      "threat_category": "monstruo",
+      "ships_lost": 0,
+      "men_lost": 6,
+      "episode_order": 3,
+      "disobedience_flag": false,
+      "source_note": "2 men devoured each night × 3 nights = 6; only Odysseus's ship enters; Wilson Od.9.289-344"
+    },
+    {
+      "event_id": "E004",
+      "book": "10",
+      "location": "Island of Aeolus",
+      "threat_name": "Aeolus and the winds",
+      "threat_category": "dios",
+      "ships_lost": 0,
+      "men_lost": 0,
+      "episode_order": 4,
+      "disobedience_flag": true,
+      "source_note": "0 direct deaths; crew opens the bag of winds despite an explicit prohibition (disobedience); Wilson Od.10.27-55"
+    },
+    {
+      "event_id": "E005",
+      "book": "10",
+      "location": "Harbor of the Laestrygonians",
+      "threat_name": "Laestrygonians",
+      "threat_category": "humanos_hostiles",
+      "ships_lost": 11,
+      "men_lost": 484,
+      "episode_order": 5,
+      "disobedience_flag": false,
+      "source_note": "11 of 12 ships destroyed with their entire crews; 11 × 44 men/ship (estimate; see SOURCES.md §E005); Wilson Od.10.80-132"
+    },
+    {
+      "event_id": "E006",
+      "book": "10",
+      "location": "Island of Circe (Aeaea)",
+      "threat_name": "Circe",
+      "threat_category": "dios",
+      "ships_lost": 0,
+      "men_lost": 0,
+      "episode_order": 6,
+      "disobedience_flag": false,
+      "source_note": "Men turned into pigs but restored; 0 permanent deaths; Wilson Od.10.210-243"
+    },
+    {
+      "event_id": "E007",
+      "book": "10-11",
+      "location": "Circe's palace (roof)",
+      "threat_name": "Elpenor (accident)",
+      "threat_category": "accidente",
+      "ships_lost": 0,
+      "men_lost": 1,
+      "episode_order": 7,
+      "disobedience_flag": false,
+      "source_note": "Elpenor falls from the roof drunk before departure; Wilson Od.10.552-560"
+    },
+    {
+      "event_id": "E008",
+      "book": "12",
+      "location": "Strait of Scylla and Charybdis",
+      "threat_name": "Scylla",
+      "threat_category": "monstruo",
+      "ships_lost": 0,
+      "men_lost": 6,
+      "episode_order": 8,
+      "disobedience_flag": false,
+      "source_note": "Scylla takes exactly 6 men, one per head; number confirmed in the text; Wilson Od.12.245-259"
+    },
+    {
+      "event_id": "E009",
+      "book": "12",
+      "location": "Island of Helios Hyperion (Thrinacia)",
+      "threat_name": "Cattle of Helios / Zeus' thunderbolt",
+      "threat_category": "dios",
+      "ships_lost": 1,
+      "men_lost": 30,
+      "episode_order": 9,
+      "disobedience_flag": true,
+      "source_note": "Crew slaughters the cattle despite an explicit prohibition (disobedience); Zeus destroys the ship; 31 aboard, 30 die, Odysseus censored; Wilson Od.12.340-419"
+    }
+  ],
+  "hazard_by_category": {
+    "humanos_hostiles": {
+      "deaths": 556,
+      "fraction": 0.9282,
+      "note": "raw count, without adjustment for differential exposure time between categories"
+    },
+    "monstruo": {
+      "deaths": 12,
+      "fraction": 0.02,
+      "note": "raw count, without adjustment for differential exposure time between categories"
+    },
+    "dios": {
+      "deaths": 30,
+      "fraction": 0.0501,
+      "note": "raw count, without adjustment for differential exposure time between categories"
+    },
+    "accidente": {
+      "deaths": 1,
+      "fraction": 0.0017,
+      "note": "raw count, without adjustment for differential exposure time between categories"
+    }
+  },
+  "disobedience_comparison": {
+    "deaths_in_disobedience_episodes": 102,
+    "deaths_in_compliance_episodes": 497,
+    "fraction_in_disobedience_episodes": 0.1703,
+    "disobedience_episodes": [
+      1,
+      4,
+      9
+    ],
+    "methodological_note": "Descriptive comparison only. No log-rank test is applied: failure times within each mass-casualty episode are not independent (Laestrygonians E005: 484 simultaneous deaths; Helios E009: 30 simultaneous). A confidence interval on this data would be decorative rigor. See README §Limitations."
+  }
+}

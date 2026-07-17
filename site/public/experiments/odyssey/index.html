@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Odysseus' Crew: A Survival Analysis</title>
+<meta name="description" content="A Kaplan-Meier survival analysis of Odysseus' crew: 599 of 600 sailors die. Disobedience didn't kill the most people — it produced the termination event that closed the cohort.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Odysseus' Crew: A Survival Analysis">
+<meta property="og:description" content="Twelve ships sailed from Troy; one man came home. Kaplan-Meier across nine narrative episodes — and a finding that refutes the easy reading about disobedience.">
+<meta property="og:image" content="https://mariocasanovacf.github.io/Portfolio/experiments/odyssey/assets/odyssey_survival_full.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:url" content="https://mariocasanovacf.github.io/Portfolio/experiments/odyssey/">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Odysseus' Crew: A Survival Analysis">
+<meta name="twitter:description" content="Twelve ships sailed from Troy; one man came home. Kaplan-Meier across nine narrative episodes — and a finding that refutes the easy reading about disobedience.">
+<meta name="twitter:image" content="https://mariocasanovacf.github.io/Portfolio/experiments/odyssey/assets/odyssey_survival_full.png">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+
+  <header class="page__header">
+    <h1 class="page__title">Odysseus' Crew: A Survival Analysis</h1>
+    <p class="page__dek">Twelve ships sailed from Troy. One man came home.</p>
+  </header>
+
+  <div class="controls" role="group" aria-label="Filter by threat category">
+    <span class="controls__label">Highlight by threat category:</span>
+    <div class="controls__options">
+      <label class="controls__option" data-category-label="humanos_hostiles">
+        <input type="checkbox" data-category="humanos_hostiles">
+        <span class="controls__swatch controls__swatch--humanos_hostiles" aria-hidden="true"></span>
+        Hostile humans
+      </label>
+      <label class="controls__option" data-category-label="monstruo">
+        <input type="checkbox" data-category="monstruo">
+        <span class="controls__swatch controls__swatch--monstruo" aria-hidden="true"></span>
+        Monsters
+      </label>
+      <label class="controls__option" data-category-label="dios">
+        <input type="checkbox" data-category="dios">
+        <span class="controls__swatch controls__swatch--dios" aria-hidden="true"></span>
+        Gods
+      </label>
+      <label class="controls__option" data-category-label="accidente">
+        <input type="checkbox" data-category="accidente">
+        <span class="controls__swatch controls__swatch--accidente" aria-hidden="true"></span>
+        Accident
+      </label>
+    </div>
+    <button id="reset-categories" type="button" class="btn btn--ghost">Reset</button>
+  </div>
+
+  <main class="layout">
+
+    <section class="chart-section">
+      <div id="chart" class="chart"
+           role="img"
+           aria-label="Kaplan-Meier survival curve of Odysseus' crew across nine narrative episodes, from Troy to the island of Helios.">
+      </div>
+
+      <p id="fetch-error" class="fetch-error" hidden>
+        The data file (<code>outputs/survival_data.json</code>) could not be loaded.
+        If you opened this file directly from disk (<code>file://</code>), browsers block
+        <code>fetch</code> for security. Serve the folder with a local static server, e.g.
+        <code>python3 -m http.server 8000</code>, then open the page over
+        <code>http://localhost:8000/</code>.
+      </p>
+
+      <div class="chart-actions">
+        <button id="download-png" type="button" class="btn btn--primary" disabled>Download PNG</button>
+        <span class="chart-actions__hint">Exports the curve at 1200px wide, ready for LinkedIn.</span>
+      </div>
+    </section>
+
+    <aside class="hazard-panel" aria-label="Deaths by threat category">
+      <h2 class="hazard-panel__title">Lethality by category</h2>
+      <div id="hazard-bars" class="hazard-bars"></div>
+      <p class="hazard-panel__note">Raw death count; no adjustment for differential exposure time between categories.</p>
+    </aside>
+
+  </main>
+
+  <section class="framing-note">
+    <h2 class="framing-note__title">What the numbers actually say</h2>
+    <p>
+      The easy reading would be "disobedience was the deadliest thing." The numbers qualify that:
+      <strong>disobedience</strong> accounts for 17&nbsp;% of the casualties (102 of 599) and shows up twice
+      — at the beginning (the Cicones, 72 dead) and at the end (the Cattle of Helios, 30). The difference
+      isn't <em>how many</em> it killed, but what happened next: the first transgression produced
+      <strong>attrition</strong> that the fleet absorbed and kept operating through; the last produced the
+      irreversible <strong>termination event</strong> that closed the cohort. And obeying doesn't protect
+      you either: the single deadliest event of the expedition was the Laestrygonian ambush — obedience,
+      hostile humans — at 80.8&nbsp;% of all mortality, a mis-sized catastrophic risk that no order foresaw.
+      In data-governance vocabulary: disobedience is a recurring risk factor whose severity depends on the
+      state of the system at the moment of failure, and controlling <strong>aggregate exposure</strong> to a
+      catastrophic event matters as much as compliance.
+    </p>
+  </section>
+
+  <footer class="page__footer">
+    <p class="page__footer-source">
+      Homer, <em>Odyssey</em>, trans. Emily Wilson (Norton, 2017). Cohort: ~50 men × 12 ships = 600
+      (scholarly convention; Homer does not give the number).
+    </p>
+    <p class="page__footer-methodology">
+      The horizontal axis represents the narrative order of the episodes, not elapsed chronological time.
+      Sole censored subject: Odysseus (the only survivor). The study period ends with the death of the last
+      sailor; the years with Calypso fall outside it, as there is no crew at risk.
+    </p>
+  </footer>
+
+  <div id="tooltip" class="tooltip" hidden role="tooltip"></div>
+
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
