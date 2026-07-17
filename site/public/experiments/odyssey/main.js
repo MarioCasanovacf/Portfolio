@@ -792,14 +792,17 @@
     }
 
     try {
-      var EXPORT_WIDTH = 1200;
+      // Logical layout width (all font/margin sizes are tuned for this).
+      var LOGICAL_WIDTH = 1200;
+      // Supersampling factor: the raster is drawn at 3× so text and hairlines
+      // stay crisp on high-DPI screens and survive LinkedIn's recompression.
+      var EXPORT_SCALE = 3;
 
-      // We build an independent SVG at 1200px (not the one on
-      // screen), already with the active-categories state applied
-      // directly as attributes (without relying on CSS transitions,
-      // which do not serialize reliably to the canvas).
-      var exportSvg = buildChartSVG(EXPORT_WIDTH, { animate: false, forExport: true });
-      var exportHeight = state.lastHeight;
+      // We build an independent SVG at the logical width (not the one on
+      // screen), already with the active-categories state applied directly
+      // as attributes (CSS transitions do not serialize reliably to canvas).
+      var exportSvg = buildChartSVG(LOGICAL_WIDTH, { animate: false, forExport: true });
+      var logicalHeight = state.lastHeight;
 
       d3.select(exportSvg).selectAll('.segment-overlay')
         .attr('opacity', function () {
@@ -807,40 +810,64 @@
           return state.activeCategories.has(cat) ? 0.95 : 0;
         });
 
+      // Keep the coordinate system logical (viewBox) but blow up the rendered
+      // size to 3×. The browser rasterizes the VECTOR at 3600px — it never
+      // upscales a 1200px raster — so there is no intermediate 1× bitmap and
+      // no smoothing/downscaling anywhere in the pipeline.
+      var outWidth = LOGICAL_WIDTH * EXPORT_SCALE;
+      var outHeight = Math.round(logicalHeight * EXPORT_SCALE);
+      exportSvg.setAttribute('viewBox', '0 0 ' + LOGICAL_WIDTH + ' ' + logicalHeight);
+      exportSvg.setAttribute('width', outWidth);
+      exportSvg.setAttribute('height', outHeight);
+
       var serializer = new XMLSerializer();
       var svgString = serializer.serializeToString(exportSvg);
       var svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
       var url = URL.createObjectURL(svgBlob);
 
       var img = new Image();
+      // Hint the intrinsic size so the SVG rasterizes at full 3× resolution.
+      img.width = outWidth;
+      img.height = outHeight;
       img.onload = function () {
-        var canvas = document.createElement('canvas');
-        canvas.width = EXPORT_WIDTH;
-        canvas.height = exportHeight;
-        var ctx = canvas.getContext('2d');
+        // Draw only once any web font is ready; otherwise the canvas can
+        // silently fall back to a default font mid-serialization.
+        var draw = function () {
+          var canvas = document.createElement('canvas');
+          canvas.width = outWidth;
+          canvas.height = outHeight;
+          var ctx = canvas.getContext('2d');
 
-        // Explicit opaque background (in case some viewer does not respect
-        // the SVG's own background rect)
-        ctx.fillStyle = COLORS.fondo;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          // Explicit opaque background (in case a viewer ignores the SVG's
+          // own background rect); solid, no alpha channel downstream.
+          ctx.fillStyle = COLORS.fondo;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          // 1:1 blit — the image is already 3600px wide, so no scaling here.
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-        URL.revokeObjectURL(url);
+          URL.revokeObjectURL(url);
 
-        canvas.toBlob(function (blob) {
-          if (!blob) {
-            handleExportError(new Error('canvas.toBlob returned null'));
-            return;
-          }
-          var link = document.createElement('a');
-          link.download = 'odysseus-survival.png';
-          link.href = URL.createObjectURL(blob);
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          setTimeout(function () { URL.revokeObjectURL(link.href); }, 2000);
-          restoreButton();
-        }, 'image/png');
+          canvas.toBlob(function (blob) {
+            if (!blob) {
+              handleExportError(new Error('canvas.toBlob returned null'));
+              return;
+            }
+            var link = document.createElement('a');
+            link.download = 'odysseus-survival.png';
+            link.href = URL.createObjectURL(blob);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setTimeout(function () { URL.revokeObjectURL(link.href); }, 2000);
+            restoreButton();
+          }, 'image/png');
+        };
+
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(draw, draw);
+        } else {
+          draw();
+        }
       };
       img.onerror = function (e) {
         URL.revokeObjectURL(url);
