@@ -22,8 +22,112 @@
 <meta name="twitter:image" content="https://mariocasanovacf.github.io/Portfolio/experiments/odyssey/assets/odyssey_survival_full.png">
 
 <link rel="stylesheet" href="style.css">
+
+<!-- Site navigation: fonts + styles mirrored from the portfolio's Header,
+     so this standalone experiment carries the same top nav as every Astro page. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+  :root {
+    --nav-ink: #1A1814;
+    --nav-paper: #F4EFE6;
+    --nav-ink-3: #6B655C;
+    --nav-oxblood: #6E1F1F;
+    --nav-rule-soft: rgba(26, 24, 20, 0.16);
+    --nav-font-sans: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    --nav-font-mono: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
+    --nav-gutter-desktop: 96px;
+    --nav-gutter-mobile: 24px;
+    --nav-ease: cubic-bezier(0.2, 0, 0, 1);
+    --nav-dur-fast: 120ms;
+    --nav-dur-base: 180ms;
+  }
+  .site-header {
+    border-top: 1px solid var(--nav-ink);
+    border-bottom: 1px solid var(--nav-ink);
+    padding: 18px var(--nav-gutter-desktop);
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    background: var(--nav-paper);
+    position: relative;
+    z-index: 10;
+    font-family: var(--nav-font-sans);
+  }
+  .site-header .logo {
+    font-family: var(--nav-font-sans);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--nav-ink);
+    text-decoration: none;
+  }
+  .site-header .logo-dot { color: var(--nav-oxblood); margin: 0 0.5em; }
+  .site-nav { margin-left: auto; display: flex; gap: 28px; align-items: center; }
+  .site-header .nav-link {
+    font-family: var(--nav-font-sans);
+    font-size: 13px;
+    color: var(--nav-ink);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color var(--nav-dur-fast) var(--nav-ease);
+  }
+  .site-header .nav-link--active { color: var(--nav-oxblood); }
+  .site-header .nav-link:hover { color: var(--nav-oxblood); }
+  .site-header .nav-num { font-family: var(--nav-font-mono); font-size: 11px; color: var(--nav-ink-3); margin-right: 4px; }
+  .nav-toggle {
+    display: none; margin-left: auto; flex-direction: column; justify-content: center;
+    gap: 5px; width: 26px; height: 26px; padding: 0; background: none; border: 0; cursor: pointer;
+  }
+  .nav-toggle .bar {
+    width: 22px; height: 1px; background: var(--nav-ink);
+    transition: transform var(--nav-dur-base) var(--nav-ease), opacity var(--nav-dur-fast) var(--nav-ease);
+  }
+  @media (max-width: 760px) {
+    .site-header { padding: 14px var(--nav-gutter-mobile); gap: 16px; }
+    .nav-toggle { display: flex; }
+    .site-nav {
+      position: absolute; top: 100%; left: 0; right: 0; margin: 0;
+      flex-direction: column; align-items: stretch; gap: 0;
+      background: var(--nav-paper); border-bottom: 1px solid var(--nav-ink);
+      opacity: 0; visibility: hidden; transform: translateY(-6px); pointer-events: none;
+      transition: opacity var(--nav-dur-base) var(--nav-ease), transform var(--nav-dur-base) var(--nav-ease), visibility 0s linear var(--nav-dur-base);
+    }
+    .site-header.nav-open .site-nav {
+      opacity: 1; visibility: visible; transform: none; pointer-events: auto;
+      transition: opacity var(--nav-dur-base) var(--nav-ease), transform var(--nav-dur-base) var(--nav-ease);
+    }
+    .site-header .nav-link { padding: 15px var(--nav-gutter-mobile); font-size: 15px; border-top: 1px solid var(--nav-rule-soft); }
+    .site-header .nav-num { font-size: 12px; margin-right: 8px; }
+    .site-header.nav-open .bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .site-header.nav-open .bar:nth-child(2) { opacity: 0; }
+    .site-header.nav-open .bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-header .nav-link, .nav-toggle .bar, .site-nav { transition: none !important; }
+  }
+</style>
 </head>
 <body>
+
+<header class="site-header">
+  <a href="/Portfolio/" class="logo">Mario<span class="logo-dot">·</span>Casanova</a>
+  <button class="nav-toggle" type="button" aria-label="Menu" aria-controls="site-nav" aria-expanded="false">
+    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+  </button>
+  <nav class="site-nav" id="site-nav">
+    <a href="/Portfolio/" class="nav-link"><span class="nav-num">01</span>Overview</a>
+    <a href="/Portfolio/case-studies" class="nav-link"><span class="nav-num">02</span>Case Studies</a>
+    <a href="/Portfolio/experiments" class="nav-link nav-link--active"><span class="nav-num">03</span>Experiments</a>
+    <a href="/Portfolio/code" class="nav-link"><span class="nav-num">04</span>Code</a>
+    <a href="/Portfolio/blog" class="nav-link"><span class="nav-num">05</span>Blog</a>
+    <a href="/Portfolio/about" class="nav-link"><span class="nav-num">06</span>About</a>
+    <a href="/Portfolio/contact" class="nav-link"><span class="nav-num">07</span>Contact</a>
+  </nav>
+</header>
+
 <div class="page">
 
   <header class="page__header">
@@ -123,5 +227,31 @@
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="main.js"></script>
+
+<!-- Mobile nav toggle: mirrors the portfolio Header's behavior (open/close,
+     aria in sync, close on link click / Escape / resize to desktop). -->
+<script>
+  (function () {
+    var header = document.querySelector('.site-header');
+    var toggle = header && header.querySelector('.nav-toggle');
+    var nav = header && header.querySelector('.site-nav');
+    if (!header || !toggle || !nav) { return; }
+    function setOpen(open) {
+      header.classList.toggle('nav-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+    }
+    toggle.addEventListener('click', function () {
+      setOpen(!header.classList.contains('nav-open'));
+    });
+    nav.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('a')) { setOpen(false); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { setOpen(false); }
+    });
+    var desktop = window.matchMedia('(min-width: 761px)');
+    desktop.addEventListener('change', function (e) { if (e.matches) { setOpen(false); } });
+  })();
+</script>
 </body>
 </html>
