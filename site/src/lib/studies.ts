@@ -134,6 +134,26 @@ export const studies: Study[] = [
 
   // ── Intellectual · play → "Experiments" ─────────────────────────────────────
   {
+    slug: 'justesse-showcase',
+    track: 'intellectual',
+    domain: 'Design systems',
+    title: 'Justesse showcase',
+    dek: 'Seven specimens produced by the Justesse skill, a design contract that is model, runtime and vendor independent. A sign-up form rebuilt around one primary action, a subscription dashboard, a marketing page, a wire transfer at its review step, two executive decision memos (one SaaS, one depot consolidation) and the five states of a single screen. They deliberately do not resemble each other: a taste skill is judged by range under constraints, not by a house style, and every specimen is brand-neutral because the personal profile stays behind an explicit flag.',
+    methods: ['Routing by design problem', 'Product-contract preservation', 'Blind A/B calibration', 'Hand-built SVG'],
+    published: true,
+    href: 'experiments/justesse-showcase/',
+  },
+  {
+    slug: 'saillance-showcase',
+    track: 'intellectual',
+    domain: 'Data visualization',
+    title: 'Saillance showcase',
+    dek: 'An alternatives study built with the Saillance skill: three structurally distinct views of the same Gapminder data (142 countries, 1952–2007), each declaring what it privileges, what it sacrifices, and the condition that would refute the claim under test. The point is the method, that a chart is judged by the correspondence between its encoding and the structure of the data, not by its surface. A default converging-averages line reads as confirmation; the country-level views show what the average hides.',
+    methods: ['Parallax alternatives', 'Structural signatures', 'Gapminder / World Bank', 'Hand-built SVG'],
+    published: true,
+    href: 'experiments/saillance-showcase/',
+  },
+  {
     slug: 'odyssey',
     track: 'intellectual',
     domain: 'Narrative epidemiology',
